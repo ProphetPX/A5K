@@ -5,6 +5,10 @@ table is the machine's timing contract" and then moves on. This document
 explains what that means, how it differs from the Amiga, and what a builder or a
 programmer has to know to use it.
 
+*This document describes the single-pipeline machine. The dual-pipeline
+variants, and what changes about arbitration when there are two beams, are in
+`A5K-Family.md`.*
+
 **Status: proposal, not measurement.** The figures below are arithmetic from
 clock rates, bus widths and pixel formats. Nothing has been simulated or built.
 Where a number is a design choice rather than a consequence, it is marked.

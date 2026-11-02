@@ -18,6 +18,7 @@ No hardware has been built. Everything here is a proposition — and
 | `A5K-Comparative-Addendum.pdf` | 4 | Comparative analysis — the A5K against AAA, Hombre, the shipped Amiga eras, and a 2026 scientific workstation. Tables A1–A4. |
 | `A5K-Technical-Specifications.pdf` | 5 | Reference card — clocks, memory configurations and upgrade paths, processor options, bandwidth budget at 4K60, parallelism, and the ceilings that bound the design. Tables S1–S7. |
 | `A5K-Slot-Table.md` | — | **How the bus is shared.** What a slot is, what the original did, what changes at 60 Hz, the budget at 640×512 / 1080p / 4K, and the three rules a Copper list must respect. |
+| `A5K-Family.md` | — | **The product line.** C+ frozen as the reference machine; the Duo and Duo Pro models with two pipelines, their cost table, and the three cross-pipe primitives. |
 | `TECHNICAL-CONSIDERATIONS.md` | — | **Read this before building anything.** What exists, what does not, how the boot chain would work, what an AROS port costs, and the open technical gaps. |
 | `TODO.md` | — | The build plan: seven phases from simulator to AROS, with costs, exit criteria and the legal position of each artefact. |
 
