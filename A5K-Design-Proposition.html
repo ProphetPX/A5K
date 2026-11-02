@@ -635,7 +635,7 @@
   <div class="cmeta">
     <table>
       <tr><td>Prepared</td><td>1 November 2026</td></tr>
-      <tr><td>Revision</td><td>Rev. L — memory specification stated precisely</td></tr>
+      <tr><td>Revision</td><td>Rev. M — processor, bandwidth and parallelism figures added</td></tr>
       <tr><td>Status</td><td>Design study; no hardware built</td></tr>
       <tr><td>Reference concept</td><td>“A5K”</td></tr>
       <tr><td>Contents</td><td>9 sections · 3 appendices · 6 tables · 1 figure</td></tr>
@@ -659,7 +659,7 @@
     <li><span class="t">8. What you’d lose</span><span class="dots"></span><span class="p" data-mk="zzS8zz">7</span></li>
     <li><span class="t">9. Why not just use a GPU?</span><span class="dots"></span><span class="p" data-mk="zzS9zz">7</span></li>
     <li class="app"><span class="t">Appendix A — The Copper, specified</span><span class="dots"></span><span class="p" data-mk="zzSazz">9</span></li>
-    <li class="app"><span class="t">Appendix B — Implementation skeleton</span><span class="dots"></span><span class="p" data-mk="zzSbzz">12</span></li>
+    <li class="app"><span class="t">Appendix B — Implementation skeleton</span><span class="dots"></span><span class="p" data-mk="zzSbzz">13</span></li>
     <li class="app"><span class="t">Appendix C — Bill of materials</span><span class="dots"></span><span class="p" data-mk="zzSczz">14</span></li>
   </ol>
 
@@ -670,7 +670,7 @@
     <li><span class="t">Table 3 — MC-1 opcode map</span><span class="dots"></span><span class="p" data-mk="zzT3zz">10</span></li>
     <li><span class="t">Table 4 — Register aperture and key registers</span><span class="dots"></span><span class="p" data-mk="zzT4zz">11</span></li>
     <li><span class="t">Table 5 — Plane attributes, and what they may not do</span><span class="dots"></span><span class="p" data-mk="zzT5zz">12</span></li>
-    <li><span class="t">Table 6 — Bill of materials, reference build</span><span class="dots"></span><span class="p" data-mk="zzT6zz">14</span></li>
+    <li><span class="t">Table 6 — Bill of materials, reference build</span><span class="dots"></span><span class="p" data-mk="zzT6zz">15</span></li>
     <li><span class="t">Figure 1 — The card-as-chipset shape</span><span class="dots"></span><span class="p" data-mk="zzF1zz">4</span></li>
   </ol>
 
@@ -853,6 +853,8 @@
   <li><strong>OpenPOWER.</strong> Big-endian, open ISA (Microwatt, Libre-SOC), which is <em>spiritually</em> the most Amiga-correct choice (68k is big-endian; planar graphics assume it). Practically, weaker ecosystem.</li>
 </ul>
 
+<p><strong>What the numbers look like.</strong> On the FPGA itself, a VexRiscv synthesises at roughly 50&nbsp;MHz on an ECP5-85 and 100–150&nbsp;MHz on an Artix-7 200T; a PolarFire SoC offers four hardened RV64 cores at 667&nbsp;MHz. None of this is the point. The on-card core supervises timers, GPIO and interrupts — the pixels come from the Copper, the blitter and the planes. The heavy work belongs on the host, which may be anything from a 2&nbsp;GHz RISC-V board to a 256-core x86 machine. Full figures are in <em>A5K — Technical Specifications</em>.</p>
+
 <div class="callout">
   <span class="label">Recommendation</span>
   <p><strong>RISC-V as the host + a small 68k soft core as a legacy coprocessor</strong> (or UAE on the RISC-V). That gives you a modern OS and native old software, and it mirrors the Amiga’s own philosophy: a general CPU plus specialized silicon. If you want purity over pragmatism, OpenPOWER.</p>
@@ -871,6 +873,8 @@
   <li><strong>Display model:</strong> keep planar + chunky, keep HAM/EHB, keep planes (Appendix A.5), keep priority. Add overlay planes so a modern windowing system can sit on top without giving up the old modes.</li>
   <li><strong>Sync primitive:</strong> expose a <strong>beam-synchronous fence</strong> — “wait until scanline N then fire this Copper list” — so host software gets raster sync back (<code>drm_vblank</code>/<code>drm_syncobj</code> semantics map exactly).</li>
 </ul>
+
+<p><strong>The parallelism budget.</strong> About twenty fixed-function units run at once — the Copper, the blitter, eight planes and up to eight audio streams — because each does one thing forever at a fixed rate, not because anything is scheduled. The bound is memory, not logic: at 4K60, eight planar bitplanes cost 0.5&nbsp;GB/s, a single full-screen ARGB plane costs 2.0&nbsp;GB/s, and the 32-bit DDR3L bus supplies 6.4&nbsp;GB/s. Adding CPU cores does not add throughput; it adds contention on the same memory.</p>
 
 <h2 id="s7">7. Software</h2>
 

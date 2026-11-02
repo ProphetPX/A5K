@@ -104,7 +104,57 @@ Until M1 exists, statements such as "runs AROS" are **targets**, not results.
 - **Skills:** RTL design and timing closure, clock-domain crossing, DDR3 bring-up, Linux DRM, and enough AROS internals to write a HIDD.
 - **Patience:** the arbitration schedule — the slot table — is the machine's timing contract and is the hardest single thing to get right.
 
-## 8. Known gaps and open technical questions
+## 8. Performance envelope and upgrade paths
+
+Figures are targets from datasheets and arithmetic, not measurements. The full
+set is in `A5K-Technical-Specifications.pdf`.
+
+### Processors
+
+| Position | Option | Max clock | Cores |
+|---|---|---|---|
+| On card (soft) | VexRiscv on ECP5-85 | ~50 MHz | 1–4 |
+| On card (soft) | VexRiscv on Artix-7 200T | 100–150 MHz | 1–8 |
+| On card (hard) | PolarFire SoC | 667 MHz | 4 + 1 |
+| Host | x86-64 | 4–6 GHz | 4–256 |
+| Host | RISC-V (P670 class) | ~2–2.5 GHz | 1–16 |
+
+The on-card core is a supervisor: timers, GPIO, interrupt aggregation. It does
+not draw pixels, so its clock rate is close to irrelevant.
+
+### Memory
+
+| Configuration | Devices | Capacity | Bandwidth |
+|---|---|---|---|
+| Base | 2 × 4 Gb DDR3L, 32-bit | 1 GB | 6.4 GB/s |
+| Upgrade | 2 × 8 Gb, same footprint | 2 GB | 6.4 GB/s |
+| Maximum | 4 × 8 Gb, two ranks | 4 GB | 6.4 GB/s |
+| Ceiling | 32-bit addressing | 4 GiB (~3.5 usable) | — |
+| 64-bit variant | 4 × 16 Gb DDR4 | 8–32 GB | 12.8–25 GB/s |
+
+**Upgrade order:** device swap (1→2 GB), then ranks (2→4 GB), then a new board
+with a wider bus and pointers (4 GB→beyond). The obstacle past 4 GiB is the
+pointer width, not the memory.
+
+### Bandwidth at 4K60
+
+| Content | At 60 Hz | Fits 6.4 GB/s? |
+|---|---|---|
+| 8 planar bitplanes | 0.5 GB/s | yes, easily |
+| 1 ARGB plane | 2.0 GB/s | yes |
+| 2 ARGB planes | 4.0 GB/s | near the ceiling |
+| 4 ARGB planes | 8.0 GB/s | no |
+| 8 ARGB planes | 15.9 GB/s | needs 64-bit |
+
+### Parallelism
+
+One Copper, one blitter, eight planes, 4–8 audio streams, one slot table. About
+twenty units run at once because each does one thing forever at a fixed rate —
+spatial parallelism, not threading. More CPU cores add contention, not
+throughput. If you need more planes at 4K, widen the memory bus before you add
+logic.
+
+## 9. Known gaps and open technical questions
 
 These are unresolved in the design as published:
 
@@ -117,7 +167,7 @@ These are unresolved in the design as published:
 - **Audio clocking** and jitter relative to video are undesigned.
 - **Thermal and power** budgets are estimates from datasheets.
 
-## 9. Licensing, for anyone who builds on this
+## 10. Licensing, for anyone who builds on this
 
 | Artefact | Licence | What it means for you |
 |---|---|---|
@@ -130,13 +180,13 @@ The licences grant copyright permissions. **No patent is held or licensed by the
 
 If you intend to contribute code, note that the project can only offer alternative licensing while the author remains the sole copyright holder — hence a contributor licence agreement or a developer certificate of origin would be required before any contribution is merged.
 
-## 10. Safety and compliance
+## 11. Safety and compliance
 
 The design is **not** for safety-critical, medical, life-support, aviation, aerospace, automotive or nuclear use. It has not been tested, certified, or reviewed by an engineer of record.
 
 If you build and sell hardware from it, EMC, radio, electrical-safety and product-liability obligations are **yours**, not the author's. Nothing in this repository transfers them.
 
-## 11. Where to read more
+## 12. Where to read more
 
 | Topic | Section of the main document |
 |---|---|

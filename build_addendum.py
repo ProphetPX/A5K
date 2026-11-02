@@ -77,7 +77,7 @@ extra = """
 # --------------------------------------------------------------- body ----
 body = r"""
 <div class="add-head">
-  <p class="kicker">Addendum to <em>A5K</em> · Rev. L</p>
+  <p class="kicker">Addendum to <em>A5K</em> · Rev. M</p>
   <h1>Where This Design Sits</h1>
   <p class="subtitle">AAA, Hombre, the shipped Amiga eras, and a 2026 scientific workstation — compared honestly</p>
   <p class="meta">Prepared 1 November 2026 &nbsp;·&nbsp; Comparative analysis &nbsp;·&nbsp; 5 sections &nbsp;·&nbsp; 4 tables</p>
@@ -281,7 +281,7 @@ for i, page in enumerate(doc):
 
 doc.set_toc(toc)
 doc.set_metadata({
-    "title": "Where This Design Sits - Addendum to A5K (Rev. L)",
+    "title": "Where This Design Sits - Addendum to A5K (Rev. M)",
     "author": "Design study",
     "subject": "Comparative analysis: AAA, Hombre, the shipped Amiga eras, and a 2026 scientific workstation",
     "keywords": "Amiga, AAA, Hombre, OCS, ECS, AGA, RISC-V, FPGA, workstation, comparison",
