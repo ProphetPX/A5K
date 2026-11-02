@@ -133,6 +133,27 @@ resulting frame back out of Chip RAM.
 
 ---
 
+## Slot table — remaining work
+
+`A5K-Slot-Table.md` is a proposal, not a specification. These must be closed
+before the simulator can be written against it.
+
+- [ ] Decide whether **C+ captures at all** (currently it does; the case for
+      removing it is strong)
+- [ ] Choose the **capture format** per model — 8-bit indexed, RGB565, RGB888
+      or ARGB8888 — and budget it
+- [ ] Answer the four open questions in §4.6:
+      - [ ] 64-bit vs 128-bit slots
+      - [ ] whether the blitter window scales with frame rate
+      - [ ] whether Copper fetches get their own band
+      - [ ] what happens when a display fetch misses its slot
+- [ ] Write the **per-line schedule for 1080p60** — every slot, in order
+- [ ] Add the **capture band** to the budget tables and re-run the 4K check
+- [ ] Specify **dual-pipe arbitration** for Studio and Studio Pro
+- [ ] Write **five acceptance tests** that a simulator must pass
+
+---
+
 ## Legal position, by artefact
 
 | Artefact | Whose | Licence / obligation |
