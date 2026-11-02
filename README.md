@@ -100,6 +100,10 @@ Nothing in this repository is legal advice.
 
 ## Status
 
-Rev. S, 1 November 2026. No hardware fabricated. The next milestones are the
+Rev. S, 2 November 2026. No hardware fabricated. The next milestones are the
 slot-table simulation and a single-mode ECP5 bring-up — see §C.3 of the main
 document.
+
+---
+
+*Rev. S · 2 November 2026 · project started 30 October 2026*

@@ -250,4 +250,4 @@ welcome — particularly on the 4K allocation, which is the tightest case.*
 
 ---
 
-*Revision: R, 2 November 2026. Living document; the frozen C+ specification is in `A5K-Family.md`.*
+*Rev. S · 2 November 2026 · project started 30 October 2026*

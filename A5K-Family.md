@@ -200,4 +200,4 @@ a new model designation.*
 
 ---
 
-*Revision: R, 2 November 2026. Living document; changes tracked in the private memo.*
+*Rev. S · 2 November 2026 · project started 30 October 2026*

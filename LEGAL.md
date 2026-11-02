@@ -112,3 +112,7 @@ sell, or rely on this design, obtain your own professional advice.
 
 This notice may be revised. The version in the repository at the time you
 obtain the material is the one that applies to that copy.
+
+---
+
+*Rev. S · 2 November 2026 · project started 30 October 2026*

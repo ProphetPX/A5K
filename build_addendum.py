@@ -87,7 +87,7 @@ body = r"""
   <p class="kicker">Addendum to <em>A5K</em> · Rev. S</p>
   <h1>Where This Design Sits</h1>
   <p class="subtitle">AAA, Hombre, the shipped Amiga eras, and a 2026 scientific workstation — compared honestly</p>
-  <p class="meta">Prepared 1 November 2026 &nbsp;·&nbsp; Comparative analysis &nbsp;·&nbsp; 5 sections &nbsp;·&nbsp; 4 tables</p>
+  <p class="meta">Rev. S &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Comparative analysis &nbsp;·&nbsp; 5 sections &nbsp;·&nbsp; 4 tables</p>
   <p class="legalnote">Amiga and Commodore are trademarks of their respective owners. This is an independent design study, not affiliated with, endorsed by, or sponsored by any rights holder. Comparisons are estimates and opinion, not statements of fact about any company. See LEGAL.md.</p>
 </div>
 
@@ -279,11 +279,14 @@ for i, page in enumerate(doc):
                    pymupdf.Point(w * 0.90, h - 30),
                    color=(0.80, 0.80, 0.80), width=0.5)
     page.insert_text((w * 0.10, h - 19),
-                     "A5K \u00b7 Addendum \u2014 Comparative Analysis",
+                     "Rev. S \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
+                     fontname="helv", fontsize=6.8, color=(0.45, 0.45, 0.45))
+    title = "A5K \u00b7 Addendum \u2014 Comparative Analysis"
+    tw = pymupdf.get_text_length(title, fontname="helv", fontsize=7.2)
+    page.insert_text(((w - tw) / 2, h - 19), title,
                      fontname="helv", fontsize=7.2, color=(0.45, 0.45, 0.45))
-    label = str(i + 1)
     tw = pymupdf.get_text_length(label, fontname="helv", fontsize=8)
-    page.insert_text(((w - tw) / 2, h - 19), label,
+    page.insert_text((w * 0.90 - tw, h - 19), label,
                      fontname="helv", fontsize=8, color=(0.2, 0.2, 0.2))
 
 doc.set_toc(toc)

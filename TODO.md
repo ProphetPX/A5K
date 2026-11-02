@@ -205,3 +205,7 @@ the right line.
 
 *Design study. Nothing here is built, and nothing here is a promise. See
 `TECHNICAL-CONSIDERATIONS.md` for what exists and `LEGAL.md` for the notices.*
+
+---
+
+*Rev. S · 2 November 2026 · project started 30 October 2026*

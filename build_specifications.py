@@ -49,7 +49,7 @@ body = r"""
   <p class="kicker">Reference card &middot; Rev. S</p>
   <h1>A5K — Technical Specifications</h1>
   <p class="subtitle">Clocks, memory, processors, bandwidth and the limits they impose</p>
-  <p class="meta">1 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
+  <p class="meta">Rev. S &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
 </div>
 
 <div class="statusline">
@@ -325,13 +325,16 @@ for i, page in enumerate(doc):
     page.draw_line(pymupdf.Point(w * 0.10, h - 30),
                    pymupdf.Point(w * 0.90, h - 30),
                    color=(0.80, 0.80, 0.80), width=0.5)
-    page.insert_text((w * 0.10, h - 19), "A5K \u00b7 Technical Specifications",
+    page.insert_text((w * 0.10, h - 19),
+                     "Rev. S \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
+                     fontname="helv", fontsize=6.8, color=(0.45, 0.45, 0.45))
+    title = "A5K \u00b7 Technical Specifications"
+    tw = pymupdf.get_text_length(title, fontname="helv", fontsize=7.2)
+    page.insert_text(((w - tw) / 2, h - 19), title,
                      fontname="helv", fontsize=7.2, color=(0.45, 0.45, 0.45))
-    page.insert_text((w * 0.90 - 55, h - 19), "Rev. S", fontname="helv",
-                     fontsize=7.2, color=(0.55, 0.55, 0.55))
     label = str(i + 1)
     tw = pymupdf.get_text_length(label, fontname="helv", fontsize=8)
-    page.insert_text(((w - tw) / 2, h - 19), label,
+    page.insert_text((w * 0.90 - tw, h - 19), label,
                      fontname="helv", fontsize=8, color=(0.2, 0.2, 0.2))
 
 doc.set_toc(toc)

@@ -202,3 +202,7 @@ If you build and sell hardware from it, EMC, radio, electrical-safety and produc
 ---
 
 *Design study, 2026. Not legal advice. If you are unsure whether your use is permitted, read `LEGAL.md` and ask a lawyer.*
+
+---
+
+*Rev. S · 2 November 2026 · project started 30 October 2026*

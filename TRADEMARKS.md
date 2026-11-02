@@ -43,3 +43,7 @@ be used in prose and in titles. It may not be used as a product name.
 
 If any rights holder objects to a use of a third-party mark in this document,
 that use will be removed or amended on request.
+
+---
+
+*Rev. S · 2 November 2026 · project started 30 October 2026*
