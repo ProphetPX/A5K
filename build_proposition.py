@@ -23,7 +23,7 @@ names = {
  "zzS2zz":"2. The design ethos, distilled",
  "zzS3zz":"3. Chip-by-chip: the modern re-issue",
  "zzS4zz":"4. Getting it onto a modern bus",
- "zzS5zz":"5. CPU: RISC-V, POWER, or a 68k core?",
+ "zzS5zz":"5. Which host processor?",
  "zzS6zz":"6. A concrete reference build",
  "zzS7zz":"7. Software",
  "zzS8zz":"8. What you'd lose",
@@ -126,7 +126,7 @@ for i, page in enumerate(doc):
 doc.set_toc([[1, "Cover", 1], [1, "Contents", 2]] +
             [[1, names[m], pages[m] + 2] for m in order])
 doc.set_metadata({
-    "title": "A5K - A Theoretical Design Proposition for an Amiga 5000-Like System - Rev. N",
+    "title": "A5K - A Theoretical Design Proposition for an Amiga 5000-Like System - Rev. O",
     "author": "Design study",
     "subject": "Re-issuing the Amiga custom-chipset design ethos on a modern bus, in open silicon",
     "keywords": "Amiga, Copper, Agnus, Denise, Blitter, Paula, PCIe, CXL, RISC-V, LiteX, Migen, AROS, FPGA",

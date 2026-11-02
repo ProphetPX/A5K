@@ -635,7 +635,7 @@
   <div class="cmeta">
     <table>
       <tr><td>Prepared</td><td>1 November 2026</td></tr>
-      <tr><td>Revision</td><td>Rev. N — product class stated in §4</td></tr>
+      <tr><td>Revision</td><td>Rev. O — host clarified; on-card core described</td></tr>
       <tr><td>Status</td><td>Design study; no hardware built</td></tr>
       <tr><td>Reference concept</td><td>“A5K”</td></tr>
       <tr><td>Contents</td><td>9 sections · 3 appendices · 6 tables · 1 figure</td></tr>
@@ -653,10 +653,10 @@
     <li><span class="t">2. The design ethos, distilled</span><span class="dots"></span><span class="p" data-mk="zzS2zz">1</span></li>
     <li><span class="t">3. Chip-by-chip: the modern re-issue</span><span class="dots"></span><span class="p" data-mk="zzS3zz">3</span></li>
     <li><span class="t">4. Getting it onto a modern bus</span><span class="dots"></span><span class="p" data-mk="zzS4zz">4</span></li>
-    <li><span class="t">5. CPU: RISC-V, POWER, or a 68k core?</span><span class="dots"></span><span class="p" data-mk="zzS5zz">4</span></li>
+    <li><span class="t">5. Which host processor?</span><span class="dots"></span><span class="p" data-mk="zzS5zz">5</span></li>
     <li><span class="t">6. A concrete reference build</span><span class="dots"></span><span class="p" data-mk="zzS6zz">5</span></li>
     <li><span class="t">7. Software</span><span class="dots"></span><span class="p" data-mk="zzS7zz">6</span></li>
-    <li><span class="t">8. What you’d lose</span><span class="dots"></span><span class="p" data-mk="zzS8zz">6</span></li>
+    <li><span class="t">8. What you’d lose</span><span class="dots"></span><span class="p" data-mk="zzS8zz">7</span></li>
     <li><span class="t">9. Why not just use a GPU?</span><span class="dots"></span><span class="p" data-mk="zzS9zz">7</span></li>
     <li class="app"><span class="t">Appendix A — The Copper, specified</span><span class="dots"></span><span class="p" data-mk="zzSazz">9</span></li>
     <li class="app"><span class="t">Appendix B — Implementation skeleton</span><span class="dots"></span><span class="p" data-mk="zzSbzz">12</span></li>
@@ -667,8 +667,8 @@
   <ol class="toc">
     <li><span class="t">Table 1 — Chip-by-chip: the modern re-issue</span><span class="dots"></span><span class="p" data-mk="zzT1zz">3</span></li>
     <li><span class="t">Table 2 — Against a modern GPU: the honest scoreboard</span><span class="dots"></span><span class="p" data-mk="zzT2zz">8</span></li>
-    <li><span class="t">Table 3 — MC-1 opcode map</span><span class="dots"></span><span class="p" data-mk="zzT3zz">9</span></li>
-    <li><span class="t">Table 4 — Register aperture and key registers</span><span class="dots"></span><span class="p" data-mk="zzT4zz">10</span></li>
+    <li><span class="t">Table 3 — MC-1 opcode map</span><span class="dots"></span><span class="p" data-mk="zzT3zz">10</span></li>
+    <li><span class="t">Table 4 — Register aperture and key registers</span><span class="dots"></span><span class="p" data-mk="zzT4zz">11</span></li>
     <li><span class="t">Table 5 — Plane attributes, and what they may not do</span><span class="dots"></span><span class="p" data-mk="zzT5zz">12</span></li>
     <li><span class="t">Table 6 — Bill of materials, reference build</span><span class="dots"></span><span class="p" data-mk="zzT6zz">14</span></li>
     <li><span class="t">Figure 1 — The card-as-chipset shape</span><span class="dots"></span><span class="p" data-mk="zzF1zz">4</span></li>
@@ -845,9 +845,11 @@
 
 <p><strong>Form factors:</strong> PCIe low-profile card (desktop), <strong>M.2 2280</strong> (laptop/SFF — a 4-lane card fits, and the display goes out over the card’s own HDMI or via eDP), USB4/Thunderbolt external box (eGPU style), or a mini-ITX/ATX board with the SoC + fabric on-board for the “big box” feel (and Zorro-style expansion via PCIe slots).</p>
 
-<h2 id="s5">5. CPU: RISC-V, POWER, or a 68k core?</h2>
+<h2 id="s5">5. Which host processor?</h2>
 
-<p>Three honest options:</p>
+<p><strong>The card has no application CPU.</strong> Its only processor is a housekeeping core — a VexRiscv at 50–150 MHz that runs timers, GPIO, the SD card and interrupt aggregation. It has no MMU, no filesystem and no application loader. Everything a user sees runs on the host, on the other side of PCIe.</p>
+
+<p>So the choice below is a choice of <em>host</em>, and it changes nothing inside the card:</p>
 
 <ul>
   <li><strong>Native 68k (soft core).</strong> Open cores exist: <strong>fx68k</strong> (cycle-accurate 68000, used in MiSTer) and <strong>TG68K</strong>. This is the only path to <em>binary</em> Amiga compatibility on real hardware — but it caps you around 68000/010 performance and big-endian is a feature, not a bug.</li>
@@ -859,7 +861,10 @@
 
 <div class="callout">
   <span class="label">Recommendation</span>
-  <p><strong>RISC-V as the host + a small 68k soft core as a legacy coprocessor</strong> (or UAE on the RISC-V). That gives you a modern OS and native old software, and it mirrors the Amiga’s own philosophy: a general CPU plus specialized silicon. If you want purity over pragmatism, OpenPOWER.</p>
+  <p><strong>Reference host today: x86-64.</strong> Every desktop has one, Linux support is mature, and the first driver will be written there — which is why <em>A5K — Technical Specifications</em> lists it as a requirement.</p>
+  <p><strong>Destination: RISC-V.</strong> Open, well-tooled, and the natural processor for a standalone A5K. It needs a driver written for it and, for a self-contained machine, an AROS port that does not yet exist.</p>
+  <p><strong>Purist: OpenPOWER</strong> — big-endian and open, which suits planar graphics, at the cost of a thinner ecosystem.</p>
+  <p>The 68k core is for running old binaries, not for the machine’s main work.</p>
 </div>
 
 <h2 id="s6">6. A concrete reference build</h2>

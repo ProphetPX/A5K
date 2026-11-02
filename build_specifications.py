@@ -39,7 +39,7 @@ extra = """
 
 body = r"""
 <div class="spec-head">
-  <p class="kicker">Reference card &middot; Rev. 2</p>
+  <p class="kicker">Reference card &middot; Rev. 3</p>
   <h1>A5K — Technical Specifications</h1>
   <p class="subtitle">Clocks, memory, processors, bandwidth and the limits they impose</p>
   <p class="meta">1 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
@@ -68,6 +68,8 @@ body = r"""
 </table>
 
 <p>The host supplies the CPU, the memory the OS runs in, the storage and the operating system. The card supplies the chipset, its own Chip RAM and its own display output. Unplug the host and the card is a board with a power LED.</p>
+
+<p><strong>The small RISC-V core on the card is not an application processor.</strong> It is housekeeping — timers, GPIO, the SD card and interrupt aggregation — running bare-metal firmware at 50–150 MHz, with no MMU and no loader. Applications and drivers run on the host, compiled for the host's architecture. The card contributes the chipset, not the CPU.</p>
 
 <p><strong>It cannot be plugged into a Commodore Amiga.</strong> The A2000 has Zorro II, the A3000 and A4000 have Zorro III, the A1200 has a trapdoor and PCMCIA. None of them has PCIe, and no bridge exists that would make a modern card enumerate on a 68k bus.</p>
 
@@ -275,7 +277,7 @@ html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>A5K — Technical Specifications (Rev. 2)</title>
+<title>A5K — Technical Specifications (Rev. 3)</title>
 <style>{css}{extra}</style>
 </head>
 <body>
@@ -317,7 +319,7 @@ for i, page in enumerate(doc):
                    color=(0.80, 0.80, 0.80), width=0.5)
     page.insert_text((w * 0.10, h - 19), "A5K \u00b7 Technical Specifications",
                      fontname="helv", fontsize=7.2, color=(0.45, 0.45, 0.45))
-    page.insert_text((w * 0.90 - 55, h - 19), "Rev. 2", fontname="helv",
+    page.insert_text((w * 0.90 - 55, h - 19), "Rev. 3", fontname="helv",
                      fontsize=7.2, color=(0.55, 0.55, 0.55))
     label = str(i + 1)
     tw = pymupdf.get_text_length(label, fontname="helv", fontsize=8)
@@ -326,7 +328,7 @@ for i, page in enumerate(doc):
 
 doc.set_toc(toc)
 doc.set_metadata({
-    "title": "A5K - Technical Specifications (Rev. 2)",
+    "title": "A5K - Technical Specifications (Rev. 3)",
     "author": "Design study",
     "subject": "Clocks, memory, processors, bandwidth and limits of the A5K design",
     "keywords": "A5K, Amiga-like, FPGA, DDR3L, RISC-V, bandwidth, specification",
