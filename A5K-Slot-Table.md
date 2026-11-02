@@ -9,6 +9,10 @@ programmer has to know to use it.
 variants, and what changes about arbitration when there are two beams, are in
 `A5K-Family.md`.*
 
+**This document specifies A5K (C+), the frozen reference model** — one beam, one
+Copper, one slot table. The dual-pipeline variants and their arbitration are in
+`A5K-Family.md`.
+
 **Status: proposal, not measurement.** The figures below are arithmetic from
 clock rates, bus widths and pixel formats. Nothing has been simulated or built.
 Where a number is a design choice rather than a consequence, it is marked.

@@ -18,7 +18,7 @@ revision.
 
 | | A5K (C+) |
 |---|---|
-| FPGA | Artix-7 200T (4 GTP) |
+| FPGA | Artix-7 100T (4 GTP) |
 | Pipelines | **1** — one beam, one Copper, one slot table |
 | Output | 4K60 on HDMI and DisplayPort, **mirrored** |
 | Input | 1080p60 HDMI, unencrypted sources only |
@@ -26,7 +26,7 @@ revision.
 | PCIe | ×1 (500 MB/s) |
 | Memory | 1 × 32-bit DDR3L, 1 GB (2 GB max) |
 | Host | x86-64, PCIe ×4 physical slot |
-| BOM | **~$195** |
+| BOM | **~$267** |
 
 **Promises:** one Amiga-like machine — deterministic, documented, open, under
 $200 in parts.
@@ -94,14 +94,14 @@ because the beam *is* the thing that defines when each pixel exists.
 
 | | **A5K (C+)** | **A5K Duo (D)** |
 |---|---|---|
-| FPGA | Artix-7 200T | Kintex-7 325T |
+| FPGA | Artix-7 100T | Kintex-7 325T |
 | Transceivers | 4 | 16 |
 | Pipelines | **1** | **2** |
 | Output | 4K60 mirrored | **4K60 + 4K60, independent** |
 | Input | 1080p60 | 1080p60 |
 | PCIe | ×1 | **×4** |
 | Memory | 1 × 32-bit, 1 GB | **1 × 64-bit, 2 GB** |
-| BOM | **~$195** | **~$1,150** |
+| BOM | **~$267** | **~$1,150** |
 
 One RTL tree, one register map, one driver. The Duo instantiates the display side
 twice and gives each pipe its own Copper, blitter and slot table. A capability
@@ -111,7 +111,7 @@ register tells the driver which configuration it is talking to.
 
 | Variant | What changes | BOM | Build when |
 |---|---|---|---|
-| **Duo −** | Kintex-7 160T, 4K60 + 1080p60, PCIe ×2 | ~$500 | if the Duo proves demand and price matters |
+| **Duo −** | Kintex-7 160T, 4K60 + 1080p60, PCIe ×2 | ~$520 | if the Duo proves demand and price matters |
 | **Duo VRAM** | two 32-bit channels instead of one 64-bit | ~$1,250 | only if a customer needs physical isolation |
 
 Neither is a redesign: both are the same RTL on different silicon or a different

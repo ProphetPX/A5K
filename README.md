@@ -18,7 +18,7 @@ No hardware has been built. Everything here is a proposition — and
 
 | File | Pages | What it is |
 |---|---|---|
-| `A5K-Design-Proposition.pdf` | 18 | The main study, Rev. P — architecture, chip-by-chip mapping, bus options, CPU choice, reference build, software, what you'd lose, the GPU question, and three appendices (Copper spec, Migen skeleton, bill of materials). |
+| `A5K-Design-Proposition.pdf` | 18 | The main study, Rev. Q — architecture, chip-by-chip mapping, bus options, CPU choice, reference build, software, what you'd lose, the GPU question, and three appendices (Copper spec, Migen skeleton, bill of materials). |
 | `A5K-Comparative-Addendum.pdf` | 4 | Comparative analysis — the A5K against AAA, Hombre, the shipped Amiga eras, and a 2026 scientific workstation. Tables A1–A4. |
 | `A5K-Technical-Specifications.pdf` | 5 | Reference card — clocks, memory configurations and upgrade paths, processor options, bandwidth budget at 4K60, parallelism, and the ceilings that bound the design. Tables S1–S7. |
 | `A5K-Slot-Table.md` | — | **How the bus is shared.** What a slot is, what the original did, what changes at 60 Hz, the budget at 640×512 / 1080p / 4K, and the three rules a Copper list must respect. |
@@ -68,7 +68,7 @@ same licence, and the notice and credit must be retained.
 ## How to cite
 
 > Ryan David Hall (AKA "ProphetPX"). (2026). *A5K — A Theoretical Design Proposition for an Amiga
-> 5000-Like System*, Rev. P.
+> 5000-Like System*, Rev. Q.
 
 Machine-readable: `CITATION.cff`. If you archive or mirror this work, add a DOI
 and cite it here.
@@ -97,6 +97,6 @@ Nothing in this repository is legal advice.
 
 ## Status
 
-Rev. P, 1 November 2026. No hardware fabricated. The next milestones are the
+Rev. Q, 1 November 2026. No hardware fabricated. The next milestones are the
 slot-table simulation and a single-mode ECP5 bring-up — see §C.3 of the main
 document.

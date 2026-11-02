@@ -46,7 +46,7 @@ extra = """
 
 body = r"""
 <div class="spec-head">
-  <p class="kicker">Reference card &middot; Rev. 3</p>
+  <p class="kicker">Reference card &middot; Rev. 4</p>
   <h1>A5K — Technical Specifications</h1>
   <p class="subtitle">Clocks, memory, processors, bandwidth and the limits they impose</p>
   <p class="meta">1 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
@@ -60,7 +60,7 @@ body = r"""
 
 <h2 id="sp1">1. What this is — and what it is not</h2>
 
-<p><strong>This document specifies a PCIe add-in card.</strong> It is not a computer, not a single-board machine, and not a replacement for a motherboard. It has no CPU, no boot firmware and no operating system of its own. It is a display and timing device that plugs into a host PC, in the same mechanical and electrical class as a graphics card.</p>
+<p><strong>This document specifies A5K (C+), the frozen reference model.</strong> It is a PCIe add-in card. It is not a computer, not a single-board machine, and not a replacement for a motherboard. It has no CPU, no boot firmware and no operating system of its own. It is a display and timing device that plugs into a host PC, in the same mechanical and electrical class as a graphics card.</p>
 
 <table>
 <caption><strong>Table S1.</strong> Product classes, and which one exists.</caption>
@@ -93,7 +93,7 @@ body = r"""
 <tr><td>Architecture</td><td>x86-64</td><td>any recent desktop CPU</td></tr>
 <tr><td>Processor</td><td>2 cores at 2 GHz</td><td>4 cores, anything from the last decade</td></tr>
 <tr><td>System RAM</td><td>4 GB</td><td>8 GB or more</td></tr>
-<tr><td>Free slot</td><td>PCIe ×4 physical, Gen2 or better</td><td>PCIe ×8 or ×16 length, Gen3</td></tr>
+<tr><td>Free slot</td><td>PCIe ×1 electrical or larger, Gen2+</td><td>×4 or ×16 length, Gen3</td></tr>
 <tr><td>Slot power</td><td>25 W from the slot, no auxiliary connector</td><td>as minimum</td></tr>
 <tr><td>Firmware</td><td>UEFI with Above 4G Decoding enabled</td><td>Resizable BAR also enabled</td></tr>
 <tr><td>Operating system</td><td>Linux 6.x with DRM/KMS</td><td>a current distribution</td></tr>
@@ -105,9 +105,9 @@ body = r"""
 
 <p class="note"><strong>Notes.</strong> A laptop requires a Thunderbolt-to-PCIe enclosure, because the card needs a real slot. Above 4G Decoding must be enabled in UEFI for the 64-bit BAR that maps Chip RAM; on some consumer boards this is the only setting that has to be changed. The card draws roughly 5 W, so a ×4 slot is ample and no power cable is needed.</p>
 
-<h2 id="sp3">3. Why ×4, and not ×8 or ×16</h2>
+<h2 id="sp3">3. Why ×1 on the reference card, and ×4 on the Duo</h2>
 
-<p>The card does not stream pixels over PCIe. The display is fetched from the card's own DDR3L; PCIe carries Copper lists, register writes, small transfers and the occasional frame readback. Two gigabytes per second is already an order of magnitude more than that traffic needs, and a ×1 link would probably suffice for control alone.</p>
+<p>The reference card is <strong>electrically ×1</strong>. The display is fetched from the card's own DDR3L; PCIe carries Copper lists, register writes and the occasional frame readback. Half a gigabyte per second is already an order of magnitude more than control traffic needs. The Duo uses ×4 because two pipelines and a capture stream want real bandwidth.</p>
 
 <table>
 <caption><strong>Table S3.</strong> Slot options, and what each would cost.</caption>
@@ -115,18 +115,16 @@ body = r"""
 <tr><th style="width:14%">Slot</th><th style="width:10%" class="num">Lanes</th><th style="width:22%" class="num">Gen2 / Gen3</th><th style="width:26%">Fits</th><th>Cost</th></tr>
 </thead>
 <tbody>
-<tr><td>×1</td><td class="num">1</td><td class="num">0.5 / 1.0 GB/s</td><td>every slot, including ×1</td><td>cheapest</td></tr>
-<tr><td><strong>×4</strong></td><td class="num">4</td><td class="num">2.0 / 3.9 GB/s</td><td><strong>×4, ×8 and ×16 slots</strong></td><td><strong>chosen</strong></td></tr>
-<tr><td>×8</td><td class="num">8</td><td class="num">4.0 / 7.9 GB/s</td><td>×8 and ×16 slots; rare on desktops</td><td>needs 8 transceivers</td></tr>
-<tr><td>×16</td><td class="num">16</td><td class="num">8.0 / 15.8 GB/s</td><td>×16 slots only</td><td>needs 16 transceivers and a larger FPGA</td></tr>
+<tr><td><strong>×1</strong></td><td class="num">1</td><td class="num">0.5 / 1.0 GB/s</td><td>every slot, including ×1</td><td><strong>C+ reference</strong></td></tr>
+<tr><td>×2</td><td class="num">2</td><td class="num">1.0 / 2.0 GB/s</td><td>×2 and larger slots</td><td>Duo − variant</td></tr>
+<tr><td><strong>×4</strong></td><td class="num">4</td><td class="num">2.0 / 3.9 GB/s</td><td>×4, ×8 and ×16 slots</td><td><strong>Duo (D)</strong></td></tr>
+<tr><td>×8 / ×16</td><td class="num">8 / 16</td><td class="num">4–16 GB/s</td><td>rare on desktops</td><td>not used</td></tr>
 </tbody>
 </table>
 
-<p><strong>The lane budget decides it.</strong> An Artix-7 200T has exactly four GTP transceivers. A ×8 card would need a Kintex-7 at two to three times the price; a ×16 card would need a larger part again, with sixteen transceivers, to carry traffic this design never generates.</p>
+<p><strong>The lane budget decides it.</strong> An Artix-7 100T has exactly four GTP transceivers, and 4K60 output consumes three of them for HDMI. One is left, and that is the PCIe link: ×1. The Duo moves to a Kintex-7 325T, where sixteen transceivers allow two 4K60 transmitters and ×4 to the host.</p>
 
-<p><strong>And ×4 physical fits more slots than ×16 physical.</strong> A ×4 card seats in ×4, ×8 and ×16 connectors. A ×16 card seats only in ×16 connectors — normally the one occupied by the graphics card. The ×4 choice is the more compatible one, not the cheaper compromise.</p>
-
-<p class="note">If a future variant ever needed to read frames back continuously, or to feed video into the card over PCIe, the calculus changes: at 4K60, one ARGB frame is 2 GB/s on its own. That variant would want ×8 with a larger part — and would be a different card.</p>
+<p><strong>A ×1 card still fits any slot.</strong> A ×1 card seats in ×1, ×2, ×4, ×8 and ×16 connectors, including the ×4 slot a desktop usually has free. The physical connector on the reference card is ×4-length for mechanical stability; the link is ×1.</p>
 
 <h2 id="sp4">4. Clock domains</h2>
 
@@ -236,7 +234,8 @@ body = r"""
 <tr><th style="width:34%">Link</th><th style="width:22%" class="num">Bandwidth</th><th>Binds</th></tr>
 </thead>
 <tbody>
-<tr><td>PCIe Gen2 ×4</td><td class="num">2.0 GB/s</td><td>Host ↔ card, baseline</td></tr>
+<tr><td>PCIe Gen2 ×1</td><td class="num">0.5 GB/s</td><td>Host ↔ card, A5K (C+)</td></tr>
+<tr><td>PCIe Gen2 ×4</td><td class="num">2.0 GB/s</td><td>Host ↔ card, Duo (D)</td></tr>
 <tr><td>PCIe Gen3 ×4</td><td class="num">3.9 GB/s</td><td>Host ↔ card, preferred</td></tr>
 <tr><td>PCIe Gen4 ×4</td><td class="num">7.9 GB/s</td><td>Host ↔ card, beyond current parts</td></tr>
 <tr><td>DDR3L 32-bit</td><td class="num">6.4 GB/s</td><td>All on-card fetching</td></tr>
@@ -264,7 +263,7 @@ body = r"""
 <tr><td>Memory bandwidth</td><td>6.4 GB/s</td></tr>
 <tr><td>Copper tick</td><td>7.09 MHz, 141 ns per instruction</td></tr>
 <tr><td>Scanout</td><td>4K60 at a 594 MHz pixel clock, four lanes</td></tr>
-<tr><td>Host link</td><td>PCIe Gen2 ×4 (2.0 GB/s), Gen3 ×4 (3.9 GB/s)</td></tr>
+<tr><td>Host link</td><td>PCIe Gen2 ×1 (0.5 GB/s) on C+; ×4 on the Duo</td></tr>
 <tr><td>On-card CPU</td><td>VexRiscv, 50 MHz (ECP5) to 150 MHz (Artix-7)</td></tr>
 <tr><td>Host CPU</td><td>anything with PCIe; 2–6 GHz, 4–256 cores</td></tr>
 <tr><td>Planes</td><td>8, optionally 16</td></tr>
@@ -284,7 +283,7 @@ html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>A5K — Technical Specifications (Rev. 3)</title>
+<title>A5K — Technical Specifications (Rev. 4)</title>
 <style>{css}{extra}</style>
 </head>
 <body>
@@ -326,7 +325,7 @@ for i, page in enumerate(doc):
                    color=(0.80, 0.80, 0.80), width=0.5)
     page.insert_text((w * 0.10, h - 19), "A5K \u00b7 Technical Specifications",
                      fontname="helv", fontsize=7.2, color=(0.45, 0.45, 0.45))
-    page.insert_text((w * 0.90 - 55, h - 19), "Rev. 3", fontname="helv",
+    page.insert_text((w * 0.90 - 55, h - 19), "Rev. 4", fontname="helv",
                      fontsize=7.2, color=(0.55, 0.55, 0.55))
     label = str(i + 1)
     tw = pymupdf.get_text_length(label, fontname="helv", fontsize=8)
@@ -335,7 +334,7 @@ for i, page in enumerate(doc):
 
 doc.set_toc(toc)
 doc.set_metadata({
-    "title": "A5K - Technical Specifications (Rev. 3)",
+    "title": "A5K - Technical Specifications (Rev. 4)",
     "author": "Design study",
     "subject": "Clocks, memory, processors, bandwidth and limits of the A5K design",
     "keywords": "A5K, Amiga-like, FPGA, DDR3L, RISC-V, bandwidth, specification",
