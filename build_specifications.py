@@ -46,7 +46,7 @@ extra = """
 
 body = r"""
 <div class="spec-head">
-  <p class="kicker">Reference card &middot; Rev. 4</p>
+  <p class="kicker">Reference card &middot; Rev. 5</p>
   <h1>A5K — Technical Specifications</h1>
   <p class="subtitle">Clocks, memory, processors, bandwidth and the limits they impose</p>
   <p class="meta">1 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
@@ -105,9 +105,9 @@ body = r"""
 
 <p class="note"><strong>Notes.</strong> A laptop requires a Thunderbolt-to-PCIe enclosure, because the card needs a real slot. Above 4G Decoding must be enabled in UEFI for the 64-bit BAR that maps Chip RAM; on some consumer boards this is the only setting that has to be changed. The card draws roughly 5 W, so a ×4 slot is ample and no power cable is needed.</p>
 
-<h2 id="sp3">3. Why ×1 on the reference card, and ×4 on the Duo</h2>
+<h2 id="sp3">3. Why ×1 on the reference card, and ×4 on the Studio Pro</h2>
 
-<p>The reference card is <strong>electrically ×1</strong>. The display is fetched from the card's own DDR3L; PCIe carries Copper lists, register writes and the occasional frame readback. Half a gigabyte per second is already an order of magnitude more than control traffic needs. The Duo uses ×4 because two pipelines and a capture stream want real bandwidth.</p>
+<p>The reference card is <strong>electrically ×1</strong>. The display is fetched from the card's own DDR3L; PCIe carries Copper lists, register writes and the occasional frame readback. Half a gigabyte per second is already an order of magnitude more than control traffic needs. The Studio Pro uses ×4 because two pipelines and a capture stream want real bandwidth.</p>
 
 <table>
 <caption><strong>Table S3.</strong> Slot options, and what each would cost.</caption>
@@ -116,13 +116,13 @@ body = r"""
 </thead>
 <tbody>
 <tr><td><strong>×1</strong></td><td class="num">1</td><td class="num">0.5 / 1.0 GB/s</td><td>every slot, including ×1</td><td><strong>C+ reference</strong></td></tr>
-<tr><td>×2</td><td class="num">2</td><td class="num">1.0 / 2.0 GB/s</td><td>×2 and larger slots</td><td>Duo − variant</td></tr>
-<tr><td><strong>×4</strong></td><td class="num">4</td><td class="num">2.0 / 3.9 GB/s</td><td>×4, ×8 and ×16 slots</td><td><strong>Duo (D)</strong></td></tr>
+<tr><td>×2</td><td class="num">2</td><td class="num">1.0 / 2.0 GB/s</td><td>×2 and larger slots</td><td>Studio variant</td></tr>
+<tr><td><strong>×4</strong></td><td class="num">4</td><td class="num">2.0 / 3.9 GB/s</td><td>×4, ×8 and ×16 slots</td><td><strong>Studio Pro</strong></td></tr>
 <tr><td>×8 / ×16</td><td class="num">8 / 16</td><td class="num">4–16 GB/s</td><td>rare on desktops</td><td>not used</td></tr>
 </tbody>
 </table>
 
-<p><strong>The lane budget decides it.</strong> An Artix-7 100T has exactly four GTP transceivers, and 4K60 output consumes three of them for HDMI. One is left, and that is the PCIe link: ×1. The Duo moves to a Kintex-7 325T, where sixteen transceivers allow two 4K60 transmitters and ×4 to the host.</p>
+<p><strong>The lane budget decides it.</strong> An Artix-7 100T has exactly four GTP transceivers, and 4K60 output consumes three of them for HDMI. One is left, and that is the PCIe link: ×1. The Studio Pro moves to a Kintex-7 325T, where sixteen transceivers allow two 4K60 transmitters and ×4 to the host.</p>
 
 <p><strong>A ×1 card still fits any slot.</strong> A ×1 card seats in ×1, ×2, ×4, ×8 and ×16 connectors, including the ×4 slot a desktop usually has free. The physical connector on the reference card is ×4-length for mechanical stability; the link is ×1.</p>
 
@@ -235,7 +235,7 @@ body = r"""
 </thead>
 <tbody>
 <tr><td>PCIe Gen2 ×1</td><td class="num">0.5 GB/s</td><td>Host ↔ card, A5K (C+)</td></tr>
-<tr><td>PCIe Gen2 ×4</td><td class="num">2.0 GB/s</td><td>Host ↔ card, Duo (D)</td></tr>
+<tr><td>PCIe Gen2 ×4</td><td class="num">2.0 GB/s</td><td>Host ↔ card, Studio Pro</td></tr>
 <tr><td>PCIe Gen3 ×4</td><td class="num">3.9 GB/s</td><td>Host ↔ card, preferred</td></tr>
 <tr><td>PCIe Gen4 ×4</td><td class="num">7.9 GB/s</td><td>Host ↔ card, beyond current parts</td></tr>
 <tr><td>DDR3L 32-bit</td><td class="num">6.4 GB/s</td><td>All on-card fetching</td></tr>
@@ -263,10 +263,11 @@ body = r"""
 <tr><td>Memory bandwidth</td><td>6.4 GB/s</td></tr>
 <tr><td>Copper tick</td><td>7.09 MHz, 141 ns per instruction</td></tr>
 <tr><td>Scanout</td><td>4K60 at a 594 MHz pixel clock, four lanes</td></tr>
-<tr><td>Host link</td><td>PCIe Gen2 ×1 (0.5 GB/s) on C+; ×4 on the Duo</td></tr>
+<tr><td>Host link</td><td>PCIe Gen2 ×1 (0.5 GB/s) on C+; ×4 on the Studio Pro</td></tr>
 <tr><td>On-card CPU</td><td>VexRiscv, 50 MHz (ECP5) to 150 MHz (Artix-7)</td></tr>
 <tr><td>Host CPU</td><td>anything with PCIe; 2–6 GHz, 4–256 cores</td></tr>
 <tr><td>Planes</td><td>8, optionally 16</td></tr>
+<tr><td>Outputs</td><td>4K60 HDMI (primary), 1080p60 DP (secondary); HDMI sensed first</td></tr>
 <tr><td>Blitters</td><td>1</td></tr>
 <tr><td>Audio</td><td>4–8 DMA streams, 24-bit I²S</td></tr>
 <tr><td>4K60 cost, planar</td><td>0.5 GB/s for eight bitplanes</td></tr>
@@ -283,7 +284,7 @@ html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>A5K — Technical Specifications (Rev. 4)</title>
+<title>A5K — Technical Specifications (Rev. 5)</title>
 <style>{css}{extra}</style>
 </head>
 <body>
@@ -325,7 +326,7 @@ for i, page in enumerate(doc):
                    color=(0.80, 0.80, 0.80), width=0.5)
     page.insert_text((w * 0.10, h - 19), "A5K \u00b7 Technical Specifications",
                      fontname="helv", fontsize=7.2, color=(0.45, 0.45, 0.45))
-    page.insert_text((w * 0.90 - 55, h - 19), "Rev. 4", fontname="helv",
+    page.insert_text((w * 0.90 - 55, h - 19), "Rev. 5", fontname="helv",
                      fontsize=7.2, color=(0.55, 0.55, 0.55))
     label = str(i + 1)
     tw = pymupdf.get_text_length(label, fontname="helv", fontsize=8)
@@ -334,7 +335,7 @@ for i, page in enumerate(doc):
 
 doc.set_toc(toc)
 doc.set_metadata({
-    "title": "A5K - Technical Specifications (Rev. 4)",
+    "title": "A5K - Technical Specifications (Rev. 5)",
     "author": "Design study",
     "subject": "Clocks, memory, processors, bandwidth and limits of the A5K design",
     "keywords": "A5K, Amiga-like, FPGA, DDR3L, RISC-V, bandwidth, specification",

@@ -624,7 +624,7 @@
     <div><span class="n">7.09<em>MHz</em></span><span class="l">Copper tick</span></div>
     <div><span class="n">4K</span><span class="l">scanout ceiling</span></div>
     <div><span class="n">×4</span><span class="l">PCIe lanes</span></div>
-    <div><span class="n">≈$267</span><span class="l">prototype BOM</span></div>
+    <div><span class="n">≈$264</span><span class="l">prototype BOM</span></div>
   </div>
 
   <div class="abstract">
@@ -635,7 +635,7 @@
   <div class="cmeta">
     <table>
       <tr><td>Prepared</td><td>1 November 2026</td></tr>
-      <tr><td>Revision</td><td>Rev. Q — BOM reconciled with the 4K60 requirement</td></tr>
+      <tr><td>Revision</td><td>Rev. R — Studio naming; HDMI-first output sensing</td></tr>
       <tr><td>Status</td><td>Design study; no hardware built</td></tr>
       <tr><td>Reference concept</td><td>“A5K”</td></tr>
       <tr><td>Contents</td><td>9 sections · 3 appendices · 6 tables · 1 figure</td></tr>
@@ -810,7 +810,7 @@
     </div>
 
     <div class="link">
-      <div class="lbl">PCIe ×1 · ×4 on Duo</div>
+      <div class="lbl">PCIe ×1 · ×4 on Studio Pro</div>
       <div class="wire"></div>
       <div class="lbl2">MSI-X · bus-master DMA</div>
     </div>
@@ -875,7 +875,7 @@
   <li><strong>Carrier:</strong> Xilinx Artix-7 100T — four GTP transceivers, which is what 4K60 output requires: one lane for PCIe, three for HDMI. The Lattice ECP5-85 is only viable for a 1080p variant, because its 3.2 Gb/s SerDes cannot carry 4K60 TMDS. (both have usable open flows via <strong>Yosys + nextpnr</strong>; larger designs may need Vivado for the FPGA but keep the <em>design</em> in Migen/LiteX so it’s portable).</li>
   <li><strong>SoC glue:</strong> <strong>LiteX</strong> — gives you LitePCIe, LiteDRAM, LiteSDCard, LiteEth, Wishbone/AXI bridges, and a VexRiscv if you want the whole machine on one board.</li>
   <li><strong>Chipset IP:</strong> Agnus-equivalent (slot-table DMA arbiter + beam counter), Denise-equivalent (planar scanout + planes + priority + HAM), Blitter (minterm ALU + Bresenham), Copper (microsequencer), Paula (audio DMA + SDIO + UART), CIA (VexRiscv).</li>
-  <li><strong>Video out:</strong> HDMI 1.4/2.0 from the card (<code>hdl-util/hdmi</code> or LiteX’s video), with a “beam counter” that scales the original 7.09&nbsp;MHz line rate up to 1080p/4K while keeping Copper ticks relatable.</li>
+  <li><strong>Video out:</strong> <strong>4K60 HDMI as primary</strong>, straight from fabric; <strong>1080p60 DisplayPort as secondary</strong>, through a bridge. Both are driven at once; sensing decides which display supplies the EDID and therefore the mode. HDMI is sensed first, DisplayPort second, with DVI, S-Video and composite reserved for later reference boards. See <em>A5K — The Family</em>.</li>
   <li><strong>RAM:</strong> <strong>1&nbsp;GB DDR3L as standard</strong> — two 4&nbsp;Gb devices on a 32-bit bus — with <strong>2&nbsp;GB as a drop-in upgrade</strong> using 8&nbsp;Gb parts in the same footprint. The 32-bit pointer path caps Chip RAM at <strong>4&nbsp;GiB</strong>, of which about 3.5&nbsp;GB remains usable once registers and apertures are reserved; beyond that, the 64-bit variant widens both the bus and the address path. Host memory is reachable over PCIe for “Fast RAM” and is not limited by the card at all.</li>
   <li><strong>Display model:</strong> keep planar + chunky, keep HAM/EHB, keep planes (Appendix A.5), keep priority. Add overlay planes so a modern windowing system can sit on top without giving up the old modes.</li>
   <li><strong>Sync primitive:</strong> expose a <strong>beam-synchronous fence</strong> — “wait until scanline N then fire this Copper list” — so host software gets raster sync back (<code>drm_vblank</code>/<code>drm_syncobj</code> semantics map exactly).</li>
@@ -937,7 +937,7 @@
   <li><strong>3D and compute.</strong> No triangle rate worth quoting, no texture units, no shader cores, no ray tracing. A 2026 integrated GPU is faster than this entire card.</li>
   <li><strong>Memory bandwidth.</strong> A 128-bit DDR3 path delivers tens of gigabytes per second; a modern discrete card delivers hundreds, and the slot table deliberately gives much of ours to display fetches.</li>
   <li><strong>Tooling and ecosystem.</strong> Nothing comparable to SPIR-V, no profilers, no vendors, and an operating system (AROS) with a tiny fraction of the software.</li>
-  <li><strong>Price.</strong> At $267 in parts it is not even cheap next to a used office PC with a capable integrated GPU.</li>
+  <li><strong>Price.</strong> At $264 in parts it is not even cheap next to a used office PC with a capable integrated GPU.</li>
 </ul>
 
 <h3>9.5 The honest scoreboard</h3>
@@ -1263,7 +1263,7 @@ def main():
 <section class="appendix">
 <h2 id="appC">Appendix C — Bill of materials</h2>
 
-<p class="lead">The reference build is <strong>A5K (C+)</strong>, around a Xilinx Artix-7 100T — the cheapest part with four GTP transceivers, which is what 4K60 output requires: one lane for PCIe, three for HDMI. The Duo and its variants are costed in §C.1. Prices are indicative single-unit distributor figures for Q4 2026 in USD; FPGAs and DDR move a lot, so treat these as order-of-magnitude, not quotes.</p>
+<p class="lead">The reference build is <strong>A5K (C+)</strong>, around a Xilinx Artix-7 100T — the cheapest part with four GTP transceivers, which is what 4K60 output requires: one lane for PCIe, three for HDMI. The Studio models are costed in §C.1. Prices are indicative single-unit distributor figures for Q4 2026 in USD; FPGAs and DDR move a lot, so treat these as order-of-magnitude, not quotes.</p>
 
 <p class="note" style="margin-top:0"><strong>Why this is dearer than an ECP5 design.</strong> An ECP5-85 costs $89 and cannot drive 4K60 — its SerDes top out at 3.2 Gb/s, well short of HDMI 2.0's 5.94. The FPGA change alone accounts for about $80 of the difference; the DisplayPort bridge, the HDMI receiver and the extra connectors account for the rest.</p>
 
@@ -1277,7 +1277,7 @@ def main():
 <tr><td>2</td><td>Configuration flash</td><td>Winbond W25Q128JVSIQ</td><td>1</td><td class="num">$2.60</td><td class="num">$2.60</td></tr>
 <tr><td>3</td><td>DDR3L, 512 MB</td><td>Micron MT41K256M16TW-107</td><td>2</td><td class="num">$7.40</td><td class="num">$14.80</td></tr>
 <tr><td>4</td><td>Video clock generator</td><td>Skyworks Si5351A-B-GT</td><td>1</td><td class="num">$1.90</td><td class="num">$1.90</td></tr>
-<tr><td>5</td><td>DisplayPort bridge (4K60)</td><td>HDMI-to-DP converter, class TBD</td><td>1</td><td class="num">$6.00</td><td class="num">$6.00</td></tr>
+<tr><td>5</td><td>DisplayPort bridge (1080p)</td><td>HDMI-to-DP converter</td><td>1</td><td class="num">$3.00</td><td class="num">$3.00</td></tr>
 <tr><td>6</td><td>HDMI receiver (1080p)</td><td>parallel-output receiver, class TBD</td><td>1</td><td class="num">$8.00</td><td class="num">$8.00</td></tr>
 <tr><td>7</td><td>HDMI connectors ×2 + ESD</td><td>TE 1903015-1, TI TPD4E02B04</td><td>1</td><td class="num">$2.20</td><td class="num">$2.20</td></tr>
 <tr><td>8</td><td>DisplayPort connector + ESD</td><td>DP receptacle, ESD array</td><td>1</td><td class="num">$1.50</td><td class="num">$1.50</td></tr>
@@ -1285,7 +1285,7 @@ def main():
 <tr><td>10</td><td>microSD socket</td><td>Hirose DM3AT-SF-PEJM5</td><td>1</td><td class="num">$0.55</td><td class="num">$0.55</td></tr>
 <tr><td>11</td><td>Power: bucks + LDOs</td><td>TI TPS54620, TPS7A90 ×2</td><td>1</td><td class="num">$6.20</td><td class="num">$6.20</td></tr>
 <tr><td>12</td><td>Passives, crystals, ESD, fan</td><td>various</td><td>1</td><td class="num">$9.00</td><td class="num">$9.00</td></tr>
-<tr class="tot"><td></td><td>Parts subtotal</td><td></td><td></td><td></td><td class="num">$226.45</td></tr>
+<tr class="tot"><td></td><td>Parts subtotal</td><td></td><td></td><td></td><td class="num">$223.45</td></tr>
 </tbody>
 </table>
 
@@ -1294,10 +1294,10 @@ def main():
 <tr><th style="width:46%">Build cost (5-board prototype run)</th><th style="width:18%" class="num">Per lot</th><th style="width:18%" class="num">Per board</th><th style="width:18%" class="num">Board + parts</th></tr>
 </thead>
 <tbody>
-<tr><td>PCB — 4-layer, low-profile PCIe, ENIG</td><td class="num">$60</td><td class="num">$12.00</td><td class="num">$238.45</td></tr>
-<tr><td>SMT assembly, two sides, 5 off</td><td class="num">$120</td><td class="num">$24.00</td><td class="num">$250.45</td></tr>
-<tr><td>Test, programming, reflow stencil</td><td class="num">$25</td><td class="num">$5.00</td><td class="num">$255.45</td></tr>
-<tr class="tot"><td>Reference card, working prototype</td><td class="num">$205</td><td class="num">$41.00</td><td class="num">≈ $267</td></tr>
+<tr><td>PCB — 4-layer, low-profile PCIe, ENIG</td><td class="num">$60</td><td class="num">$12.00</td><td class="num">$235.45</td></tr>
+<tr><td>SMT assembly, two sides, 5 off</td><td class="num">$120</td><td class="num">$24.00</td><td class="num">$247.45</td></tr>
+<tr><td>Test, programming, reflow stencil</td><td class="num">$25</td><td class="num">$5.00</td><td class="num">$252.45</td></tr>
+<tr class="tot"><td>Reference card, working prototype</td><td class="num">$205</td><td class="num">$41.00</td><td class="num">≈ $264</td></tr>
 </tbody>
 </table>
 
@@ -1308,8 +1308,8 @@ def main():
 <tr><th style="width:30%">Variant</th><th style="width:34%">Difference</th><th style="width:18%" class="num">5 off</th><th style="width:18%" class="num">100 off</th></tr>
 </thead>
 <tbody>
-<tr><td>Reference — A5K (C+)</td><td>Artix-7 100T, 4 GTP, PCIe ×1, 4K60 mirrored</td><td class="num">≈ $267</td><td class="num">≈ $205</td></tr>
-<tr><td>Duo — A5K Duo (D)</td><td>Kintex-7 325T, 16 GTP, two beams, PCIe ×4</td><td class="num">≈ $1,150</td><td class="num">≈ $900</td></tr>
+<tr><td>Reference — A5K (C+)</td><td>Artix-7 100T, 4 GTP, PCIe ×1, 4K60 mirrored</td><td class="num">≈ $264</td><td class="num">≈ $205</td></tr>
+<tr><td>Studio Pro — A5K Studio Pro</td><td>Kintex-7 325T, 16 GTP, two beams, PCIe ×4</td><td class="num">≈ $1,150</td><td class="num">≈ $900</td></tr>
 </tbody>
 </table>
 

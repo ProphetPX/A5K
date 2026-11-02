@@ -84,7 +84,7 @@ extra = """
 # --------------------------------------------------------------- body ----
 body = r"""
 <div class="add-head">
-  <p class="kicker">Addendum to <em>A5K</em> · Rev. Q</p>
+  <p class="kicker">Addendum to <em>A5K</em> · Rev. R</p>
   <h1>Where This Design Sits</h1>
   <p class="subtitle">AAA, Hombre, the shipped Amiga eras, and a 2026 scientific workstation — compared honestly</p>
   <p class="meta">Prepared 1 November 2026 &nbsp;·&nbsp; Comparative analysis &nbsp;·&nbsp; 5 sections &nbsp;·&nbsp; 4 tables</p>
@@ -119,7 +119,7 @@ body = r"""
 </tbody>
 </table>
 
-<p><strong>By how far:</strong> roughly <strong>1.5 orders of magnitude in silicon, and 2–3 in memory and bandwidth</strong>. That is not a new class of machine — it is the AAA concept executed on a 2026 FPGA with twenty-five extra years of process, memory and I/O. The real difference is not the ratio but the fact that <strong>one shipped and the other didn’t.</strong> AAA needed a fab, a CPU, an OS team, a factory and a market; the A5K needs a $267 BOM and a laptop.</p>
+<p><strong>By how far:</strong> roughly <strong>1.5 orders of magnitude in silicon, and 2–3 in memory and bandwidth</strong>. That is not a new class of machine — it is the AAA concept executed on a 2026 FPGA with twenty-five extra years of process, memory and I/O. The real difference is not the ratio but the fact that <strong>one shipped and the other didn’t.</strong> AAA needed a fab, a CPU, an OS team, a factory and a market; the A5K needs a $264 BOM and a laptop.</p>
 
 <p>The one place AAA is strictly better: it would have run 1994 Amiga software natively. The A5K cannot, and should not pretend otherwise.</p>
 
@@ -288,7 +288,7 @@ for i, page in enumerate(doc):
 
 doc.set_toc(toc)
 doc.set_metadata({
-    "title": "Where This Design Sits - Addendum to A5K (Rev. Q)",
+    "title": "Where This Design Sits - Addendum to A5K (Rev. R)",
     "author": "Design study",
     "subject": "Comparative analysis: AAA, Hombre, the shipped Amiga eras, and a 2026 scientific workstation",
     "keywords": "Amiga, AAA, Hombre, OCS, ECS, AGA, RISC-V, FPGA, workstation, comparison",

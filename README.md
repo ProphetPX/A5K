@@ -8,7 +8,7 @@ would look like, specified in enough detail to build, costed, and argued against
 the alternatives — including the obvious one, *why not just use a GPU*.
 
 **Two tiers, one architecture.** *A5K (C+)* is the A500 of the family — one
-beam, one output, the entry price. *A5K Duo* is the A3000 — two beams and a wider
+beam, one output, the entry price. *A5K Studio* is the A3000 — two beams and a wider
 host link. The comparison is one of position, not of compatibility or features.
 
 No hardware has been built. Everything here is a proposition — and
@@ -18,11 +18,11 @@ No hardware has been built. Everything here is a proposition — and
 
 | File | Pages | What it is |
 |---|---|---|
-| `A5K-Design-Proposition.pdf` | 18 | The main study, Rev. Q — architecture, chip-by-chip mapping, bus options, CPU choice, reference build, software, what you'd lose, the GPU question, and three appendices (Copper spec, Migen skeleton, bill of materials). |
+| `A5K-Design-Proposition.pdf` | 18 | The main study, Rev. R — architecture, chip-by-chip mapping, bus options, CPU choice, reference build, software, what you'd lose, the GPU question, and three appendices (Copper spec, Migen skeleton, bill of materials). |
 | `A5K-Comparative-Addendum.pdf` | 4 | Comparative analysis — the A5K against AAA, Hombre, the shipped Amiga eras, and a 2026 scientific workstation. Tables A1–A4. |
 | `A5K-Technical-Specifications.pdf` | 5 | Reference card — clocks, memory configurations and upgrade paths, processor options, bandwidth budget at 4K60, parallelism, and the ceilings that bound the design. Tables S1–S7. |
 | `A5K-Slot-Table.md` | — | **How the bus is shared.** What a slot is, what the original did, what changes at 60 Hz, the budget at 640×512 / 1080p / 4K, and the three rules a Copper list must respect. |
-| `A5K-Family.md` | — | **The product line.** A5K (C+) frozen as the reference machine; A5K Duo adds a second beam, independent 4K60, PCIe ×4. Includes what two beams buy a video workstation, and what the card is *not* (no 3D GPU, no AI accelerator). |
+| `A5K-Family.md` | — | **The product line.** A5K (C+) frozen as the reference machine; the Studio models add a second beam, independent 4K60, PCIe ×4. Includes what two beams buy a video workstation, and what the card is *not* (no 3D GPU, no AI accelerator). |
 | `TECHNICAL-CONSIDERATIONS.md` | — | **Read this before building anything.** What exists, what does not, how the boot chain would work, what an AROS port costs, and the open technical gaps. |
 | `TODO.md` | — | The build plan: seven phases from simulator to AROS, with costs, exit criteria and the legal position of each artefact. |
 
@@ -68,7 +68,7 @@ same licence, and the notice and credit must be retained.
 ## How to cite
 
 > Ryan David Hall (AKA "ProphetPX"). (2026). *A5K — A Theoretical Design Proposition for an Amiga
-> 5000-Like System*, Rev. Q.
+> 5000-Like System*, Rev. R.
 
 Machine-readable: `CITATION.cff`. If you archive or mirror this work, add a DOI
 and cite it here.
@@ -97,6 +97,6 @@ Nothing in this repository is legal advice.
 
 ## Status
 
-Rev. Q, 1 November 2026. No hardware fabricated. The next milestones are the
+Rev. R, 1 November 2026. No hardware fabricated. The next milestones are the
 slot-table simulation and a single-mode ECP5 bring-up — see §C.3 of the main
 document.
