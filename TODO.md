@@ -63,7 +63,8 @@ Copper lists.
 
 *Weeks to months. $150–400. No custom hardware yet.*
 
-- [ ] Pick a board: ECP5 (ULX3S, Versa) or Artix-7 (Arty, Nexys Video)
+- [ ] Pick a board: **Artix-7 100T for C+** (4 GTP); an ECP5 board only for a
+      1080p variant
 - [ ] Bring up DDR
 - [ ] Bring up one video mode: 640 × 512 planar, DVI or HDMI out
 - [ ] Run a Copper list from DDR
@@ -138,12 +139,11 @@ resulting frame back out of Chip RAM.
 `A5K-Slot-Table.md` is a proposal, not a specification. These must be closed
 before the simulator can be written against it.
 
-- [ ] Decide whether **C+ captures at all** (currently it does; the case for
-      removing it is strong)
-- [ ] Choose the **capture format** per model — 8-bit indexed, RGB565, RGB888
-      or ARGB8888 — and budget it
-- [ ] Answer the four open questions in §4.6:
-      - [ ] 64-bit vs 128-bit slots
+- [x] ~~Decide whether C+ captures at all~~ — **decided: no capture** (Rev. S)
+- [x] ~~Choose the capture format per model~~ — **decided: 10-bit, ARGB2101010**
+      (4:2:2 on Studio, 4:4:4 on Studio Pro)
+- [ ] Answer the remaining open questions in §4.6:
+      - [x] ~~64-bit vs 128-bit slots~~ — **decided: 64-bit on C+, 256-bit on Studio**
       - [ ] whether the blitter window scales with frame rate
       - [ ] whether Copper fetches get their own band
       - [ ] what happens when a display fetch misses its slot
@@ -190,9 +190,11 @@ the right line.
 
 ## Immediate next actions
 
-1. Write the simulator specification — register subset, frame loop, acceptance tests.
-2. Sketch the slot table on paper; it is the machine's timing contract.
-3. Decide the HDL language and the first dev board, so Phase 1 and 2 have a target.
+1. Close the remaining slot-table decisions (three open questions, per-line
+   schedule, capture band, dual-pipe arbitration, acceptance tests).
+2. Write the simulator specification — register subset, frame loop, acceptance
+   tests — now that C+ has no capture and the Studio models are 256-bit.
+3. Decide the HDL language and the first dev board (Artix-7 100T).
 
 ## Open questions
 
