@@ -654,12 +654,12 @@
     <li><span class="t">3. Chip-by-chip: the modern re-issue</span><span class="dots"></span><span class="p" data-mk="zzS3zz">3</span></li>
     <li><span class="t">4. Getting it onto a modern bus</span><span class="dots"></span><span class="p" data-mk="zzS4zz">4</span></li>
     <li><span class="t">5. CPU: RISC-V, POWER, or a 68k core?</span><span class="dots"></span><span class="p" data-mk="zzS5zz">4</span></li>
-    <li><span class="t">6. A concrete reference build</span><span class="dots"></span><span class="p" data-mk="zzS6zz">6</span></li>
+    <li><span class="t">6. A concrete reference build</span><span class="dots"></span><span class="p" data-mk="zzS6zz">5</span></li>
     <li><span class="t">7. Software</span><span class="dots"></span><span class="p" data-mk="zzS7zz">6</span></li>
-    <li><span class="t">8. What you’d lose</span><span class="dots"></span><span class="p" data-mk="zzS8zz">7</span></li>
-    <li><span class="t">9. Why not just use a GPU?</span><span class="dots"></span><span class="p" data-mk="zzS9zz">7</span></li>
+    <li><span class="t">8. What you’d lose</span><span class="dots"></span><span class="p" data-mk="zzS8zz">6</span></li>
+    <li><span class="t">9. Why not just use a GPU?</span><span class="dots"></span><span class="p" data-mk="zzS9zz">6</span></li>
     <li class="app"><span class="t">Appendix A — The Copper, specified</span><span class="dots"></span><span class="p" data-mk="zzSazz">9</span></li>
-    <li class="app"><span class="t">Appendix B — Implementation skeleton</span><span class="dots"></span><span class="p" data-mk="zzSbzz">13</span></li>
+    <li class="app"><span class="t">Appendix B — Implementation skeleton</span><span class="dots"></span><span class="p" data-mk="zzSbzz">12</span></li>
     <li class="app"><span class="t">Appendix C — Bill of materials</span><span class="dots"></span><span class="p" data-mk="zzSczz">14</span></li>
   </ol>
 
@@ -667,10 +667,10 @@
   <ol class="toc">
     <li><span class="t">Table 1 — Chip-by-chip: the modern re-issue</span><span class="dots"></span><span class="p" data-mk="zzT1zz">3</span></li>
     <li><span class="t">Table 2 — Against a modern GPU: the honest scoreboard</span><span class="dots"></span><span class="p" data-mk="zzT2zz">8</span></li>
-    <li><span class="t">Table 3 — MC-1 opcode map</span><span class="dots"></span><span class="p" data-mk="zzT3zz">10</span></li>
-    <li><span class="t">Table 4 — Register aperture and key registers</span><span class="dots"></span><span class="p" data-mk="zzT4zz">11</span></li>
-    <li><span class="t">Table 5 — Plane attributes, and what they may not do</span><span class="dots"></span><span class="p" data-mk="zzT5zz">12</span></li>
-    <li><span class="t">Table 6 — Bill of materials, reference build</span><span class="dots"></span><span class="p" data-mk="zzT6zz">15</span></li>
+    <li><span class="t">Table 3 — MC-1 opcode map</span><span class="dots"></span><span class="p" data-mk="zzT3zz">9</span></li>
+    <li><span class="t">Table 4 — Register aperture and key registers</span><span class="dots"></span><span class="p" data-mk="zzT4zz">10</span></li>
+    <li><span class="t">Table 5 — Plane attributes, and what they may not do</span><span class="dots"></span><span class="p" data-mk="zzT5zz">11</span></li>
+    <li><span class="t">Table 6 — Bill of materials, reference build</span><span class="dots"></span><span class="p" data-mk="zzT6zz">14</span></li>
     <li><span class="t">Figure 1 — The card-as-chipset shape</span><span class="dots"></span><span class="p" data-mk="zzF1zz">4</span></li>
   </ol>
 
@@ -827,7 +827,7 @@
       </div>
 
       <div class="vline"><span>Wishbone / AXI fabric</span></div>
-      <div class="mem"><b>Chip RAM — DDR3 / LPDDR4</b><span>256 MB – 2 GB</span></div>
+      <div class="mem"><b>Chip RAM — DDR3L, 32-bit</b><span>1 GB standard · 2 GB maximum</span></div>
     </div>
   </div>
   <figcaption><strong>Figure 1.</strong> The card-as-chipset shape shared by all three options: one register aperture, one memory aperture, one command list, one display pipe.</figcaption>
@@ -860,7 +860,7 @@
   <p><strong>RISC-V as the host + a small 68k soft core as a legacy coprocessor</strong> (or UAE on the RISC-V). That gives you a modern OS and native old software, and it mirrors the Amiga’s own philosophy: a general CPU plus specialized silicon. If you want purity over pragmatism, OpenPOWER.</p>
 </div>
 
-<h2 id="s6" style="page-break-before:always">6. A concrete reference build</h2>
+<h2 id="s6">6. A concrete reference build</h2>
 
 <p>Call it the <strong>A5K</strong>:</p>
 
