@@ -181,3 +181,7 @@ projects.
 
 *Proposal, 2 November 2026. C+ frozen as of this document; changes to it require
 a new model designation.*
+
+---
+
+*Revision: R, 2 November 2026. Living document; changes tracked in the private memo.*

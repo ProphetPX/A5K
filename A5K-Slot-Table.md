@@ -224,3 +224,7 @@ exists to make visible before anyone writes RTL.
 
 *Proposal, 2 November 2026. Figures are arithmetic, not measurements. Corrections
 welcome — particularly on the 4K allocation, which is the tightest case.*
+
+---
+
+*Revision: R, 2 November 2026. Living document; the frozen C+ specification is in `A5K-Family.md`.*
