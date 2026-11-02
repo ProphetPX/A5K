@@ -2,3 +2,7 @@
 *.tmp
 _markers.html
 .DS_Store
+
+# Python bytecode caches (contain local source paths)
+__pycache__/
+*.pyc
