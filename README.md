@@ -7,6 +7,10 @@ A design study: what a modern re-issue of the Amiga custom-chipset architecture
 would look like, specified in enough detail to build, costed, and argued against
 the alternatives — including the obvious one, *why not just use a GPU*.
 
+**Two tiers, one architecture.** *A5K (C+)* is the A500 of the family — one
+beam, one output, the entry price. *A5K Duo* is the A3000 — two beams and a wider
+host link. The comparison is one of position, not of compatibility or features.
+
 No hardware has been built. Everything here is a proposition — and
 `TECHNICAL-CONSIDERATIONS.md` says so in engineering terms.
 

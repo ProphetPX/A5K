@@ -48,6 +48,32 @@ The distinction matters because it decides what the second model is for. A games
 machine wants one output and lots of compatibility. A workstation wants capture,
 compositing, preview and programme — often at the same time.
 
+### 2.1 Positioning, not emulation
+
+Two tiers, one architecture — the way Commodore sold the A500 and the A3000.
+
+| Tier | Amiga ancestor | Why it fits |
+|---|---|---|
+| **A5K (C+)** | **A500** | The wedge: one beam, one output, the lowest price at which the machine makes sense |
+| **A5K Duo (D)** | **A3000 / A4000** | The workstation: two beams, a wider host link, more memory — capability, not slots |
+
+The A2000 is deliberately absent from that table. Its identity was **expansion**
+— Zorro II slots, a CPU slot, a video slot, SCSI — and the Duo has none of them.
+Invoking the A2000 invites a buyer to expect slots, and there are none.
+
+> *Two tiers, one architecture — the way Commodore sold the A500 and the A3000.
+> The C+ is the wedge. The Duo is the workstation. The comparison is one of
+> position, not of compatibility or features.*
+
+Three rules for using this in public:
+
+1. **Say "positioned like", never "compatible with".** The analogy is about market
+   tier, not software or hardware.
+2. **No model-number styling and no logos.** Do not render "A5K" in a Commodore
+   typeface, and do not use the checkmark.
+3. **Never combine the analogy with a compatibility claim.** "The A3000 of the
+   family" is descriptive; "A3000-class compatibility" is a misrepresentation.
+
 ## 3. Can one beam drive two outputs?
 
 **Yes, but only if both show the same picture.**
