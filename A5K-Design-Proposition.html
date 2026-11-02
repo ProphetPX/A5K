@@ -635,7 +635,7 @@
   <div class="cmeta">
     <table>
       <tr><td>Prepared</td><td>1 November 2026</td></tr>
-      <tr><td>Revision</td><td>Rev. M — processor, bandwidth and parallelism figures added</td></tr>
+      <tr><td>Revision</td><td>Rev. N — product class stated in §4</td></tr>
       <tr><td>Status</td><td>Design study; no hardware built</td></tr>
       <tr><td>Reference concept</td><td>“A5K”</td></tr>
       <tr><td>Contents</td><td>9 sections · 3 appendices · 6 tables · 1 figure</td></tr>
@@ -657,7 +657,7 @@
     <li><span class="t">6. A concrete reference build</span><span class="dots"></span><span class="p" data-mk="zzS6zz">5</span></li>
     <li><span class="t">7. Software</span><span class="dots"></span><span class="p" data-mk="zzS7zz">6</span></li>
     <li><span class="t">8. What you’d lose</span><span class="dots"></span><span class="p" data-mk="zzS8zz">6</span></li>
-    <li><span class="t">9. Why not just use a GPU?</span><span class="dots"></span><span class="p" data-mk="zzS9zz">6</span></li>
+    <li><span class="t">9. Why not just use a GPU?</span><span class="dots"></span><span class="p" data-mk="zzS9zz">7</span></li>
     <li class="app"><span class="t">Appendix A — The Copper, specified</span><span class="dots"></span><span class="p" data-mk="zzSazz">9</span></li>
     <li class="app"><span class="t">Appendix B — Implementation skeleton</span><span class="dots"></span><span class="p" data-mk="zzSbzz">12</span></li>
     <li class="app"><span class="t">Appendix C — Bill of materials</span><span class="dots"></span><span class="p" data-mk="zzSczz">14</span></li>
@@ -669,7 +669,7 @@
     <li><span class="t">Table 2 — Against a modern GPU: the honest scoreboard</span><span class="dots"></span><span class="p" data-mk="zzT2zz">8</span></li>
     <li><span class="t">Table 3 — MC-1 opcode map</span><span class="dots"></span><span class="p" data-mk="zzT3zz">9</span></li>
     <li><span class="t">Table 4 — Register aperture and key registers</span><span class="dots"></span><span class="p" data-mk="zzT4zz">10</span></li>
-    <li><span class="t">Table 5 — Plane attributes, and what they may not do</span><span class="dots"></span><span class="p" data-mk="zzT5zz">11</span></li>
+    <li><span class="t">Table 5 — Plane attributes, and what they may not do</span><span class="dots"></span><span class="p" data-mk="zzT5zz">12</span></li>
     <li><span class="t">Table 6 — Bill of materials, reference build</span><span class="dots"></span><span class="p" data-mk="zzT6zz">14</span></li>
     <li><span class="t">Figure 1 — The card-as-chipset shape</span><span class="dots"></span><span class="p" data-mk="zzF1zz">4</span></li>
   </ol>
@@ -797,6 +797,8 @@
 <h2 id="s4">4. Getting it onto a modern bus</h2>
 
 <p>Three viable homes, in increasing order of “real Amiga-ness”. In every case the shape is the same — a host on one side of a fast link, the chipset on the other:</p>
+
+<p><strong>For the avoidance of doubt: the reference product is an add-in card that requires an x86-64 host PC.</strong> It has no CPU, no boot firmware and no operating system of its own, and it cannot be fitted to a Commodore Amiga — those machines have Zorro II and Zorro III, not PCIe. Minimum host requirements, the reasoning behind the ×4 slot, and the module and mainboard alternatives are set out in <em>A5K — Technical Specifications</em>.</p>
 
 <figure>
   <div class="arch">
