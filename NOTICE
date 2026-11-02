@@ -1,0 +1,22 @@
+A5K
+A Theoretical Design Proposition for an Amiga 5000-Like System
+
+The machine Commodore never shipped — an Amiga 5000-like design,
+specified from the Copper up.
+
+Original design and documentation: Ryan David Hall (AKA "ProphetPX"), 2026.
+
+Licensing of this work, by artefact:
+
+  hardware design and implementation documentation .... CERN-OHL-S v2
+  written documents (PDF, HTML, README prose) .......... CC BY 4.0
+  build scripts ........................................ MIT
+  the names and any logos .............................. see TRADEMARKS.md
+
+Any manufacture, modification or redistribution must retain this notice and
+credit the original design as stated here.
+
+This is an independent design study. It is not affiliated with, endorsed by,
+or sponsored by any holder of the Amiga or Commodore marks.
+
+Amiga and Commodore are trademarks of their respective owners.

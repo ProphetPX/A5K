@@ -1,0 +1,4 @@
+# Build artefacts
+*.tmp
+_markers.html
+.DS_Store

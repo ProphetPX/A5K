@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>A5K — A Theoretical Design Proposition for an Amiga 5000-Like System</title>
+<style>
+  @page {
+    size: A4;
+    margin: 17mm 25mm 17mm 25mm;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "DejaVu Serif", Georgia, "Times New Roman", serif;
+    font-size: 10pt;
+    line-height: 1.52;
+    color: #1a1a1a;
+    margin: 0;
+    hyphens: auto;
+  }
+  .doc-head {
+    border-bottom: 2.5pt solid #b03030;
+    padding-bottom: 10pt;
+    margin-bottom: 16pt;
+  }
+  .kicker {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 8pt;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #b03030;
+    font-weight: 700;
+    margin: 0 0 6pt 0;
+  }
+  h1 {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 21pt;
+    line-height: 1.15;
+    margin: 0 0 6pt 0;
+    color: #111;
+  }
+  .subtitle {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 10.5pt;
+    color: #555;
+    margin: 0;
+  }
+  .meta {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 8pt;
+    color: #777;
+    margin-top: 10pt;
+  }
+  h2 {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 13pt;
+    color: #111;
+    margin: 20pt 0 7pt 0;
+    padding-bottom: 3pt;
+    border-bottom: 0.6pt solid #ccc;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 10.3pt;
+    color: #333;
+    margin: 10pt 0 4pt 0;
+    page-break-after: avoid;
+  }
+  p { margin: 0 0 7pt 0; text-align: justify; }
+  ul, ol { margin: 0 0 8pt 0; padding-left: 16pt; }
+  li { margin-bottom: 3.5pt; }
+  strong { color: #000; }
+  em { }
+  code {
+    font-family: "Liberation Mono", "Courier New", monospace;
+    font-size: 8.4pt;
+    background: #f3f3f3;
+    padding: 0.5pt 2.5pt;
+    border-radius: 2pt;
+    color: #7a1f1f;
+  }
+  caption {
+    caption-side: top;
+    text-align: left;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.4pt;
+    color: #666;
+    padding: 0 0 4pt 0;
+    page-break-after: avoid;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.7pt;
+    line-height: 1.35;
+    margin: 6pt 0 8pt 0;
+    page-break-inside: auto;
+  }
+  thead { display: table-header-group; }
+  tr { page-break-inside: avoid; }
+  th {
+    background: #2b2b2b;
+    color: #fff;
+    text-align: left;
+    padding: 4.5pt 5pt;
+    font-weight: 700;
+    font-size: 7.6pt;
+    vertical-align: bottom;
+  }
+  td {
+    padding: 4pt 5pt;
+    border-bottom: 0.5pt solid #ddd;
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) td { background: #f7f7f7; }
+  td:first-child { font-weight: 700; color: #111; white-space: nowrap; }
+  .tight td { padding: 2.7pt 5pt; }
+  .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .tot td {
+    border-top: 0.8pt solid #333;
+    border-bottom: 0.8pt solid #333;
+    font-weight: 700;
+    background: #efefef !important;
+  }
+  figure {
+    margin: 5pt 0 8pt 0;
+    page-break-inside: avoid;
+  }
+  figcaption {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.2pt;
+    color: #666;
+    margin-top: 4pt;
+    text-align: left;
+  }
+  .callout {
+    background: #f6f1e7;
+    border-left: 2.5pt solid #b03030;
+    padding: 7pt 10pt;
+    margin: 8pt 0 12pt 0;
+    font-size: 9.6pt;
+    page-break-inside: avoid;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout .label {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #b03030;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 3pt;
+  }
+  .qa {
+    background: #f6f1e7;
+    border-left: 2.5pt solid #b03030;
+    padding: 8pt 10pt 6pt 10pt;
+    margin: 2pt 0 11pt 0;
+    font-size: 9.4pt;
+    font-style: italic;
+    line-height: 1.46;
+  }
+  .qa p { margin: 0; text-align: justify; }
+  .qa .ql {
+    font-style: normal;
+    font-weight: 700;
+    color: #b03030;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 8.2pt;
+  }
+  .al {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 8.2pt;
+    font-weight: 700;
+    color: #b03030;
+  }
+  .rule { height: 0; border-top: 0.6pt solid #ddd; margin: 14pt 0; }
+
+  /* ---------- architecture figure ---------- */
+  .arch {
+    display: flex;
+    align-items: center;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.4pt;
+    line-height: 1.25;
+  }
+  .node {
+    border: 0.8pt solid #555;
+    border-radius: 2pt;
+    background: #fbfbfb;
+    padding: 7pt 8pt;
+    text-align: center;
+  }
+  .node .nt { font-weight: 700; font-size: 7.8pt; display: block; margin-bottom: 3pt; }
+  .node .ns { color: #555; display: block; }
+  .host { width: 84pt; flex: 0 0 auto; }
+  .link { flex: 1 1 auto; position: relative; height: 40pt; min-width: 54pt; }
+  .link .wire {
+    position: absolute;
+    top: 18pt; left: 3pt; right: 3pt;
+    height: 0.8pt;
+    background: #555;
+  }
+  .link .wire::before,
+  .link .wire::after {
+    content: "";
+    position: absolute;
+    top: -2.4pt;
+    width: 0;
+    height: 0;
+    border-top: 2.6pt solid transparent;
+    border-bottom: 2.6pt solid transparent;
+  }
+  .link .wire::before { left: 0; border-right: 4pt solid #555; }
+  .link .wire::after { right: 0; border-left: 4pt solid #555; }
+  .link .lbl { position: absolute; top: 4pt; left: 0; right: 0; text-align: center; font-weight: 700; color: #333; }
+  .link .lbl2 { position: absolute; top: 23pt; left: 0; right: 0; text-align: center; color: #666; font-size: 6.8pt; }
+  .card {
+    flex: 1 1 auto;
+    border: 1.1pt solid #b03030;
+    border-radius: 2pt;
+    background: #fdf8f7;
+    padding: 5pt 6pt 6pt 6pt;
+  }
+  .card .ct { font-weight: 700; font-size: 7.8pt; color: #b03030; margin-bottom: 3pt; }
+  .bar {
+    font-family: "Liberation Mono", monospace;
+    font-size: 6.6pt;
+    color: #444;
+    background: #fff;
+    border: 0.5pt solid #ddd;
+    border-radius: 1.5pt;
+    padding: 1.6pt 4pt;
+    margin-bottom: 2pt;
+  }
+  .bar b { color: #b03030; }
+  .pipe { display: flex; align-items: center; margin-top: 4pt; }
+  .blk {
+    border: 0.8pt solid #777;
+    border-radius: 1.5pt;
+    background: #fff;
+    padding: 2.5pt 4pt;
+    text-align: center;
+    flex: 1 1 0;
+    font-size: 6.9pt;
+  }
+  .blk b { display: block; font-size: 7.4pt; }
+  .blk span { color: #666; font-size: 6.3pt; }
+  .arr { flex: 0 0 auto; padding: 0 3pt; color: #555; font-size: 9pt; line-height: 1; }
+  .sink {
+    flex: 0 0 auto;
+    border: 0.8pt solid #b03030;
+    background: #fff;
+    border-radius: 1.5pt;
+    padding: 3.5pt 5pt;
+    text-align: center;
+    font-weight: 700;
+    font-size: 7.2pt;
+    color: #b03030;
+  }
+  .vline { height: 13pt; position: relative; }
+  .vline::before {
+    content: "";
+    position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    border-left: 0.8pt solid #555;
+  }
+  .vline span {
+    position: absolute;
+    left: calc(50% + 8pt);
+    top: 4pt;
+    font-size: 6.2pt;
+    color: #777;
+  }
+  .mem {
+    border: 0.8pt solid #555;
+    border-radius: 1.5pt;
+    background: #fff;
+    padding: 2.5pt 5pt;
+    text-align: center;
+    font-size: 7pt;
+  }
+  .mem b { font-size: 7.4pt; }
+  .mem span { color: #666; display: block; font-size: 6.6pt; }
+
+  /* ---------- cover ---------- */
+  .cover {
+    height: 258mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    page-break-after: always;
+  }
+  .cover h1 {
+    font-size: 33pt;
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    margin: 0 0 10pt 0;
+  }
+  .cover .subtitle {
+    font-size: 13pt;
+    line-height: 1.35;
+    color: #444;
+    max-width: 118mm;
+  }
+  .cover .crule {
+    width: 46mm;
+    height: 3pt;
+    background: #b03030;
+    margin: 16pt 0 16pt 0;
+  }
+  .cover .cblock { padding-top: 10mm; }
+  .cover .tagline {
+    font-size: 10.6pt;
+    font-style: italic;
+    color: #666;
+    margin: 10pt 0 0 0;
+    max-width: 128mm;
+    line-height: 1.42;
+  }
+  .cover .abstract {
+    border-top: 0.6pt solid #ccc;
+    padding-top: 9pt;
+    font-size: 9.4pt;
+    color: #333;
+  }
+  .cover .abstract .label {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #b03030;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 5pt;
+  }
+  .cover .abstract p { margin: 0; text-align: justify; }
+  .cover .cstats {
+    display: flex;
+    gap: 0;
+    margin-top: 9mm;
+    border-top: 0.6pt solid #ddd;
+    border-bottom: 0.6pt solid #ddd;
+    padding: 8pt 0 9pt 0;
+  }
+  .cover .cstats div {
+    flex: 1 1 0;
+    border-left: 0.6pt solid #eee;
+    padding-left: 9pt;
+  }
+  .cover .cstats div:first-child { border-left: 0; padding-left: 0; }
+  .cover .cstats .n {
+    display: block;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 15pt;
+    font-weight: 700;
+    color: #b03030;
+    line-height: 1.1;
+  }
+  .cover .cstats .n em { font-style: normal; font-size: 8pt; font-weight: 700; margin-left: 1pt; }
+  .cover .cstats .l {
+    display: block;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 6.8pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+    margin-top: 2pt;
+  }
+  .cover .legalnote {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 6.5pt;
+    line-height: 1.4;
+    color: #8a8a8a;
+    margin: 9pt 0 0 0;
+    max-width: 152mm;
+    text-align: left;
+  }
+  .cover .cmeta {
+    margin-top: 8mm;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 8pt;
+    color: #555;
+  }
+  .cover .cmeta table { font-size: 8pt; margin: 0; }
+  .cover .cmeta td { border: 0; padding: 2pt 0; background: none !important; }
+  .cover .cmeta td:first-child {
+    color: #999;
+    font-weight: 400;
+    width: 34mm;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 7pt;
+    padding-top: 3.5pt;
+  }
+  .cover .cmeta tr:nth-child(even) td { background: none; }
+  .cover .endrule {
+    margin-top: 8mm;
+    border-top: 2.5pt solid #b03030;
+    padding-top: 6pt;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.4pt;
+    color: #999;
+    letter-spacing: 0.06em;
+  }
+
+  /* ---------- Guru cover panel ---------- */
+  .guru {
+    background: #0b0b0b;
+    border: 6pt solid #d21f1f;
+    padding: 11pt 16pt 9pt 16pt;
+    margin: 0;
+  }
+  .guru .gline {
+    font-family: "Liberation Mono", monospace;
+    font-size: 11.4pt;
+    text-align: center;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #ff5c4d;
+    margin: 0 0 7pt 0;
+  }
+  .guru .gtitle {
+    font-family: "Liberation Mono", monospace;
+    font-size: 58pt;
+    text-align: center;
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 8pt 0;
+  }
+  .guru .inner {
+    max-width: 300pt;
+    margin: 0 auto;
+  }
+  .guru .inner p:last-child { margin-bottom: 10pt; }
+  .guru .gsub {
+    font-family: "Liberation Mono", monospace;
+    font-size: 14.4pt;
+    line-height: 1.38;
+    color: #f2f2f2;
+    margin: 0 0 8pt 0;
+    text-align: justify;
+    text-align-last: center;
+  }
+  .guru .gtag {
+    font-family: "Liberation Mono", monospace;
+    font-size: 12.9pt;
+    line-height: 1.42;
+    font-style: italic;
+    color: #b9b9b9;
+    margin: 0 0 10pt 0;
+    text-align: justify;
+    text-align-last: center;
+  }
+  .guru .gnum {
+    font-family: "Liberation Mono", monospace;
+    font-size: 11.4pt;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #e2483a;
+    margin: 0;
+  }
+
+  /* ---------- end-of-document legal boilerplate ---------- */
+  .bpl {
+    margin-top: 20pt;
+    border-top: 1.2pt solid #b03030;
+    padding-top: 8pt;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.3pt;
+    line-height: 1.46;
+    color: #666;
+    page-break-inside: avoid;
+  }
+  .bpl .bplabel {
+    display: block;
+    font-size: 6.8pt;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #b03030;
+    margin-bottom: 3pt;
+  }
+  .bpl p { margin: 0 0 3pt 0; text-align: left; }
+  .bpl p:last-child { margin-bottom: 0; }
+
+  /* ---------- contents ---------- */
+  .tocpage { page-break-after: always; }
+  .tocpage h2 { margin-top: 0; }
+  .toc { list-style: none; margin: 14pt 0 0 0; padding: 0; }
+  .toc li {
+    display: flex;
+    align-items: baseline;
+    margin: 0 0 7.5pt 0;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 9.4pt;
+  }
+  .toc li.app { margin-top: 14pt; }
+  .toc li.app .t { color: #444; }
+  .toc .t { flex: 0 1 auto; }
+  .toc .dots {
+    flex: 1 1 auto;
+    border-bottom: 0.6pt dotted #bbb;
+    margin: 0 4pt 2.5pt 6pt;
+    min-width: 8mm;
+  }
+  .toc .p {
+    flex: 0 0 auto;
+    font-variant-numeric: tabular-nums;
+    color: #333;
+  }
+  .toc li.app .p { color: #b03030; font-weight: 700; }
+  .tocnote {
+    margin-top: 22pt;
+    font-size: 8.2pt;
+    color: #777;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    border-top: 0.6pt solid #ddd;
+    padding-top: 8pt;
+  }
+
+  /* ---------- appendices ---------- */
+  .appendix h2 { margin-top: 26pt; }
+  .appendix .lead {
+    font-size: 9.6pt;
+    color: #333;
+  }
+  pre.code {
+    font-family: "Liberation Mono", "Courier New", monospace;
+    font-size: 7.1pt;
+    line-height: 1.34;
+    background: #fbfbfb;
+    border: 0.5pt solid #e2e2e2;
+    border-left: 2.2pt solid #b03030;
+    padding: 7pt 9pt;
+    margin: 6pt 0 10pt 0;
+    white-space: pre;
+    overflow: hidden;
+    hyphens: none;
+    page-break-inside: avoid;
+    color: #222;
+  }
+  pre.code.wide { font-size: 6.7pt; }
+  .caption {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.4pt;
+    color: #666;
+    margin: -6pt 0 10pt 0;
+  }
+  .figure-head {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.6pt;
+    font-weight: 700;
+    color: #555;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 12pt 0 4pt 0;
+    page-break-after: avoid;
+  }
+  .sidebar {
+    background: #f3f5f7;
+    border-left: 2.5pt solid #4a5568;
+    padding: 8pt 10pt 5pt 10pt;
+    margin: 11pt 0 12pt 0;
+    font-size: 9pt;
+    line-height: 1.42;
+    page-break-inside: avoid;
+  }
+  .sidebar .slabel {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7pt;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #4a5568;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 2pt;
+  }
+  .sidebar h3 {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 10.4pt;
+    color: #111;
+    margin: 0 0 5pt 0;
+    border: none;
+    padding: 0;
+  }
+  .sidebar p { margin: 0 0 6pt 0; }
+  .sidebar ul { margin: 0 0 6pt 0; padding-left: 13pt; }
+  .sidebar li { margin-bottom: 2.5pt; }
+  .sidebar p:last-child { margin-bottom: 6pt; }
+
+  .note {
+    font-size: 8.4pt;
+    color: #555;
+    border-left: 1.5pt solid #ddd;
+    padding-left: 8pt;
+    margin: 8pt 0 10pt 0;
+  }
+  .mk { font-size: 0.5pt; color: transparent; }
+</style>
+</head>
+<body>
+
+<!-- ============================ COVER ============================ -->
+<section class="cover">
+  <div class="cblock">
+    <div class="guru">
+      <p class="gline">Amiga Guru Meditation Error</p>
+      <h1 class="gtitle">A5K</h1>
+      <div class="inner">
+        <p class="gsub">A Theoretical Design Proposition for an Amiga 5000-Like System</p>
+        <p class="gtag">The machine Commodore never shipped &mdash; an Amiga 5000-like design, specified from the Copper up.</p>
+      </div>
+      <p class="gnum">Guru Meditation #0000000A.00005000</p>
+    </div>
+  </div>
+
+  <div class="cstats">
+    <div><span class="n">7.09<em>MHz</em></span><span class="l">Copper tick</span></div>
+    <div><span class="n">4K</span><span class="l">scanout ceiling</span></div>
+    <div><span class="n">×4</span><span class="l">PCIe lanes</span></div>
+    <div><span class="n">≈$173</span><span class="l">prototype BOM</span></div>
+  </div>
+
+  <div class="abstract">
+    <span class="label">Abstract</span>
+    <p>The Amiga’s custom chips were never a graphics card bolted to a CPU. They were a set of narrow, fixed-function DMA engines sharing one memory, driven by a beam-synchronous instruction stream. This document argues that the same <em>method</em> — not the same silicon — is what a modern machine should re-adopt, and specifies one: an FPGA card presenting an Agnus-class DMA scheduler, a planar Denise-class scanout, a minterm blitter and an MC-1 Copper over PCIe, targeting a RISC-V host and an open-source toolchain. It also answers the obvious objection — why not simply use a GPU — and is explicit about where this machine loses. Three appendices turn the argument into engineering: the Copper instruction set and register map, a Migen implementation skeleton, and a bill of materials with indicative 2026 pricing.</p>
+  </div>
+
+  <div class="cmeta">
+    <table>
+      <tr><td>Prepared</td><td>1 November 2026</td></tr>
+      <tr><td>Revision</td><td>Rev. K — claims aligned with status</td></tr>
+      <tr><td>Status</td><td>Design study; no hardware built</td></tr>
+      <tr><td>Reference concept</td><td>“A5K”</td></tr>
+      <tr><td>Contents</td><td>9 sections · 3 appendices · 6 tables · 1 figure</td></tr>
+    </table>
+    <p class="legalnote">Amiga and Commodore are trademarks of their respective owners. This is an independent design study, not affiliated with, endorsed by, or sponsored by any rights holder. No logo or registered-mark symbol is used. The design is provided as is, without warranty of any kind, and is not for safety-critical, medical, life-support, aviation or aerospace use. See LEGAL.md for the full notice.</p>
+    <div class="endrule">Open silicon · open toolchain · open OS</div>
+  </div>
+</section>
+
+<!-- ============================ CONTENTS ============================ -->
+<section class="tocpage">
+  <h2>Contents</h2>
+  <ol class="toc">
+    <li><span class="t">1. What “the latest model of that era” actually was</span><span class="dots"></span><span class="p" data-mk="zzS1zz">1</span></li>
+    <li><span class="t">2. The design ethos, distilled</span><span class="dots"></span><span class="p" data-mk="zzS2zz">1</span></li>
+    <li><span class="t">3. Chip-by-chip: the modern re-issue</span><span class="dots"></span><span class="p" data-mk="zzS3zz">3</span></li>
+    <li><span class="t">4. Getting it onto a modern bus</span><span class="dots"></span><span class="p" data-mk="zzS4zz">4</span></li>
+    <li><span class="t">5. CPU: RISC-V, POWER, or a 68k core?</span><span class="dots"></span><span class="p" data-mk="zzS5zz">4</span></li>
+    <li><span class="t">6. A concrete reference build</span><span class="dots"></span><span class="p" data-mk="zzS6zz">6</span></li>
+    <li><span class="t">7. Software</span><span class="dots"></span><span class="p" data-mk="zzS7zz">6</span></li>
+    <li><span class="t">8. What you’d lose</span><span class="dots"></span><span class="p" data-mk="zzS8zz">6</span></li>
+    <li><span class="t">9. Why not just use a GPU?</span><span class="dots"></span><span class="p" data-mk="zzS9zz">7</span></li>
+    <li class="app"><span class="t">Appendix A — The Copper, specified</span><span class="dots"></span><span class="p" data-mk="zzSazz">9</span></li>
+    <li class="app"><span class="t">Appendix B — Implementation skeleton</span><span class="dots"></span><span class="p" data-mk="zzSbzz">12</span></li>
+    <li class="app"><span class="t">Appendix C — Bill of materials</span><span class="dots"></span><span class="p" data-mk="zzSczz">14</span></li>
+  </ol>
+
+  <h2 style="margin-top:28pt">Tables and figures</h2>
+  <ol class="toc">
+    <li><span class="t">Table 1 — Chip-by-chip: the modern re-issue</span><span class="dots"></span><span class="p" data-mk="zzT1zz">3</span></li>
+    <li><span class="t">Table 2 — Against a modern GPU: the honest scoreboard</span><span class="dots"></span><span class="p" data-mk="zzT2zz">8</span></li>
+    <li><span class="t">Table 3 — MC-1 opcode map</span><span class="dots"></span><span class="p" data-mk="zzT3zz">10</span></li>
+    <li><span class="t">Table 4 — Register aperture and key registers</span><span class="dots"></span><span class="p" data-mk="zzT4zz">10</span></li>
+    <li><span class="t">Table 5 — Plane attributes, and what they may not do</span><span class="dots"></span><span class="p" data-mk="zzT5zz">12</span></li>
+    <li><span class="t">Table 6 — Bill of materials, reference build</span><span class="dots"></span><span class="p" data-mk="zzT6zz">14</span></li>
+    <li><span class="t">Figure 1 — The card-as-chipset shape</span><span class="dots"></span><span class="p" data-mk="zzF1zz">4</span></li>
+  </ol>
+
+  <p class="tocnote">Page numbers refer to the folios printed at the foot of each page. The cover is unnumbered; the contents page is <em>ii</em>.</p>
+</section>
+
+<!-- ============================ BODY ============================ -->
+<p class="kicker" style="margin:0 0 4pt 0">Introduction</p>
+<div style="height:2pt;background:#b03030;width:34mm;margin:0 0 12pt 0"></div>
+
+<div class="qa">
+  <p><span class="ql">Question:</span> What would a new and modern version of the old Commodore Amiga (but the latest model of that era, or of that time period) look like today? With all custom chip subsystems following the same design ethos and methodology, what would be the most appropriate modern versions of those same kinds of chips be today, and how would we get to use it on a modern bus and modern form factor — whether PCIe or something else? And could it run on a RISC-V CPU, or what would be best, and all free and open source, if possible?</p>
+</div>
+
+<p><span class="al">Answer:</span> Great question — and a fun one, because the Amiga is one of the few old machines whose architecture maps <em>upward</em> into modern silicon almost 1:1. Let me anchor it first, then build the modern version.</p>
+
+<h2 id="s1">1. What “the latest model of that era” actually was</h2>
+
+<p>The last real Amiga big box was the <strong>A4000T</strong> (1994–97, 68040/68060, Zorro III, 16-bit Paula, 2&nbsp;MB Chip / up to 128&nbsp;MB Fast). But the <em>actual</em> “next Amiga” was cancelled silicon:</p>
+
+<ul>
+  <li><strong>AAA</strong> (Advanced Amiga Architecture, ~1993–94): 32-bit chipset, 16-bit chunky <em>and</em> planar, 8-channel 16-bit audio, 64-bit blitter, a much wider Copper, 8 bitplanes, 1280×1024. Killed in 1994.</li>
+  <li><strong>Hombre</strong> (1995): PA-RISC CPU + a custom 3D chipset, essentially an Amiga-derived games console. Killed too.</li>
+</ul>
+
+<p>So a “new modern Amiga” = <strong>AAA’s successor, with Hombre’s 3D ambitions</strong>, and it should keep the <em>method</em>, not the mask layout.</p>
+
+<p><strong>What it is not.</strong> A5K is not a clone. It contains no Commodore code, ships no Kickstart ROM, and offers no binary compatibility with Amiga software. It is an independent re-issue of the architecture’s ideas — which, unlike its code, its ROMs and its marks, are free to use: the relevant patents expired by 2012, and the semiconductor mask-work term is ten years.</p>
+
+<h2 id="s2">2. The design ethos, distilled</h2>
+
+<p>Strip the nostalgia and the Amiga chipset is really six engineering rules:</p>
+
+<ol>
+  <li><strong>Fixed-function coprocessors</strong>, each with a narrow, dumb job — not one general-purpose engine.</li>
+  <li><strong>Everyone is a DMA master</strong> into one shared, arbitrated memory (“Chip RAM”).</li>
+  <li><strong>Raster/beam-synchronous programming</strong> — the Copper, not vblank-locked APIs.</li>
+  <li><strong>Memory-mapped registers, no privileged API.</strong> The hardware <em>is</em> the API; poking it is legal.</li>
+  <li><strong>Zero-copy</strong>: display fetches the same bytes the CPU wrote.</li>
+  <li><strong>Deterministic cycle timing</strong> — demos depend on counting DMA slots, so timing is a contract, not best-effort.</li>
+</ol>
+
+<p>Everything below is judged against those six.</p>
+
+<h2 id="s3" style="page-break-before:always">3. Chip-by-chip: the modern re-issue</h2>
+
+<table>
+<caption><strong>Table 1.</strong> Each 1985 block and its present-day descendant.</caption>
+<thead>
+<tr>
+  <th style="width:12%">Amiga chip</th>
+  <th style="width:24%">Job</th>
+  <th style="width:36%">Modern equivalent (production silicon)</th>
+  <th style="width:28%">Open-source IP to build it from</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Agnus</td>
+  <td>DMA controller, beam counter, memory arbiter, blitter/copper/audio/disk DMA</td>
+  <td>Display-fetch scheduler + QoS memory crossbar (what every SoC display controller’s fetch unit is)</td>
+  <td><code>LiteDRAM</code>, LiteX Wishbone/AXI crossbar + a custom slot-table arbiter</td>
+</tr>
+<tr>
+  <td>Denise</td>
+  <td>Planar scanout, sprites, priority, HAM/EHB, genlock</td>
+  <td>Display engine / DPU with <strong>overlay planes</strong> and hardware cursor — the sprite successor (Appendix A.5)</td>
+  <td><code>LiteVideo</code>, <code>hdl-util/hdmi</code>, custom planar fetch pipeline</td>
+</tr>
+<tr>
+  <td>Blitter</td>
+  <td>Minterm ALU on 3 sources, line draw, area fill</td>
+  <td>2D engine: STM32 <strong>DMA2D/Chrom-ART</strong>, NXP <strong>PXP/ePDC</strong>, GPU 2D ring</td>
+  <td>Custom (it’s small), or <code>Nyuzi</code>/<code>Vortex</code> if you want compute</td>
+</tr>
+<tr>
+  <td>Copper</td>
+  <td>Programmable display-list processor (wait/skip/move)</td>
+  <td><strong>GPU command processor</strong> (AMD CP, NVIDIA front-end), DRM/KMS atomic commit, console “display lists” (PS2 VU1, N64 RSP)</td>
+  <td>Custom microsequencer (trivial in an FPGA); specified in Appendix A</td>
+</tr>
+<tr>
+  <td>Paula</td>
+  <td>4-ch variable-rate 8-bit DMA audio, floppy, serial, POT</td>
+  <td>Audio DMA engine + I2S/TDM codec; SDIO/eMMC; UART</td>
+  <td><code>LiteSDCard</code>, <code>LiteEth</code>, custom audio DMA</td>
+</tr>
+<tr>
+  <td>CIA 8520</td>
+  <td>Timers, GPIO, interrupts</td>
+  <td>Always-on / housekeeping MCU block</td>
+  <td><code>VexRiscv</code> / <code>NEORV32</code></td>
+</tr>
+<tr>
+  <td>Gary/Buster</td>
+  <td>Bus glue, address decode</td>
+  <td>NoC / interconnect</td>
+  <td>LiteX, AXI4, Wishbone</td>
+</tr>
+</tbody>
+</table>
+
+<div class="sidebar">
+  <span class="slabel">Sidebar</span>
+  <h3>Why Paula bundled audio and disk — and why a PC doesn’t</h3>
+
+  <p>Paula (8364) carried four audio channels, the floppy controller, the serial port, the paddle inputs and the interrupt controller — shipped in 1985, still in the A4000T in 1997. AGA replaced Agnus and Denise and left Paula alone.</p>
+
+  <p>The PC went the other way: a sound card became a codec, then a stack of kernel driver, userspace mixer and a shared 48&nbsp;kHz clock every application resamples to. The card is a peripheral on a bus; the OS owns the clock, and the program waits.</p>
+
+  <p>Paula is a <em>memory client</em>. Each channel is a DMA stream with its own period register, summed in hardware, reading the same Chip RAM as the display. Latency is one sample period; no mixer, no resampler, no daemon. The price was 8-bit samples and four voices — right in 1985, wrong by 1992.</p>
+
+  <p>The rebuild keeps the model and fixes the arithmetic: one oscillator for audio and video, so A/V sync is a ratio not a resample; audio DMA in the display’s slot table, so worst-case latency is known before shipping; I²S to a 24-bit DAC; storage still raw-bitstream, with software deciding what the words mean.</p>
+
+  <p>For 24/192 playback with DSP, a PC wins and §9 concedes it. For audio that must land <em>with</em> something, a scheduler in the path is the defect.</p>
+</div>
+
+<p>The important realization: <strong>the modern equivalents already exist and are still fixed-function.</strong> Overlay planes <em>are</em> sprites and playfields with priority. A display engine’s fetch/QoS arbiter <em>is</em> Agnus stealing cycles. A GPU’s command processor <em>is</em> a Copper. The industry didn’t abandon the Amiga model — it renamed it and hid it behind a driver.</p>
+
+<p>What’s genuinely gone: the <em>planar</em> bitplane format, HAM/EHB, and publicly documented registers.</p>
+
+
+
+<h2 id="s4">4. Getting it onto a modern bus</h2>
+
+<p>Three viable homes, in increasing order of “real Amiga-ness”. In every case the shape is the same — a host on one side of a fast link, the chipset on the other:</p>
+
+<figure>
+  <div class="arch">
+    <div class="node host">
+      <span class="nt">Host</span>
+      <span class="ns">CPU + OS</span>
+      <span class="ns">AROS / Linux</span>
+      <span class="ns">RISC-V or x86</span>
+    </div>
+
+    <div class="link">
+      <div class="lbl">PCIe x4 / x8</div>
+      <div class="wire"></div>
+      <div class="lbl2">MSI-X · bus-master DMA</div>
+    </div>
+
+    <div class="card">
+      <div class="ct">CARD — FPGA / ASIC</div>
+      <div class="bar"><b>BAR0</b> — chip registers: Agnus, Copper, Blitter, Paula</div>
+      <div class="bar"><b>BAR2</b> — Chip RAM aperture</div>
+
+      <div class="pipe">
+        <div class="blk"><b>Agnus</b><span>DMA sched. + beam</span></div>
+        <div class="arr">→</div>
+        <div class="blk"><b>Denise</b><span>planar scanout</span></div>
+        <div class="arr">→</div>
+        <div class="sink">HDMI</div>
+      </div>
+
+      <div class="vline"><span>Wishbone / AXI fabric</span></div>
+      <div class="mem"><b>Chip RAM — DDR3 / LPDDR4</b><span>256 MB – 2 GB</span></div>
+    </div>
+  </div>
+  <figcaption><strong>Figure 1.</strong> The card-as-chipset shape shared by all three options: one register aperture, one memory aperture, one command list, one display pipe.</figcaption>
+</figure>
+
+<p><strong>A. PCIe add-in card — “the Amiga as a GPU.”</strong> This is the natural fit for that shape. Every modern GPU is already: PCIe endpoint + local VRAM + display engine + command processor + DMA. Make that card <em>behave like a chipset</em>:</p>
+
+<p>Key point: <strong>PCIe latency (~1&nbsp;µs) doesn’t hurt, because the Amiga model was designed to be latency-tolerant.</strong> All raster-critical work lives in the Copper list <em>on the card</em>; the CPU only sets up lists ahead of time. That’s exactly why the architecture scales to a 4K display engine with a 7.09&nbsp;MHz Copper tick.</p>
+
+<p><strong>B. CXL Type-2 accelerator.</strong> If you want the literal “Chip RAM” semantics — the chipset DMAs coherently into host memory, CPU and blitter see one address space — CXL.mem is the modern Agnus bus. More exotic, but it’s the honest translation.</p>
+
+<p><strong>C. Chiplet / SoC tile.</strong> Put the whole chipset as an IP block on an SoC interconnect (AXI/ACE/CHI) next to a RISC-V cluster. <strong>Microchip PolarFire SoC</strong> (RISC-V + FPGA fabric) is the closest off-the-shelf “new Amiga motherboard” today; you drop the chipset into the fabric and the CPU cluster talks AXI to it.</p>
+
+<p><strong>Form factors:</strong> PCIe low-profile card (desktop), <strong>M.2 2280</strong> (laptop/SFF — a 4-lane card fits, and the display goes out over the card’s own HDMI or via eDP), USB4/Thunderbolt external box (eGPU style), or a mini-ITX/ATX board with the SoC + fabric on-board for the “big box” feel (and Zorro-style expansion via PCIe slots).</p>
+
+<h2 id="s5">5. CPU: RISC-V, POWER, or a 68k core?</h2>
+
+<p>Three honest options:</p>
+
+<ul>
+  <li><strong>Native 68k (soft core).</strong> Open cores exist: <strong>fx68k</strong> (cycle-accurate 68000, used in MiSTer) and <strong>TG68K</strong>. This is the only path to <em>binary</em> Amiga compatibility on real hardware — but it caps you around 68000/010 performance and big-endian is a feature, not a bug.</li>
+  <li><strong>RISC-V (RV64GC).</strong> Best open, best ecosystem, best tooling (VexRiscv, CVA6, BOOM, Rocket, XiangShan). Downside: little-endian by default, so planar bitmaps and 68k structs need byteswapping — do it in the blitter/scanout and it’s free. Run UAE/AROS for compatibility.</li>
+  <li><strong>OpenPOWER.</strong> Big-endian, open ISA (Microwatt, Libre-SOC), which is <em>spiritually</em> the most Amiga-correct choice (68k is big-endian; planar graphics assume it). Practically, weaker ecosystem.</li>
+</ul>
+
+<div class="callout">
+  <span class="label">Recommendation</span>
+  <p><strong>RISC-V as the host + a small 68k soft core as a legacy coprocessor</strong> (or UAE on the RISC-V). That gives you a modern OS and native old software, and it mirrors the Amiga’s own philosophy: a general CPU plus specialized silicon. If you want purity over pragmatism, OpenPOWER.</p>
+</div>
+
+<h2 id="s6" style="page-break-before:always">6. A concrete reference build</h2>
+
+<p>Call it the <strong>A5K</strong>:</p>
+
+<ul>
+  <li><strong>Carrier:</strong> Lattice ECP5-85 or Xilinx Artix-7 200T (both have usable open flows via <strong>Yosys + nextpnr</strong>; larger designs may need Vivado for the FPGA but keep the <em>design</em> in Migen/LiteX so it’s portable).</li>
+  <li><strong>SoC glue:</strong> <strong>LiteX</strong> — gives you LitePCIe, LiteDRAM, LiteSDCard, LiteEth, Wishbone/AXI bridges, and a VexRiscv if you want the whole machine on one board.</li>
+  <li><strong>Chipset IP:</strong> Agnus-equivalent (slot-table DMA arbiter + beam counter), Denise-equivalent (planar scanout + planes + priority + HAM), Blitter (minterm ALU + Bresenham), Copper (microsequencer), Paula (audio DMA + SDIO + UART), CIA (VexRiscv).</li>
+  <li><strong>Video out:</strong> HDMI 1.4/2.0 from the card (<code>hdl-util/hdmi</code> or LiteX’s video), with a “beam counter” that scales the original 7.09&nbsp;MHz line rate up to 1080p/4K while keeping Copper ticks relatable.</li>
+  <li><strong>RAM:</strong> 512&nbsp;MB–2&nbsp;GB DDR3/LPDDR4 as Chip RAM; host memory reachable via PCIe BAR/DMA for “Fast RAM.”</li>
+  <li><strong>Display model:</strong> keep planar + chunky, keep HAM/EHB, keep planes (Appendix A.5), keep priority. Add overlay planes so a modern windowing system can sit on top without giving up the old modes.</li>
+  <li><strong>Sync primitive:</strong> expose a <strong>beam-synchronous fence</strong> — “wait until scanline N then fire this Copper list” — so host software gets raster sync back (<code>drm_vblank</code>/<code>drm_syncobj</code> semantics map exactly).</li>
+</ul>
+
+<h2 id="s7">7. Software</h2>
+
+<ul>
+  <li><strong>OS:</strong> <strong>AROS</strong> is the open-source answer — it’s a source-compatible reimplementation of the AmigaOS 3.x API, already running on x86/ARM/68k/PPC. A port to RISC-V plus a <code>chipset.hidd</code> driver for the PCIe device is the intended route to a real Amiga-like OS on modern silicon. <em>No such port exists for this hardware today; it is a target, not a result.</em> (AmigaOS 4 and MorphOS are closed/PPC; ApolloOS is an AROS fork for Vampire.)</li>
+  <li><strong>Alternatively, Linux + DRM:</strong> the mapping is almost comically direct — <strong>atomic commit = Copper list</strong>, <strong>plane properties = playfield/sprite registers</strong>, <strong>vblank event = beam interrupt</strong>, <strong>syncobj = Copper WAIT</strong>. Then run host-ed AROS or UAE on top.</li>
+  <li><strong>Firmware/openness:</strong> everything above (LiteX, Yosys, nextpnr, AROS, VexRiscv, fx68k) is free/open. The only closed piece is typically the FPGA vendor’s place-and-route for big parts and the HDMI PHY.</li>
+</ul>
+
+<h2 id="s8">8. What you’d lose</h2>
+
+<p>Be clear-eyed: you’d lose <strong>cycle-exact OCS/ECS/AGA behaviour</strong> unless the Copper and Agnus are literally bit-identical (emulators already do this better than new silicon will). You’d lose the mask-ROM-era “one chip, one job, documented register” simplicity the moment you add memory protection. And planar/HAM are dead ends for 3D — Hombre’s 3D would have to be a <em>second</em> fixed-function pipeline, or a small shader core bolted alongside, which starts to violate rule #1.</p>
+
+<p>But the <em>ethos</em> survives: a machine where the CPU sets up command lists and specialized silicon does the pixel work in lockstep with the beam, on one shared memory, with the registers exposed. That’s a modern Amiga — and honestly, it’s a better description of a modern GPU than most people realize.</p>
+
+<h2 id="s9">9. Why not just use a GPU?</h2>
+
+<p>This is the first question a hardware reviewer asks, and it deserves a straight answer rather than a defence. Every modern SoC already contains a massively parallel rasteriser with programmable shaders, and Vulkan and Metal expose it with far less overhead than DirectX or OpenGL ever did — you can bypass both of those APIs today and talk almost directly to the hardware. So why build a chipset at all?</p>
+
+<p>Because the chipset is not in the pixel business. It is in the <strong>timing</strong> business. The two machines optimise different quantities, and the difference is measurable rather than sentimental.</p>
+
+<h3>9.1 What a GPU is for</h3>
+
+<p>A GPU is a throughput machine: thousands of lanes, deep queues, and a scheduler whose only job is to keep them busy. Its contract is <em>eventual</em> completion — a frame arrives, eventually, in an order the driver and the scheduler chose. That is the correct contract for a 3D scene, and it is why a mid-range card beats anything described here by three orders of magnitude at shading, texturing and compute.</p>
+
+<p>Nothing in this document competes with that. If the workload is ten million triangles with physically based shading, the answer is a GPU, and this chipset has nothing to contribute.</p>
+
+<h3>9.2 What a GPU cannot promise</h3>
+
+<ul>
+  <li><strong>Bounded latency.</strong> A frame’s completion time depends on queue depth, scheduler policy, power state and what else is resident. No register tells you that line 214 will be fetched at dot 40; the Copper’s entire value is that you can know that in advance.</li>
+  <li><strong>A stable timeline.</strong> Vulkan gives you fences and semaphores — ordering guarantees, not timing guarantees. <code>vkQueueSubmit</code> returns immediately; the work happens when it happens.</li>
+  <li><strong>Ownership of the display.</strong> The OS compositor owns scanout. An application cannot change a register between two scanlines, because it cannot see the scanlines.</li>
+  <li><strong>Direct access.</strong> Poking a register has no equivalent: there is a validation layer, a command buffer, a kernel-mode scheduler and usually a firmware blob between the program and the raster.</li>
+  <li><strong>One address space.</strong> A GPU has VRAM, a driver-managed heap and a copy engine. “The display fetches the bytes the CPU wrote” is a property of Chip RAM, not of a PCIe BAR.</li>
+</ul>
+
+<p>None of this is a criticism of GPUs. It is the difference between a <em>scheduler</em> and a <em>sequencer</em>. Both execute instructions; only one of them promises to execute the next one 141&nbsp;ns from now.</p>
+
+<h3>9.3 What shaders are good for — and where they belong</h3>
+
+<p>Shaders are the right tool for per-pixel work, and this design does not forbid them; it declines to put them in the scanout path. A programmable pixel stage destroys the property that makes the rest of the machine useful: you can no longer count cycles, because the cost of a pixel now depends on what it computes and what data it waits for.</p>
+
+<p>The honest architecture is therefore a hybrid, described in §9.6: let a GPU do the shading, and let the chipset do what it is built for — composition, scanout and timing.</p>
+
+<h3>9.4 Where this machine loses, plainly</h3>
+
+<p>It is not a competitor to a current PC and should never be sold as one. On the axes that most people measure, it loses outright:</p>
+
+<ul>
+  <li><strong>3D and compute.</strong> No triangle rate worth quoting, no texture units, no shader cores, no ray tracing. A 2026 integrated GPU is faster than this entire card.</li>
+  <li><strong>Memory bandwidth.</strong> A 128-bit DDR3 path delivers tens of gigabytes per second; a modern discrete card delivers hundreds, and the slot table deliberately gives much of ours to display fetches.</li>
+  <li><strong>Tooling and ecosystem.</strong> Nothing comparable to SPIR-V, no profilers, no vendors, and an operating system (AROS) with a tiny fraction of the software.</li>
+  <li><strong>Price.</strong> At $173 in parts it is not even cheap next to a used office PC with a capable integrated GPU.</li>
+</ul>
+
+<h3>9.5 The honest scoreboard</h3>
+
+<table class="tight">
+<caption><strong>Table 2.</strong> Where each machine wins, stated without flattery.</caption>
+<thead>
+<tr><th style="width:25%">Axis</th><th style="width:33%">Modern PC + GPU</th><th style="width:33%">A5K card</th><th style="width:9%">Wins</th></tr>
+</thead>
+<tbody>
+<tr><td>Shading throughput</td><td>Billions of triangles/s, fully programmable</td><td>None in the scanout path</td><td>PC</td></tr>
+<tr><td>Compute</td><td>Vulkan/Metal compute, tensor units</td><td>None (an optional GPU tile would supply it)</td><td>PC</td></tr>
+<tr><td>Worst-case frame latency</td><td>Unbounded: scheduler, compositor, driver</td><td>One scanline, by construction</td><td>A5K</td></tr>
+<tr><td>Sub-frame control</td><td>None — the app cannot see scanlines</td><td>Per-scanline register writes from the Copper</td><td>A5K</td></tr>
+<tr><td>Code between app and pixel</td><td>10<sup>6</sup>–10<sup>7</sup> lines of driver and firmware</td><td>~10<sup>4</sup> lines of RTL you can read</td><td>A5K</td></tr>
+<tr><td>Display power</td><td>5–30&nbsp;W for the GPU alone</td><td>1–2&nbsp;W for the whole chipset</td><td>A5K</td></tr>
+<tr><td>Software catalogue</td><td>Effectively everything</td><td>AROS plus 68k legacy</td><td>PC</td></tr>
+<tr><td>Price / performance</td><td>Unbeatable, and improving yearly</td><td>Not a meaningful metric</td><td>PC</td></tr>
+</tbody>
+</table>
+
+<h3>9.6 You can have both</h3>
+
+<p>Nothing in the design prevents a GPU from being one of the plane sources. The pattern is the one every modern display controller already uses: the GPU renders into a Chip RAM buffer, the buffer is exposed as a plane, and the Copper keeps ownership of the cursor, the OSD and the raster splits around it. The GPU’s latency then stops mattering, because scanout never waits for it — you double-buffer, and if a frame is late the previous one is shown again, exactly as a compositor does.</p>
+
+<p>That hybrid is how a shipping machine would actually be built: GPU for shading, chipset for composition, timing and I/O. What it cannot do is give you both properties in the same pixel — a pixel is either produced by a scheduler or by a sequencer.</p>
+
+<h3>9.7 So what is it for?</h3>
+
+<p>Not a PC replacement. These are the places where the architecture is not merely quaint but genuinely better:</p>
+
+<ul>
+  <li><strong>Live video and genlock.</strong> Where the frame must land on house sync, and a compositor’s jitter <em>is</em> the defect.</li>
+  <li><strong>Instrumentation and test equipment.</strong> A display whose timing is a documented contract rather than an emergent property.</li>
+  <li><strong>Hardware-accurate retro machines.</strong> A real chipset rather than an emulator with a shim.</li>
+  <li><strong>Teaching.</strong> A complete graphics stack — RTL, driver, OS — that one person can read end to end.</li>
+  <li><strong>Art and research.</strong> Raster-level control with modern I/O and no vendor in the path.</li>
+</ul>
+
+<p>A GPU is the right answer to “how do I draw this fast?”. The Amiga chipset is the right answer to “when exactly will this pixel appear?”. They are different questions, and a serious machine should be able to answer both — which is precisely why §9.6 exists.</p>
+
+<!-- ============================ APPENDIX A ============================ -->
+<section class="appendix">
+<h2 id="appA">Appendix A — The Copper, specified</h2>
+
+<p class="lead">A design like this only becomes real when the Copper is nailed down to bits. What follows is <strong>MC-1</strong>: a self-consistent re-issue that keeps the 1985 programming model — a list of instructions executed in lockstep with the video beam, with no interrupts and no CPU involvement — but widens it to 64-bit instructions, a 16-bit register index and a 24-bit beam address. It is deliberately <em>not</em> binary-compatible with OCS/AGA lists; the compatibility front-end at the end of this appendix restores that for legacy software.</p>
+
+<h3>A.1 Instruction format</h3>
+
+<p>Every instruction is one 64-bit word, aligned to 8 bytes. The list is an array of these words in Chip RAM; the Copper fetches and retires one per tick.</p>
+
+<table class="tight">
+<thead>
+<tr><th style="width:14%">Bits</th><th style="width:12%">Field</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td>63–60</td><td>OP</td><td>Opcode (8 defined of 16)</td></tr>
+<tr><td>59–56</td><td>FLAGS</td><td>Execution qualifiers (see below)</td></tr>
+<tr><td>55–32</td><td>A</td><td>Operand A: register index, beam position, or list offset</td></tr>
+<tr><td>31–0</td><td>B</td><td>Operand B: data word, or mask</td></tr>
+</tbody>
+</table>
+
+<table class="tight">
+<thead>
+<tr><th style="width:12%">Flag</th><th style="width:26%">Name</th><th>Effect</th></tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>WAIT_BLIT</td><td>Hold until the blitter is idle before retiring the instruction</td></tr>
+<tr><td>1</td><td>WAIT_SLOT</td><td>Hold until the requested DMA slot has been fetched (cycle-exact sync)</td></tr>
+<tr><td>2</td><td>IRQ_ON_DONE</td><td>Raise the Copper interrupt when this instruction retires</td></tr>
+<tr><td>3</td><td>LINE_SYNC</td><td>Align to the start of the next scanline rather than the current one</td></tr>
+</tbody>
+</table>
+
+<h3>A.2 Opcodes</h3>
+
+<table>
+<caption><strong>Table 3.</strong> The eight defined MC-1 opcodes.</caption>
+<thead>
+<tr><th style="width:10%">Op</th><th style="width:12%">Mnemonic</th><th style="width:40%">Operation</th><th>Typical use</th></tr>
+</thead>
+<tbody>
+<tr><td>0x0</td><td>MOVE</td><td><code>reg[A[15:0]] ← B</code></td><td>Set any chip register: colours, pointers, control</td></tr>
+<tr><td>0x1</td><td>WAIT</td><td>Stall until <code>(beam &amp; B) == (A &amp; B)</code></td><td>“Wait for line N, then…” — the raster split</td></tr>
+<tr><td>0x2</td><td>SKIP</td><td>If the same condition holds, skip the next instruction</td><td>Conditional colour changes without branching</td></tr>
+<tr><td>0x3</td><td>JUMP</td><td><code>PC ← list_base + 8·A</code></td><td>Loops inside one list</td></tr>
+<tr><td>0x4</td><td>CALL</td><td>Push PC, then JUMP</td><td>Shared sub-lists (a “Copper library”)</td></tr>
+<tr><td>0x5</td><td>RET</td><td>Pop PC</td><td>Return from CALL</td></tr>
+<tr><td>0x6</td><td>END</td><td>Reload from COP2LC if armed; raise VBlank IRQ</td><td>End of frame; double-buffered lists</td></tr>
+<tr><td>0x7</td><td>IRQ</td><td>Raise interrupt <code>A[7:0]</code>, payload B</td><td>Host notification mid-frame (rare, expensive)</td></tr>
+</tbody>
+</table>
+
+<p><strong>Beam packing.</strong> For WAIT and SKIP, operand A holds a packed position and B a mask over the same fields: <code>A = (V &lt;&lt; 12) | H</code>, where V is the line number (0–4095) and H the horizontal position in dot clocks (0–4095 — enough for 4K DCI). Because the mask is applied to both sides of the comparison, <code>0x0FFF000</code> matches the vertical field alone: that is the classic “wait for line N” idiom, expressed without bit arithmetic in the assembler.</p>
+
+<p><strong>Timing.</strong> The Copper retires one instruction per 7.09&nbsp;MHz tick (141&nbsp;ns); a MOVE that writes a display register costs one tick, and a WAIT whose condition is already satisfied costs one tick and falls through. The remainder of the frame the Copper is idle — which is precisely why it can afford to be dumb. At 4K the beam counter is scaled, but the tick stays 141&nbsp;ns, so a legacy list written for 15&nbsp;kHz runs at the same <em>rate</em>, over more lines.</p>
+
+<pre class="code">; --- classic raster split, MC-1 assembler syntax ----------------------
+        MOVE   0x0340, 0x00F0        ; COLOR00 := Amiga blue
+        WAIT   0x064000, 0x0FFF000   ; hold until the beam reaches line 100
+        MOVE   0x0340, 0x0F00        ; COLOR00 := white
+        MOVE   0x0344, 0x0F0F        ; COLOR01 := pale grey
+        WAIT   0x0B4000, 0x0FFF000   ; hold until line 180
+        MOVE   0x0340, 0x00F0        ; back to blue
+        END                          ; re-arm from COP2LC on the next frame</pre>
+<p class="caption"><strong>Listing 1.</strong> Nine words of Copper produce a gradient bar that no CPU has to touch after setup.</p>
+
+<h3>A.3 Register map</h3>
+
+<p>The register file is a flat 4&nbsp;KiB window in BAR0 (extended to 64&nbsp;KiB in the ASIC revision), accessed as 32-bit words with 16-bit addressing. Reads of write-only registers return the last value written, so a driver can always save and restore state.</p>
+
+<table class="tight">
+<caption><strong>Table 4.</strong> Aperture map, then the registers a programmer actually touches.</caption>
+<thead>
+<tr><th style="width:22%">Range</th><th>Block</th></tr>
+</thead>
+<tbody>
+<tr><td>0x0000–0x00FF</td><td>Copper, beam counter and list control</td></tr>
+<tr><td>0x0100–0x01FF</td><td>Denise: bitplanes, display window, video modes</td></tr>
+<tr><td>0x0200–0x02FF</td><td>Planes (legacy sprites): position, size, priority, merge order; collision detect</td></tr>
+<tr><td>0x0300–0x03FF</td><td>Palette — 256 entries, 32-bit RGBA (classic 0x0180 lives here)</td></tr>
+<tr><td>0x0400–0x04FF</td><td>Blitter</td></tr>
+<tr><td>0x0500–0x05FF</td><td>Paula: audio, disk, serial, POT</td></tr>
+<tr><td>0x0600–0x06FF</td><td>DMA and interrupt control</td></tr>
+<tr><td>0x0700–0x07FF</td><td>CIA: timers, GPIO, time-of-day</td></tr>
+<tr><td>0x0800–0x08FF</td><td>Genlock and video timing</td></tr>
+<tr><td>0x0900–0x0FFF</td><td>Reserved for the next revision (3D, expansion)</td></tr>
+</tbody>
+</table>
+
+<table class="tight">
+<thead>
+<tr><th style="width:19%">Register</th><th style="width:11%">Addr</th><th style="width:7%">Width</th><th>Function</th></tr>
+</thead>
+<tbody>
+<tr><td>COP1LC</td><td>0x0000</td><td>32</td><td>Primary Copper list base (8-byte aligned, Chip RAM)</td></tr>
+<tr><td>COP2LC</td><td>0x0004</td><td>32</td><td>List reloaded by END — the double-buffer hook</td></tr>
+<tr><td>COPJMP1/2</td><td>0x0008</td><td>8</td><td>Strobe: restart from COP1LC / COP2LC immediately</td></tr>
+<tr><td>COPCON</td><td>0x000C</td><td>8</td><td>bit 0 legacy decode, bit 1 Copper IRQ enable</td></tr>
+<tr><td>VPOSR</td><td>0x0010</td><td>16</td><td>Current line number</td></tr>
+<tr><td>VHPOSR</td><td>0x0014</td><td>32</td><td>Line in [23:12], dot clock in [11:0]</td></tr>
+<tr><td>BEAMCON0</td><td>0x0018</td><td>16</td><td>Tick rate, line length, interlace, sync polarity</td></tr>
+<tr><td>DMACON</td><td>0x0600</td><td>16</td><td>Per-channel DMA enable (bitplane, blitter, copper, audio, disk)</td></tr>
+<tr><td>INTENA / INTREQ</td><td>0x0604 / 0x0608</td><td>16</td><td>Interrupt enable mask / request-and-clear</td></tr>
+<tr><td>BPLCON0–3</td><td>0x0100</td><td>16</td><td>Depth, HAM, EHB, dual playfield, resolution</td></tr>
+<tr><td>BPL1PT–BPL8PT</td><td>0x0110+</td><td>32</td><td>Bitplane base pointers</td></tr>
+<tr><td>DIWSTRT / DIWSTOP</td><td>0x0130</td><td>16</td><td>Display window start / stop</td></tr>
+<tr><td>DDFSTRT / DDFSTOP</td><td>0x0134</td><td>16</td><td>Data fetch window (the shifter’s horizontal trim)</td></tr>
+<tr><td>BLTCON0/1</td><td>0x0400</td><td>16</td><td>Minterm, shift, fill mode, line mode, blitter-busy flag</td></tr>
+<tr><td>BLTSIZE</td><td>0x040C</td><td>16</td><td>Width × height — writing it starts the blit</td></tr>
+<tr><td>AUDxLC / AUDxPER</td><td>0x0500+</td><td>32 / 16</td><td>Sample pointer / period (sample rate), per channel</td></tr>
+<tr><td>DSKLEN</td><td>0x0520</td><td>16</td><td>Disk DMA length; write-twice arms the transfer</td></tr>
+<tr><td>CIA PRA/PRB/TA/TB</td><td>0x0700+</td><td>8</td><td>Timers, GPIO and TOD, 68k-compatible shapes</td></tr>
+</tbody>
+</table>
+
+<h3>A.4 Legacy compatibility</h3>
+
+<p>Setting <code>COPCON.LEGACY</code> switches the front-end into the 1985 encoding: pairs of 16-bit words, MOVE when bit 0 of the first word is clear, WAIT/SKIP with the vertical field in bits 2–8 and the horizontal in the second word. The translator runs at list-load time, costs one extra tick per two words, and preserves the original’s illegal-opcode behaviour (an invalid instruction halts the Copper and sets the Copper-bad bit), because demos and copy-protection both rely on that. Compatibility is therefore a property of the list, not of the machine: one card can run an AGA demo and a 4K AROS desktop in adjacent windows, each with its own Copper dialect.</p>
+
+<div class="callout">
+  <span class="label">Design note</span>
+  <p>The temptation is to “improve” the Copper with loops, conditions and a stack — which is what modern GPU command processors did, and why they now need a compiler. The list above adds only JUMP/CALL/RET, and nothing with a data-dependent branch, because the Copper’s value is that its execution time is <em>knowable</em> before it runs. Every instruction added for convenience is a cycle the demo programmer can no longer count.</p>
+</div>
+
+<h3>A.5 Planes, not sprites</h3>
+
+<p>The word <em>sprite</em> survives in this document as a compatibility alias, not as a specification. What OCS and AGA called a sprite was a strictly budgeted object: eight of them, 16 pixels wide (64 on AGA), three colours plus transparency, fetched by DMA in planar form, with a collision-detection unit bolted alongside. None of that is worth reproducing in 2026. All of it is worth <em>emulating</em>, because existing software expects it.</p>
+
+<p>What the design specifies instead is a set of <strong>planes</strong> — the block every modern display controller already contains, documented here rather than hidden behind a driver.</p>
+
+<table class="tight">
+<caption><strong>Table 5.</strong> The plane block, and the constraints that keep it Amiga-like.</caption>
+<thead>
+<tr><th style="width:22%">Attribute</th><th>Specification</th></tr>
+</thead>
+<tbody>
+<tr><td>Count</td><td>8 hardware planes, plus 8 composited in the merge stage</td></tr>
+<tr><td>Format</td><td>ARGB8888 linear; 1–8 bitplane planar in legacy mode</td></tr>
+<tr><td>Size</td><td>Up to 4096 × 4096 pixels</td></tr>
+<tr><td>Position</td><td>Integer x/y per plane; no sub-pixel placement — scanout is integral</td></tr>
+<tr><td>Blending</td><td>None, constant alpha, or premultiplied alpha, selected per plane</td></tr>
+<tr><td>Priority</td><td>4-bit level; the original resolution order is preserved in legacy mode</td></tr>
+<tr><td>Source</td><td>Any Chip RAM address, fetched per line, never cached</td></tr>
+<tr><td>Update</td><td>Any attribute writable by the Copper mid-frame; pointers double-buffered</td></tr>
+<tr><td>Collision</td><td><code>CLXDAT</code> computed in the merge stage for legacy lists; disabled otherwise</td></tr>
+<tr><td>Cost</td><td>One slot per line per plane in the slot table — never free, always countable</td></tr>
+</tbody>
+</table>
+
+<p>Four rules keep the block from drifting into a GPU:</p>
+
+<ol>
+  <li>A plane is <strong>fetched</strong>, not composited in software.</li>
+  <li>Its position is a <strong>register</strong>, so the Copper can move it between scanlines.</li>
+  <li>It occupies a <strong>known slice of the line budget</strong>, counted by the slot table before the frame begins.</li>
+  <li>It cannot sample a texture, run a shader, or blend in a non-linear colour space. If you need that, it is not a plane — it is a GPU, and §9 sets out what you give up.</li>
+</ol>
+
+<p>The last rule is the important one, and it is a design constraint rather than a shortcoming. An overlay plane that can do everything <em>is</em> a GPU; a GPU has no timing contract; and the timing contract is the only thing this machine has that a PC does not.</p>
+
+</section>
+
+<!-- ============================ APPENDIX B ============================ -->
+<section class="appendix">
+<h2 id="appB">Appendix B — Implementation skeleton</h2>
+
+<p class="lead">Two files are enough to see the shape: the Copper itself, and the top level that hangs the whole chipset off a LiteX SoC. Both are sketches — the real blocks are a few hundred lines each, and the hard parts (arbitration, clock-domain crossing, the blitter’s slot stealing) are exactly the parts elided. They are written in Migen because that is what LiteX is built on, and because a hardware description that fits on a page is the best argument that the design is still simple.</p>
+
+<h3>B.1 The Copper</h3>
+
+<pre class="code"># copper.py — MC-1 display-list processor (sketch; imports elided)
+from migen import *
+
+MOVE, WAIT, SKIP, JUMP, CALL, RET, END, IRQ = range(8)
+
+class Copper(Module):
+    """Retires one 64-bit instruction per 7.09 MHz tick."""
+
+    def __init__(self, beam, reg_wr, mem):
+        self.list_base = Signal(32)      # COP1LC / COP2LC, 8-byte aligned
+        self.enable    = Signal()
+        self.jump      = Signal()        # COPJMP1/2 strobe
+        self.stall     = Signal()        # chip-bus slot not granted
+        self.irq_ev    = Signal()
+        self.irq_num   = Signal(8)
+
+        pc    = Signal(32)
+        ins   = Signal(64)
+        ready = Signal()
+
+        # ---- fetch: one word per granted slot -------------------------
+        self.comb += [
+            mem.adr.eq(pc),
+            mem.stb.eq(self.enable & ~self.stall & ~ready),
+            mem.we.eq(0),
+        ]
+        self.sync += [
+            If(mem.ack, ins.eq(mem.dat_r), ready.eq(1)),
+            If(~mem.stb, ready.eq(0)),
+        ]
+
+        # ---- execute --------------------------------------------------
+        cond = (beam & ins[31:0]) == (ins[55:32] & ins[31:0])
+        self.sync += [
+            If(self.jump | ~self.enable,
+                pc.eq(self.list_base), ready.eq(0),
+            ).Elif(ready & ~self.stall,
+                Case(ins[63:60], {
+                    MOVE: [reg_wr.adr.eq(ins[39:32]),
+                           reg_wr.dat.eq(ins[31:0]),
+                           reg_wr.we.eq(1), pc.eq(pc + 8)],
+                    WAIT: [If(cond, pc.eq(pc + 8))],          # else hold
+                    SKIP: [If(cond, pc.eq(pc + 16))
+                           .Else(pc.eq(pc + 8))],
+                    JUMP: [pc.eq(self.list_base + (ins[55:32] & 0xFFFFF) * 8)],
+                    CALL: [pc.eq(self.list_base + (ins[55:32] & 0xFFFFF) * 8)],
+                    RET:  [pc.eq(pc + 8)],                    # stack omitted
+                    END:  [pc.eq(self.list_base), self.irq_ev.eq(1)],
+                    IRQ:  [self.irq_num.eq(ins[55:48]),
+                           self.irq_ev.eq(1), pc.eq(pc + 8)],
+                })
+            )
+        ]</pre>
+<p class="caption"><strong>Listing 2.</strong> Instruction fetch, decode and retire; the return stack, blitter-slot handshake and register-file decode are omitted.</p>
+
+<h3>B.2 Wiring it into a LiteX SoC</h3>
+
+<p>Hanging the blocks off a bus is where the design stops being a sketch. Before the code, the honest summary of the effort:</p>
+
+<div class="note">
+  <strong>Where the difficulty actually lives.</strong> Not in the Copper — it is a 300-line state machine. The hard parts are (1) the <em>slot table</em>, a fixed schedule of which master gets Chip RAM on which cycle, because that schedule <em>is</em> the machine’s timing contract; (2) clock-domain crossing between the 7.09&nbsp;MHz chip domain, the 100&nbsp;MHz AXI domain and the 148.5&nbsp;MHz pixel clock; and (3) making the PCIe BAR2 aperture coherent with the on-card DDR controller so a host write is visible to the next scanline fetch without a flush.
+</div>
+
+<pre class="code"># soc.py — chipset as an AXI/Wishbone peripheral (sketch)
+from litex.soc.integration.soc_core import SoCCore
+from litex.soc.integration.builder import Builder
+from litedram.core import LiteDRAMCore
+from litepcie.core import LitePCIeEndpoint
+
+from copper import Copper
+from agnus import Agnus
+from denise import Denise
+from blitter import Blitter
+
+class AmigaSoC(SoCCore):
+    def __init__(self, platform):
+        SoCCore.__init__(self, platform, clk_freq=100e6,
+                         cpu_type="vexriscv",
+                         integrated_rom_size=0x8000)
+
+        # one DDR3 port, many masters: Agnus owns the arbiter
+        self.submodules.dram  = LiteDRAMCore(platform.request("ddr3"))
+        self.submodules.agnus = Agnus(self.dram.crossbar.get_port())
+        self.submodules.denise  = Denise(timing=platform.request("hdmi"))
+        self.submodules.blitter = Blitter(self.agnus.slot)
+        self.submodules.copper  = Copper(self.agnus.beam,
+                                         self.agnus.reg_wr,
+                                         self.agnus.port_a)
+
+        # host view: BAR0 = registers, BAR2 = chip RAM window
+        self.submodules.pcie = LitePCIeEndpoint(
+            platform.request("pcie_x4"), max_pending_requests=8)
+        self.bus.add_slave("chipset", self.agnus.bus,
+                           region=0x0000_0000, size=0x0000_1000)
+
+        # 1080p60 out of a 7.09 MHz tick: the beam counter scales,
+        # the Copper does not
+        self.sync += self.agnus.line_len.eq(2200)
+        self.comb += self.denise.pix_clk.eq(self.crg.clk148_5)
+
+def main():
+    from litex.build.generic_platform import *
+    from amiga_platform import Platform      # ECP5 / Artix-7 pinout
+    soc = AmigaSoC(Platform())
+    Builder(soc, output_dir="build").build()</pre>
+<p class="caption"><strong>Listing 3.</strong> The whole machine, as a peripheral. Real code adds clock domains, the PCIe BAR decoder and the slot table.</p>
+
+</section>
+
+<!-- ============================ APPENDIX C ============================ -->
+<section class="appendix">
+<h2 id="appC">Appendix C — Bill of materials</h2>
+
+<p class="lead">Two builds are costed: a <strong>reference</strong> card around the Lattice ECP5-85 (open toolchain end-to-end), and a <strong>performance</strong> card around the Xilinx Artix-7 200T (roughly 3× the logic and fabric for a 3D pipe, at the cost of a closed place-and-route). Prices are indicative single-unit distributor figures for Q4 2026 in USD; FPGAs and DDR move a lot, so treat these as order-of-magnitude, not quotes.</p>
+
+<table class="tight">
+<caption><strong>Table 6.</strong> Reference build — per board, parts only.</caption>
+<thead>
+<tr><th style="width:6%">#</th><th style="width:29%">Item</th><th style="width:29%">Example part</th><th style="width:6%">Qty</th><th style="width:15%" class="num">Unit</th><th style="width:15%" class="num">Ext.</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>FPGA</td><td>Lattice LFE5U-85F-8BG381C</td><td>1</td><td class="num">$89.00</td><td class="num">$89.00</td></tr>
+<tr><td>2</td><td>Configuration flash</td><td>Winbond W25Q128JVSIQ</td><td>1</td><td class="num">$2.60</td><td class="num">$2.60</td></tr>
+<tr><td>3</td><td>DDR3L, 512 MB</td><td>Micron MT41K256M16TW-107</td><td>2</td><td class="num">$7.40</td><td class="num">$14.80</td></tr>
+<tr><td>4</td><td>Video clock generator</td><td>Skyworks Si5351A-B-GT</td><td>1</td><td class="num">$1.90</td><td class="num">$1.90</td></tr>
+<tr><td>5</td><td>HDMI transmitter</td><td>ITE IT66121FN</td><td>1</td><td class="num">$3.30</td><td class="num">$3.30</td></tr>
+<tr><td>6</td><td>HDMI connector + ESD</td><td>TE 1903015-1, TI TPD4E02B04</td><td>1</td><td class="num">$1.10</td><td class="num">$1.10</td></tr>
+<tr><td>7</td><td>Audio DAC</td><td>TI PCM5102APWR</td><td>1</td><td class="num">$3.70</td><td class="num">$3.70</td></tr>
+<tr><td>8</td><td>microSD socket</td><td>Hirose DM3AT-SF-PEJM5</td><td>1</td><td class="num">$0.55</td><td class="num">$0.55</td></tr>
+<tr><td>9</td><td>Power: bucks + LDOs</td><td>TI TPS54620, TPS7A90 ×2</td><td>1</td><td class="num">$6.20</td><td class="num">$6.20</td></tr>
+<tr><td>10</td><td>Passives, crystals, ESD, fan</td><td>various</td><td>1</td><td class="num">$9.00</td><td class="num">$9.00</td></tr>
+<tr class="tot"><td></td><td>Parts subtotal</td><td></td><td></td><td></td><td class="num">$132.15</td></tr>
+</tbody>
+</table>
+
+<table class="tight">
+<thead>
+<tr><th style="width:46%">Build cost (5-board prototype run)</th><th style="width:18%" class="num">Per lot</th><th style="width:18%" class="num">Per board</th><th style="width:18%" class="num">Board + parts</th></tr>
+</thead>
+<tbody>
+<tr><td>PCB — 4-layer, low-profile PCIe, ENIG</td><td class="num">$60</td><td class="num">$12.00</td><td class="num">$144.15</td></tr>
+<tr><td>SMT assembly, two sides, 5 off</td><td class="num">$120</td><td class="num">$24.00</td><td class="num">$156.15</td></tr>
+<tr><td>Test, programming, reflow stencil</td><td class="num">$25</td><td class="num">$5.00</td><td class="num">$161.15</td></tr>
+<tr class="tot"><td>Reference card, working prototype</td><td class="num">$205</td><td class="num">$41.00</td><td class="num">≈ $173</td></tr>
+</tbody>
+</table>
+
+<h3>C.1 Variants and volume</h3>
+
+<table class="tight">
+<thead>
+<tr><th style="width:30%">Variant</th><th style="width:34%">Difference</th><th style="width:18%" class="num">5 off</th><th style="width:18%" class="num">100 off</th></tr>
+</thead>
+<tbody>
+<tr><td>Reference (ECP5-85)</td><td>Open flow, 84k LUT, Gen1/2 x4</td><td class="num">≈ $173</td><td class="num">≈ $130</td></tr>
+<tr><td>Performance (Artix-7 200T)</td><td>+$226 FPGA, 6-layer PCB, Gen2 x4</td><td class="num">≈ $410</td><td class="num">≈ $335</td></tr>
+<tr><td>M.2 2280 shrink</td><td>Single DDR3, no HDMI (eDP over edge)</td><td class="num">≈ $150</td><td class="num">≈ $112</td></tr>
+</tbody>
+</table>
+
+<h3>C.2 Host and tooling</h3>
+
+<table class="tight">
+<thead>
+<tr><th style="width:26%">Item</th><th style="width:44%">Note</th><th style="width:30%" class="num">Indicative</th></tr>
+</thead>
+<tbody>
+<tr><td>RISC-V host board</td><td>Any PCIe-equipped board (VisionFive 2, Milk-V, PolarFire Icicle)</td><td class="num">$80 – $700</td></tr>
+<tr><td>FPGA toolchain</td><td>Yosys + nextpnr + openFPGALoader</td><td class="num">$0</td></tr>
+<tr><td>2D/3D IP</td><td>LiteX, LitePCIe, LiteDRAM, AROS, VexRiscv</td><td class="num">$0</td></tr>
+<tr><td>ASIC conversion (optional)</td><td>28 nm shuttle, shared mask, 100 dies</td><td class="num">$60k – $150k</td></tr>
+</tbody>
+</table>
+
+<div class="note">
+  <strong>What these numbers exclude.</strong> Engineering time (the dominant cost by far), enclosures, the host machine, PSU, tax and shipping, certification, and any NRE for the ASIC path. They also exclude the one thing money cannot buy quickly: a driver stack, which is months of work even with AROS already written.
+</div>
+
+<h3>C.3 Prototype path</h3>
+
+<p>The sensible order is software first: the Copper and slot table can be validated against existing Amiga software before anyone spins a board.</p>
+
+<ol>
+  <li><strong>Simulation.</strong> Write the blocks in Migen, run them under Verilator and dump frames to PNG; a real A1200 supplies the reference output, register write by register write.</li>
+  <li><strong>One board, one mode.</strong> An ECP5 board with DVI out: 640×512 planar scanout and a live Copper list, no PCIe — where the slot table is proven and most schedule bugs surface.</li>
+  <li><strong>Attach the host.</strong> Add LitePCIe x1 Gen1 and BAR0, then write the AROS HIDD or the Linux DRM driver against the register map in Appendix A. The driver is the long pole: start it while the hardware is still an FPGA.</li>
+</ol>
+
+<p>Only then is the BOM worth ordering — the PCB is the cheapest item and the last to exist. The honest reading is that the silicon is cheap and the software is expensive: the inversion that killed the original Amiga.</p>
+
+</section>
+
+<div class="bpl">
+  <span class="bplabel">Legal notice</span>
+  <p><strong>Not a clone.</strong> This work contains no Commodore code, ships no Kickstart ROM and offers no binary compatibility with Amiga software. It is an independent re-issue of the architecture’s ideas; the relevant patents expired by 2012 and the mask-work term is ten years.</p>
+  <p>Amiga and Commodore are trademarks of their respective owners. This is an independent design study, not affiliated with, endorsed by or sponsored by any rights holder. Provided “as is”, without warranty of any kind, and not for safety-critical, medical, life-support, aviation or aerospace use. To the maximum extent permitted by law the author accepts no liability for any loss arising from its use. <strong>The author publishes information and does not manufacture or sell goods.</strong> Full notice: LEGAL.md. Not legal advice.</p>
+  <p><strong>Licensing.</strong> Hardware design: CERN-OHL-S v2. Documents: CC BY 4.0. Scripts: MIT. The complete notice is in LEGAL.md, with the licence texts in LICENSE-hardware, LICENSE-docs and LICENSE-scripts.</p>
+  <p><strong>How to cite.</strong> Ryan David Hall (AKA &quot;ProphetPX&quot;). (2026). <em>A5K — A Theoretical Design Proposition for an Amiga 5000-Like System</em>, Rev. I.</p>
+</div>
+
+</body>
+</html>

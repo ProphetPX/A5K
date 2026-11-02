@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Where This Design Sits — Addendum</title>
+<style>
+  @page {
+    size: A4;
+    margin: 17mm 25mm 17mm 25mm;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "DejaVu Serif", Georgia, "Times New Roman", serif;
+    font-size: 10pt;
+    line-height: 1.52;
+    color: #1a1a1a;
+    margin: 0;
+    hyphens: auto;
+  }
+  .doc-head {
+    border-bottom: 2.5pt solid #b03030;
+    padding-bottom: 10pt;
+    margin-bottom: 16pt;
+  }
+  .kicker {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 8pt;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #b03030;
+    font-weight: 700;
+    margin: 0 0 6pt 0;
+  }
+  h1 {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 21pt;
+    line-height: 1.15;
+    margin: 0 0 6pt 0;
+    color: #111;
+  }
+  .subtitle {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 10.5pt;
+    color: #555;
+    margin: 0;
+  }
+  .meta {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 8pt;
+    color: #777;
+    margin-top: 10pt;
+  }
+  h2 {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 13pt;
+    color: #111;
+    margin: 20pt 0 7pt 0;
+    padding-bottom: 3pt;
+    border-bottom: 0.6pt solid #ccc;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 10.3pt;
+    color: #333;
+    margin: 10pt 0 4pt 0;
+    page-break-after: avoid;
+  }
+  p { margin: 0 0 7pt 0; text-align: justify; }
+  ul, ol { margin: 0 0 8pt 0; padding-left: 16pt; }
+  li { margin-bottom: 3.5pt; }
+  strong { color: #000; }
+  em { }
+  code {
+    font-family: "Liberation Mono", "Courier New", monospace;
+    font-size: 8.4pt;
+    background: #f3f3f3;
+    padding: 0.5pt 2.5pt;
+    border-radius: 2pt;
+    color: #7a1f1f;
+  }
+  caption {
+    caption-side: top;
+    text-align: left;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.4pt;
+    color: #666;
+    padding: 0 0 4pt 0;
+    page-break-after: avoid;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.7pt;
+    line-height: 1.35;
+    margin: 6pt 0 8pt 0;
+    page-break-inside: auto;
+  }
+  thead { display: table-header-group; }
+  tr { page-break-inside: avoid; }
+  th {
+    background: #2b2b2b;
+    color: #fff;
+    text-align: left;
+    padding: 4.5pt 5pt;
+    font-weight: 700;
+    font-size: 7.6pt;
+    vertical-align: bottom;
+  }
+  td {
+    padding: 4pt 5pt;
+    border-bottom: 0.5pt solid #ddd;
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) td { background: #f7f7f7; }
+  td:first-child { font-weight: 700; color: #111; white-space: nowrap; }
+  .tight td { padding: 2.7pt 5pt; }
+  .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .tot td {
+    border-top: 0.8pt solid #333;
+    border-bottom: 0.8pt solid #333;
+    font-weight: 700;
+    background: #efefef !important;
+  }
+  figure {
+    margin: 5pt 0 8pt 0;
+    page-break-inside: avoid;
+  }
+  figcaption {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.2pt;
+    color: #666;
+    margin-top: 4pt;
+    text-align: left;
+  }
+  .callout {
+    background: #f6f1e7;
+    border-left: 2.5pt solid #b03030;
+    padding: 7pt 10pt;
+    margin: 8pt 0 12pt 0;
+    font-size: 9.6pt;
+    page-break-inside: avoid;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout .label {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #b03030;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 3pt;
+  }
+  .qa {
+    background: #f6f1e7;
+    border-left: 2.5pt solid #b03030;
+    padding: 8pt 10pt 6pt 10pt;
+    margin: 2pt 0 11pt 0;
+    font-size: 9.4pt;
+    font-style: italic;
+    line-height: 1.46;
+  }
+  .qa p { margin: 0; text-align: justify; }
+  .qa .ql {
+    font-style: normal;
+    font-weight: 700;
+    color: #b03030;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 8.2pt;
+  }
+  .al {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 8.2pt;
+    font-weight: 700;
+    color: #b03030;
+  }
+  .rule { height: 0; border-top: 0.6pt solid #ddd; margin: 14pt 0; }
+
+  /* ---------- architecture figure ---------- */
+  .arch {
+    display: flex;
+    align-items: center;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.4pt;
+    line-height: 1.25;
+  }
+  .node {
+    border: 0.8pt solid #555;
+    border-radius: 2pt;
+    background: #fbfbfb;
+    padding: 7pt 8pt;
+    text-align: center;
+  }
+  .node .nt { font-weight: 700; font-size: 7.8pt; display: block; margin-bottom: 3pt; }
+  .node .ns { color: #555; display: block; }
+  .host { width: 84pt; flex: 0 0 auto; }
+  .link { flex: 1 1 auto; position: relative; height: 40pt; min-width: 54pt; }
+  .link .wire {
+    position: absolute;
+    top: 18pt; left: 3pt; right: 3pt;
+    height: 0.8pt;
+    background: #555;
+  }
+  .link .wire::before,
+  .link .wire::after {
+    content: "";
+    position: absolute;
+    top: -2.4pt;
+    width: 0;
+    height: 0;
+    border-top: 2.6pt solid transparent;
+    border-bottom: 2.6pt solid transparent;
+  }
+  .link .wire::before { left: 0; border-right: 4pt solid #555; }
+  .link .wire::after { right: 0; border-left: 4pt solid #555; }
+  .link .lbl { position: absolute; top: 4pt; left: 0; right: 0; text-align: center; font-weight: 700; color: #333; }
+  .link .lbl2 { position: absolute; top: 23pt; left: 0; right: 0; text-align: center; color: #666; font-size: 6.8pt; }
+  .card {
+    flex: 1 1 auto;
+    border: 1.1pt solid #b03030;
+    border-radius: 2pt;
+    background: #fdf8f7;
+    padding: 5pt 6pt 6pt 6pt;
+  }
+  .card .ct { font-weight: 700; font-size: 7.8pt; color: #b03030; margin-bottom: 3pt; }
+  .bar {
+    font-family: "Liberation Mono", monospace;
+    font-size: 6.6pt;
+    color: #444;
+    background: #fff;
+    border: 0.5pt solid #ddd;
+    border-radius: 1.5pt;
+    padding: 1.6pt 4pt;
+    margin-bottom: 2pt;
+  }
+  .bar b { color: #b03030; }
+  .pipe { display: flex; align-items: center; margin-top: 4pt; }
+  .blk {
+    border: 0.8pt solid #777;
+    border-radius: 1.5pt;
+    background: #fff;
+    padding: 2.5pt 4pt;
+    text-align: center;
+    flex: 1 1 0;
+    font-size: 6.9pt;
+  }
+  .blk b { display: block; font-size: 7.4pt; }
+  .blk span { color: #666; font-size: 6.3pt; }
+  .arr { flex: 0 0 auto; padding: 0 3pt; color: #555; font-size: 9pt; line-height: 1; }
+  .sink {
+    flex: 0 0 auto;
+    border: 0.8pt solid #b03030;
+    background: #fff;
+    border-radius: 1.5pt;
+    padding: 3.5pt 5pt;
+    text-align: center;
+    font-weight: 700;
+    font-size: 7.2pt;
+    color: #b03030;
+  }
+  .vline { height: 13pt; position: relative; }
+  .vline::before {
+    content: "";
+    position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    border-left: 0.8pt solid #555;
+  }
+  .vline span {
+    position: absolute;
+    left: calc(50% + 8pt);
+    top: 4pt;
+    font-size: 6.2pt;
+    color: #777;
+  }
+  .mem {
+    border: 0.8pt solid #555;
+    border-radius: 1.5pt;
+    background: #fff;
+    padding: 2.5pt 5pt;
+    text-align: center;
+    font-size: 7pt;
+  }
+  .mem b { font-size: 7.4pt; }
+  .mem span { color: #666; display: block; font-size: 6.6pt; }
+
+  /* ---------- cover ---------- */
+  .cover {
+    height: 258mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    page-break-after: always;
+  }
+  .cover h1 {
+    font-size: 33pt;
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    margin: 0 0 10pt 0;
+  }
+  .cover .subtitle {
+    font-size: 13pt;
+    line-height: 1.35;
+    color: #444;
+    max-width: 118mm;
+  }
+  .cover .crule {
+    width: 46mm;
+    height: 3pt;
+    background: #b03030;
+    margin: 16pt 0 16pt 0;
+  }
+  .cover .cblock { padding-top: 10mm; }
+  .cover .tagline {
+    font-size: 10.6pt;
+    font-style: italic;
+    color: #666;
+    margin: 10pt 0 0 0;
+    max-width: 128mm;
+    line-height: 1.42;
+  }
+  .cover .abstract {
+    border-top: 0.6pt solid #ccc;
+    padding-top: 9pt;
+    font-size: 9.4pt;
+    color: #333;
+  }
+  .cover .abstract .label {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #b03030;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 5pt;
+  }
+  .cover .abstract p { margin: 0; text-align: justify; }
+  .cover .cstats {
+    display: flex;
+    gap: 0;
+    margin-top: 9mm;
+    border-top: 0.6pt solid #ddd;
+    border-bottom: 0.6pt solid #ddd;
+    padding: 8pt 0 9pt 0;
+  }
+  .cover .cstats div {
+    flex: 1 1 0;
+    border-left: 0.6pt solid #eee;
+    padding-left: 9pt;
+  }
+  .cover .cstats div:first-child { border-left: 0; padding-left: 0; }
+  .cover .cstats .n {
+    display: block;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 15pt;
+    font-weight: 700;
+    color: #b03030;
+    line-height: 1.1;
+  }
+  .cover .cstats .n em { font-style: normal; font-size: 8pt; font-weight: 700; margin-left: 1pt; }
+  .cover .cstats .l {
+    display: block;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 6.8pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+    margin-top: 2pt;
+  }
+  .cover .legalnote {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 6.5pt;
+    line-height: 1.4;
+    color: #8a8a8a;
+    margin: 9pt 0 0 0;
+    max-width: 152mm;
+    text-align: left;
+  }
+  .cover .cmeta {
+    margin-top: 8mm;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 8pt;
+    color: #555;
+  }
+  .cover .cmeta table { font-size: 8pt; margin: 0; }
+  .cover .cmeta td { border: 0; padding: 2pt 0; background: none !important; }
+  .cover .cmeta td:first-child {
+    color: #999;
+    font-weight: 400;
+    width: 34mm;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 7pt;
+    padding-top: 3.5pt;
+  }
+  .cover .cmeta tr:nth-child(even) td { background: none; }
+  .cover .endrule {
+    margin-top: 8mm;
+    border-top: 2.5pt solid #b03030;
+    padding-top: 6pt;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.4pt;
+    color: #999;
+    letter-spacing: 0.06em;
+  }
+
+  /* ---------- Guru cover panel ---------- */
+  .guru {
+    background: #0b0b0b;
+    border: 6pt solid #d21f1f;
+    padding: 11pt 16pt 9pt 16pt;
+    margin: 0;
+  }
+  .guru .gline {
+    font-family: "Liberation Mono", monospace;
+    font-size: 11.4pt;
+    text-align: center;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #ff5c4d;
+    margin: 0 0 7pt 0;
+  }
+  .guru .gtitle {
+    font-family: "Liberation Mono", monospace;
+    font-size: 58pt;
+    text-align: center;
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 8pt 0;
+  }
+  .guru .inner {
+    max-width: 300pt;
+    margin: 0 auto;
+  }
+  .guru .inner p:last-child { margin-bottom: 10pt; }
+  .guru .gsub {
+    font-family: "Liberation Mono", monospace;
+    font-size: 14.4pt;
+    line-height: 1.38;
+    color: #f2f2f2;
+    margin: 0 0 8pt 0;
+    text-align: justify;
+    text-align-last: center;
+  }
+  .guru .gtag {
+    font-family: "Liberation Mono", monospace;
+    font-size: 12.9pt;
+    line-height: 1.42;
+    font-style: italic;
+    color: #b9b9b9;
+    margin: 0 0 10pt 0;
+    text-align: justify;
+    text-align-last: center;
+  }
+  .guru .gnum {
+    font-family: "Liberation Mono", monospace;
+    font-size: 11.4pt;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #e2483a;
+    margin: 0;
+  }
+
+  /* ---------- end-of-document legal boilerplate ---------- */
+  .bpl {
+    margin-top: 20pt;
+    border-top: 1.2pt solid #b03030;
+    padding-top: 8pt;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.3pt;
+    line-height: 1.46;
+    color: #666;
+    page-break-inside: avoid;
+  }
+  .bpl .bplabel {
+    display: block;
+    font-size: 6.8pt;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #b03030;
+    margin-bottom: 3pt;
+  }
+  .bpl p { margin: 0 0 3pt 0; text-align: left; }
+  .bpl p:last-child { margin-bottom: 0; }
+
+  /* ---------- contents ---------- */
+  .tocpage { page-break-after: always; }
+  .tocpage h2 { margin-top: 0; }
+  .toc { list-style: none; margin: 14pt 0 0 0; padding: 0; }
+  .toc li {
+    display: flex;
+    align-items: baseline;
+    margin: 0 0 7.5pt 0;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 9.4pt;
+  }
+  .toc li.app { margin-top: 14pt; }
+  .toc li.app .t { color: #444; }
+  .toc .t { flex: 0 1 auto; }
+  .toc .dots {
+    flex: 1 1 auto;
+    border-bottom: 0.6pt dotted #bbb;
+    margin: 0 4pt 2.5pt 6pt;
+    min-width: 8mm;
+  }
+  .toc .p {
+    flex: 0 0 auto;
+    font-variant-numeric: tabular-nums;
+    color: #333;
+  }
+  .toc li.app .p { color: #b03030; font-weight: 700; }
+  .tocnote {
+    margin-top: 22pt;
+    font-size: 8.2pt;
+    color: #777;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    border-top: 0.6pt solid #ddd;
+    padding-top: 8pt;
+  }
+
+  /* ---------- appendices ---------- */
+  .appendix h2 { margin-top: 26pt; }
+  .appendix .lead {
+    font-size: 9.6pt;
+    color: #333;
+  }
+  pre.code {
+    font-family: "Liberation Mono", "Courier New", monospace;
+    font-size: 7.1pt;
+    line-height: 1.34;
+    background: #fbfbfb;
+    border: 0.5pt solid #e2e2e2;
+    border-left: 2.2pt solid #b03030;
+    padding: 7pt 9pt;
+    margin: 6pt 0 10pt 0;
+    white-space: pre;
+    overflow: hidden;
+    hyphens: none;
+    page-break-inside: avoid;
+    color: #222;
+  }
+  pre.code.wide { font-size: 6.7pt; }
+  .caption {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.4pt;
+    color: #666;
+    margin: -6pt 0 10pt 0;
+  }
+  .figure-head {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.6pt;
+    font-weight: 700;
+    color: #555;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 12pt 0 4pt 0;
+    page-break-after: avoid;
+  }
+  .sidebar {
+    background: #f3f5f7;
+    border-left: 2.5pt solid #4a5568;
+    padding: 8pt 10pt 5pt 10pt;
+    margin: 11pt 0 12pt 0;
+    font-size: 9pt;
+    line-height: 1.42;
+    page-break-inside: avoid;
+  }
+  .sidebar .slabel {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7pt;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #4a5568;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 2pt;
+  }
+  .sidebar h3 {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 10.4pt;
+    color: #111;
+    margin: 0 0 5pt 0;
+    border: none;
+    padding: 0;
+  }
+  .sidebar p { margin: 0 0 6pt 0; }
+  .sidebar ul { margin: 0 0 6pt 0; padding-left: 13pt; }
+  .sidebar li { margin-bottom: 2.5pt; }
+  .sidebar p:last-child { margin-bottom: 6pt; }
+
+  .note {
+    font-size: 8.4pt;
+    color: #555;
+    border-left: 1.5pt solid #ddd;
+    padding-left: 8pt;
+    margin: 8pt 0 10pt 0;
+  }
+  .mk { font-size: 0.5pt; color: transparent; }
+
+  /* ---------- addendum specifics ---------- */
+  .add-head {
+    border-bottom: 2.5pt solid #b03030;
+    padding-bottom: 10pt;
+    margin-bottom: 14pt;
+  }
+  .add-head h1 {
+    font-size: 25pt;
+    line-height: 1.08;
+    margin: 2pt 0 6pt 0;
+  }
+  .scope {
+    background: #f3f5f7;
+    border-left: 2.5pt solid #4a5568;
+    padding: 8pt 10pt 6pt 10pt;
+    margin: 6pt 0 14pt 0;
+    font-size: 9.2pt;
+    line-height: 1.45;
+  }
+  .scope .slabel {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7pt;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #4a5568;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 3pt;
+  }
+  .scope p { margin: 0 0 6pt 0; }
+  .scope p:last-child { margin-bottom: 4pt; }
+  table.eras { font-size: 6.9pt; }
+  table.eras th, table.eras td { padding: 3pt 4pt; }
+  table.eras td:first-child { white-space: normal; }
+  .verdict { margin-top: 4pt; }
+  .bpl {
+    margin-top: 18pt;
+    border-top: 1.2pt solid #b03030;
+    padding-top: 8pt;
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 7.3pt;
+    line-height: 1.46;
+    color: #666;
+    page-break-inside: avoid;
+  }
+  .bpl .bplabel {
+    display: block; font-size: 6.8pt; letter-spacing: 0.14em; text-transform: uppercase;
+    font-weight: 700; color: #b03030; margin-bottom: 3pt;
+  }
+  .bpl p { margin: 0 0 3pt 0; text-align: left; }
+  .bpl p:last-child { margin-bottom: 0; }
+  .legalnote {
+    font-family: "DejaVu Sans", Helvetica, Arial, sans-serif;
+    font-size: 6.5pt;
+    line-height: 1.4;
+    color: #8a8a8a;
+    margin: 10pt 0 0 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="add-head">
+  <p class="kicker">Addendum to <em>A5K</em> · Rev. K</p>
+  <h1>Where This Design Sits</h1>
+  <p class="subtitle">AAA, Hombre, the shipped Amiga eras, and a 2026 scientific workstation — compared honestly</p>
+  <p class="meta">Prepared 1 November 2026 &nbsp;·&nbsp; Comparative analysis &nbsp;·&nbsp; 5 sections &nbsp;·&nbsp; 4 tables</p>
+  <p class="legalnote">Amiga and Commodore are trademarks of their respective owners. This is an independent design study, not affiliated with, endorsed by, or sponsored by any rights holder. Comparisons are estimates and opinion, not statements of fact about any company. See LEGAL.md.</p>
+</div>
+
+<div class="scope">
+  <span class="slabel">Scope and ground rules</span>
+  <p>This addendum does not restate the design; it places it. It compares the A5K concept against the two Amiga architectures that were designed but never built — <strong>AAA</strong> (1994) and <strong>Hombre</strong> (1995) — against the three that shipped, and against a current top-end scientific workstation.</p>
+  <p>One asymmetry governs everything below. <strong>OCS, ECS, AGA and the workstation are real, shipping hardware. AAA and Hombre were cancelled before volume silicon, and the A5K is a paper design with a bill of materials.</strong> Every comparison involving the Amigas is therefore design-target against design-target, and every number is an estimate derived from public specifications, datasheets and the BOM in Appendix C of the main document. Where a figure is a range, the range <em>is</em> the answer.</p>
+</div>
+
+<h2 id="c1">1. Why the A5K is better than AAA — and by how far</h2>
+
+<p>AAA (1993–94) was a <strong>2D evolution of the Amiga chipset</strong>: 32-bit paths, 16-bit chunky as well as planar, more bitplanes, 8-channel 16-bit audio, a 64-bit blitter, a wider Copper, and a display ceiling around 1280×1024. It was the right architectural answer to AGA’s limits, and it was cancelled because Commodore ran out of money before it could tape out.</p>
+
+<p>The A5K beats it in five ways and loses in one.</p>
+
+<table>
+<caption><strong>Table A1.</strong> The A5K against the AAA target specification.</caption>
+<thead>
+<tr><th style="width:20%">Axis</th><th style="width:33%">AAA (target, ~1995 silicon)</th><th style="width:33%">A5K (2026, FPGA)</th><th style="width:14%">Ratio</th></tr>
+</thead>
+<tbody>
+<tr><td>Configurable logic</td><td>~50–150k gates across 3–4 chips</td><td>215k logic cells ≈ 2–4M gate-equivalents</td><td>~20–60×</td></tr>
+<tr><td>Clock domain</td><td>~14–28 MHz chip bus</td><td>100–200 MHz core; 148.5 MHz pixel</td><td>~5–10×</td></tr>
+<tr><td>Chip RAM</td><td>~2–16 MB (never fixed)</td><td>512 MB – 2 GB DDR3/LPDDR4</td><td>~100–1000×</td></tr>
+<tr><td>Memory bandwidth</td><td>~50–100 MB/s</td><td>6.4–12.8 GB/s</td><td>~100×</td></tr>
+<tr><td>Host link</td><td>Zorro III, ~37 MB/s</td><td>PCIe Gen1/2 ×4, 1–2 GB/s</td><td>~30–50×</td></tr>
+<tr><td>Scanout</td><td>1280 × 1024</td><td>4K (3840 × 2160)</td><td>~6× pixels</td></tr>
+<tr><td>Native 68k software</td><td>Yes, by construction</td><td>No — AROS or emulation</td><td>AAA wins</td></tr>
+</tbody>
+</table>
+
+<p><strong>By how far:</strong> roughly <strong>1.5 orders of magnitude in silicon, and 2–3 in memory and bandwidth</strong>. That is not a new class of machine — it is the AAA concept executed on a 2026 FPGA with twenty-five extra years of process, memory and I/O. The real difference is not the ratio but the fact that <strong>one shipped and the other didn’t.</strong> AAA needed a fab, a CPU, an OS team, a factory and a market; the A5K needs a $173 BOM and a laptop.</p>
+
+<p>The one place AAA is strictly better: it would have run 1994 Amiga software natively. The A5K cannot, and should not pretend otherwise.</p>
+
+<h2 id="c2">2. Why it is better than Hombre — and where Hombre was ahead</h2>
+
+<p>Hombre (1995) was a different animal: a <strong>PA-RISC CPU plus a fixed-function 3D chipset</strong>, aimed at a CD32 successor — a games console rather than a computer. It was cancelled in 1995–96.</p>
+
+<p>Against Hombre, the A5K wins on:</p>
+
+<ul>
+  <li><strong>Openness.</strong> PA-RISC is dead; the design would have been closed, single-vendor and unmaintainable. The A5K is RISC-V or x86 plus LiteX and AROS, all readable.</li>
+  <li><strong>Memory and I/O.</strong> Hombre would have had a few megabytes and a cartridge or CD bus. The A5K has 2 GB and PCIe.</li>
+  <li><strong>Survivability.</strong> Hombre depended on winning a console war against PlayStation. The A5K depends on nobody.</li>
+  <li><strong>Tools.</strong> Yosys, nextpnr and Verilator, versus 1995 proprietary everything.</li>
+</ul>
+
+<p>But be honest about the 3D: <strong>Hombre had a 3D pipeline; the A5K has none.</strong> Its likely target was 10<sup>5</sup>–10<sup>6</sup> polygons per second — three to four orders below a 2026 GPU — so the correct comparison is not “ours is faster” but “ours declines the contest and borrows a GPU as a plane source” (§9.6 of the main document). Hombre tried to win a race it was already losing; the A5K refuses to enter it.</p>
+
+<p><strong>By how far:</strong> the same 1.5–3 orders in memory and logic, plus qualitative wins in openness and cost — but <em>minus</em> the one thing Hombre actually had, which is 3D silicon.</p>
+
+<h2 id="c3">3. The three Amiga eras, side by side</h2>
+
+<table class="eras">
+<caption><strong>Table A2.</strong> Shipped Amigas, cancelled Amigas, and the paper design.</caption>
+<thead>
+<tr>
+  <th style="width:15%"></th>
+  <th style="width:14%">OCS (1985)</th>
+  <th style="width:13%">ECS (1990)</th>
+  <th style="width:14%">AGA (1992)</th>
+  <th style="width:14%">AAA (1994, ✝)</th>
+  <th style="width:13%">Hombre (1995, ✝)</th>
+  <th style="width:17%">A5K (2026, paper)</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>CPU</td><td>68000 @ 7.1 MHz</td><td>68000 / 020</td><td>020 / 030 / 040</td><td>040 / 060</td><td>PA-RISC</td><td>RISC-V or x86 host</td></tr>
+<tr><td>Chip RAM</td><td>256–512 KB</td><td>1–2 MB</td><td>2 MB</td><td>~2–16 MB</td><td>a few MB</td><td>0.5–2 GB</td></tr>
+<tr><td>Planes / colour</td><td>6 / 4,096</td><td>6 / 4,096</td><td>8 / 262k (HAM8)</td><td>16-bit chunky</td><td>3D</td><td>8-planar + ARGB planes</td></tr>
+<tr><td>Blitter</td><td>16-bit</td><td>16-bit</td><td>16-bit</td><td>64-bit</td><td>3D</td><td>64-bit equivalent</td></tr>
+<tr><td>Audio</td><td>4 × 8-bit</td><td>4 × 8-bit</td><td>4 × 8-bit</td><td>8 × 16-bit</td><td>CD-class</td><td>N × 24-bit I²S DMA</td></tr>
+<tr><td>Display</td><td>640 × 512</td><td>640 × 512</td><td>1280 × 512</td><td>~1280 × 1024</td><td>TV</td><td>4K</td></tr>
+<tr><td>Bus</td><td>custom</td><td>custom</td><td>custom</td><td>custom</td><td>custom</td><td>PCIe / AXI</td></tr>
+<tr><td>Software</td><td>AmigaOS</td><td>AmigaOS</td><td>AmigaOS</td><td>—</td><td>—</td><td>AROS / Linux</td></tr>
+<tr><td>Exists?</td><td><strong>yes</strong></td><td><strong>yes</strong></td><td><strong>yes</strong></td><td>no</td><td>no</td><td>no</td></tr>
+</tbody>
+</table>
+
+<p>The A5K is not the next Amiga era. It is <strong>AAA’s architecture, Hombre’s ambition minus the 3D, and neither one’s market</strong> — instantiated on hardware that exists.</p>
+
+<h2 id="c4">4. Against a cutting-edge scientific workstation</h2>
+
+<p>Take a realistic top-end mathematics-lab node: dual 128-core EPYC or Xeon 6, 2–3 TB of DDR5, eight H100/B200-class accelerators, 100+ TB of NVMe and 400 Gb InfiniBand — or, for a single seat, an HP Z8 or a Mac Studio Ultra, which is the “professional workstation” version of the same thing.</p>
+
+<table>
+<caption><strong>Table A3.</strong> A 2026 lab node against the A5K.</caption>
+<thead>
+<tr><th style="width:22%">Axis</th><th style="width:36%">2026 lab node</th><th style="width:28%">A5K</th><th style="width:14%">Ratio</th></tr>
+</thead>
+<tbody>
+<tr><td>FP64 throughput</td><td>20 TFLOPS CPU + 270–320 TFLOPS GPU ≈ 300 TFLOPS</td><td>≈ 0 in the chipset; host does 10–50 GFLOPS</td><td>~10<sup>4</sup>–10<sup>5</sup>×</td></tr>
+<tr><td>Memory</td><td>2–3 TB DDR5 + ~1 TB HBM</td><td>2 GB</td><td>~10<sup>3</sup>×</td></tr>
+<tr><td>Bandwidth</td><td>~1 TB/s DDR5 + 3–8 TB/s HBM</td><td>~13 GB/s</td><td>~10<sup>2</sup>–10<sup>3</sup>×</td></tr>
+<tr><td>Storage</td><td>100+ TB NVMe</td><td>microSD</td><td>~10<sup>5</sup>×</td></tr>
+<tr><td>Cores</td><td>256 CPU + ~10<sup>5</sup> GPU lanes</td><td>1 RISC-V + fixed-function blocks</td><td>~10<sup>5</sup>×</td></tr>
+<tr><td>Software</td><td>NumPy, PETSc, FFTW, CUDA, MPI, every compiler</td><td>AROS, a demo scene, no BLAS</td><td>not comparable</td></tr>
+<tr><td>Worst-case display latency</td><td>Unbounded: compositor, driver, scheduler</td><td>One scanline, by construction</td><td>A5K wins</td></tr>
+<tr><td>Display-path power</td><td>5–30 W for the GPU alone, plus platform</td><td>1–2 W for the chipset</td><td>A5K wins</td></tr>
+<tr><td>Lines of code to understand it</td><td>~10<sup>8</sup></td><td>~10<sup>4</sup></td><td>A5K wins</td></tr>
+</tbody>
+</table>
+
+<p><strong>By how far:</strong> on the workload a mathematics lab actually runs — dense linear algebra, PDE solvers, FFTs, Monte Carlo — the workstation is <strong>four to five orders of magnitude faster</strong>, with a thousand times the memory and a software stack that has no counterpart at all. This is not close, and no amount of clever chipset design changes it.</p>
+
+<p>Where it is not absurd: a laboratory also has <em>instruments</em>. Laser sync, ADC and DAC capture, camera triggers, optical benches, real-time control loops. There the question is not how many FLOPs but <strong>when exactly a sample lands, and whether that can be proven</strong>. A Linux box with a compositor and a fair scheduler gives statistical timing; this chipset gives a contract. That is a real, narrow, defensible niche — and precisely why §9.7 of the main document lists genlock and instrumentation rather than numerical work.</p>
+
+<h2 id="c5">5. The honest bottom line</h2>
+
+<ul>
+  <li><strong>Versus AAA:</strong> better by ~1.5 orders in silicon and 2–3 in memory and bandwidth, mainly because it is <em>buildable</em>. Worse in one respect: no native 68k.</li>
+  <li><strong>Versus Hombre:</strong> better in openness, cost, memory and survivability; worse in that Hombre had 3D and this does not.</li>
+  <li><strong>Versus a 2026 lab workstation:</strong> behind by 4–5 orders of magnitude on compute, 3 on memory, 2–3 on bandwidth, and effectively infinite on software. Ahead on exactly one axis — bounded display and timing latency — and on power and comprehensibility.</li>
+</ul>
+
+<p>The truthful framing is not “a competitor to a modern PC”. It is: <strong>the fastest, cheapest, most open way to own a machine whose display timing you can prove</strong> — a 1994 architecture given 2026 memory and I/O, and a 1985 timing contract given a reason to still exist. At a mathematics lab it is not the computer that does the mathematics; at best it is the instrument that tells you, to the scanline, when the mathematics was displayed.</p>
+
+<table class="verdict">
+<caption><strong>Table A4.</strong> The verdict at a glance.</caption>
+<thead>
+<tr><th style="width:22%">Compared with</th><th style="width:28%">A5K ahead on</th><th style="width:28%">The other ahead on</th><th style="width:22%">Net</th></tr>
+</thead>
+<tbody>
+<tr><td>AAA (1994, ✝)</td><td>Buildability; ~10<sup>2</sup>–10<sup>3</sup>× memory and I/O; openness; 4K</td><td>Native 68k compatibility</td><td>A5K, by 1.5–3 orders</td></tr>
+<tr><td>Hombre (1995, ✝)</td><td>Openness, cost, memory, survivability, tools</td><td>An integrated 3D pipeline</td><td>A5K, except in 3D</td></tr>
+<tr><td>OCS / ECS / AGA (shipped)</td><td>~10<sup>3</sup>× memory, 4K, PCIe, open toolchain</td><td>Shipped software, real 68k, a market</td><td>Different machines, not successors</td></tr>
+<tr><td>2026 lab workstation</td><td>Bounded display latency, power, comprehensibility</td><td>10<sup>4</sup>–10<sup>5</sup>× FP64, 10<sup>3</sup>× memory, the entire software stack</td><td>The workstation, by 4–5 orders</td></tr>
+</tbody>
+</table>
+
+<h2 id="cm">How these numbers were derived</h2>
+
+<ul>
+  <li><strong>OCS / ECS / AGA:</strong> published hardware reference manuals and contemporary datasheets; figures are nominal, not measured on a specific board.</li>
+  <li><strong>AAA and Hombre:</strong> contemporary documentation and press coverage. Neither specification was ever frozen, so ranges are given rather than points, and the cancelling decisions mean no benchmark exists.</li>
+  <li><strong>A5K:</strong> the bill of materials in Appendix C of the main document, plus vendor datasheet figures for the ECP5-85 / Artix-7 200T families and DDR3L at 1600 MT/s.</li>
+  <li><strong>Workstation:</strong> current-generation vendor figures for a dual-socket, 128-core-per-socket node with eight accelerators. A single-seat workstation is roughly one order slower and half a terabyte smaller; the ratios do not change by more than that.</li>
+  <li><strong>All ratios</strong> are order-of-magnitude and rounded deliberately. A factor of two is noise at this scale; the arguments rest on orders, not decimals.</li>
+</ul>
+
+<div class="bpl">
+  <span class="bplabel">Legal notice</span>
+  <p><strong>Not a clone.</strong> This work contains no Commodore code, ships no Kickstart ROM and offers no binary compatibility with Amiga software. It is an independent re-issue of the architecture’s ideas; the relevant patents expired by 2012 and the mask-work term is ten years.</p>
+  <p>Amiga and Commodore are trademarks of their respective owners. This is an independent design study, not affiliated with, endorsed by or sponsored by any rights holder. Comparisons are estimates and opinion, not statements of fact about any company. Provided “as is”, without warranty of any kind, and not for safety-critical, medical, life-support, aviation or aerospace use. To the maximum extent permitted by law the author accepts no liability for any loss arising from its use. <strong>The author publishes information and does not manufacture or sell goods.</strong> Full notice: LEGAL.md. Not legal advice.</p>
+</div>
+
+</body>
+</html>
