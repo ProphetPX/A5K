@@ -1,16 +1,16 @@
 # The A5K family
 
-**C+ is frozen. Everything above it is a departure, and says so.**
+**A video and audio workstation card. Not a games console, and not a GPU.**
 
-This document defines the product line around the reference machine. The first
-section is a specification that should not change; the rest is an exploration of
-what a card with *two* pipelines can do that one cannot.
+This document defines the product line around the reference machine: what is
+frozen, what the second model adds, what is deliberately left out, and what order
+to build it in.
 
 Status: proposal. No model has been built.
 
 ---
 
-## 1. A5K — the reference machine (C+), frozen
+## 1. A5K (C+) — the reference machine, frozen
 
 This is the design described in the rest of the repository. It does not gain
 features. If a change would alter any line below, it is a new model, not a
@@ -28,122 +28,129 @@ revision.
 | Host | x86-64, PCIe ×4 physical slot |
 | BOM | **~$195** |
 
-**What C+ promises:** one Amiga-like machine, deterministic, documented, open,
-under $200 in parts.
+**Promises:** one Amiga-like machine — deterministic, documented, open, under
+$200 in parts.
 
-**What C+ does not promise:** independent outputs, 4K input, HDCP, PCIe
-bandwidth for frame grabbing, or two of anything.
+**Does not promise:** independent outputs, 4K input, HDCP, PCIe bandwidth for
+frame grabbing, or two of anything.
 
-That is the definition of "Amiga-like" in this project. Everything else is a
-different product that borrows the chipset.
+C+ is the definition of "Amiga-like" in this project. Everything above it is a
+different product that borrows the same core.
 
-## 2. Why climb above it
+## 2. What this card is for
 
-A single pipeline is one machine doing one thing at one rate. A second pipeline
-lets a card **capture, process and present at the same time** — the workflow a
-video mixer, a kiosk player, a simulator or a live-production rig actually needs:
+The purpose is not to run old games, although it will. It is a **display and
+timing engine for people who make things**: video editors, live-production
+operators, audio engineers, instrument builders, and anyone who needs an image to
+appear at a known instant rather than eventually.
 
-```
-capture ──► process ──► present          pipeline A
-                  └────► preview          pipeline B
-```
+The distinction matters because it decides what the second model is for. A games
+machine wants one output and lots of compatibility. A workstation wants capture,
+compositing, preview and programme — often at the same time.
 
-With one pipeline that sequence has to be serialised: grab a frame, stop
-displaying, process, resume. With two, the display never stops while the next
-frame is being built.
+## 3. Can one beam drive two outputs?
 
-## 3. The line
+**Yes, but only if both show the same picture.**
 
-| | **A5K (C+)** | **A5K Duo (D−)** | **A5K Duo Pro (D)** | **Duo Pro VRAM (D+)** |
-|---|---|---|---|---|
-| FPGA | Artix-7 200T | Kintex-7 160T | Kintex-7 325T | Kintex-7 325T |
-| Transceivers | 4 | 8 | 16 | 16 |
-| Pipelines | **1** | **2** | **2** | **2** |
-| Outputs | 4K60, mirrored | **4K60 + 1080p60** | **4K60 + 4K60** | 4K60 + 4K60 |
-| Input | 1080p60 | 1080p60 | 1080p60 | 1080p60 |
-| PCIe | ×1 | ×2 | ×4 | ×4 |
-| Memory | 1 × 32-bit | 1 × 64-bit | 1 × 64-bit | **2 × 32-bit + capture** |
-| BOM | **~$195** | **~$500** | **~$1,150** | **~$1,250** |
+- One beam, two transmitters = **mirrored**. Same image, same timing, two
+  connectors. That is what C+ does, and it is genuinely useful.
+- One beam, two outputs showing *different* content = impossible. Different
+  content at different timings needs two rasters, and a raster is a beam.
 
-The mid model exists because eight transceivers cannot carry two 4K streams and
-PCIe ×4. It can carry 4K60 on one pipe, 1080p60 on the other, and PCIe ×2 — which
-is the shape a mixer wants: programme at 4K, preview at HD.
+There is a middle case — one beam feeding two outputs where the second is a crop,
+a scaled region, or a different colour treatment of the same frame. Same timing,
+different pixels. Useful, but not "independent".
 
-The VRAM variant is a board change, not a redesign: same RTL, same part, two
-memory channels for physical isolation. Build it only if a customer needs the
-guarantee that a capture burst can never delay a scanout.
+So: **independent outputs require two beams.** There is no clever way around it,
+because the beam *is* the thing that defines when each pixel exists.
 
-## 4. What "dual pipeline" means in hardware
+## 4. The two models, one core
 
-| Resource | Single | Dual |
+| | **A5K (C+)** | **A5K Duo (D)** |
 |---|---|---|
-| Beam counter | 1 | **2** |
-| Denise scanout | 1 | **2** |
-| Copper | 1 | **2** |
-| Blitter | 1 | **2** (or 1 with two contexts) |
-| Slot table | 1 | **2**, arbitrating one memory |
-| Palette | 1 | **2** |
+| FPGA | Artix-7 200T | Kintex-7 325T |
+| Transceivers | 4 | 16 |
+| Pipelines | **1** | **2** |
+| Output | 4K60 mirrored | **4K60 + 4K60, independent** |
+| Input | 1080p60 | 1080p60 |
+| PCIe | ×1 | **×4** |
+| Memory | 1 × 32-bit, 1 GB | **1 × 64-bit, 2 GB** |
+| BOM | **~$195** | **~$1,150** |
 
-Two blitters matter more than they look: a shared blitter makes each pipe wait
-for the other, which defeats the purpose.
+One RTL tree, one register map, one driver. The Duo instantiates the display side
+twice and gives each pipe its own Copper, blitter and slot table. A capability
+register tells the driver which configuration it is talking to.
 
-The arbiter is the hard part. Two periodic clients with different line rates
-sharing one memory controller need **deadline scheduling with hard QoS**, not
-best-effort sharing. The six reliability rules from the slot table apply per
-pipe, plus:
+### Documented variants (not designed)
 
-- each pipe's display band is reserved before the other pipe's blitter;
-- a capture burst may not preempt either display band;
-- starvation of either pipe is a design failure, not a performance issue.
+| Variant | What changes | BOM | Build when |
+|---|---|---|---|
+| **Duo −** | Kintex-7 160T, 4K60 + 1080p60, PCIe ×2 | ~$500 | if the Duo proves demand and price matters |
+| **Duo VRAM** | two 32-bit channels instead of one 64-bit | ~$1,250 | only if a customer needs physical isolation |
 
-## 5. The three primitives that make it a pipeline
+Neither is a redesign: both are the same RTL on different silicon or a different
+memory layout.
 
-Without these, "two pipes" is just two devices in one slot:
+## 5. What two beams buy a professional
 
-1. **Cross-blit.** Blitter source in pipe A's memory, destination in pipe B's.
-   A compositor without a CPU.
-2. **Genlock.** A shared frame clock (locked outputs), or independent clocks
-   with a defined relationship (free-running, with a resync point).
-3. **Frame-pass.** Pipe B consumes pipe A's completed frame as a plane. Picture-
-   in-picture, preview, and feedback effects, all in hardware.
+- **Programme and preview.** Output A goes to air; output B shows the next shot,
+  a multiview, or scopes — at a different resolution if that is cheaper.
+- **Capture while presenting.** Pipe A scans out the finished frame while pipe B
+  ingests the next one. With one beam, capture means freezing the display.
+- **Genlock.** Two beams can be frame-locked to each other or to house sync. That
+  is the difference between a monitor and a broadcast device.
+- **Cross-blit.** The blitter reads from pipe A's memory and writes into pipe B's.
+  A compositor with no CPU and no GPU.
+- **Frame-pass.** Pipe B consumes pipe A's completed frame as a plane. Picture-in-
+  picture and feedback effects in hardware.
+- **Audio.** The same argument applies to sample-accurate timing: one pipe can
+  present a 60 Hz UI while the other drives a waveform display locked to the
+  audio clock, without either waiting on the other.
 
-These should be specified in the register map before any RTL exists, because they
-determine the memory model.
+## 6. What this card is not
 
-## 6. What the departure costs
+Worth stating with numbers, because "FPGA card" invites the wrong expectations:
 
-- **RTL:** roughly double the display side (two beams, two Coppers, two
-  blitters). The blitter and Copper are small; the scanout and arbiter are not.
-- **Driver:** one device with two CRTCs, two Copper contexts, two buffer sets.
-  Linux DRM models this natively; AROS does not, and would need work.
-- **Power and thermal:** a 325T with two pipes needs a fan and a proper VRM. The
-  card stops being passive.
-- **Software:** nothing exists that uses two pipelines. The first application has
-  to be written, or the second pipe is just a second monitor.
-- **Meaning:** the single beam *is* the Amiga model. Dual-pipe keeps the memory
-  shared but breaks the single timing contract. A Copper list belongs to pipe A
-  or pipe B; a demo must choose.
+| | A5K Duo (Kintex-7 325T) | A mid-range GPU (2026) |
+|---|---|---|
+| Compute | ~0.3 TOPS equivalent, 840 DSP slices | 100+ TOPS |
+| Memory bandwidth | 12.8 GB/s | 300–1,000 GB/s |
+| Shader cores | none | thousands |
+| 3D pipeline | none | full, with texturing |
+| Crypto hashing | ~1–2 GH/s SHA-256 | ASICs do 100 TH/s |
 
-That last point is the one to write down, in the same place the documents say
-"not a clone". It is a deliberate divergence, not an oversight.
+So, plainly:
 
-## 7. What is not promised, on any model
+- **Not a 3D GPU.** There is no rasteriser, no texture unit, no depth buffer. A
+  simple flat-shaded polygon engine could be added in fabric, and it would look
+  like 1995, not 2025.
+- **Not an AI accelerator.** 840 DSP slices is three orders of magnitude short of
+  a modern GPU for training, and still far short for serious inference.
+- **Not a miner.** An FPGA is 100,000× slower than an ASIC at hashing, and loses
+  money on power alone.
+
+What it *can* do is **deterministic work at video rate**: encrypt or watermark a
+4K stream in line with the beam, scale and composite in fixed time, timestamp
+every frame. That is a real niche, and it is where the design is strong.
+
+## 7. Build order
+
+1. **A5K (C+)** — validate the chipset, the slot table and the driver.
+2. **A5K Duo (D)** — add the second pipeline, prove the arbiter with two
+   different line rates.
+3. **Variants** — only when a customer asks, and only as documented changes.
+
+The sequencing is what keeps the family from becoming three half-finished
+projects.
+
+## 8. What is not promised, on any model
 
 - 4K60 **input** — bandwidth and HDCP both say no.
 - HDCP of any version.
 - Composite, S-Video, SCART or coaxial output — future options, not designed.
-- Binary compatibility with Amiga software, on any model.
+- Binary compatibility with Amiga software.
+- 3D acceleration or AI compute.
 - A shipping date.
-
-## 8. Build order
-
-1. **A5K (C+)** — validate the chipset, the slot table and the driver.
-2. **A5K Duo (D−)** — add the second pipeline on the cheaper part; prove the
-   arbiter with two different line rates.
-3. **Duo Pro (D)** — same RTL, bigger part, two 4K streams.
-4. **Duo Pro VRAM (D+)** — only on request.
-
-C+ is the machine. The Duo line is the studio.
 
 ---
 
