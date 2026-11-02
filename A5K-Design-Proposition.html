@@ -635,7 +635,7 @@
   <div class="cmeta">
     <table>
       <tr><td>Prepared</td><td>1 November 2026</td></tr>
-      <tr><td>Revision</td><td>Rev. O — host clarified; on-card core described</td></tr>
+      <tr><td>Revision</td><td>Rev. P — slot table published</td></tr>
       <tr><td>Status</td><td>Design study; no hardware built</td></tr>
       <tr><td>Reference concept</td><td>“A5K”</td></tr>
       <tr><td>Contents</td><td>9 sections · 3 appendices · 6 tables · 1 figure</td></tr>
@@ -659,7 +659,7 @@
     <li><span class="t">8. What you’d lose</span><span class="dots"></span><span class="p" data-mk="zzS8zz">7</span></li>
     <li><span class="t">9. Why not just use a GPU?</span><span class="dots"></span><span class="p" data-mk="zzS9zz">7</span></li>
     <li class="app"><span class="t">Appendix A — The Copper, specified</span><span class="dots"></span><span class="p" data-mk="zzSazz">9</span></li>
-    <li class="app"><span class="t">Appendix B — Implementation skeleton</span><span class="dots"></span><span class="p" data-mk="zzSbzz">12</span></li>
+    <li class="app"><span class="t">Appendix B — Implementation skeleton</span><span class="dots"></span><span class="p" data-mk="zzSbzz">13</span></li>
     <li class="app"><span class="t">Appendix C — Bill of materials</span><span class="dots"></span><span class="p" data-mk="zzSczz">14</span></li>
   </ol>
 
@@ -882,6 +882,8 @@
 </ul>
 
 <p><strong>The parallelism budget.</strong> About twenty fixed-function units run at once — the Copper, the blitter, eight planes and up to eight audio streams — because each does one thing forever at a fixed rate, not because anything is scheduled. The bound is memory, not logic: at 4K60, eight planar bitplanes cost 0.5&nbsp;GB/s, a single full-screen ARGB plane costs 2.0&nbsp;GB/s, and the 32-bit DDR3L bus supplies 6.4&nbsp;GB/s. Adding CPU cores does not add throughput; it adds contention on the same memory.</p>
+
+<p>How that budget is actually enforced — the slot table, its two currencies of 141&nbsp;ns ticks and 6.7&nbsp;ns slots, and the rules a Copper list must respect — is specified separately in <em>A5K — The Slot Table</em>.</p>
 
 <h2 id="s7">7. Software</h2>
 
