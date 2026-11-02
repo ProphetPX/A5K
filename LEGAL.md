@@ -17,6 +17,13 @@ holder. The names are used descriptively, to refer to the architecture under
 study. No logo, trade dress or registered-mark symbol is used or licensed.
 See `TRADEMARKS.md`.
 
+## 2.1 The project name
+
+*A5K* is the name of this design study and nothing else. It is not affiliated
+with, endorsed by, or connected to any other project, product or organisation
+using a similar name — including the several unrelated repositories that use
+"A5K". No exclusivity is claimed over the string itself.
+
 ## 3. Not a clone
 
 A5K is **not a clone**. It contains no Commodore code, ships no Kickstart ROM and

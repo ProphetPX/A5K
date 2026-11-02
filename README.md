@@ -79,6 +79,9 @@ This is an independent design study. **Amiga and Commodore are trademarks of
 their respective owners**; this work is not affiliated with, endorsed by, or
 sponsored by any rights holder. No logo, trade dress or ® symbol is used.
 
+**Name.** *A5K* is the name of this design study. It is not affiliated with,
+endorsed by, or connected to any other project using a similar name.
+
 **Not a clone.** A5K contains no Commodore code, ships no Kickstart ROM, and
 offers no binary compatibility with Amiga software. It is an independent
 re-issue of the architecture's ideas; the relevant patents expired by 2012 and
