@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
 """Compose, render and stamp the comparative addendum."""
 import os, re, subprocess, sys
+import atexit, shutil, tempfile
 import pymupdf
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 MAIN = os.path.join(BASE, "A5K-Design-Proposition.html")
 HTML = os.path.join(BASE, "A5K-Comparative-Addendum.html")
 PDF = os.path.join(BASE, "A5K-Comparative-Addendum.pdf")
-TMP = "/tmp/opencode/addendum_pass.pdf"
+
+# Per-run scratch directory: no assumption about the host harness, and it
+# cleans itself up even if the build fails.
+_TMPDIR = tempfile.mkdtemp(prefix="a5k-build-")
+atexit.register(shutil.rmtree, _TMPDIR, ignore_errors=True)
+
+TMP = os.path.join(_TMPDIR, "addendum_pass.pdf")
 
 # ---------------------------------------------------------------- css ----
 main = open(MAIN, encoding="utf-8").read()

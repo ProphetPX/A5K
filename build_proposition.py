@@ -2,13 +2,20 @@
 """Build the PDF: resolve TOC folios with temporary markers, then render a
 clean source (no markers), stamp folios, bookmarks and metadata."""
 import re, subprocess, sys, os
+import atexit, shutil, tempfile
 import pymupdf
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 HTML = os.path.join(BASE, "A5K-Design-Proposition.html")
 PDF = os.path.join(BASE, "A5K-Design-Proposition.pdf")
-TMP_HTML = "/tmp/opencode/_markers.html"
-TMP_PDF = "/tmp/opencode/pass.pdf"
+
+# Per-run scratch directory: no assumption about the host harness, and it
+# cleans itself up even if the build fails.
+_TMPDIR = tempfile.mkdtemp(prefix="a5k-build-")
+atexit.register(shutil.rmtree, _TMPDIR, ignore_errors=True)
+
+TMP_HTML = os.path.join(_TMPDIR, "_markers.html")
+TMP_PDF = os.path.join(_TMPDIR, "pass.pdf")
 
 MARKERS = ["zzS1zz","zzS2zz","zzS3zz","zzS4zz","zzS5zz","zzS6zz",
            "zzS7zz","zzS8zz","zzS9zz","zzSazz","zzSbzz","zzSczz"]

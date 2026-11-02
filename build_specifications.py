@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
 """Build the A5K technical specification card."""
 import os, re, subprocess
+import atexit, shutil, tempfile
 import pymupdf
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 MAIN = os.path.join(BASE, "A5K-Design-Proposition.html")
 HTML = os.path.join(BASE, "A5K-Technical-Specifications.html")
 PDF = os.path.join(BASE, "A5K-Technical-Specifications.pdf")
-TMP = "/tmp/opencode/spec_pass.pdf"
+
+# Per-run scratch directory: no assumption about the host harness, and it
+# cleans itself up even if the build fails.
+_TMPDIR = tempfile.mkdtemp(prefix="a5k-build-")
+atexit.register(shutil.rmtree, _TMPDIR, ignore_errors=True)
+
+TMP = os.path.join(_TMPDIR, "spec_pass.pdf")
 
 main = open(MAIN, encoding="utf-8").read()
 css = re.search(r"<style>(.*?)</style>", main, re.S).group(1)
