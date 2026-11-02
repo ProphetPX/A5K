@@ -21,12 +21,12 @@ revision.
 | Pipelines | **1** — one beam, one Copper, one slot table |
 | **Primary output** | **4K60 HDMI**, straight from fabric |
 | **Secondary output** | **1080p60 DisplayPort**, via a commodity bridge |
-| Input | 1080p60 HDMI, unencrypted sources only |
+| Input | **None** — capture begins with the Studio models |
 | HDCP | none, by design |
 | PCIe | ×1 (500 MB/s) |
 | Memory | 1 × 32-bit DDR3L, 1 GB (2 GB max) |
 | Host | x86-64, PCIe ×1 or larger slot |
-| BOM | **~$264** |
+| BOM | **~$255** |
 
 **Promises:** one Amiga-like machine — deterministic, documented, open, under
 $300 in parts.
@@ -79,12 +79,28 @@ Independent outputs require two beams. There is no way around it.
 | FPGA | Artix-7 100T | Kintex-7 160T | Kintex-7 325T |
 | Transceivers | 4 | 8 | 16 |
 | Pipelines | **1** | **2** | **2** |
-| HDMI out | **4K60** | **4K60** | **4K60** |
-| DisplayPort out | 1080p60 | 1080p60 | **4K60** |
-| Video in | 1080p60 | 1080p60 | 1080p60 |
+| Fabric | **64-bit** (1.19 GB/s) | **256-bit** (4.75 GB/s) | **256-bit** (4.75 GB/s) |
+| HDMI out | 4K60 **SDR**, 8-bit 4:4:4 | 4K60 **HDR10**, 10-bit 4:2:2 | 4K60 HDR10, 10-bit 4:2:2 |
+| DP out | 1080p60 SDR | 4K60 **HDR10**, 10-bit **4:4:4** | 4K60 HDR10, 10-bit **4:4:4** |
+| Capture | none | 1080p60 **10-bit 4:2:2** | 1080p60 **10-bit 4:4:4** |
 | PCIe | ×1 | ×2 | ×4 |
 | Memory | 1 × 32-bit | 1 × 64-bit | 1 × 64-bit |
-| BOM | **~$264** | **~$520** | **~$1,150** |
+| BOM | **~$255** | **~$540** | **~$1,200** |
+
+### 5.1 The HDMI wall, stated plainly
+
+4K60 10-bit 4:4:4 needs a 742 MHz TMDS clock. HDMI 2.0 tops out at 600 MHz; only
+HDMI 2.1's FRL carries it, and that needs a different transceiver class and a
+protocol this design does not implement.
+
+> **4K60 HDR10 is 10-bit 4:2:2 over HDMI 2.0 and 10-bit 4:4:4 over DisplayPort
+> 1.2. 4:4:4 at 4K60 does not exist on HDMI on any model, because it requires
+> HDMI 2.1 — a different transceiver class and a protocol this design does not
+> implement.**
+
+And 10-bit is not the same as HDR. Full HDR10 also needs a PQ or HLG transfer
+function, static metadata (ST 2086, MaxCLL/MaxFALL), and a wide-gamut pipeline
+(Rec.2020). Ten bits with an sRGB curve is simply deeper SDR.
 
 A variant of the Pro is documented and not built: **A5K Studio Pro ISO**, with two
 32-bit memory channels instead of one 64-bit, for installations where a capture
@@ -170,7 +186,7 @@ projects.
 
 - 4K60 **input** — bandwidth and HDCP both say no.
 - HDCP of any version.
-- 4K DisplayPort on the A5K or Studio.
+- HDMI 4:4:4 at 4K60, on any model — see §5.1.
 - DVI, S-Video, composite or coaxial output — reserved in the sensing chain,
   not designed.
 - Binary compatibility with Amiga software.

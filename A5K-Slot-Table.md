@@ -94,15 +94,16 @@ common mistake:
 | Unit | Length | Counts |
 |---|---|---|
 | **Tick** | 141 ns (7.09 MHz) | Copper instructions, beam position |
-| **Slot** | 6.73 ns (148.5 MHz), 64-bit | Bus transfers |
+| **Slot** | 6.73 ns (148.5 MHz); 64-bit on C+, 256-bit on Studio | Bus transfers |
 
 One tick = **21 slots**. The Copper runs on ticks; the memory runs on slots. A
 WAIT position is a tick; the data a WAIT protects arrives in slots.
 
 ### 4.2 The budget
 
-Proposed: slot clock locked to the pixel clock at 148.5 MHz, 64 bits wide
-(1.19 GB/s peak, about 18% of the DDR3L's 6.4 GB/s).
+Proposed: slot clock locked to the pixel clock at 148.5 MHz. **Slot width differs
+by model** — 64 bits on C+ (1.19 GB/s, about 18% of the DDR3L's 6.4 GB/s) and
+256 bits on the Studio models (4.75 GB/s, about 74%).
 
 | Mode | Line time | Slots/line | Ticks/line | 8-plane fetch | Utilisation |
 |---|---|---|---|---|---|
@@ -113,6 +114,27 @@ Proposed: slot clock locked to the pixel clock at 148.5 MHz, 64 bits wide
 The pattern is worth pausing on: at 640×512 the bus is almost idle, at 1080p it
 is comfortable, and at 4K the display alone takes nearly half the line before
 the blitter, the planes or the Copper have asked for anything.
+
+### 4.3 What HDR and capture cost on the Studio models
+
+256-bit slots give 4.75 GB/s. That is what makes 10-bit HDR and 10-bit capture
+possible at the same time:
+
+| Traffic at 4K60 | Bandwidth | Share of 4.75 GB/s |
+|---|---|---|
+| 10-bit 4:4:4 output | 1.87 GB/s | 39% |
+| 10-bit 4:2:2 output | 1.24 GB/s | 26% |
+| 1080p60 10-bit capture | 0.47 GB/s | 10% |
+| **4:4:4 out + capture** | **2.34 GB/s** | **49%** |
+| **two 4:4:4 pipelines + capture** | **4.21 GB/s** | **89%** |
+
+Two independent 4K60 HDR pipes plus capture is the tightest case in the family and
+it still fits — with 11% left for the blitter and the Copper. That margin is thin,
+which is why the Studio Pro uses a 325T and a -3 speed grade.
+
+At 128 bits the same traffic would be 98% and 177%: the first leaves no room for a
+blit, the second is impossible. **256-bit is not a luxury on the Studio line; it is
+the minimum that meets the specification.**
 
 ### 4.3 What full-width ARGB costs
 
@@ -162,8 +184,9 @@ fixed pattern. Only the override window is written by software.
 
 ### 4.6 What is still open
 
-- Whether 64 bits is right, or 128 bits at half the clock. Both meet the budget;
-  the choice hinges on FPGA pin count.
+- Slot width is settled: 64 bits on C+, 256 bits on Studio. What remains open is
+  whether 256 bits closes timing at 148.5 MHz on a -2 part, or whether the Studio
+  needs a -3 speed grade.
 - Whether the blitter window should scale with the frame rate.
 - Whether the Copper's fetches belong in the service band or get their own.
 - What happens when a display fetch misses its slot — stall the beam, or repeat

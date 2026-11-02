@@ -46,7 +46,7 @@ extra = """
 
 body = r"""
 <div class="spec-head">
-  <p class="kicker">Reference card &middot; Rev. R</p>
+  <p class="kicker">Reference card &middot; Rev. S</p>
   <h1>A5K — Technical Specifications</h1>
   <p class="subtitle">Clocks, memory, processors, bandwidth and the limits they impose</p>
   <p class="meta">1 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
@@ -189,7 +189,7 @@ body = r"""
 
 <h2 id="sp7">7. Bandwidth budget at 4K60</h2>
 
-<p>3840 × 2160 = 8.29 megapixels. The 32-bit DDR3L bus supplies 6.4 GB/s, and the slot table must also fit the Copper, the blitter and audio into the same schedule.</p>
+<p>3840 × 2160 = 8.29 megapixels. The 32-bit DDR3L bus supplies 6.4 GB/s, and the slot table must also fit the Copper, the blitter and audio into the same schedule. Slot width differs by model: <strong>64 bits on C+</strong> (1.19 GB/s) and <strong>256 bits on the Studio models</strong> (4.75 GB/s), which is what makes 10-bit HDR and 10-bit capture possible together.</p>
 
 <table>
 <caption><strong>Table S7.</strong> What 4K60 costs, per content type.</caption>
@@ -267,7 +267,8 @@ body = r"""
 <tr><td>On-card CPU</td><td>VexRiscv, 50 MHz (ECP5) to 150 MHz (Artix-7)</td></tr>
 <tr><td>Host CPU</td><td>anything with PCIe; 2–6 GHz, 4–256 cores</td></tr>
 <tr><td>Planes</td><td>8, optionally 16</td></tr>
-<tr><td>Outputs</td><td>4K60 HDMI (primary), 1080p60 DP (secondary); HDMI sensed first</td></tr>
+<tr><td>Outputs</td><td>4K60 SDR HDMI (primary), 1080p60 DP (secondary); HDMI sensed first. HDR10 on the Studio models</td></tr>
+<tr><td>Fabric</td><td>64-bit slots (C+) or 256-bit slots (Studio), both at 148.5 MHz</td></tr>
 <tr><td>Blitters</td><td>1</td></tr>
 <tr><td>Audio</td><td>4–8 DMA streams, 24-bit I²S</td></tr>
 <tr><td>4K60 cost, planar</td><td>0.5 GB/s for eight bitplanes</td></tr>
@@ -284,7 +285,7 @@ html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>A5K — Technical Specifications (Rev. R)</title>
+<title>A5K — Technical Specifications (Rev. S)</title>
 <style>{css}{extra}</style>
 </head>
 <body>
@@ -326,7 +327,7 @@ for i, page in enumerate(doc):
                    color=(0.80, 0.80, 0.80), width=0.5)
     page.insert_text((w * 0.10, h - 19), "A5K \u00b7 Technical Specifications",
                      fontname="helv", fontsize=7.2, color=(0.45, 0.45, 0.45))
-    page.insert_text((w * 0.90 - 55, h - 19), "Rev. R", fontname="helv",
+    page.insert_text((w * 0.90 - 55, h - 19), "Rev. S", fontname="helv",
                      fontsize=7.2, color=(0.55, 0.55, 0.55))
     label = str(i + 1)
     tw = pymupdf.get_text_length(label, fontname="helv", fontsize=8)
@@ -335,7 +336,7 @@ for i, page in enumerate(doc):
 
 doc.set_toc(toc)
 doc.set_metadata({
-    "title": "A5K - Technical Specifications (Rev. R)",
+    "title": "A5K - Technical Specifications (Rev. S)",
     "author": "Design study",
     "subject": "Clocks, memory, processors, bandwidth and limits of the A5K design",
     "keywords": "A5K, Amiga-like, FPGA, DDR3L, RISC-V, bandwidth, specification",
