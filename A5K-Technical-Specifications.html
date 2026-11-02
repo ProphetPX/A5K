@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>A5K — Technical Specifications (Rev. 1)</title>
+<title>A5K — Technical Specifications (Rev. 2)</title>
 <style>
   @page {
     size: A4;
@@ -630,7 +630,7 @@
 <body>
 
 <div class="spec-head">
-  <p class="kicker">Reference card &middot; Rev. 1</p>
+  <p class="kicker">Reference card &middot; Rev. 2</p>
   <h1>A5K — Technical Specifications</h1>
   <p class="subtitle">Clocks, memory, processors, bandwidth and the limits they impose</p>
   <p class="meta">1 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
@@ -642,10 +642,78 @@
 
 <div class="spec">
 
-<h2 id="sp1">1. Clock domains</h2>
+<h2 id="sp1">1. What this is — and what it is not</h2>
+
+<p><strong>This document specifies a PCIe add-in card.</strong> It is not a computer, not a single-board machine, and not a replacement for a motherboard. It has no CPU, no boot firmware and no operating system of its own. It is a display and timing device that plugs into a host PC, in the same mechanical and electrical class as a graphics card.</p>
 
 <table>
-<caption><strong>Table S1.</strong> The domains a card would run in.</caption>
+<caption><strong>Table S1.</strong> Product classes, and which one exists.</caption>
+<thead>
+<tr><th style="width:22%">Product</th><th style="width:20%">Status</th><th style="width:30%">Requires</th><th>Provides</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>A5K card</strong></td><td><strong>the current design</strong></td><td>An x86-64 host with a free PCIe slot</td><td>Chipset, Chip RAM, HDMI scanout</td></tr>
+<tr><td>A5K module (SoM)</td><td>not designed</td><td>A carrier board</td><td>The same chipset in a socket</td></tr>
+<tr><td>A5K mainboard</td><td>mentioned as a form factor only</td><td>Mains power and a case</td><td>A complete machine</td></tr>
+</tbody>
+</table>
+
+<p>The host supplies the CPU, the memory the OS runs in, the storage and the operating system. The card supplies the chipset, its own Chip RAM and its own display output. Unplug the host and the card is a board with a power LED.</p>
+
+<p><strong>It cannot be plugged into a Commodore Amiga.</strong> The A2000 has Zorro II, the A3000 and A4000 have Zorro III, the A1200 has a trapdoor and PCMCIA. None of them has PCIe, and no bridge exists that would make a modern card enumerate on a 68k bus.</p>
+
+<h2 id="sp2">2. Host requirements</h2>
+
+<p>Today the card requires an <strong>x86-64 PC</strong>. Other host architectures are technically possible — the interface is standard PCIe — but they are untested, and some RISC-V boards expose only a single lane.</p>
+
+<table>
+<caption><strong>Table S2.</strong> Minimum host, and the recommended build.</caption>
+<thead>
+<tr><th style="width:26%">Item</th><th style="width:32%">Minimum</th><th>Recommended</th></tr>
+</thead>
+<tbody>
+<tr><td>Architecture</td><td>x86-64</td><td>any recent desktop CPU</td></tr>
+<tr><td>Processor</td><td>2 cores at 2 GHz</td><td>4 cores, anything from the last decade</td></tr>
+<tr><td>System RAM</td><td>4 GB</td><td>8 GB or more</td></tr>
+<tr><td>Free slot</td><td>PCIe ×4 physical, Gen2 or better</td><td>PCIe ×8 or ×16 length, Gen3</td></tr>
+<tr><td>Slot power</td><td>25 W from the slot, no auxiliary connector</td><td>as minimum</td></tr>
+<tr><td>Firmware</td><td>UEFI with Above 4G Decoding enabled</td><td>Resizable BAR also enabled</td></tr>
+<tr><td>Operating system</td><td>Linux 6.x with DRM/KMS</td><td>a current distribution</td></tr>
+<tr><td>Disk</td><td>20 GB free for tooling</td><td>—</td></tr>
+<tr><td>Displays</td><td>one monitor for the host, one for the card</td><td>two inputs on one monitor</td></tr>
+<tr><td>Case</td><td>clearance for a low-profile card</td><td>full-height bracket</td></tr>
+</tbody>
+</table>
+
+<p class="note"><strong>Notes.</strong> A laptop requires a Thunderbolt-to-PCIe enclosure, because the card needs a real slot. Above 4G Decoding must be enabled in UEFI for the 64-bit BAR that maps Chip RAM; on some consumer boards this is the only setting that has to be changed. The card draws roughly 5 W, so a ×4 slot is ample and no power cable is needed.</p>
+
+<h2 id="sp3">3. Why ×4, and not ×8 or ×16</h2>
+
+<p>The card does not stream pixels over PCIe. The display is fetched from the card's own DDR3L; PCIe carries Copper lists, register writes, small transfers and the occasional frame readback. Two gigabytes per second is already an order of magnitude more than that traffic needs, and a ×1 link would probably suffice for control alone.</p>
+
+<table>
+<caption><strong>Table S3.</strong> Slot options, and what each would cost.</caption>
+<thead>
+<tr><th style="width:14%">Slot</th><th style="width:10%" class="num">Lanes</th><th style="width:22%" class="num">Gen2 / Gen3</th><th style="width:26%">Fits</th><th>Cost</th></tr>
+</thead>
+<tbody>
+<tr><td>×1</td><td class="num">1</td><td class="num">0.5 / 1.0 GB/s</td><td>every slot, including ×1</td><td>cheapest</td></tr>
+<tr><td><strong>×4</strong></td><td class="num">4</td><td class="num">2.0 / 3.9 GB/s</td><td><strong>×4, ×8 and ×16 slots</strong></td><td><strong>chosen</strong></td></tr>
+<tr><td>×8</td><td class="num">8</td><td class="num">4.0 / 7.9 GB/s</td><td>×8 and ×16 slots; rare on desktops</td><td>needs 8 transceivers</td></tr>
+<tr><td>×16</td><td class="num">16</td><td class="num">8.0 / 15.8 GB/s</td><td>×16 slots only</td><td>needs 16 transceivers and a larger FPGA</td></tr>
+</tbody>
+</table>
+
+<p><strong>The lane budget decides it.</strong> An Artix-7 200T has exactly four GTP transceivers. A ×8 card would need a Kintex-7 at two to three times the price; a ×16 card would need a larger part again, with sixteen transceivers, to carry traffic this design never generates.</p>
+
+<p><strong>And ×4 physical fits more slots than ×16 physical.</strong> A ×4 card seats in ×4, ×8 and ×16 connectors. A ×16 card seats only in ×16 connectors — normally the one occupied by the graphics card. The ×4 choice is the more compatible one, not the cheaper compromise.</p>
+
+<p class="note">If a future variant ever needed to read frames back continuously, or to feed video into the card over PCIe, the calculus changes: at 4K60, one ARGB frame is 2 GB/s on its own. That variant would want ×8 with a larger part — and would be a different card.</p>
+
+<h2 id="sp4">4. Clock domains</h2>
+
+<table>
+<caption><strong>Table S4.</strong> The domains a card would run in.</caption>
 <thead>
 <tr><th style="width:26%">Domain</th><th style="width:22%">Rate</th><th>Purpose</th></tr>
 </thead>
@@ -659,10 +727,10 @@
 </tbody>
 </table>
 
-<h2 id="sp2">2. Memory</h2>
+<h2 id="sp5">5. Memory</h2>
 
 <table>
-<caption><strong>Table S2.</strong> Chip RAM configurations.</caption>
+<caption><strong>Table S5.</strong> Chip RAM configurations.</caption>
 <thead>
 <tr><th style="width:20%">Configuration</th><th style="width:24%">Devices</th><th style="width:14%" class="num">Capacity</th><th style="width:16%" class="num">Bandwidth</th><th>Note</th></tr>
 </thead>
@@ -681,12 +749,12 @@
 
 <p class="note"><strong>ECC</strong> is the more valuable upgrade for instrumentation work than capacity: on a 32-bit bus it means 40 bits and five x8 devices instead of two x16. DDR3 tops out at 8 Gb per device, which is why 4 GB is the wall for the 32-bit design. Host memory is reached by DMA over PCIe and is not limited by the card.</p>
 
-<h2 id="sp3">3. Processors</h2>
+<h2 id="sp6">6. Processors</h2>
 
 <p>There are two CPU positions in this design, and they are not interchangeable.</p>
 
 <table>
-<caption><strong>Table S3.</strong> Processor options, clock and cores.</caption>
+<caption><strong>Table S6.</strong> Processor options, clock and cores.</caption>
 <thead>
 <tr><th style="width:24%">Option</th><th style="width:12%">Kind</th><th style="width:14%" class="num">Max clock</th><th style="width:14%" class="num">Cores</th><th>Where it runs</th></tr>
 </thead>
@@ -703,12 +771,12 @@
 
 <p class="note"><strong>The on-card core is a supervisor, not an engine.</strong> It runs CIA timers, GPIO and interrupt aggregation. Whether it runs at 50 MHz or 667 MHz changes almost nothing, because it does not draw pixels — the Copper, blitter and planes do. Spending fabric on clock speed here is spending it in the wrong place. The heavy work belongs on the host, on the other side of PCIe.</p>
 
-<h2 id="sp4">4. Bandwidth budget at 4K60</h2>
+<h2 id="sp7">7. Bandwidth budget at 4K60</h2>
 
 <p>3840 × 2160 = 8.29 megapixels. The 32-bit DDR3L bus supplies 6.4 GB/s, and the slot table must also fit the Copper, the blitter and audio into the same schedule.</p>
 
 <table>
-<caption><strong>Table S4.</strong> What 4K60 costs, per content type.</caption>
+<caption><strong>Table S7.</strong> What 4K60 costs, per content type.</caption>
 <thead>
 <tr><th style="width:44%">Content</th><th style="width:18%" class="num">Per frame</th><th style="width:16%" class="num">At 60 Hz</th><th>Verdict</th></tr>
 </thead>
@@ -723,10 +791,10 @@
 
 <p class="note">This is the quiet argument for planar graphics: at 4K60, eight bitplanes cost a twelfth of what eight ARGB planes cost. The Amiga's bitmap format was a bandwidth strategy, not a limitation.</p>
 
-<h2 id="sp5">5. Parallelism</h2>
+<h2 id="sp8">8. Parallelism</h2>
 
 <table>
-<caption><strong>Table S5.</strong> What runs simultaneously, and what does not.</caption>
+<caption><strong>Table S8.</strong> What runs simultaneously, and what does not.</caption>
 <thead>
 <tr><th style="width:22%">Unit</th><th style="width:12%" class="num">Count</th><th>Nature</th></tr>
 </thead>
@@ -742,10 +810,10 @@
 
 <p><strong>Parallelism here is spatial, not threaded.</strong> Roughly twenty independent units run at once because each does one thing forever at a fixed rate — not because anything is scheduled. Adding CPU cores does not add throughput; it adds contention on the same memory. The bound is bandwidth: at 6.4 GB/s, the display pipeline is the budget, and the slot table is the ledger.</p>
 
-<h2 id="sp6">6. Links and ceilings</h2>
+<h2 id="sp9">9. Links and ceilings</h2>
 
 <table>
-<caption><strong>Table S6.</strong> The buses that bound the design.</caption>
+<caption><strong>Table S9.</strong> The buses that bound the design.</caption>
 <thead>
 <tr><th style="width:34%">Link</th><th style="width:22%" class="num">Bandwidth</th><th>Binds</th></tr>
 </thead>
@@ -760,14 +828,17 @@
 
 <p><strong>What would have to change for more.</strong> More planes at 4K means a wider memory bus before it means more logic. A faster on-card CPU means a hard core, not a bigger soft one. More host bandwidth means Gen3 or Gen4, which means an Artix-7 with GTP or a larger part. Each is a different board, not a different setting.</p>
 
-<h2 id="sp7">7. Quick reference</h2>
+<h2 id="sp10">10. Quick reference</h2>
 
 <table>
-<caption><strong>Table S7.</strong> The numbers worth memorising.</caption>
+<caption><strong>Table S10.</strong> The numbers worth memorising.</caption>
 <thead>
 <tr><th style="width:34%">Item</th><th>Figure</th></tr>
 </thead>
 <tbody>
+<tr><td>Product class</td><td>PCIe add-in card — requires a host PC</td></tr>
+<tr><td>Host, minimum</td><td>x86-64, 4 GB RAM, free PCIe ×4 slot</td></tr>
+<tr><td>Card power</td><td>~5 W from the slot; no auxiliary connector</td></tr>
 <tr><td>Chip RAM, base</td><td>1 GB DDR3L, 32-bit, 1600 MT/s</td></tr>
 <tr><td>Chip RAM, upgrade</td><td>2 GB — 8 Gb devices, same footprint</td></tr>
 <tr><td>Chip RAM, maximum</td><td>4 GB, two ranks</td></tr>

@@ -16,7 +16,7 @@ No hardware has been built. Everything here is a proposition — and
 |---|---|---|
 | `A5K-Design-Proposition.pdf` | 18 | The main study, Rev. M — architecture, chip-by-chip mapping, bus options, CPU choice, reference build, software, what you'd lose, the GPU question, and three appendices (Copper spec, Migen skeleton, bill of materials). |
 | `A5K-Comparative-Addendum.pdf` | 4 | Comparative analysis — the A5K against AAA, Hombre, the shipped Amiga eras, and a 2026 scientific workstation. Tables A1–A4. |
-| `A5K-Technical-Specifications.pdf` | 3 | Reference card — clocks, memory configurations and upgrade paths, processor options, bandwidth budget at 4K60, parallelism, and the ceilings that bound the design. Tables S1–S7. |
+| `A5K-Technical-Specifications.pdf` | 5 | Reference card — clocks, memory configurations and upgrade paths, processor options, bandwidth budget at 4K60, parallelism, and the ceilings that bound the design. Tables S1–S7. |
 | `TECHNICAL-CONSIDERATIONS.md` | — | **Read this before building anything.** What exists, what does not, how the boot chain would work, what an AROS port costs, and the open technical gaps. |
 | `TODO.md` | — | The build plan: seven phases from simulator to AROS, with costs, exit criteria and the legal position of each artefact. |
 
