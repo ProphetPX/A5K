@@ -14,7 +14,7 @@ No hardware has been built. Everything here is a proposition — and
 
 | File | Pages | What it is |
 |---|---|---|
-| `A5K-Design-Proposition.pdf` | 18 | The main study, Rev. K — architecture, chip-by-chip mapping, bus options, CPU choice, reference build, software, what you'd lose, the GPU question, and three appendices (Copper spec, Migen skeleton, bill of materials). |
+| `A5K-Design-Proposition.pdf` | 18 | The main study, Rev. L — architecture, chip-by-chip mapping, bus options, CPU choice, reference build, software, what you'd lose, the GPU question, and three appendices (Copper spec, Migen skeleton, bill of materials). |
 | `A5K-Comparative-Addendum.pdf` | 4 | Comparative analysis — the A5K against AAA, Hombre, the shipped Amiga eras, and a 2026 scientific workstation. Tables A1–A4. |
 | `TECHNICAL-CONSIDERATIONS.md` | — | **Read this before building anything.** What exists, what does not, how the boot chain would work, what an AROS port costs, and the open technical gaps. |
 | `TODO.md` | — | The build plan: seven phases from simulator to AROS, with costs, exit criteria and the legal position of each artefact. |
@@ -59,7 +59,7 @@ same licence, and the notice and credit must be retained.
 ## How to cite
 
 > Ryan David Hall (AKA "ProphetPX"). (2026). *A5K — A Theoretical Design Proposition for an Amiga
-> 5000-Like System*, Rev. K.
+> 5000-Like System*, Rev. L.
 
 Machine-readable: `CITATION.cff`. If you archive or mirror this work, add a DOI
 and cite it here.
@@ -88,6 +88,6 @@ Nothing in this repository is legal advice.
 
 ## Status
 
-Rev. K, 1 November 2026. No hardware fabricated. The next milestones are the
+Rev. L, 1 November 2026. No hardware fabricated. The next milestones are the
 slot-table simulation and a single-mode ECP5 bring-up — see §C.3 of the main
 document.

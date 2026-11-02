@@ -126,7 +126,7 @@ for i, page in enumerate(doc):
 doc.set_toc([[1, "Cover", 1], [1, "Contents", 2]] +
             [[1, names[m], pages[m] + 2] for m in order])
 doc.set_metadata({
-    "title": "A5K - A Theoretical Design Proposition for an Amiga 5000-Like System - Rev. K",
+    "title": "A5K - A Theoretical Design Proposition for an Amiga 5000-Like System - Rev. L",
     "author": "Design study",
     "subject": "Re-issuing the Amiga custom-chipset design ethos on a modern bus, in open silicon",
     "keywords": "Amiga, Copper, Agnus, Denise, Blitter, Paula, PCIe, CXL, RISC-V, LiteX, Migen, AROS, FPGA",

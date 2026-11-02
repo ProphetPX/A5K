@@ -629,13 +629,13 @@
 
   <div class="abstract">
     <span class="label">Abstract</span>
-    <p>The Amiga’s custom chips were never a graphics card bolted to a CPU. They were a set of narrow, fixed-function DMA engines sharing one memory, driven by a beam-synchronous instruction stream. This document argues that the same <em>method</em> — not the same silicon — is what a modern machine should re-adopt, and specifies one: an FPGA card presenting an Agnus-class DMA scheduler, a planar Denise-class scanout, a minterm blitter and an MC-1 Copper over PCIe, targeting a RISC-V host and an open-source toolchain. It also answers the obvious objection — why not simply use a GPU — and is explicit about where this machine loses. Three appendices turn the argument into engineering: the Copper instruction set and register map, a Migen implementation skeleton, and a bill of materials with indicative 2026 pricing.</p>
+    <p>The Amiga’s custom chips were never a graphics card bolted to a CPU. They were a set of narrow, fixed-function DMA engines sharing one memory, driven by a beam-synchronous instruction stream. This document argues that the same <em>method</em> — not the same silicon — is what a modern machine should re-adopt, and specifies one: an FPGA card with 1&nbsp;GB of DDR3L Chip RAM (2&nbsp;GB upgradeable) presenting an Agnus-class DMA scheduler, a planar Denise-class scanout, a minterm blitter and an MC-1 Copper over PCIe, targeting a RISC-V host and an open-source toolchain. It also answers the obvious objection — why not simply use a GPU — and is explicit about where this machine loses. Three appendices turn the argument into engineering: the Copper instruction set and register map, a Migen implementation skeleton, and a bill of materials with indicative 2026 pricing.</p>
   </div>
 
   <div class="cmeta">
     <table>
       <tr><td>Prepared</td><td>1 November 2026</td></tr>
-      <tr><td>Revision</td><td>Rev. K — claims aligned with status</td></tr>
+      <tr><td>Revision</td><td>Rev. L — memory specification stated precisely</td></tr>
       <tr><td>Status</td><td>Design study; no hardware built</td></tr>
       <tr><td>Reference concept</td><td>“A5K”</td></tr>
       <tr><td>Contents</td><td>9 sections · 3 appendices · 6 tables · 1 figure</td></tr>
@@ -656,7 +656,7 @@
     <li><span class="t">5. CPU: RISC-V, POWER, or a 68k core?</span><span class="dots"></span><span class="p" data-mk="zzS5zz">4</span></li>
     <li><span class="t">6. A concrete reference build</span><span class="dots"></span><span class="p" data-mk="zzS6zz">6</span></li>
     <li><span class="t">7. Software</span><span class="dots"></span><span class="p" data-mk="zzS7zz">6</span></li>
-    <li><span class="t">8. What you’d lose</span><span class="dots"></span><span class="p" data-mk="zzS8zz">6</span></li>
+    <li><span class="t">8. What you’d lose</span><span class="dots"></span><span class="p" data-mk="zzS8zz">7</span></li>
     <li><span class="t">9. Why not just use a GPU?</span><span class="dots"></span><span class="p" data-mk="zzS9zz">7</span></li>
     <li class="app"><span class="t">Appendix A — The Copper, specified</span><span class="dots"></span><span class="p" data-mk="zzSazz">9</span></li>
     <li class="app"><span class="t">Appendix B — Implementation skeleton</span><span class="dots"></span><span class="p" data-mk="zzSbzz">12</span></li>
@@ -668,7 +668,7 @@
     <li><span class="t">Table 1 — Chip-by-chip: the modern re-issue</span><span class="dots"></span><span class="p" data-mk="zzT1zz">3</span></li>
     <li><span class="t">Table 2 — Against a modern GPU: the honest scoreboard</span><span class="dots"></span><span class="p" data-mk="zzT2zz">8</span></li>
     <li><span class="t">Table 3 — MC-1 opcode map</span><span class="dots"></span><span class="p" data-mk="zzT3zz">10</span></li>
-    <li><span class="t">Table 4 — Register aperture and key registers</span><span class="dots"></span><span class="p" data-mk="zzT4zz">10</span></li>
+    <li><span class="t">Table 4 — Register aperture and key registers</span><span class="dots"></span><span class="p" data-mk="zzT4zz">11</span></li>
     <li><span class="t">Table 5 — Plane attributes, and what they may not do</span><span class="dots"></span><span class="p" data-mk="zzT5zz">12</span></li>
     <li><span class="t">Table 6 — Bill of materials, reference build</span><span class="dots"></span><span class="p" data-mk="zzT6zz">14</span></li>
     <li><span class="t">Figure 1 — The card-as-chipset shape</span><span class="dots"></span><span class="p" data-mk="zzF1zz">4</span></li>
@@ -867,7 +867,7 @@
   <li><strong>SoC glue:</strong> <strong>LiteX</strong> — gives you LitePCIe, LiteDRAM, LiteSDCard, LiteEth, Wishbone/AXI bridges, and a VexRiscv if you want the whole machine on one board.</li>
   <li><strong>Chipset IP:</strong> Agnus-equivalent (slot-table DMA arbiter + beam counter), Denise-equivalent (planar scanout + planes + priority + HAM), Blitter (minterm ALU + Bresenham), Copper (microsequencer), Paula (audio DMA + SDIO + UART), CIA (VexRiscv).</li>
   <li><strong>Video out:</strong> HDMI 1.4/2.0 from the card (<code>hdl-util/hdmi</code> or LiteX’s video), with a “beam counter” that scales the original 7.09&nbsp;MHz line rate up to 1080p/4K while keeping Copper ticks relatable.</li>
-  <li><strong>RAM:</strong> 512&nbsp;MB–2&nbsp;GB DDR3/LPDDR4 as Chip RAM; host memory reachable via PCIe BAR/DMA for “Fast RAM.”</li>
+  <li><strong>RAM:</strong> <strong>1&nbsp;GB DDR3L as standard</strong> — two 4&nbsp;Gb devices on a 32-bit bus — with <strong>2&nbsp;GB as a drop-in upgrade</strong> using 8&nbsp;Gb parts in the same footprint. The 32-bit pointer path caps Chip RAM at <strong>4&nbsp;GiB</strong>, of which about 3.5&nbsp;GB remains usable once registers and apertures are reserved; beyond that, the 64-bit variant widens both the bus and the address path. Host memory is reachable over PCIe for “Fast RAM” and is not limited by the card at all.</li>
   <li><strong>Display model:</strong> keep planar + chunky, keep HAM/EHB, keep planes (Appendix A.5), keep priority. Add overlay planes so a modern windowing system can sit on top without giving up the old modes.</li>
   <li><strong>Sync primitive:</strong> expose a <strong>beam-synchronous fence</strong> — “wait until scanline N then fire this Copper list” — so host software gets raster sync back (<code>drm_vblank</code>/<code>drm_syncobj</code> semantics map exactly).</li>
 </ul>
