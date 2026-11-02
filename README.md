@@ -36,7 +36,7 @@ The scripts locate their files relative to their own path, so the folder can be
 moved or renamed freely.
 
 ```sh
-cd "~/Documents/A5K Project"
+cd ~/Documents/A5K_Project
 python3 build_proposition.py     # main document
 python3 build_addendum.py        # addendum
 python3 build_specifications.py  # specification card
