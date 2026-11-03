@@ -64,7 +64,7 @@ display band goes from 44% to 43%, not up.
 the budget with CVT-RB timings.
 
 **Severity.** Major — a table regeneration, not a redesign. It was recorded as
-blocking until the arithmetic was redone; the correction is in Rev. AN.
+blocking until the arithmetic was redone; the correction is in Rev. AO.
 
 ### B2. tRFC is taken as 350 ns
 
@@ -193,7 +193,7 @@ wrong for video, which is the market.
 
 ### C4. The bill of materials
 
-**Claim.** $275 / $560 / $1,220 at Q4 2026 single-unit distributor pricing.
+**Claim.** $280 / $565 / $1,225 at Q4 2026 single-unit distributor pricing.
 
 **If it fails.** ±20% is normal. The wedge stops being a wedge at +25%.
 
@@ -306,4 +306,4 @@ These have been considered and rejected; the reasoning is in the documents.
 
 ---
 
-*Rev. AN · 3 November 2026 · project started 30 October 2026*
+*Rev. AO · 3 November 2026 · project started 30 October 2026*

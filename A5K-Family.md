@@ -29,7 +29,7 @@ not when a checklist completes, and not before the remaining questions in
 | PCIe | ×1 (500 MB/s) |
 | Memory | 1 × 32-bit DDR3L, 1 GB (2 GB max) |
 | Host | x86-64, PCIe ×1 or larger slot |
-| BOM | **~$275** |
+| BOM | **~$280** |
 
 **Promises:** one Amiga-like machine — deterministic, documented, open, under
 $300 in parts, with eight channels of audio.
@@ -122,7 +122,7 @@ worst case a driver may rely on — is specified in
 | Refresh | up to **1080p240** on HDMI; DP 60 | up to **1080p240**, 1440p144; 4K60. **No VRR** | same |
 | PCIe | ×1 | ×2 | ×4 |
 | Memory | **2 × 16-bit** (32-bit, 1 GB) | **4 × 16-bit** (64-bit, 2 GB) | **4 × 16-bit** (64-bit, 2 GB) |
-| BOM | **~$275** | **~$560** | **~$1,220** |
+| BOM | **~$280** | **~$565** | **~$1,225** |
 
 ### 5.1 The HDMI wall, stated plainly
 
@@ -309,13 +309,13 @@ visible — and that is the user opt-in you asked for, not a hardware default.
 **PHY footprint — pads and connector — is on the board from the first revision**,
 whether or not the firmware is ready; enabling it later is a firmware update, not
 a board change. The scope is narrow on purpose: one interface, playback and
-capture, no hubs, no HID. The PHY is cheap; the firmware is not, and a $275 wedge
+capture, no hubs, no HID. The PHY is cheap; the firmware is not, and a $280 wedge
 does not need it.
 
 **If it does not fit, the feature is disabled — the chip is never uprated.**
 *Build it in the tool before promising it on the box.* If the UAC2 host will not
 fit the Studio's 160T alongside both beams, the port ships dark: pads on the
-board, firmware never enabling it. The Studio stays at ~$560. Uprating to a 325T
+board, firmware never enabling it. The Studio stays at ~$565. Uprating to a 325T
 to rescue one feature would turn the Studio into a Pro at ~$1,100 and delete the
 tier — so that is not an option, at any point.
 
@@ -489,4 +489,4 @@ a new model designation.*
 
 ---
 
-*Rev. AN · 3 November 2026 · project started 30 October 2026*
+*Rev. AO · 3 November 2026 · project started 30 October 2026*
