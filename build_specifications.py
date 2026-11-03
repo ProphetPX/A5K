@@ -46,10 +46,10 @@ extra = """
 
 body = r"""
 <div class="spec-head">
-  <p class="kicker">Reference card &middot; Rev. AO</p>
+  <p class="kicker">Reference card &middot; Rev. AP</p>
   <h1>A5K — Technical Specifications</h1>
   <p class="subtitle">Clocks, memory, processors, bandwidth and the limits they impose</p>
-  <p class="meta">Rev. AO &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
+  <p class="meta">Rev. AP &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
 </div>
 
 <div class="statusline">
@@ -323,7 +323,7 @@ html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>A5K — Technical Specifications (Rev. AO)</title>
+<title>A5K — Technical Specifications (Rev. AP)</title>
 <style>{css}{extra}</style>
 </head>
 <body>
@@ -364,7 +364,7 @@ for i, page in enumerate(doc):
                    pymupdf.Point(w * 0.90, h - 30),
                    color=(0.80, 0.80, 0.80), width=0.5)
     page.insert_text((w * 0.10, h - 19),
-                     "Rev. AO \u00b7 3 Nov 2026 \u00b7 start 30 Oct 2026",
+                     "Rev. AP \u00b7 3 Nov 2026 \u00b7 start 30 Oct 2026",
                      fontname="helv", fontsize=6.8, color=(0.45, 0.45, 0.45))
     title = "A5K \u00b7 Technical Specifications"
     tw = pymupdf.get_text_length(title, fontname="helv", fontsize=7.2)
@@ -377,7 +377,7 @@ for i, page in enumerate(doc):
 
 doc.set_toc(toc)
 doc.set_metadata({
-    "title": "A5K - Technical Specifications (Rev. AO)",
+    "title": "A5K - Technical Specifications (Rev. AP)",
     "author": "Design study",
     "subject": "Clocks, memory, processors, bandwidth and limits of the A5K design",
     "keywords": "A5K, Amiga-like, FPGA, DDR3L, RISC-V, bandwidth, specification",

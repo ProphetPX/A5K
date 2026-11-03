@@ -287,4 +287,4 @@ Studio feature and a different board revision.
 
 ---
 
-*Rev. AO · 3 November 2026 · project started 30 October 2026*
+*Rev. AP · 3 November 2026 · project started 30 October 2026*
