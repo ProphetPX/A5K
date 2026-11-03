@@ -136,25 +136,28 @@ resulting frame back out of Chip RAM.
 
 ## Slot table — remaining work
 
-`A5K-Slot-Table.md` is a proposal, not a specification. These must be closed
-before the simulator can be written against it.
+`A5K-Slot-Table.md` is now a specification in structure and a proposal in its
+numbers. Every timing question except dual-pipe arbitration is closed.
 
-- [x] ~~Decide whether C+ captures at all~~ — **decided: no capture** (Rev. S)
-- [x] ~~Choose the capture format per model~~ — **decided: 10-bit, ARGB2101010**
-      (4:2:2 on Studio, 4:4:4 on Studio Pro)
-- [ ] Answer the remaining open questions in §4.6:
-      - [x] ~~64-bit vs 128-bit slots~~ — **decided: 64-bit on C+, 256-bit on Studio**
-- [x] ~~Tick rate and its ratio to the slot clock~~ — **decided: 7.0714 MHz
-      (148.5 ÷ 21, exactly 21 slots)**; applied to every model
-- [x] ~~Reserve a faster tick domain for the Studio class~~ — **reserved, not
-      built**: `BEAMCON0[3:1]`, frame-boundary only, integer divisors only
-      - [ ] whether the blitter window scales with frame rate
-      - [ ] whether Copper fetches get their own band
-      - [ ] what happens when a display fetch misses its slot
-- [ ] Write the **per-line schedule for 1080p60** — every slot, in order
-- [ ] Add the **capture band** to the budget tables and re-run the 4K check
+- [x] ~~C+ captures at all?~~ — **no capture** (Rev. S)
+- [x] ~~Capture format?~~ — 10-bit ARGB2101010; 4:2:2 on Studio, 4:4:4 on Pro
+- [x] ~~64, 128 or 256-bit slots?~~ — 64 on C+, 256 on Studio
+- [x] ~~Tick rate and its ratio to the slot clock?~~ — 7.0714 MHz = 148.5 ÷ 21
+- [x] ~~Reserve a faster tick domain?~~ — reserved, not built (`BEAMCON0[3:1]`)
+- [x] ~~Burst model, latency and line buffers?~~ — §4.3: 32-byte quantum, tick =
+      5 bursts + 1 Copper slot, buffer = tRFC of the stream's own pixels
+- [x] ~~Refresh, ECC and turnarounds as line items?~~ — §4.3: 4.5% + 6% + 3%,
+      86.5% usable; ECC costs a device and eight pins, not 25% of bandwidth
+- [x] ~~Does the blitter window scale with frame rate?~~ — no; fraction of the
+      line, floor 10%
+- [x] ~~Do Copper fetches get their own band?~~ — a lane, slot 0 of every tick
+- [x] ~~What happens on a missed display fetch?~~ — hold the pixel, never stall;
+      fault after three consecutive misses
+- [x] ~~Per-line schedule at 1080p60~~ — §5.5
+- [x] ~~Re-run the 4K and two-beam checks on usable bandwidth~~ — §4.4: the Pro as
+      shipped is 87%; two 4:4:4 beams are 102% and need the ISO's second channel
+- [x] ~~Five acceptance tests~~ — §6
 - [ ] Specify **dual-pipe arbitration** for Studio and Studio Pro
-- [ ] Write **five acceptance tests** that a simulator must pass
 
 ---
 
@@ -214,4 +217,4 @@ the right line.
 
 ---
 
-*Rev. T · 2 November 2026 · project started 30 October 2026*
+*Rev. U · 2 November 2026 · project started 30 October 2026*

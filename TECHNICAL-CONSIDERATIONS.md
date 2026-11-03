@@ -126,7 +126,7 @@ not draw pixels, so its clock rate is close to irrelevant.
 
 | Configuration | Devices | Capacity | Bandwidth |
 |---|---|---|---|
-| Base | 2 × 4 Gb DDR3L, 32-bit | 1 GB | 6.4 GB/s |
+| Base | 2 × 4 Gb DDR3L, 32-bit | 1 GB | 6.4 GB/s raw, ~5.5 usable |
 | Upgrade | 2 × 8 Gb, same footprint | 2 GB | 6.4 GB/s |
 | Maximum | 4 × 8 Gb, two ranks | 4 GB | 6.4 GB/s |
 | Ceiling | 32-bit addressing | 4 GiB (~3.5 usable) | — |
@@ -205,4 +205,4 @@ If you build and sell hardware from it, EMC, radio, electrical-safety and produc
 
 ---
 
-*Rev. T · 2 November 2026 · project started 30 October 2026*
+*Rev. U · 2 November 2026 · project started 30 October 2026*

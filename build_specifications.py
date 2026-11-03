@@ -46,10 +46,10 @@ extra = """
 
 body = r"""
 <div class="spec-head">
-  <p class="kicker">Reference card &middot; Rev. T</p>
+  <p class="kicker">Reference card &middot; Rev. U</p>
   <h1>A5K — Technical Specifications</h1>
   <p class="subtitle">Clocks, memory, processors, bandwidth and the limits they impose</p>
-  <p class="meta">Rev. T &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
+  <p class="meta">Rev. U &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
 </div>
 
 <div class="statusline">
@@ -189,7 +189,7 @@ body = r"""
 
 <h2 id="sp7">7. Bandwidth budget at 4K60</h2>
 
-<p>3840 × 2160 = 8.29 megapixels. The 32-bit DDR3L bus supplies 6.4 GB/s, and the slot table must also fit the Copper, the blitter and audio into the same schedule. Slot width differs by model: <strong>64 bits on C+</strong> (1.19 GB/s) and <strong>256 bits on the Studio models</strong> (4.75 GB/s), which is what makes 10-bit HDR and 10-bit capture possible together.</p>
+<p>3840 × 2160 = 8.29 megapixels. The 32-bit DDR3L bus supplies 6.4 GB/s raw and about <strong>5.5 GB/s usable</strong> once refresh, bus turnaround and row misses are paid — the slot table must also fit the Copper, the blitter and audio into the same schedule. Slot width differs by model: <strong>64 bits on C+</strong> (1.19 GB/s) and <strong>256 bits on the Studio models</strong> (4.75 GB/s), which is what makes 10-bit HDR and 10-bit capture possible together.</p>
 
 <table>
 <caption><strong>Table S7.</strong> What 4K60 costs, per content type.</caption>
@@ -238,7 +238,7 @@ body = r"""
 <tr><td>PCIe Gen2 ×4</td><td class="num">2.0 GB/s</td><td>Host ↔ card, Studio Pro</td></tr>
 <tr><td>PCIe Gen3 ×4</td><td class="num">3.9 GB/s</td><td>Host ↔ card, preferred</td></tr>
 <tr><td>PCIe Gen4 ×4</td><td class="num">7.9 GB/s</td><td>Host ↔ card, beyond current parts</td></tr>
-<tr><td>DDR3L 32-bit</td><td class="num">6.4 GB/s</td><td>All on-card fetching</td></tr>
+<tr><td>DDR3L 32-bit</td><td class="num">6.4 GB/s</td><td>Raw; about 5.5 GB/s usable after refresh and turnaround</td></tr>
 <tr><td>Address space</td><td class="num">4 GiB</td><td>Chip RAM ceiling</td></tr>
 </tbody>
 </table>
@@ -260,7 +260,7 @@ body = r"""
 <tr><td>Chip RAM, upgrade</td><td>2 GB — 8 Gb devices, same footprint</td></tr>
 <tr><td>Chip RAM, maximum</td><td>4 GB, two ranks</td></tr>
 <tr><td>Architectural ceiling</td><td>4 GiB, about 3.5 GB usable</td></tr>
-<tr><td>Memory bandwidth</td><td>6.4 GB/s</td></tr>
+<tr><td>Memory bandwidth</td><td>6.4 GB/s raw, about 5.5 GB/s usable</td></tr>
 <tr><td>Copper tick</td><td>7.0714 MHz (148.5 ÷ 21), 141.4 ns per instruction</td></tr>
 <tr><td>Scanout</td><td>4K60 at a 594 MHz pixel clock, four lanes</td></tr>
 <tr><td>Host link</td><td>PCIe Gen2 ×1 (0.5 GB/s) on C+; ×4 on the Studio Pro</td></tr>
@@ -285,7 +285,7 @@ html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>A5K — Technical Specifications (Rev. T)</title>
+<title>A5K — Technical Specifications (Rev. U)</title>
 <style>{css}{extra}</style>
 </head>
 <body>
@@ -326,7 +326,7 @@ for i, page in enumerate(doc):
                    pymupdf.Point(w * 0.90, h - 30),
                    color=(0.80, 0.80, 0.80), width=0.5)
     page.insert_text((w * 0.10, h - 19),
-                     "Rev. T \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
+                     "Rev. U \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
                      fontname="helv", fontsize=6.8, color=(0.45, 0.45, 0.45))
     title = "A5K \u00b7 Technical Specifications"
     tw = pymupdf.get_text_length(title, fontname="helv", fontsize=7.2)
@@ -339,7 +339,7 @@ for i, page in enumerate(doc):
 
 doc.set_toc(toc)
 doc.set_metadata({
-    "title": "A5K - Technical Specifications (Rev. T)",
+    "title": "A5K - Technical Specifications (Rev. U)",
     "author": "Design study",
     "subject": "Clocks, memory, processors, bandwidth and limits of the A5K design",
     "keywords": "A5K, Amiga-like, FPGA, DDR3L, RISC-V, bandwidth, specification",

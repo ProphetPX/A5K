@@ -79,7 +79,7 @@ Independent outputs require two beams. There is no way around it.
 | FPGA | Artix-7 100T | Kintex-7 160T | Kintex-7 325T |
 | Transceivers | 4 | 8 | 16 |
 | Pipelines | **1** | **2** | **2** |
-| Fabric | **64-bit** (1.19 GB/s) | **256-bit** (4.75 GB/s) | **256-bit** (4.75 GB/s) |
+| Fabric | **64-bit** (1.19 GB/s raw, 1.03 usable) | **256-bit** (4.75 raw, 4.11 usable) | **256-bit** (4.75 raw, 4.11 usable) |
 | Copper tick | **7.0714 MHz**, fixed | 7.0714 MHz | 7.0714 MHz; a faster domain is reserved, not built |
 | HDMI out | 4K60 **SDR**, 8-bit 4:4:4 | 4K60 **HDR10**, 10-bit 4:2:2 | 4K60 HDR10, 10-bit 4:2:2 |
 | DP out | 1080p60 SDR | 4K60 **HDR10**, 10-bit **4:4:4** | 4K60 HDR10, 10-bit **4:4:4** |
@@ -222,4 +222,4 @@ a new model designation.*
 
 ---
 
-*Rev. T · 2 November 2026 · project started 30 October 2026*
+*Rev. U · 2 November 2026 · project started 30 October 2026*
