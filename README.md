@@ -27,6 +27,26 @@ No hardware has been built. Everything here is a proposition — and
 | `A5K-Family.md` | — | **The product line.** A5K (C+) frozen as the reference machine; the Studio models add a second beam, two 4K60 HDR outputs, PCIe ×4. Includes what two beams buy a video workstation, and what the card is *not* (no 3D GPU, no AI accelerator). |
 | `TECHNICAL-CONSIDERATIONS.md` | — | **Read this before building anything.** What exists, what does not, how the boot chain would work, what an AROS port costs, and the open technical gaps. |
 | `TODO.md` | — | The build plan: the review campaign first, then seven phases from simulator to AROS, with costs, exit criteria and the legal position of each artefact. |
+| `CHANGELOG.md` | — | One line per revision, with the date and the tag. The letter is a label; this table carries the information. |
+
+## Revisions
+
+The documents are revised together. One letter appears in every PDF title, in the
+metadata, in every footer, and on a git tag.
+
+- **A–Z, then AA–AZ, BA–BZ** — the ASME Y14.35 convention. `Rev. Z` is followed by
+  `Rev. AA`.
+- **Every revision is tagged** (`rev-k` … `rev-x`) so a published set can be
+  reproduced exactly.
+- **Every revision has one line in `CHANGELOG.md`.** The letter is a label; the
+  date in the footer and the changelog carry the information. Sort by date — in
+  ASCII, `Z` sorts after `AA`.
+- **A revision is required when a design claim changes** — a number, a constraint,
+  a part or a rule. Housekeeping does not take one: this README, the changelog,
+  tags and formatting all ride along with the current letter.
+- **`Rev. 1.0` is reserved for the first freeze**, the point at which hardware
+  exists and the documents are being built from. After it, numbering is semantic
+  and tied to board revision. Letters do not return.
 
 ## Sources
 
