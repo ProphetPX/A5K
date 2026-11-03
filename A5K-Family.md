@@ -74,6 +74,10 @@ Independent outputs require two beams. There is no way around it — but two
 beams are necessary, not sufficient. At 4K HDR the memory can afford one
 composited beam, so what the second one may be is bounded by §5.3.
 
+How the two share the bus — the superframe, the three tiers of claim, and the
+worst case a driver may rely on — is specified in
+`A5K-Dual-Pipe-Arbitration.md`.
+
 ## 5. The line
 
 | | **A5K (C+)** | **A5K Studio** | **A5K Studio Pro** |
@@ -253,6 +257,22 @@ projects.
 - 3D acceleration or AI compute.
 - A shipping date.
 
+## 11. Where this is most likely wrong
+
+Nothing in this document has been built or measured. The assumptions behind it —
+video timing, timing closure, memory overheads, buffer depth, prices — are listed
+with severity and consequence in `A5K-Frailties.md`, and that register is the
+honest version of this page.
+
+The four that would change *this* document most:
+
+| # | Assumption | If it fails |
+|---|---|---|
+| A1 | two beams share a superframe | the Studio cannot be built as specified — it is a rule now, not a simulation |
+| B1 | 4K uses CEA-861 timing | CVT-RB leaves 300 ns of blanking and refresh moves into the picture |
+| B3 | 256-bit closes at 148.5 MHz on a -2 | a -3 part, and the Studio's price moves |
+| C4 | the bill of materials | ±20% is normal; the wedge stops being a wedge at +25% |
+
 ---
 
 *Proposal, 2 November 2026. C+ frozen as of this document; changes to it require
@@ -260,4 +280,4 @@ a new model designation.*
 
 ---
 
-*Rev. V · 2 November 2026 · project started 30 October 2026*
+*Rev. W · 2 November 2026 · project started 30 October 2026*

@@ -634,7 +634,7 @@
   <div class="cmeta">
     <table>
       <tr><td>Started</td><td>30 October 2026</td></tr>
-      <tr><td>Revision</td><td>Rev. V — 2 November 2026 — fabric is the bandwidth limit; 64-bit memory on Studio; second output defined; 512-bit Pro II path</td></tr>
+      <tr><td>Revision</td><td>Rev. W — 2 November 2026 — dual-pipe arbitration specified; the assumptions made explicit; review campaign opened</td></tr>
       <tr><td>Status</td><td>Design study; no hardware built</td></tr>
       <tr><td>Reference concept</td><td>“A5K”</td></tr>
       <tr><td>Contents</td><td>9 sections · 3 appendices · 6 tables · 1 figure</td></tr>
@@ -660,6 +660,7 @@
     <li class="app"><span class="t">Appendix A — The Copper, specified</span><span class="dots"></span><span class="p" data-mk="zzSazz">9</span></li>
     <li class="app"><span class="t">Appendix B — Implementation skeleton</span><span class="dots"></span><span class="p" data-mk="zzSbzz">13</span></li>
     <li class="app"><span class="t">Appendix C — Bill of materials</span><span class="dots"></span><span class="p" data-mk="zzSczz">15</span></li>
+    <li class="app"><span class="t">Appendix D — Where this is most likely wrong</span><span class="dots"></span><span class="p" data-mk="zzSdzz">17</span></li>
   </ol>
 
   <h2 style="margin-top:28pt">Tables and figures</h2>
@@ -1341,6 +1342,31 @@ def main():
 </ol>
 
 <p>Only then is the BOM worth ordering — the PCB is the cheapest item and the last to exist. The honest reading is that the silicon is cheap and the software is expensive: the inversion that killed the original Amiga.</p>
+
+<h2 id="appD" style="page-break-before:always">Appendix D — Where this is most likely wrong</h2>
+
+<div class="callout">
+<p class="label">Read this before trusting any number</p>
+<p>Nothing in this document has been built, simulated or measured. Every figure is arithmetic from datasheets, standards and clock rates. What follows is what that arithmetic assumes, ordered by what a reviewer should attack first. <strong>This appendix is the real test of the design.</strong> A specification that cannot name its own weak points is a brochure.</p>
+</div>
+
+<table class="tight">
+<thead>
+<tr><th style="width:46%">Assumption</th><th>If it is wrong</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>4K uses CEA-861 timing</strong> — 4,400 × 2,250, 943 ns of blanking</td><td>CVT-RB leaves 160 dots, 300 ns, less than one refresh. Refresh moves into the active line and the display band rises from 44% to 55%</td></tr>
+<tr><td><strong>tRFC is 350 ns</strong></td><td>It is 260 ns for the 4 Gb parts in the bill of materials. The budget improves by 1.2 points — this document overstates its own cost</td></tr>
+<tr><td><strong>256-bit closes at 148.5 MHz on a -2</strong></td><td>A -3 speed grade, +20–25% on the FPGA. If 512 bits also fails, there is no Pro II on this board</td></tr>
+<tr><td><strong>One Copper lane in twenty-one is enough</strong></td><td>WAIT positions drift by a tick, and the timing contract — the whole product — is void</td></tr>
+<tr><td><strong>Buffers of one tRFC are enough</strong></td><td>A permanent pixel-hold every 7.8 µs: the worst kind of fault, because it looks like software</td></tr>
+<tr><td><strong>The bill of materials</strong> — $255 for the reference card</td><td>±20% is normal. The wedge stops being a wedge at +25%</td></tr>
+</tbody>
+</table>
+
+<p>Settling them is mechanical: the EDID of the target displays for the first, the ordering part number for the second, place and route with negative slack reported for the third, tests 2 and 3 of the slot table for the next two, and three quotes at five and at one hundred units for the last.</p>
+
+<p>The full register — one undefined item, eight unverified claims, five assumptions, and the four objections already answered — is <em>A5K-Frailties.md</em>. If you find something, quote its identifier; every revision cites the ones it answers.</p>
 
 </section>
 

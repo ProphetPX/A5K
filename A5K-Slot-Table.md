@@ -6,8 +6,8 @@ explains what that means, how it differs from the Amiga, and what a builder or a
 programmer has to know to use it.
 
 **This document specifies A5K (C+), the frozen reference model** — one beam, one
-Copper, one slot table. The dual-pipeline variants and their arbitration are in
-`A5K-Family.md`.
+Copper, one slot table. The dual-pipeline variants are in `A5K-Family.md`, and
+their arbitration is specified in `A5K-Dual-Pipe-Arbitration.md`.
 
 **Status: proposal, not measurement.** The figures below are arithmetic from
 clock rates, bus widths and pixel formats. Nothing has been simulated or built.
@@ -367,7 +367,9 @@ fabric. Tick — 148.5 ÷ 21 everywhere. H — counted in ticks, twelve bits, ne
 widened. Quantum — 32 bytes, four slots, and a tick is five bursts plus the
 Copper lane. Refresh — in blanking, always. Buffer depth — tRFC of the stream's
 own pixels. Turnarounds — batched at 8 bursts. Blitter — 25% of the line at
-1080p, 15% at 4K. Miss behaviour — hold, never stall. Ceilings — §8.
+1080p, 15% at 4K. Miss behaviour — hold, never stall. Arbitration between two
+beams — a superframe with three tiers, in `A5K-Dual-Pipe-Arbitration.md`. Ceilings
+— §8.
 
 **Still open.**
 
@@ -573,6 +575,24 @@ C+ is a 60 Hz, 4K, fixed-timing machine. That is a constraint, not a shortcoming
 and every one of these ceilings is the price of the property the machine exists
 for: the schedule is countable because it never has to be renegotiated.
 
+## 9. This is where the real test is
+
+> **Nothing here has been built or measured.** The arithmetic is internally
+> consistent; that is not the same as correct. Every assumption this document
+> stands on is listed, with severity and consequence, in `A5K-Frailties.md`.
+> The five that would change *this* document most:
+
+| # | Assumption | If it fails |
+|---|---|---|
+| A1 | dual-pipe arbitration is a written rule | it is, in `A5K-Dual-Pipe-Arbitration.md` — but it has not been simulated |
+| B1 | 4K uses CEA-861 timing | CVT-RB leaves 300 ns of blanking; refresh moves into the active line, 44% → 55% |
+| B2 | tRFC is 350 ns | it is probably 260 ns for the 4 Gb parts; the budget improves |
+| B3 | 256-bit closes at 148.5 MHz on a -2 | -3 speed grade, +20–25% on the FPGA |
+| B5 | buffers sized to tRFC are enough | a permanent pixel-hold every 7.8 µs |
+
+A specification that cannot name its own weak points is a brochure. This one can,
+and §6 is the list of tests that would settle them.
+
 ---
 
 *Proposal, 2 November 2026. Every number here is arithmetic, not measurement —
@@ -587,4 +607,4 @@ is the next step.
 
 ---
 
-*Rev. V · 2 November 2026 · project started 30 October 2026*
+*Rev. W · 2 November 2026 · project started 30 October 2026*

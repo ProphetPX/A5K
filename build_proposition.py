@@ -18,7 +18,7 @@ TMP_HTML = os.path.join(_TMPDIR, "_markers.html")
 TMP_PDF = os.path.join(_TMPDIR, "pass.pdf")
 
 MARKERS = ["zzS1zz","zzS2zz","zzS3zz","zzS4zz","zzS5zz","zzS6zz",
-           "zzS7zz","zzS8zz","zzS9zz","zzSazz","zzSbzz","zzSczz"]
+           "zzS7zz","zzS8zz","zzS9zz","zzSazz","zzSbzz","zzSczz","zzSdzz"]
 
 # table/figure references: located by their printed caption, not by anchors
 SPECIAL = {"zzT1zz":"Table 1.","zzT2zz":"Table 2.","zzT3zz":"Table 3.",
@@ -38,9 +38,10 @@ names = {
  "zzSazz":"Appendix A - The Copper, specified",
  "zzSbzz":"Appendix B - Implementation skeleton",
  "zzSczz":"Appendix C - Bill of materials",
+ "zzSdzz":"Appendix D - Where this is most likely wrong",
 }
 order = ["zzS1zz","zzS2zz","zzS3zz","zzS4zz","zzS5zz","zzS6zz",
-         "zzS7zz","zzS8zz","zzS9zz","zzSazz","zzSbzz","zzSczz"]
+         "zzS7zz","zzS8zz","zzS9zz","zzSazz","zzSbzz","zzSczz","zzSdzz"]
 
 def render(path, out):
     subprocess.run(["chromium","--headless=new","--disable-gpu","--no-sandbox",
@@ -75,7 +76,7 @@ src = open(HTML, encoding="utf-8").read()
 # self-heal: re-inject the invisible anchors if the source was already stripped
 ids = {"s1":"zzS1zz","s2":"zzS2zz","s3":"zzS3zz","s4":"zzS4zz","s5":"zzS5zz",
        "s6":"zzS6zz","s7":"zzS7zz","s8":"zzS8zz","s9":"zzS9zz",
-       "appA":"zzSazz","appB":"zzSbzz","appC":"zzSczz"}
+       "appA":"zzSazz","appB":"zzSbzz","appC":"zzSczz","appD":"zzSdzz"}
 for hid, mk in ids.items():
     if (">%s</span>" % mk) not in src:
         pat = r'(<h2 id="%s"[^>]*>)(.*?)(</h2>)' % hid
@@ -125,7 +126,7 @@ for i, page in enumerate(doc):
                    pymupdf.Point(w * 0.90, h - 30),
                    color=(0.80, 0.80, 0.80), width=0.5)
     page.insert_text((w * 0.10, h - 19),
-                     "Rev. V \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
+                     "Rev. W \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
                      fontname="helv", fontsize=6.8, color=(0.45, 0.45, 0.45))
     title = "A5K \u00b7 Design Study"
     tw = pymupdf.get_text_length(title, fontname="helv", fontsize=7.2)
@@ -138,7 +139,7 @@ for i, page in enumerate(doc):
 doc.set_toc([[1, "Cover", 1], [1, "Contents", 2]] +
             [[1, names[m], pages[m] + 2] for m in order])
 doc.set_metadata({
-    "title": "A5K - A Theoretical Design Proposition for an Amiga 5000-Like System - Rev. V",
+    "title": "A5K - A Theoretical Design Proposition for an Amiga 5000-Like System - Rev. W",
     "author": "Design study",
     "subject": "Re-issuing the Amiga custom-chipset design ethos on a modern bus, in open silicon",
     "keywords": "Amiga, Copper, Agnus, Denise, Blitter, Paula, PCIe, CXL, RISC-V, LiteX, Migen, AROS, FPGA",

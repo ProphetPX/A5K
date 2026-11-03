@@ -19,6 +19,92 @@ is unstarted.
 - **Do not chase an ASIC.** Gate arrays and shuttle runs are for projects with
   a market, not a proposition.
 - **Do not port AROS before the driver works.** It depends on phases 3–5.
+- **No revision without a finding.** A number that changes in a forum reply and
+  not in the document is a bug.
+
+---
+
+## Next: the review campaign
+
+*Weeks. £0. The cheapest experiment available, and the only one that finds the
+class of error self-review cannot.*
+
+**Objective.** Convert paper claims into independently checked claims before
+anyone builds from them. Every defect found so far — the tick ratio, the burst
+model, the bandwidth limit — was found by self-review. That source is now
+exhausted: a sixth pass will find the sixth thing already believed.
+
+### Artefacts to publish
+
+| # | Artefact | Why |
+|---|---|---|
+| 1 | Repository URL | the whole thing, citable |
+| 2 | `A5K-Design-Proposition.pdf` | the argument, 19 pages |
+| 3 | `A5K-Slot-Table.md` | the timing contract |
+| 4 | `A5K-Frailties.md` | **what to attack**, so reviewers start where it matters |
+
+### Channels, and what each is for
+
+| Channel | Audience | Ask them about | Expect |
+|---|---|---|---|
+| r/FPGA | FPGA engineers | closure, MIG, BRAM, CDC | the most useful replies |
+| r/hardware | general hardware | concept, BOM, thermals | mixed |
+| EEVblog forum | board-level engineers | DDR3L layout, power, EMC | slow, high quality |
+| Hacker News (Show HN) | technical generalists | the idea | volume; "just use a GPU" |
+| Amiga forums (EAB, amigaworld) | domain experts | Copper semantics, planar model | "not compatible" and one good correction |
+| Xilinx forums | vendor-specific | 7-series memory and timing | narrow, authoritative |
+
+Read each channel's self-promotion rules first. One post per channel, not a
+cross-posted blast.
+
+### The post
+
+150 words, one block diagram, one question, one link. Not *"what do you think"* —
+that invites opinion. *"Does 256-bit close at 148.5 MHz on a -2 325T?"* invites an
+answer.
+
+### The five questions
+
+1. Does 256-bit at 148.5 MHz close on a Kintex-7 325T **-2**?
+2. Is a 32-byte burst quantum with `tick = 5 bursts + 1 Copper slot` a sane way
+   to schedule DDR3L?
+3. Does 4K60 CEA-861 leave enough blanking for two 350 ns refreshes?
+4. Is tRFC 260 ns or 350 ns for the 4 Gb parts in the BOM?
+5. Is one Copper slot in twenty-one enough for deterministic WAIT retirement?
+
+### Triage — classify before answering
+
+| Class | Test | Action |
+|---|---|---|
+| **A. Factual defect** | cites a number, a datasheet or a standard | opens a finding with an ID; may open a revision |
+| **B. Design preference** | "I would have…" | record in DECLINED with a reason; do not argue |
+| **C. Misreading** | answers a different design | one clarifying reply, then stop |
+| **D. Noise** | no content | ignore |
+
+A class-A finding is not a defeat; it is the document doing its job. The register
+in `A5K-Frailties.md` exists so that reviewers spend their time on A, not C.
+
+### Cadence
+
+- Publish once, then wait **72 hours** before revising anything.
+- **One revision per week**, maximum. Batch findings.
+- Never argue in a thread. Record, answer once, move on.
+- Every revision names the finding IDs it answers.
+
+### Exit criteria
+
+The campaign is over when either:
+
+- three independent reviewers have responded and none produced a class-A defect;
+- or thirty days pass with no class-A defect.
+
+Then tag the result and stop revising until hardware exists.
+
+### After the campaign
+
+Write one page: **what the reviewers found**. It is the only credible evidence
+that the design was tested, and it is worth more than another appendix. Link it
+from the README.
 
 ---
 
@@ -165,7 +251,8 @@ numbers. Every timing question except dual-pipe arbitration is closed.
 - [x] ~~Re-run the 4K and two-beam checks~~ — §4.4: the Pro as shipped is 82% of
       the fabric; two independent 4K graphics rasters are 98% and need 512 bits
 - [x] ~~Five acceptance tests~~ — §6
-- [ ] Specify **dual-pipe arbitration** for Studio and Studio Pro
+- [x] ~~Specify dual-pipe arbitration~~ — **done**: `A5K-Dual-Pipe-Arbitration.md`
+      (superframe, three tiers, starvation bounds)
 - [ ] Decide when the **Pro II** (512-bit) ships — same board, -3 speed grade
 
 ---
@@ -226,4 +313,4 @@ the right line.
 
 ---
 
-*Rev. V · 2 November 2026 · project started 30 October 2026*
+*Rev. W · 2 November 2026 · project started 30 October 2026*
