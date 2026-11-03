@@ -64,7 +64,7 @@ display band goes from 44% to 43%, not up.
 the budget with CVT-RB timings.
 
 **Severity.** Major — a table regeneration, not a redesign. It was recorded as
-blocking until the arithmetic was redone; the correction is in Rev. AC.
+blocking until the arithmetic was redone; the correction is in Rev. AD.
 
 ### B2. tRFC is taken as 350 ns
 
@@ -269,6 +269,24 @@ and stream eight channels.
 
 **Severity.** Major.
 
+### C10. Jack presence is not speaker capability
+
+**Claim.** The card senses a plug in a surround jack and may offer discrete
+8-channel; stereo is the default until then.
+
+**What sensing cannot do.** A switching jack reports insertion, not whether a
+speaker is attached, powered, or capable of reproducing the channel. There is no
+standard for analogue speaker capability — unlike HDMI, where the sink declares
+its formats in EDID.
+
+**If it fails.** Users who plug in three of four jacks get silence on one channel
+and no explanation. The mitigation is the driver asking, once, and remembering.
+
+**Test.** Plug and unplug each jack while playing; assert the mode changes only on
+a completed insertion, and that the default returns to stereo after a reboot.
+
+**Severity.** Minor.
+
 ---
 
 ## D. What not to bother reporting
@@ -287,4 +305,4 @@ These have been considered and rejected; the reasoning is in the documents.
 
 ---
 
-*Rev. AC · 2 November 2026 · project started 30 October 2026*
+*Rev. AD · 2 November 2026 · project started 30 October 2026*

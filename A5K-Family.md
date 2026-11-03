@@ -183,15 +183,29 @@ that cannot be added later.
 
 ### 5.5 Audio
 
-**Eight channels, 24-bit, on every model. There is no stereo-only path.** Stereo
-is a downmix chosen in software by the user; it is never what the hardware
-produces on its own.
+**Eight channels, 24-bit, on every model — and stereo is what comes out of the
+box.** The front jack always carries sound: at power-on the card is in **stereo
+mode**, all eight channels downmixed to L/R on jack 1, with jacks 2–4 silent. Plug
+anything into a surround jack and the card can switch to **surround mode**, where
+the eight channels go out discretely.
+
+| Mode | Jack 1 | Jacks 2–4 |
+|---|---|---|
+| **Stereo** (default at power-on) | 8-channel downmix, L/R | silent |
+| **Surround** | front L/R | surround, rear, centre/LFE |
+
+**Sensing detects plugs, not speakers.** A switching jack knows that something is
+inserted; it cannot know whether a speaker is on the other end, whether it is
+powered, or how many channels it can reproduce. So plug presence is a *hint*: the
+driver may offer surround when a surround jack is occupied, and the user decides.
+HDMI is the one place where capability is genuinely negotiated, because the sink
+declares its audio formats in EDID — 8-channel LPCM there is agreed, not assumed.
 
 | Output | What it carries |
 |---|---|
 | **HDMI / DisplayPort** | 8-channel LPCM, or a compressed bitstream passed through untouched |
 | **TOSLINK** | 2-channel PCM, or a compressed Dolby/DTS stream — **not** 8-channel LPCM. S/PDIF has no room for it, and no design can change that |
-| **Analogue** | 4 × 3.5 mm stereo jacks — front, surround, rear, centre/LFE — from an 8-channel DAC |
+| **Analogue** | 4 × 3.5 mm stereo jacks — front, surround, rear, centre/LFE — from an 8-channel DAC. **Stereo downmix by default; discrete 8-channel when surround is selected** |
 
 The TOSLINK limit is worth stating plainly: optical gives 7.1 only as a
 *bitstream*, decoded by a receiver. It is a compatibility port, not a
@@ -353,4 +367,4 @@ a new model designation.*
 
 ---
 
-*Rev. AC · 2 November 2026 · project started 30 October 2026*
+*Rev. AD · 2 November 2026 · project started 30 October 2026*
