@@ -140,11 +140,11 @@ day they arrive, per the cadence rule above.
 
 | ID | Finding | Consequence | Status |
 |---|---|---|---|
-| **F-01** | The target monitor advertises **50.00, 59.94 and 60.00 Hz**; the ceilings fixed 60.000 only. | Resolved in Rev. AP: video rates on two slot clocks, high refresh to 1080p240, VRR out. | Closed in Rev. AP |
+| **F-01** | The target monitor advertises **50.00, 59.94 and 60.00 Hz**; the ceilings fixed 60.000 only. | Resolved in Rev. AQ: video rates on two slot clocks, high refresh to 1080p240, VRR out. | Closed in Rev. AQ |
 | **F-02** | B1 cannot be tested on a 1080p panel. | Withdrawn: the card is the source, HDMI 2.0 4K60 *is* CEA-861, and the generator takes line length as a register. No 4K panel is required to close it. | Withdrawn |
-| **F-03** | B1 closed by labelling the 4K example as CEA rather than the definition. | Applied in Rev. AP: §4.2 and §5.5 say CEA-861; CVT-RB is another row in the same generator. | Closed in Rev. AP |
+| **F-03** | B1 closed by labelling the 4K example as CEA rather than the definition. | Applied in Rev. AQ: §4.2 and §5.5 say CEA-861; CVT-RB is another row in the same generator. | Closed in Rev. AQ |
 | **F-04** | Mode floor, first power-on default and recovery policy were undefined. | Applied in Rev. Z: 640×480 floor, 1024×768 default, four recovery routes. | Closed in Rev. Z |
-| **F-05** | The reference BOM fits a stereo DAC (PCM5102) but lists **no audio connector**. | Resolved in Rev. AP: 8-channel DAC, four jacks, TOSLINK, two audio clocks; C+ Rev 2 replaces C+. | Closed in Rev. AP |
+| **F-05** | The reference BOM fits a stereo DAC (PCM5102) but lists **no audio connector**. | Resolved in Rev. AQ: 8-channel DAC, four jacks, TOSLINK, two audio clocks; C+ Rev 2 replaces C+. | Closed in Rev. AQ |
 | **F-06** | UAC2 host: open stacks are thin and the Studio's 160T has less room than the Pro's 325T. | **Decided:** UAC2 is on **every Studio and above**, enabled by firmware. The ULPI PHY footprint goes on the board regardless, so fit is never a board change. Scope: one interface, playback and capture, no hubs or HID. The Phase 1 fit test gates the *claim*, not the hardware. | Open — plan agreed |
 | **F-07** | The 48 kHz family is fitted but unmeasured. It is a **documentation claim**, not a hardware fault — the ID is only a label. | **Decided:** both crystals on the board; 44.1 is the default; the documents say "48 kHz is fitted and not yet measured". Closed by that sentence now, and reopened only when a board can measure it. The clock synthesis itself can be checked in the free toolchain. | Documented; measurement deferred |
 
@@ -361,4 +361,4 @@ the right line.
 
 ---
 
-*Rev. AP · 3 November 2026 · project started 30 October 2026*
+*Rev. AQ · 3 November 2026 · project started 30 October 2026*

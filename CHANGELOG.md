@@ -18,6 +18,7 @@ from Rev. W. Earlier revisions have no identifiers to cite.
 
 | Rev | Date | Tag | What changed | Findings |
 |---|---|---|---|---|
+| **AQ** | 3 Nov 2026 | `rev-aq` | Capture storage specified for the Pro: optional M.2 behind a Gen3 PCIe switch, FPGA port Gen2 ×4, ~1.7 GB/s usable; recorder only, not a disk controller | — |
 | **AP** | 3 Nov 2026 | `rev-ap` | BOM note corrected: an alternate with a different pinout is a board revision, not a part swap; the same caveat recorded in the private memo | — |
 | **AO** | 3 Nov 2026 | `rev-ao` | AKM AK4458 and AK5720 as primary converters, Cirrus CS4385/CS5368 named as alternates; alternate-part policy recorded; C+ at ~$280 | — |
 | **AN** | 3 Nov 2026 | `rev-an` | Direct monitoring documented (ADC → mixer → DAC, under 1 ms at 96 kHz); converter class and its group-delay cost named | — |
@@ -73,4 +74,4 @@ of their own. This changelog itself is housekeeping.
 
 ---
 
-*Rev. AP · 3 November 2026 · project started 30 October 2026*
+*Rev. AQ · 3 November 2026 · project started 30 October 2026*

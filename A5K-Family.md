@@ -325,9 +325,17 @@ want it.
 
 ### 5.6 Storage and filesystems
 
-**No model has a storage controller.** The card is a display and audio engine with
+**No model is a storage controller.** The card is a display and audio engine with
 a supervisor CPU, not a computer; the host owns the disks, the burners, the card
 readers and the filesystems.
+
+**One exception, on the Pro only and optional: a capture recorder.** A single M.2
+NVMe slot behind a PCIe switch, so the capture engine can record without sending
+the stream through the host. The switch is Gen3-capable, so the host and the drive
+negotiate Gen3 ×4; **the FPGA's own port is Gen2 ×4**, because 7-series PCIe hard
+blocks stop there. That is about 1.7 GB/s into the drive — enough for 4K60 10-bit
+4:2:2 (1.24 GB/s), not for 4:4:4 (1.87 GB/s). Gen3 straight from the FPGA means an
+UltraScale part and a different price class: a future model, not this one.
 
 **The microSD socket is private to the card.** It holds firmware and a `SAFE_MODE`
 file, it is read at boot, and it is **never exposed to the host** as a block
@@ -489,4 +497,4 @@ a new model designation.*
 
 ---
 
-*Rev. AP · 3 November 2026 · project started 30 October 2026*
+*Rev. AQ · 3 November 2026 · project started 30 October 2026*

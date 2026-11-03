@@ -281,10 +281,53 @@ give the host less than one SATA SSD — the link, not the drive, is the ceiling
 capture recorder is the only case where local storage makes sense, and that is a
 Studio feature and a different board revision.
 
+## 15. Capture storage
+
+The only storage that belongs on the card is a **recorder for the capture engine**,
+and only on the Pro, where there is a ×4 uplink and a 325T to spend. It is not a
+disk controller and it is not exposed as one.
+
+**Three links, three ceilings.**
+
+| Link | Bandwidth | Set by |
+|---|---|---|
+| Host ↔ card uplink (Pro) | 2.0 GB/s Gen2 ×4, 3.9 GB/s Gen3 ×4 | the host slot and the switch |
+| Switch ↔ NVMe drive | 3.9 GB/s Gen3 ×4 | the switch and the drive |
+| **FPGA ↔ switch** | **2.0 GB/s Gen2 ×4** | **the 7-series PCIe hard block** |
+
+The FPGA is the only Gen2 element. A Gen3 switch puts the host and the drive on a
+Gen3 link; it cannot make the FPGA speak Gen3, because the hard block in Artix-7
+and Kintex-7 stops at Gen2. Gen3 from the FPGA means UltraScale, roughly a
+different BOM class.
+
+**What the ~1.7 GB/s usable FPGA path can carry.** 4K60 10-bit 4:2:2 is
+1.24 GB/s and fits with 25% headroom. 4K60 10-bit 4:4:4 is 1.87 GB/s and does not.
+The Studio's specified capture is 1080p, at 0.47 GB/s — which any SSD carries, and
+which is why the slot is not offered on the Studio.
+
+**Two ways to build it.**
+
+| | Root complex in the FPGA | PCIe switch on the card |
+|---|---|---|
+| FPGA speaks to the drive | directly | through the switch |
+| Root-complex IP needed | **yes** — the risky part | no |
+| Host sees the drive | not at all | as an ordinary NVMe device |
+| Cost | firmware, months | ~$20–40 of switch and EEPROM |
+| Board | simpler | more lanes, more layers |
+
+The switch wins because it removes the one piece of IP nobody has a good open
+implementation of, and because peer-to-peer between downstream ports is exactly
+what these switches exist for.
+
+**What to design for now.** Lay the Pro's board out for Gen3 signalling and a
+Gen3 switch, so the FPGA is the only Gen2 element and a future model can swap it.
+Do not put the slot on the first board: a 1080p capture stream does not need it,
+and the price of proving it would be paid before there is anything to record.
+
 ---
 
 *Design study, 2026. Not legal advice. If you are unsure whether your use is permitted, read `LEGAL.md` and ask a lawyer.*
 
 ---
 
-*Rev. AP · 3 November 2026 · project started 30 October 2026*
+*Rev. AQ · 3 November 2026 · project started 30 October 2026*
