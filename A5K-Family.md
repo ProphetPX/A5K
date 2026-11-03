@@ -268,10 +268,12 @@ the 44.1 family**; the 48 family exists because video and broadcast are 48 kHz,
 and resampling every video timeline is exactly the kind of hidden arithmetic
 this project exists to avoid. Both crystals are fitted.
 
-One crystal covers a whole family: 24.576 MHz is 512 × 48 kHz, 256 × 96 kHz and
-128 × 192 kHz, so **96 and 192 need no extra part** — only a divider setting. The
-working set is **44.1 and 48**; 88.2, 96, 176.4 and 192 are fitted and unclaimed
-until measured, because the limit is the converter part, not the clock.
+One crystal covers a whole family: 24.576 MHz is 512 × 48 kHz and 256 × 96 kHz,
+so **96 needs no extra part** — only a divider setting. **The card is capped at
+96 kHz.** 44.1 is the default, 48 is the video standard, and 88.2/96 are fitted
+and claimed once measured. Nothing above 96 is offered: the converter stops there,
+the data rate triples for no audible gain, and several converters measure *worse*
+at 192 than at 96.
 
 **Clocking modes.** The card's clock is its own unless told otherwise. Three
 modes, selected by a register and **never stored across a power cycle**:
@@ -481,4 +483,4 @@ a new model designation.*
 
 ---
 
-*Rev. AL · 3 November 2026 · project started 30 October 2026*
+*Rev. AM · 3 November 2026 · project started 30 October 2026*

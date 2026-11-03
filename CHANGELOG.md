@@ -18,6 +18,7 @@ from Rev. W. Earlier revisions have no identifiers to cite.
 
 | Rev | Date | Tag | What changed | Findings |
 |---|---|---|---|---|
+| **AM** | 3 Nov 2026 | `rev-am` | Audio capped at 96 kHz: 44.1 default, 48 standard, 88.2/96 fitted and claimed only when measured; nothing above 96 offered | F-07 |
 | **AL** | 3 Nov 2026 | `rev-al` | Sample rates clarified: 24.576 MHz covers 48/96/192 and 22.5792 covers 44.1/88.2/176.4; 44.1 and 48 are the working set, the rest fitted and unclaimed | — |
 | **AK** | 3 Nov 2026 | `rev-ak` | The fit rule written down: synthesise before claiming; if a feature does not fit, disable it in firmware rather than uprating the part | F-06 |
 | **AJ** | 3 Nov 2026 | `rev-aj` | UAC2 PHY footprint on the Studio board from the first revision, enabled by firmware; 48 kHz documented as fitted and not yet measured; no model is frozen | F-06, F-07 |
@@ -69,4 +70,4 @@ of their own. This changelog itself is housekeeping.
 
 ---
 
-*Rev. AL · 3 November 2026 · project started 30 October 2026*
+*Rev. AM · 3 November 2026 · project started 30 October 2026*
