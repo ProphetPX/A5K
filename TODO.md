@@ -107,11 +107,11 @@ day they arrive, per the cadence rule above.
 
 | ID | Finding | Consequence | Status |
 |---|---|---|---|
-| **F-01** | The target monitor advertises **50.00, 59.94 and 60.00 Hz**; the ceilings fixed 60.000 only. | Resolved in Rev. AE: video rates on two slot clocks, high refresh to 1080p240, VRR out. | Closed in Rev. AE |
+| **F-01** | The target monitor advertises **50.00, 59.94 and 60.00 Hz**; the ceilings fixed 60.000 only. | Resolved in Rev. AF: video rates on two slot clocks, high refresh to 1080p240, VRR out. | Closed in Rev. AF |
 | **F-02** | B1 cannot be tested on a 1080p panel. | Withdrawn: the card is the source, HDMI 2.0 4K60 *is* CEA-861, and the generator takes line length as a register. No 4K panel is required to close it. | Withdrawn |
-| **F-03** | B1 closed by labelling the 4K example as CEA rather than the definition. | Applied in Rev. AE: §4.2 and §5.5 say CEA-861; CVT-RB is another row in the same generator. | Closed in Rev. AE |
+| **F-03** | B1 closed by labelling the 4K example as CEA rather than the definition. | Applied in Rev. AF: §4.2 and §5.5 say CEA-861; CVT-RB is another row in the same generator. | Closed in Rev. AF |
 | **F-04** | Mode floor, first power-on default and recovery policy were undefined. | Applied in Rev. Z: 640×480 floor, 1024×768 default, four recovery routes. | Closed in Rev. Z |
-| **F-05** | The reference BOM fits a stereo DAC (PCM5102) but lists **no audio connector**. | Resolved in Rev. AE: 8-channel DAC, four jacks, TOSLINK, two audio clocks; C+ Rev 2 replaces C+. | Closed in Rev. AE |
+| **F-05** | The reference BOM fits a stereo DAC (PCM5102) but lists **no audio connector**. | Resolved in Rev. AF: 8-channel DAC, four jacks, TOSLINK, two audio clocks; C+ Rev 2 replaces C+. | Closed in Rev. AF |
 | **F-06** | UAC2 host lives on the Studio models, but open host stacks handle UAC2 poorly and the 160T has less room than the 325T. | Verify the host controller fits the 160T; if not, the feature drops to Pro only. | Open |
 | **F-07** | The 48 kHz family is included for video, but only 44.1 has been argued for. | Validate 48/96/192 or state that only 44.1 ships first. | Open |
 
@@ -328,4 +328,4 @@ the right line.
 
 ---
 
-*Rev. AE · 2 November 2026 · project started 30 October 2026*
+*Rev. AF · 2 November 2026 · project started 30 October 2026*

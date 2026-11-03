@@ -95,12 +95,12 @@ worst case a driver may rely on — is specified in
 | HDMI out | 4K60 **SDR**, 8-bit 4:4:4 | 4K60 **HDR10**, 10-bit 4:2:2 | 4K60 HDR10, 10-bit 4:2:2 |
 | DP out | 1080p60 SDR | 4K60 **HDR10**, 10-bit **4:4:4** | 4K60 HDR10, 10-bit **4:4:4** |
 | Capture | none | 1080p60 **10-bit 4:2:2** | 1080p60 **10-bit 4:4:4** |
-| Audio out | **8 ch**, 24-bit: 4 jacks + TOSLINK + HDMI | same, plus S/PDIF/ADAT in and word clock | same, plus **USB UAC2 host** |
+| Audio out | **8 ch**, 24-bit: 4 jacks + TOSLINK + HDMI; front-panel HP/mic header | same, plus S/PDIF/ADAT in and word clock | same, plus **USB UAC2 host** |
 | Both outputs at once | mirrored, 1080p on DP | **one graphics + one video or derived** | same; two independent graphics needs the Pro II |
 | Refresh | up to **1080p240** on HDMI; DP 60 | up to **1080p240**, 1440p144; 4K60. **No VRR** | same |
 | PCIe | ×1 | ×2 | ×4 |
 | Memory | **2 × 16-bit** (32-bit, 1 GB) | **4 × 16-bit** (64-bit, 2 GB) | **4 × 16-bit** (64-bit, 2 GB) |
-| BOM | **~$270** | **~$555** | **~$1,215** |
+| BOM | **~$275** | **~$560** | **~$1,220** |
 
 ### 5.1 The HDMI wall, stated plainly
 
@@ -215,7 +215,28 @@ The TOSLINK limit is worth stating plainly: optical gives 7.1 only as a
 *bitstream*, decoded by a receiver. It is a compatibility port, not a
 multichannel one. Multichannel LPCM goes over HDMI, DisplayPort, or the jacks.
 
-**Inputs, Studio and above:** line-in, plus S/PDIF or ADAT with **word clock in
+**Headphones, microphone, and the front panel.** The card carries a standard
+**10-pin HD-Audio front-panel header**, so any ATX case works: headphone L/R, mic,
+ground, presence and the sense returns. The rear carries the four line-outs and
+its own mic jack.
+
+The headphone path is **not a passive tee**. A switched jack in series with the
+rear output is how PCs did it — insertion physically breaks the path to the back —
+and it costs independent volume and puts a long unshielded stub on the analogue
+output. Instead the card fits a **second, stereo DAC** for the front panel, with
+its own volume in the mixer:
+
+- Plugging in headphones switches the card to **stereo mode**, routes the downmix
+  to the headphones, and mutes the rear jacks.
+- Unplugging restores the previous mode.
+- The rear 8-channel path is never broken, and a card with no front panel fitted
+  behaves normally — the header's presence pin says so.
+
+The microphone is an **ADC with two inputs**, front and rear. If both are plugged,
+the front wins and the driver reports which. Bias for electret microphones is
+supplied on both.
+
+**Inputs on the Studio models:** line-in, plus S/PDIF or ADAT with **word clock in
 and out**, so an external converter can be the clock master. That is what
 professional users actually want, and it costs a connector and a comparator.
 
@@ -371,4 +392,4 @@ a new model designation.*
 
 ---
 
-*Rev. AE · 2 November 2026 · project started 30 October 2026*
+*Rev. AF · 2 November 2026 · project started 30 October 2026*
