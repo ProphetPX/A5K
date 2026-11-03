@@ -112,8 +112,8 @@ day they arrive, per the cadence rule above.
 | **F-03** | B1 closed by labelling the 4K example as CEA rather than the definition. | Applied in Rev. AI: §4.2 and §5.5 say CEA-861; CVT-RB is another row in the same generator. | Closed in Rev. AI |
 | **F-04** | Mode floor, first power-on default and recovery policy were undefined. | Applied in Rev. Z: 640×480 floor, 1024×768 default, four recovery routes. | Closed in Rev. Z |
 | **F-05** | The reference BOM fits a stereo DAC (PCM5102) but lists **no audio connector**. | Resolved in Rev. AI: 8-channel DAC, four jacks, TOSLINK, two audio clocks; C+ Rev 2 replaces C+. | Closed in Rev. AI |
-| **F-06** | UAC2 host lives on the Studio models, but open host stacks handle UAC2 poorly and the 160T has less room than the 325T. | Verify the host controller fits the 160T; if not, the feature drops to Pro only. | Open |
-| **F-07** | The 48 kHz family is included for video, but only 44.1 has been argued for. | Validate 48/96/192 or state that only 44.1 ships first. | Open |
+| **F-06** | UAC2 host: open stacks are thin and the Studio's 160T has less room than the Pro's 325T. | **Decided:** UAC2 is on **every Studio and above**, enabled by firmware. The ULPI PHY footprint goes on the board regardless, so fit is never a board change. Scope: one interface, playback and capture, no hubs or HID. The Phase 1 fit test gates the *claim*, not the hardware. | Open — plan agreed |
+| **F-07** | The 48 kHz family is fitted but unmeasured. | **Decided:** both crystals on the board; 44.1 is the default; the documents say 48 is present and unmeasured until a bench test exists. Closing it needs no board: the MMCM settings can be verified in the free vendor toolchain. | Open — verification only |
 
 ### After the campaign
 
