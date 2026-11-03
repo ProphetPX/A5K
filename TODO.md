@@ -100,6 +100,18 @@ The campaign is over when either:
 
 Then tag the result and stop revising until hardware exists.
 
+### Open findings, awaiting a revision
+
+Findings are logged here and batched into the next revision — not fixed on the
+day they arrive, per the cadence rule above.
+
+| ID | Finding | Consequence | Status |
+|---|---|---|---|
+| **F-01** | The target monitor (1080p, DP-1) advertises **50.00, 59.94 and 60.00 Hz**. The ceilings fix 60.000 only. | For a card positioned at video people, this is the real gap — 23.976/24/25/29.97/50/59.94 are the working rates. Widening the set needs a second slot clock (148.35 MHz for the /1.001 family) and a regenerated table per rate, which changes C1 and C6. | Open — decide the frame-rate set |
+| **F-02** | B1 cannot be tested on a 1080p panel. | Withdrawn: the card is the source, HDMI 2.0 4K60 *is* CEA-861, and the generator takes line length as a register. No 4K panel is required to close it. | Withdrawn |
+| **F-03** | B1 should be closed properly, not just downgraded: §4.2 and §5.5 quote CEA numbers as if they were the definition. | Label the 4K example "CEA-861, 4,400 × 2,250" and state that the generator is timing-agnostic. | Open — batched with the frame-rate decision |
+| **F-04** | Mode floor, first power-on default and recovery policy were undefined. | Applied in Rev. Z: 640×480 floor, 1024×768 default, four recovery routes. | Closed in Rev. Z |
+
 ### After the campaign
 
 Write one page: **what the reviewers found**. It is the only credible evidence
@@ -313,4 +325,4 @@ the right line.
 
 ---
 
-*Rev. Y · 2 November 2026 · project started 30 October 2026*
+*Rev. Z · 2 November 2026 · project started 30 October 2026*

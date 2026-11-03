@@ -64,7 +64,7 @@ display band goes from 44% to 43%, not up.
 the budget with CVT-RB timings.
 
 **Severity.** Major — a table regeneration, not a redesign. It was recorded as
-blocking until the arithmetic was redone; the correction is in Rev. Y.
+blocking until the arithmetic was redone; the correction is in Rev. Z.
 
 ### B2. tRFC is taken as 350 ns
 
@@ -243,4 +243,4 @@ These have been considered and rejected; the reasoning is in the documents.
 
 ---
 
-*Rev. Y · 2 November 2026 · project started 30 October 2026*
+*Rev. Z · 2 November 2026 · project started 30 October 2026*

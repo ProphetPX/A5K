@@ -206,6 +206,24 @@ switch is offered as an option on Studio Pro, for rack installations where the
 operator wants to force an output regardless of what is plugged in. It is a
 convenience, not a mechanism.
 
+### 6.1 First power-on, and the way back
+
+Every model comes up on the display's preferred timing. With no EDID it comes up
+at **1024×768 @ 60** — XGA, which every display since 1990 accepts — and the user
+may change that default; it is stored in the configuration flash.
+
+The floor is **640×480 @ 60**, the lowest HDMI or DisplayPort can carry
+(25.175 MHz) and the modern equivalent of Amiga "hi-res", 640 pixels wide. A
+15 kHz Amiga mode cannot be put on either port at all, so the old CRT monitors
+are out of reach without an external converter.
+
+Four ways back from a blank screen, all fitted: a **host register** (PCIe config
+space does not depend on video), a **`SAFE_MODE` file on the microSD**, a
+**button or jumper** at power-on (one second for safe video, ten for factory
+defaults), and an **automatic cycle** of 1024×768 → 800×600 → 640×480 after ten
+seconds without a hotplug. Precedence is button, SD file, stored default, EDID,
+automatic.
+
 ## 7. What two beams buy a professional
 
 - **Programme and preview.** HDMI to air, DP for the next shot or scopes.
@@ -280,4 +298,4 @@ a new model designation.*
 
 ---
 
-*Rev. Y · 2 November 2026 · project started 30 October 2026*
+*Rev. Z · 2 November 2026 · project started 30 October 2026*

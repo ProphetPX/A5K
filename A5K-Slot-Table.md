@@ -141,13 +141,16 @@ pins or the board (§4.4).
 
 | Mode | Line time | Slots/line | Tick positions | 8-plane fetch | Utilisation |
 |---|---|---|---|---|---|
+| 640×480 @ 60 Hz | 31.8 µs | 4,720 | 225 | 80 slots | 1.7% |
+| 1024×768 @ 60 Hz | 20.7 µs | 3,071 | 147 | 128 slots | 4.2% |
 | 640×512 @ 50 Hz | 64.0 µs | 9,504 | 453 | 80 slots | 0.8% |
 | 1080p60 | 14.81 µs | 2,200 | 105 | 240 slots | 11% |
 | 4K60 | 7.41 µs | 1,100 | 53 | 480 slots | 44% |
 
 "Tick positions" counts the truncated tail tick as one position: 104 full ticks
-plus a short one at 1080p, 52 plus a short one at 4K, 452 plus a short one at
-640×512.
+plus a short one at 1080p, 52 at 4K, and the same rule everywhere. 640×480 is the
+floor the ports can carry and 1024×768 is the first power-on default — see the
+technical specification card, §10.
 
 The pattern is worth pausing on: at 640×512 the bus is almost idle, at 1080p it
 is comfortable, and at 4K the display alone takes nearly half the line before
@@ -618,4 +621,4 @@ is the next step.
 
 ---
 
-*Rev. Y · 2 November 2026 · project started 30 October 2026*
+*Rev. Z · 2 November 2026 · project started 30 October 2026*

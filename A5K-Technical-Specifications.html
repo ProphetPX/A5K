@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>A5K — Technical Specifications (Rev. Y)</title>
+<title>A5K — Technical Specifications (Rev. Z)</title>
 <style>
   @page {
     size: A4;
@@ -629,10 +629,10 @@
 <body>
 
 <div class="spec-head">
-  <p class="kicker">Reference card &middot; Rev. Y</p>
+  <p class="kicker">Reference card &middot; Rev. Z</p>
   <h1>A5K — Technical Specifications</h1>
   <p class="subtitle">Clocks, memory, processors, bandwidth and the limits they impose</p>
-  <p class="meta">Rev. Y &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
+  <p class="meta">Rev. Z &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
 </div>
 
 <div class="statusline">
@@ -828,7 +828,36 @@
 
 <p><strong>What would have to change for more.</strong> More planes at 4K means a wider memory bus before it means more logic. A faster on-card CPU means a hard core, not a bigger soft one. More host bandwidth means Gen3 or Gen4, which means an Artix-7 with GTP or a larger part. Each is a different board, not a different setting.</p>
 
-<h2 id="sp10">10. Quick reference</h2>
+<h2 id="sp10">10. Video modes, and the way back</h2>
+
+<p>Timings are generated from registers, so a mode is a row in a table, not a circuit. Three tiers matter:</p>
+
+<table>
+<caption><strong>Table S10.</strong> The floor, the default and the normal case.</caption>
+<thead>
+<tr><th style="width:17%">Tier</th><th style="width:25%">Mode</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Floor</strong></td><td><strong>640×480 @ 60</strong></td><td>The lowest signal HDMI and DisplayPort can carry — 25.175 MHz. It is also the modern equivalent of Amiga “hi-res”: 640 pixels wide. A 15 kHz Amiga mode cannot be put on either port at all.</td></tr>
+<tr><td><strong>Default</strong></td><td><strong>1024×768 @ 60</strong></td><td>XGA: accepted by essentially every display since 1990, and what the card falls back to when there is no EDID to ask. The user may change it; the setting lives in the configuration flash.</td></tr>
+<tr><td><strong>Normal</strong></td><td>display preferred, up to 4K60</td><td>On a 4K panel the EDID asks for 4K60, and that is what the card drives.</td></tr>
+</tbody>
+</table>
+
+<p><strong>First power-on.</strong> Read the EDID and use its preferred timing. No EDID, or nothing readable: come up at <strong>1024×768 @ 60</strong>. Every mode comes from the same registers, so adding one costs a row, not a redesign.</p>
+
+<p><strong>Recovery, for a blank screen.</strong> Four routes, layered, and all four ship:</p>
+
+<ol>
+<li><strong>Host register.</strong> PCIe configuration space is independent of video, so a driver can force defaults even when the display is wrong.</li>
+<li><strong><code>SAFE_MODE</code> on the microSD.</strong> Drop the file on the card and power-cycle — it comes up at 1024×768 with no host involved.</li>
+<li><strong>Button or jumper.</strong> One second at power-on selects safe video; ten seconds restores factory defaults. About $0.15 for a bracket button, $0.02 for a jumper.</li>
+<li><strong>Automatic.</strong> No EDID, or no hotplug for ten seconds, and the card cycles 1024×768 → 800×600 → 640×480 until one locks — what a PC BIOS does.</li>
+</ol>
+
+<p>Precedence at power-on: button or jumper, then the SD file, then the stored default, then the display’s EDID, then the automatic cycle. The button does not violate the “no physical switch” rule — that rule is about the Auto/HDMI/DP selector, not about recovery.</p>
+
+<h2 id="sp11" style="page-break-before:always">11. Quick reference</h2>
 
 <table>
 <caption><strong>Table S10.</strong> The numbers worth memorising.</caption>
@@ -851,6 +880,8 @@
 <tr><td>Host CPU</td><td>anything with PCIe; 2–6 GHz, 4–256 cores</td></tr>
 <tr><td>Planes</td><td>8, optionally 16</td></tr>
 <tr><td>Outputs</td><td>4K60 SDR HDMI (primary), 1080p60 DP (secondary); HDMI sensed first. HDR10 on the Studio models</td></tr>
+<tr><td>Mode floor</td><td>640×480 @ 60 — the lowest either port can carry</td></tr>
+<tr><td>First power-on</td><td>EDID preferred timing; 1024×768 @ 60 when there is no EDID</td></tr>
 <tr><td>Fabric</td><td>64-bit slots (C+), 256-bit (Studio), 512-bit reserved (Pro II) — all at 148.5 MHz</td></tr>
 <tr><td>Blitters</td><td>1</td></tr>
 <tr><td>Audio</td><td>4–8 DMA streams, 24-bit I²S</td></tr>
