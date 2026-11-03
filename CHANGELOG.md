@@ -18,6 +18,7 @@ from Rev. W. Earlier revisions have no identifiers to cite.
 
 | Rev | Date | Tag | What changed | Findings |
 |---|---|---|---|---|
+| **AA** | 2 Nov 2026 | `rev-aa` | Video rates 23.976–60 on two slot clocks, high refresh to 1080p240, VRR explicitly excluded, CEA labelling | C1, C6, C7 |
 | **Z** | 2 Nov 2026 | `rev-z` | Mode floor 640×480, first power-on default 1024×768, and four recovery routes (host, SD, button, automatic) | — |
 | **Y** | 2 Nov 2026 | `rev-y` | B1 corrected: CVT-RB costs 0.6% of a line, not 11 points of display band; severity Blocking → Major | B1 |
 | **X** | 2 Nov 2026 | `rev-x` | PAL and NTSC reference statistics side by side; 50 Hz recorded as an out-of-scope ceiling | C6 |
@@ -57,4 +58,4 @@ of their own. This changelog itself is housekeeping.
 
 ---
 
-*Rev. Z · 2 November 2026 · project started 30 October 2026*
+*Rev. AA · 2 November 2026 · project started 30 October 2026*

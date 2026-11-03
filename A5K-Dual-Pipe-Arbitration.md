@@ -48,6 +48,12 @@ repeat together over
 | 4K60 + 4K60 | 1,100 | 1,100 | 1,100 | 7.4 µs |
 | 1080p60 + 1080p60 | 2,200 | 2,200 | 2,200 | 14.8 µs |
 | 4K60 + 1080p50 | 1,100 | 2,640 | 13,200 | 88.8 µs |
+| 4K60 + 1080p120 | 1,100 | 1,100 | 1,100 | 7.4 µs |
+| 4K60 + 1080p240 | 1,100 | 550 | 1,100 | 7.4 µs |
+
+High refresh divides the first beam's line exactly — 1080p120 is 1,100 slots and
+1080p240 is 550 against 4K60's 1,100 — so a fast second output *keeps the
+superframe small* rather than enlarging it.
 
 The common case is exact and small: 4K60 and 1080p60 are both 60 Hz, so a 1080p
 line is exactly two 4K lines. **The two beams are commensurate by construction**,
@@ -160,4 +166,4 @@ are the price of calling it a specification.*
 
 ---
 
-*Rev. Z · 2 November 2026 · project started 30 October 2026*
+*Rev. AA · 2 November 2026 · project started 30 October 2026*

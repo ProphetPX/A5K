@@ -64,7 +64,7 @@ display band goes from 44% to 43%, not up.
 the budget with CVT-RB timings.
 
 **Severity.** Major — a table regeneration, not a redesign. It was recorded as
-blocking until the arithmetic was redone; the correction is in Rev. Z.
+blocking until the arithmetic was redone; the correction is in Rev. AA.
 
 ### B2. tRFC is taken as 350 ns
 
@@ -154,16 +154,18 @@ of five — a 20% cut in bursts per tick.
 
 ## C. Assumed
 
-### C1. The slot clock is 148.5 MHz
+### C1. Two slot clocks, one tick rule
 
-**Claim.** One fixed PLL, one tick, 148.5 ÷ 21.
+**Claim.** 148.5 MHz for the 24/25/30/50/60 family and **148.35 MHz** for the
+23.976/29.97/59.94 family. The tick is divide-by-21 in both: 7.0714 and
+7.0643 MHz. Every other number in these documents is unchanged, because the
+arithmetic is in ticks and slots, not in nanoseconds.
 
-**If it fails.** 59.94 Hz needs 148.35 MHz. That moves the tick to 7.0643 MHz and
-every number in these documents by 0.1%, and the tick stops being an exact
-division of the *video* clock unless the PLL moves with it.
+**If it fails.** A /1.001 rate on the wrong clock slips one frame in 1,001 — a
+visible repeat every 16.7 s, forever.
 
-**Test.** Decide whether 59.94 is supported. If it is, the PLL needs two settings
-and the tick follows the slot clock, not a fixed constant.
+**Test.** Confirm the MMCM produces both within jitter, and measure the frame
+cadence over an hour against a reference.
 
 **Severity.** Major.
 
@@ -208,22 +210,35 @@ hardware work fixes that.
 
 **Severity.** **Blocking**, schedule.
 
-### C6. 60 Hz only
+### C6. No variable refresh
 
-**Claim.** The ceilings fix the machine at 60 Hz; the rota is regenerated once per
-frame.
+**Claim.** Every mode is fixed. VRR is advertised by FreeSync, G-Sync Compatible
+and Intel's Adaptive Sync, and it only operates when the *source* offers it. A
+source that does not, leaves the panel at its fixed refresh, which every panel
+accepts.
 
-**Consequence.** 50 Hz material is converted, not displayed natively, and PAL-era
-software timing cannot be reproduced. For a workstation aimed at European
-production, that is a real limit.
+**Consequence.** None for compatibility. It is a missing feature, not a fault, and
+it belongs next to "no 8K" in the list of ceilings.
 
-**Why it is a choice, not a limit.** A 50 Hz mode is a regenerated table, not new
-silicon: 1,320 slots per line at 4K50, 2,640 at 1080p50. The cost is validation —
-a second schedule to prove — not hardware.
+**Why it is a ceiling rather than a gap to close.** A variable line time
+invalidates the rota and every Copper WAIT position in it — the same reason 8K and
+HDMI 2.1 are out.
 
-**Test.** Decide whether 50 Hz is in scope. If it is, it doubles the test matrix.
+**Severity.** Minor.
 
-**Severity.** Minor technically, major commercially in PAL markets.
+### C7. High refresh thins the Copper
+
+**Claim.** At 1080p240 a line is 550 slots with 27 tick positions, against 105 at
+1080p60.
+
+**Consequence.** A raster split every few ticks is impossible at 240 Hz; the tick
+rate is constant but the lines are four times shorter. Lists written for 60 must be
+re-timed — which is already the rule, but the margin is much thinner.
+
+**Test.** Re-run the worked example at 240 and count the registers a list can
+write per line.
+
+**Severity.** Minor.
 
 ---
 
@@ -243,4 +258,4 @@ These have been considered and rejected; the reasoning is in the documents.
 
 ---
 
-*Rev. Z · 2 November 2026 · project started 30 October 2026*
+*Rev. AA · 2 November 2026 · project started 30 October 2026*

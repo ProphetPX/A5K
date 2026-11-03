@@ -145,7 +145,8 @@ pins or the board (§4.4).
 | 1024×768 @ 60 Hz | 20.7 µs | 3,071 | 147 | 128 slots | 4.2% |
 | 640×512 @ 50 Hz | 64.0 µs | 9,504 | 453 | 80 slots | 0.8% |
 | 1080p60 | 14.81 µs | 2,200 | 105 | 240 slots | 11% |
-| 4K60 | 7.41 µs | 1,100 | 53 | 480 slots | 44% |
+| 1080p240 | 3.70 µs | 550 | 27 | 240 slots | 44% |
+| 4K60 (CEA-861) | 7.41 µs | 1,100 | 53 | 480 slots | 44% |
 
 "Tick positions" counts the truncated tail tick as one position: 104 full ticks
 plus a short one at 1080p, 52 at 4K, and the same rule everywhere. 640×480 is the
@@ -486,7 +487,8 @@ That is the whole contract. Everything else is which owner fills which burst:
 | tail 3 | spare | alignment; audio or SD |
 
 At 4K the same unit repeats **52 times** with an 8-slot tail, giving 53 Copper
-slots and 249 bursts — 120 for eight planes, 32 for a 256-pixel overlay, 41 for
+slots and 249 bursts. The numbers are CEA-861 (4,400 × 2,250); CVT-RB is another
+row in the same generator, 1,114 slots, and the tables do not change shape — 120 for eight planes, 32 for a 256-pixel overlay, 41 for
 the blitter and 56 for the host.
 
 **When a display fetch misses its slot, the beam holds and repeats the last
@@ -578,16 +580,17 @@ Better stated than discovered:
 
 | Bound | Value | Why |
 |---|---|---|
-| Frame rate | **60 Hz fixed** | the rota and the Copper list are regenerated once per frame; variable refresh would invalidate both |
+| Frame rate | **a fixed set**, 24–240 Hz | each rate is its own table; a variable one would invalidate every WAIT position in it |
 | Resolution | **4K** (3,840 × 2,160) | V is 12 bits, 4,095 lines; 8K needs 4,320 and does not fit |
 | Frame rate at 4K | **60 Hz** | 1,100 slots per line, 480 taken by eight planes; 4K120 halves the line to 550 slots and the display alone would be 87% |
 | Planes at 4K | planar, plus partial overlays | a full-width ARGB plane is 175% of a line (§4.5) |
 | Copper | one instruction per tick | 4.8% of the bus at 7.0714 MHz; a faster domain is a bandwidth trade (§7) |
 | Independent 4K HDR beams | **1** at 256-bit, **2** at 512-bit | two independent 4K HDR graphics rasters plus capture is 98% of a 256-bit fabric (§4.4) |
 
-C+ is a 60 Hz, 4K, fixed-timing machine. That is a constraint, not a shortcoming,
-and every one of these ceilings is the price of the property the machine exists
-for: the schedule is countable because it never has to be renegotiated.
+C+ is a 4K, fixed-timing machine: 24 to 240 Hz depending on resolution, 60 at
+4K, and never a variable one. That is a constraint, not a shortcoming, and every
+one of these ceilings is the price of the property the machine exists for: the
+schedule is countable because it never has to be renegotiated.
 
 ## 9. This is where the real test is
 
@@ -621,4 +624,4 @@ is the next step.
 
 ---
 
-*Rev. Z · 2 November 2026 · project started 30 October 2026*
+*Rev. AA · 2 November 2026 · project started 30 October 2026*

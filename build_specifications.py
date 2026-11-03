@@ -46,10 +46,10 @@ extra = """
 
 body = r"""
 <div class="spec-head">
-  <p class="kicker">Reference card &middot; Rev. Z</p>
+  <p class="kicker">Reference card &middot; Rev. AA</p>
   <h1>A5K — Technical Specifications</h1>
   <p class="subtitle">Clocks, memory, processors, bandwidth and the limits they impose</p>
-  <p class="meta">Rev. Z &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
+  <p class="meta">Rev. AA &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
 </div>
 
 <div class="statusline">
@@ -261,6 +261,12 @@ body = r"""
 </tbody>
 </table>
 
+<p><strong>The ceiling is a pixel rate, not a list.</strong> Any CEA or VESA timing at or below 594 MHz that the EDID declares is legal: the standard video rates 23.976–60 on two slot clocks (148.35 MHz for the 1000/1001 family), high refresh to 1080p240 and 1440p144, and 4K at 60. <strong>1080p240 costs the same as 4K60</strong> — 497.7 megapixels per second either way — so the budget is per pixel rate, not per resolution.</p>
+
+<p><strong>No variable refresh.</strong> FreeSync, G-Sync Compatible and Intel’s Adaptive Sync only operate when the source offers them; a source that does not leaves the panel at fixed refresh, which every panel accepts. It is a ceiling, like no 8K.</p>
+
+<p><strong>Four rules keep it out of trouble.</strong> Never emit a timing the EDID does not declare; use the preferred timing at boot; implement DPMS D0/D3 only, waking on hotplug and never idling the link; and debounce hotplug for 100 ms, because monitors chatter on power-save. Those four are what separate a card that works with every panel from a card that works with the one on the bench.</p>
+
 <p><strong>First power-on.</strong> Read the EDID and use its preferred timing. No EDID, or nothing readable: come up at <strong>1024×768 @ 60</strong>. Every mode comes from the same registers, so adding one costs a row, not a redesign.</p>
 
 <p><strong>Recovery, for a blank screen.</strong> Four routes, layered, and all four ship:</p>
@@ -274,7 +280,7 @@ body = r"""
 
 <p>Precedence at power-on: button or jumper, then the SD file, then the stored default, then the display’s EDID, then the automatic cycle. The button does not violate the “no physical switch” rule — that rule is about the Auto/HDMI/DP selector, not about recovery.</p>
 
-<h2 id="sp11" style="page-break-before:always">11. Quick reference</h2>
+<h2 id="sp11">11. Quick reference</h2>
 
 <table>
 <caption><strong>Table S10.</strong> The numbers worth memorising.</caption>
@@ -298,6 +304,7 @@ body = r"""
 <tr><td>Planes</td><td>8, optionally 16</td></tr>
 <tr><td>Outputs</td><td>4K60 SDR HDMI (primary), 1080p60 DP (secondary); HDMI sensed first. HDR10 on the Studio models</td></tr>
 <tr><td>Mode floor</td><td>640×480 @ 60 — the lowest either port can carry</td></tr>
+<tr><td>Refresh</td><td>Fixed only. 24–60 standard rates, 1080p to 240 Hz, 1440p to 144; no VRR</td></tr>
 <tr><td>First power-on</td><td>EDID preferred timing; 1024×768 @ 60 when there is no EDID</td></tr>
 <tr><td>Fabric</td><td>64-bit slots (C+), 256-bit (Studio), 512-bit reserved (Pro II) — all at 148.5 MHz</td></tr>
 <tr><td>Blitters</td><td>1</td></tr>
@@ -316,7 +323,7 @@ html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>A5K — Technical Specifications (Rev. Z)</title>
+<title>A5K — Technical Specifications (Rev. AA)</title>
 <style>{css}{extra}</style>
 </head>
 <body>
@@ -357,7 +364,7 @@ for i, page in enumerate(doc):
                    pymupdf.Point(w * 0.90, h - 30),
                    color=(0.80, 0.80, 0.80), width=0.5)
     page.insert_text((w * 0.10, h - 19),
-                     "Rev. Z \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
+                     "Rev. AA \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
                      fontname="helv", fontsize=6.8, color=(0.45, 0.45, 0.45))
     title = "A5K \u00b7 Technical Specifications"
     tw = pymupdf.get_text_length(title, fontname="helv", fontsize=7.2)
@@ -370,7 +377,7 @@ for i, page in enumerate(doc):
 
 doc.set_toc(toc)
 doc.set_metadata({
-    "title": "A5K - Technical Specifications (Rev. Z)",
+    "title": "A5K - Technical Specifications (Rev. AA)",
     "author": "Design study",
     "subject": "Clocks, memory, processors, bandwidth and limits of the A5K design",
     "keywords": "A5K, Amiga-like, FPGA, DDR3L, RISC-V, bandwidth, specification",

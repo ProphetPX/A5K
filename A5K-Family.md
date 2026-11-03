@@ -91,6 +91,7 @@ worst case a driver may rely on — is specified in
 | DP out | 1080p60 SDR | 4K60 **HDR10**, 10-bit **4:4:4** | 4K60 HDR10, 10-bit **4:4:4** |
 | Capture | none | 1080p60 **10-bit 4:2:2** | 1080p60 **10-bit 4:4:4** |
 | Both outputs at once | mirrored, 1080p on DP | **one graphics + one video or derived** | same; two independent graphics needs the Pro II |
+| Refresh | up to **1080p240** on HDMI; DP 60 | up to **1080p240**, 1440p144; 4K60. **No VRR** | same |
 | PCIe | ×1 | ×2 | ×4 |
 | Memory | **2 × 16-bit** (32-bit, 1 GB) | **4 × 16-bit** (64-bit, 2 GB) | **4 × 16-bit** (64-bit, 2 GB) |
 | BOM | **~$255** | **~$540** | **~$1,200** |
@@ -224,6 +225,19 @@ defaults), and an **automatic cycle** of 1024×768 → 800×600 → 640×480 aft
 seconds without a hotplug. Precedence is button, SD file, stored default, EDID,
 automatic.
 
+**Rates, not just resolutions.** Every model presents a fixed set: the standard
+video rates 23.976–60 on two slot clocks, high refresh to **1080p240** and
+**1440p144**, and 4K at 60. There is **no variable refresh** — a FreeSync or
+G-Sync panel simply runs at the fixed rate it is given, which every panel
+accepts. And 1080p240 costs exactly what 4K60 costs, because the budget is per
+pixel rate, not per resolution.
+
+Four rules keep it out of trouble, and they matter more than the mode list: never
+emit a timing the EDID does not declare, use the preferred timing at boot,
+implement DPMS D0/D3 with a hotplug wake and no idling link, and debounce hotplug
+for 100 ms. A display is the authority on what it can do; the card only asks for
+what it has been told is legal.
+
 ## 7. What two beams buy a professional
 
 - **Programme and preview.** HDMI to air, DP for the next shot or scopes.
@@ -267,6 +281,8 @@ projects.
 ## 10. What is not promised, on any model
 
 - 4K60 **input** — bandwidth and HDCP both say no.
+- **Variable refresh** — FreeSync, G-Sync Compatible, Adaptive Sync. A variable
+  line time would invalidate the rota and every WAIT position in it.
 - HDCP of any version.
 - HDMI 4:4:4 at 4K60, on any model — see §5.1.
 - DVI, S-Video, composite or coaxial output — reserved in the sensing chain,
@@ -298,4 +314,4 @@ a new model designation.*
 
 ---
 
-*Rev. Z · 2 November 2026 · project started 30 October 2026*
+*Rev. AA · 2 November 2026 · project started 30 October 2026*
