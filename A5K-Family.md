@@ -118,8 +118,8 @@ scheduler's QoS rather than in a second DRAM channel.
 ### 5.2 One tick, and room for another
 
 Every model runs the Copper at **7.0714 MHz** — 148.5 ÷ 21, exactly twenty-one
-slots of the bus. It is 0.26% slower than the Amiga's 7.09 MHz and, unlike 7.09,
-it divides the bus exactly. An approximate ratio would drift five slots per line,
+slots of the bus. It is 0.26% slower than the Amiga's 7.09 MHz on PAL and 1.2%
+slower than NTSC's 7.16 — and, unlike either, it divides the bus exactly. An approximate ratio would drift five slots per line,
 which is the one thing a machine built on countable timing cannot afford.
 
 The Studio class reserves a **second, faster tick domain** as a future hardware
@@ -280,4 +280,4 @@ a new model designation.*
 
 ---
 
-*Rev. W · 2 November 2026 · project started 30 October 2026*
+*Rev. X · 2 November 2026 · project started 30 October 2026*

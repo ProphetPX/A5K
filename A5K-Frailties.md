@@ -205,6 +205,23 @@ hardware work fixes that.
 
 **Severity.** **Blocking**, schedule.
 
+### C6. 60 Hz only
+
+**Claim.** The ceilings fix the machine at 60 Hz; the rota is regenerated once per
+frame.
+
+**Consequence.** 50 Hz material is converted, not displayed natively, and PAL-era
+software timing cannot be reproduced. For a workstation aimed at European
+production, that is a real limit.
+
+**Why it is a choice, not a limit.** A 50 Hz mode is a regenerated table, not new
+silicon: 1,320 slots per line at 4K50, 2,640 at 1080p50. The cost is validation —
+a second schedule to prove — not hardware.
+
+**Test.** Decide whether 50 Hz is in scope. If it is, it doubles the test matrix.
+
+**Severity.** Minor technically, major commercially in PAL markets.
+
 ---
 
 ## D. What not to bother reporting
@@ -223,4 +240,4 @@ These have been considered and rejected; the reasoning is in the documents.
 
 ---
 
-*Rev. W · 2 November 2026 · project started 30 October 2026*
+*Rev. X · 2 November 2026 · project started 30 October 2026*

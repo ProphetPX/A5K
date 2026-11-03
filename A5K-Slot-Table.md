@@ -22,10 +22,10 @@ A computer's memory bus can be shared in two ways. Most modern machines share it
 this design — shares it *by time*: every fixed interval belongs to a named
 owner in advance, and everyone knows whose turn it is.
 
-That fixed interval is a **slot**. In the original it was one cycle of the 7.09
-MHz chip bus — **141 nanoseconds**. In 141 ns, light travels about 42 metres; a
-modern CPU executes a few hundred instructions; and on an Amiga, one bitplane
-word is fetched.
+That fixed interval is a **slot**. In the original it was one cycle of the chip
+bus — **141 nanoseconds on PAL (7.09 MHz), 140 on NTSC (7.16 MHz)**. In that
+time light travels about 42 metres; a modern CPU executes a few hundred
+instructions; and on an Amiga, one bitplane word is fetched.
 
 The **slot table** is the rota: for every slot in a scanline, which unit owns the
 bus. It is written before the frame begins, not negotiated during it.
@@ -39,19 +39,27 @@ deterministic timing, it is really claiming that the rota exists and is honest.
 
 The Amiga's numbers, for reference:
 
-| | Amiga (PAL) |
-|---|---|
-| Line time | 64 µs |
-| Line rate | 15.625 kHz |
-| Chip bus | 7.09 MHz, 16-bit |
-| Bus ticks per line | ~454 |
-| Colour clocks per line | 227.5 |
-| Max bitplanes | 8 (AGA) |
-| Sprites | 8, fetched by their own DMA |
+| | Amiga (PAL) | Amiga (NTSC) |
+|---|---|---|
+| Line time | 64.0 µs | 63.56 µs |
+| Line rate | 15.625 kHz | 15.734 kHz |
+| Lines per frame | 312.5 at 50 Hz | 262.5 at 60 Hz |
+| Visible lines | 256 | 200 |
+| Chip bus | 7.094 MHz, 16-bit | 7.159 MHz, 16-bit |
+| Bus cycles per line | ≈454 | ≈455 |
+| Colour clocks per line | 227.5 | 227.5 |
+| Max bitplanes | 8 (AGA) | 8 (AGA) |
+| Sprites | 8, by their own DMA | 8, by their own DMA |
 
 At 640 pixels wide and 8 planes, a line needs 5,120 bits — **320 words**. Against
-454 ticks, that is about 70% of the bus, which is why an 8-plane AGA screen left
-so little room for anything else.
+454 ticks (PAL) or 455 (NTSC), that is about 70% of the bus either way, which is
+why an 8-plane AGA screen left so little room for anything else.
+
+The two standards carry **almost exactly the same number of bus cycles per line**,
+because the faster NTSC clock compensates for its shorter line. Only the number
+of lines differs: 312.5 against 262.5. That is why a Copper list written for one
+usually fits the other — and why "PAL timing" and "NTSC timing" differ far less
+than the names suggest.
 
 The elegance was the *borrowing rule*: the blitter used slots the display did not
 need, and the Copper could wait on a blitter-finished flag. Demoscene code was
@@ -62,23 +70,25 @@ specific to Amiga people.
 
 | | Amiga | A5K | Why |
 |---|---|---|---|
-| Line time at 60 Hz | 64 µs (50 Hz) | **14.8 µs** | 1,125 lines instead of 313 |
-| Ticks per line | ~454 | **~105** | four times fewer, four times more lines |
+| Line time | 64.0 µs PAL / 63.56 µs NTSC | **14.8 µs** | 4.3× shorter, at NTSC's own 60 Hz |
+| Ticks per line | ≈454 / ≈455 | **105** | 4.3× fewer |
+| Lines per frame | 312.5 / 262.5 | **1,125** | 3.6× more than PAL, 4.3× more than NTSC |
 | Bus width | 16-bit | **64-bit** on C+, 256-bit on Studio | 8 planes at HD need the width |
 | Transfer quantum | one 16-bit word per cycle | **32 bytes, four slots** | DDR3L cannot do less (§4.3) |
-| Slot clock | 7.09 MHz | **148.5 MHz fixed** | a PLL output, not the pixel clock |
-| Tick | 7.09 MHz, from the colour clock | **7.0714 MHz** (148.5 ÷ 21) | an exact integer ratio to the bus |
+| Slot clock | 7.09 MHz PAL / 7.16 NTSC | **148.5 MHz fixed** | a PLL output, not the pixel clock |
+| Tick | 7.09 / 7.16 MHz, from the colour clock | **7.0714 MHz** (148.5 ÷ 21) | an exact integer ratio to the bus |
 | Planes | 8 sprites, 16 px wide | **planes, arbitrary width** | the modern equivalent, per Appendix A.5 |
 | Borrowing | blitter takes idle slots | **explicit window** | predictability beats opportunism |
 
 The line-time change is the one that matters most, and it is not obvious:
 
 > At 60 Hz a scanline lasts 14.8 µs. At a 7.0714 MHz tick that is **105 Copper
-> positions per line** — against 454 on a PAL Amiga. Four times fewer ticks
-> per line, but 1,125 lines instead of 313.
+> positions per line** — against 455 on an NTSC Amiga at the same 60 Hz, and 454
+> on a PAL one at 50. Four times fewer ticks per line, but 1,125 lines instead
+> of 262 or 313.
 
-So a Copper list written for PAL timing has roughly four times less room per
-line, and nearly four times more lines to play with. Nothing written for the
+So a Copper list written for PAL or NTSC timing has roughly four times less room
+per line, and nearly four times more lines to play with. Nothing written for the
 original will "just work"; everything has to be re-timed. That is a real
 incompatibility and this document exists partly to say so plainly.
 
@@ -421,8 +431,9 @@ granted, which depends on what else is fetching. Two consequences:
 2. **Compute your budget before you ship.** Count the slots your planes need per
    line; if the display band is above ~60%, the blitter window will starve and
    your effects will jitter.
-3. **Do not port PAL timing arithmetic.** A list that fits in 454 ticks does not
-   fit in 105. Re-derive the positions from the mode you are actually running.
+3. **Do not port PAL or NTSC timing arithmetic.** A list that fits in 454 ticks
+   (PAL) or 455 (NTSC) does not fit in 105. Re-derive the positions from the mode
+   you are actually running.
 
 ### 5.4 A worked example
 
@@ -607,4 +618,4 @@ is the next step.
 
 ---
 
-*Rev. W · 2 November 2026 · project started 30 October 2026*
+*Rev. X · 2 November 2026 · project started 30 October 2026*
