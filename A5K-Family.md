@@ -28,7 +28,7 @@ audio architecture in §5.5 is settled and tested — not before.
 | PCIe | ×1 (500 MB/s) |
 | Memory | 1 × 32-bit DDR3L, 1 GB (2 GB max) |
 | Host | x86-64, PCIe ×1 or larger slot |
-| BOM | **~$270** |
+| BOM | **~$275** |
 
 **Promises:** one Amiga-like machine — deterministic, documented, open, under
 $300 in parts, with eight channels of audio.
@@ -247,7 +247,7 @@ and resampling every video timeline is exactly the kind of hidden arithmetic
 this project exists to avoid.
 
 **USB.** A UAC2 host port appears on the **Studio and above**, never on C+. The
-PHY is cheap; the firmware is not, and a $270 wedge does not need it.
+PHY is cheap; the firmware is not, and a $275 wedge does not need it.
 
 **Drivers.** ALSA upstream, AHI on AROS, OSS4 out-of-tree and explicitly invited.
 The register map is public, so the third one can be written by the people who
