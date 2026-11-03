@@ -69,6 +69,8 @@ Bare-metal AROS is the last step, not the first. The quickest demonstration of t
 
 That exercises the Copper, the blitter and the scanout in weeks rather than years, and it is the path §C.3 of the main document describes.
 
+**What AROS can see.** Hosted, it inherits the host's filesystems — ext4, XFS, Btrfs, ZFS, HFS+ and Amiga `affs` included. Native, it uses its own: FFS/OFS, SFS, PFS3 and FAT. That is a software boundary, not a hardware one: the card presents no block device at all.
+
 ## 5. ROMs and the Kickstart question
 
 Two different things are often conflated:
@@ -242,10 +244,34 @@ video and card audio is a software problem — delay or resample — not a hardw
 one. Those are the prices of independence, and they are cheaper than a shared
 clock that would make the card's schedule depend on the host's.
 
+## 14. Storage
+
+There is no storage controller on any model, and that is a decision rather than an
+omission. The card is a display and audio engine; the host has the disks, the
+burners, the card readers and the filesystems, and it has had them for thirty
+years.
+
+**The microSD socket is private.** It holds firmware and a `SAFE_MODE` file, it is
+read at boot, and it is **never exposed to the host** as a block device. It is a
+recovery device, not a system disk.
+
+**Filesystems are middleware.** They run in the OS above a block device. The card
+provides none, so it provides no filesystem either. When AROS runs hosted it
+inherits Linux's; when it runs natively it uses its own.
+
+**A block device contract, if one is ever added:** 512-byte or 4 KiB sectors,
+queue depth, flush/FUA, TRIM. Get those four right and the filesystem above does
+not care what the hardware is. None of it is on the card today.
+
+**What this avoids.** A PCIe ×1 uplink is 500 MB/s. Two NVMe slots behind it would
+give the host less than one SATA SSD — the link, not the drive, is the ceiling. A
+capture recorder is the only case where local storage makes sense, and that is a
+Studio feature and a different board revision.
+
 ---
 
 *Design study, 2026. Not legal advice. If you are unsure whether your use is permitted, read `LEGAL.md` and ask a lawyer.*
 
 ---
 
-*Rev. AH · 2 November 2026 · project started 30 October 2026*
+*Rev. AI · 3 November 2026 · project started 30 October 2026*

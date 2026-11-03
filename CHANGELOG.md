@@ -18,6 +18,7 @@ from Rev. W. Earlier revisions have no identifiers to cite.
 
 | Rev | Date | Tag | What changed | Findings |
 |---|---|---|---|---|
+| **AI** | 3 Nov 2026 | `rev-ai` | Storage clarified: no controller on any model; the microSD is private to the card and never exposed to the host; AROS hosted first, native later | — |
 | **AH** | 2 Nov 2026 | `rev-ah` | Three clocking modes behind one register — independent (default), card master, external master — reset at every power-on; no BIOS setting and no switch; the host is never slaved | — |
 | **AG** | 2 Nov 2026 | `rev-ag` | Host and card documented as independent timing domains: standard PCIe, DMA both ways, no timing coupling; the card is the clock master and never follows the host | — |
 | **AF** | 2 Nov 2026 | `rev-af` | Front-panel HD-Audio header, headphone DAC with independent volume, mic ADC on front and rear; the rear 8-channel path is never broken | — |
@@ -65,4 +66,4 @@ of their own. This changelog itself is housekeeping.
 
 ---
 
-*Rev. AH · 2 November 2026 · project started 30 October 2026*
+*Rev. AI · 3 November 2026 · project started 30 October 2026*

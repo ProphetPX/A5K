@@ -298,6 +298,33 @@ PHY is cheap; the firmware is not, and a $275 wedge does not need it.
 The register map is public, so the third one can be written by the people who
 want it.
 
+### 5.6 Storage and filesystems
+
+**No model has a storage controller.** The card is a display and audio engine with
+a supervisor CPU, not a computer; the host owns the disks, the burners, the card
+readers and the filesystems.
+
+**The microSD socket is private to the card.** It holds firmware and a `SAFE_MODE`
+file, it is read at boot, and it is **never exposed to the host** as a block
+device. It is a recovery device, not a system disk. If the picture is wrong or
+dark, that file is one of the ways back — the others are the host register, the
+button, and the automatic mode cycle.
+
+Filesystems are **operating-system middleware**, not hardware. The card's only
+obligation is the block contract it presents to a host driver, and it presents
+none: the card has no block device at all.
+
+**AROS can meet the card two ways.**
+
+| | What runs | Filesystems it sees |
+|---|---|---|
+| **Hosted** | AROS as a process on Linux | inherits Linux's — ext4, XFS, Btrfs, ZFS, HFS+, Amiga `affs` |
+| **Native** | AROS installed on the host's disk | its own — FFS/OFS, SFS, PFS3, FAT |
+
+Hosted is the first step, because it lets the driver be written before committing
+to a native install. Native is the destination: AROS with a HIDD for the card,
+running on the host's own disks.
+
 ## 6. Choosing the output
 
 **HDMI is the default on every model.** The card then falls through a sensing
@@ -437,4 +464,4 @@ a new model designation.*
 
 ---
 
-*Rev. AH · 2 November 2026 · project started 30 October 2026*
+*Rev. AI · 3 November 2026 · project started 30 October 2026*
