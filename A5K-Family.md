@@ -70,7 +70,9 @@ compatibility claim.
 - The middle case: one beam, second output a crop, a scaled region or a colour
   variant of the same frame. Same timing, different pixels. Useful, not independent.
 
-Independent outputs require two beams. There is no way around it.
+Independent outputs require two beams. There is no way around it — but two
+beams are necessary, not sufficient. At 4K HDR the memory can afford one
+composited beam, so what the second one may be is bounded by §5.3.
 
 ## 5. The line
 
@@ -79,13 +81,14 @@ Independent outputs require two beams. There is no way around it.
 | FPGA | Artix-7 100T | Kintex-7 160T | Kintex-7 325T |
 | Transceivers | 4 | 8 | 16 |
 | Pipelines | **1** | **2** | **2** |
-| Fabric | **64-bit** (1.19 GB/s raw, 1.03 usable) | **256-bit** (4.75 raw, 4.11 usable) | **256-bit** (4.75 raw, 4.11 usable) |
+| Fabric | **64-bit** (1.19 GB/s) | **256-bit** (4.75 GB/s) | **256-bit** (4.75 GB/s); 512-bit in the Pro II |
 | Copper tick | **7.0714 MHz**, fixed | 7.0714 MHz | 7.0714 MHz; a faster domain is reserved, not built |
 | HDMI out | 4K60 **SDR**, 8-bit 4:4:4 | 4K60 **HDR10**, 10-bit 4:2:2 | 4K60 HDR10, 10-bit 4:2:2 |
 | DP out | 1080p60 SDR | 4K60 **HDR10**, 10-bit **4:4:4** | 4K60 HDR10, 10-bit **4:4:4** |
 | Capture | none | 1080p60 **10-bit 4:2:2** | 1080p60 **10-bit 4:4:4** |
+| Both outputs at once | mirrored, 1080p on DP | **one graphics + one video or derived** | same; two independent graphics needs the Pro II |
 | PCIe | ×1 | ×2 | ×4 |
-| Memory | 1 × 32-bit | 1 × 64-bit | 1 × 64-bit |
+| Memory | **2 × 16-bit** (32-bit, 1 GB) | **4 × 16-bit** (64-bit, 2 GB) | **4 × 16-bit** (64-bit, 2 GB) |
 | BOM | **~$255** | **~$540** | **~$1,200** |
 
 ### 5.1 The HDMI wall, stated plainly
@@ -103,10 +106,10 @@ And 10-bit is not the same as HDR. Full HDR10 also needs a PQ or HLG transfer
 function, static metadata (ST 2086, MaxCLL/MaxFALL), and a wide-gamut pipeline
 (Rec.2020). Ten bits with an sRGB curve is simply deeper SDR.
 
-A variant of the Pro is documented and not built: **A5K Studio Pro ISO**, with two
-32-bit memory channels instead of one 64-bit, for installations where a capture
-burst must never delay a scanout. ~$1,250, and a board change rather than a
-redesign.
+The earlier **Studio Pro ISO** idea — two 32-bit memory channels instead of one
+64-bit — is withdrawn. It moved the same 12.8 GB/s into two narrower controllers,
+which buys isolation, not capacity; and isolation now belongs in the burst
+scheduler's QoS rather than in a second DRAM channel.
 
 ### 5.2 One tick, and room for another
 
@@ -127,12 +130,45 @@ mode. What is fixed now is the rule rather than the rate:
 
 `BEAMCON0[3:1]` selects it and reads `000` on everything shipping today. The rate,
 and whether the two beams share one domain, remain open. See *A5K — The Slot
-Table*, §6.
+Table*, §7.
 
 The Pro is the only model with 4K DisplayPort, because it is the only one with
 enough transceivers to generate DP natively. Every other model uses a 1080p DP
 bridge — a part that certainly exists, which removes the main supply risk from the
 line.
+
+### 5.3 What the second output can be
+
+The limit is the slot fabric, not the memory. At 256 bits the fabric moves
+4.75 GB/s and 4.52 of it reaches bursts; the 64-bit DDR3L behind it can supply
+12.8, so the memory sits at 43%.
+
+| Configuration at 4K60 | Traffic | Share of 4.52 GB/s |
+|---|---|---|
+| graphics + video + capture | 3.70 GB/s | 82% |
+| graphics + derived 4K output + capture | 2.46 GB/s | 54% |
+| graphics + independent 1080p graphics + capture | 2.96 GB/s | 66% |
+| two independent 4K graphics + capture | 4.45 GB/s | **98%** |
+
+So on a Studio or a Pro the second output is one of three things: **video**
+(4:2:2, passthrough or scaled), a **derived** output (a crop, a scaled region or a
+colour variant of the same frame), or **independent graphics up to 1080p**. What
+it is not is a second fully independent 4K HDR graphics raster.
+
+Said the other way: both connectors run 4K60 HDR at the same time, but only one of
+them can be composited graphics.
+
+### 5.4 The Pro II path
+
+Doubling the slot to 512 bits doubles the fabric to 9.5 GB/s and leaves the DRAM,
+its pins and the PCB alone. The memory then runs at 86% instead of 43%. Two
+independent 4K HDR graphics beams, capture, a 1.5 GB/s blitter and a 1.0 GB/s host
+come to 6.95 GB/s — 77% of the fabric and 63% of the memory.
+
+**A5K Studio Pro II** is therefore a -3 speed grade and a wider fit on the same
+board: roughly +$250, not a respin. That is also why the Studio ships 64-bit
+memory although 32 bits would have met today's budget — width is the one thing
+that cannot be added later.
 
 ## 6. Choosing the output
 
@@ -198,8 +234,10 @@ frame.
 
 1. **A5K (C+)** — validate the chipset, the slot table and the driver.
 2. **A5K Studio** — add the second pipeline; prove the arbiter with two line rates.
-3. **A5K Studio Pro** — same RTL, larger part, two 4K streams.
-4. **Variants** — ISO memory, the output switch, only when a customer asks.
+3. **A5K Studio Pro** — same RTL, larger part, two 4K60 HDR outputs: one
+   composited graphics beam and one video or derived beam.
+4. **A5K Studio Pro II** — 512-bit fabric on the same board, when two
+   *independent* 4K HDR graphics streams are worth a speed grade.
 
 The sequencing is what keeps the family from becoming three half-finished
 projects.
@@ -222,4 +260,4 @@ a new model designation.*
 
 ---
 
-*Rev. U · 2 November 2026 · project started 30 October 2026*
+*Rev. V · 2 November 2026 · project started 30 October 2026*

@@ -46,10 +46,10 @@ extra = """
 
 body = r"""
 <div class="spec-head">
-  <p class="kicker">Reference card &middot; Rev. U</p>
+  <p class="kicker">Reference card &middot; Rev. V</p>
   <h1>A5K — Technical Specifications</h1>
   <p class="subtitle">Clocks, memory, processors, bandwidth and the limits they impose</p>
-  <p class="meta">Rev. U &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
+  <p class="meta">Rev. V &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
 </div>
 
 <div class="statusline">
@@ -189,23 +189,23 @@ body = r"""
 
 <h2 id="sp7">7. Bandwidth budget at 4K60</h2>
 
-<p>3840 × 2160 = 8.29 megapixels. The 32-bit DDR3L bus supplies 6.4 GB/s raw and about <strong>5.5 GB/s usable</strong> once refresh, bus turnaround and row misses are paid — the slot table must also fit the Copper, the blitter and audio into the same schedule. Slot width differs by model: <strong>64 bits on C+</strong> (1.19 GB/s) and <strong>256 bits on the Studio models</strong> (4.75 GB/s), which is what makes 10-bit HDR and 10-bit capture possible together.</p>
+<p>3840 × 2160 = 8.29 megapixels. The 32-bit DDR3L bus supplies 6.4 GB/s of raw memory, but the <strong>64-bit slot fabric supplies only 1.19 GB/s</strong> — the fabric, not the memory, is the limit, and it is the same on every model. The slot table must also fit the Copper, the blitter and audio into the same schedule. Slot width differs by model: <strong>64 bits on C+</strong> (1.19 GB/s) and <strong>256 bits on the Studio models</strong> (4.75 GB/s), which is what makes 10-bit HDR and 10-bit capture possible together.</p>
 
 <table>
 <caption><strong>Table S7.</strong> What 4K60 costs, per content type.</caption>
 <thead>
-<tr><th style="width:44%">Content</th><th style="width:18%" class="num">Per frame</th><th style="width:16%" class="num">At 60 Hz</th><th>Verdict</th></tr>
+<tr><th style="width:40%">Content</th><th style="width:16%" class="num">Per frame</th><th style="width:14%" class="num">At 60 Hz</th><th style="width:15%" class="num">Of 1.19 GB/s</th><th>Verdict</th></tr>
 </thead>
 <tbody>
-<tr><td>8 planar bitplanes (1 bit/px)</td><td class="num">8.3 MB</td><td class="num">0.5 GB/s</td><td>Comfortable — 8% of budget</td></tr>
-<tr><td>1 full-screen ARGB8888 plane</td><td class="num">33 MB</td><td class="num">2.0 GB/s</td><td>Comfortable</td></tr>
-<tr><td>2 ARGB planes</td><td class="num">66 MB</td><td class="num">4.0 GB/s</td><td>Near the ceiling</td></tr>
-<tr><td>4 ARGB planes</td><td class="num">133 MB</td><td class="num">8.0 GB/s</td><td>Over budget on 32-bit</td></tr>
-<tr><td>8 ARGB planes</td><td class="num">265 MB</td><td class="num">15.9 GB/s</td><td>Needs the 64-bit variant</td></tr>
+<tr><td>8 planar bitplanes (1 bit/px)</td><td class="num">8.3 MB</td><td class="num">0.5 GB/s</td><td class="num">42%</td><td>Comfortable</td></tr>
+<tr><td>1 full-screen ARGB8888 plane</td><td class="num">33 MB</td><td class="num">2.0 GB/s</td><td class="num">168%</td><td>Does not fit</td></tr>
+<tr><td>2 ARGB planes</td><td class="num">66 MB</td><td class="num">4.0 GB/s</td><td class="num">336%</td><td>No</td></tr>
+<tr><td>4 ARGB planes</td><td class="num">133 MB</td><td class="num">8.0 GB/s</td><td class="num">672%</td><td>No</td></tr>
+<tr><td>8 ARGB planes</td><td class="num">265 MB</td><td class="num">15.9 GB/s</td><td class="num">1,336%</td><td>No</td></tr>
 </tbody>
 </table>
 
-<p class="note">This is the quiet argument for planar graphics: at 4K60, eight bitplanes cost a twelfth of what eight ARGB planes cost. The Amiga's bitmap format was a bandwidth strategy, not a limitation.</p>
+<p class="note">This is the quiet argument for planar graphics: at 4K60, eight bitplanes cost 42% of the bus and one full-screen ARGB plane costs 168%. The Amiga's bitmap format was a bandwidth strategy, not a limitation — and on this machine the limit is the slot fabric, not the DRAM behind it.</p>
 
 <h2 id="sp8">8. Parallelism</h2>
 
@@ -224,7 +224,7 @@ body = r"""
 </tbody>
 </table>
 
-<p><strong>Parallelism here is spatial, not threaded.</strong> Roughly twenty independent units run at once because each does one thing forever at a fixed rate — not because anything is scheduled. Adding CPU cores does not add throughput; it adds contention on the same memory. The bound is bandwidth: at 6.4 GB/s, the display pipeline is the budget, and the slot table is the ledger.</p>
+<p><strong>Parallelism here is spatial, not threaded.</strong> Roughly twenty independent units run at once because each does one thing forever at a fixed rate — not because anything is scheduled. Adding CPU cores does not add throughput; it adds contention on the same memory. The bound is bandwidth: at 1.19 GB/s of slot fabric, the display pipeline is the budget, and the slot table is the ledger.</p>
 
 <h2 id="sp9">9. Links and ceilings</h2>
 
@@ -238,7 +238,7 @@ body = r"""
 <tr><td>PCIe Gen2 ×4</td><td class="num">2.0 GB/s</td><td>Host ↔ card, Studio Pro</td></tr>
 <tr><td>PCIe Gen3 ×4</td><td class="num">3.9 GB/s</td><td>Host ↔ card, preferred</td></tr>
 <tr><td>PCIe Gen4 ×4</td><td class="num">7.9 GB/s</td><td>Host ↔ card, beyond current parts</td></tr>
-<tr><td>DDR3L 32-bit</td><td class="num">6.4 GB/s</td><td>Raw; about 5.5 GB/s usable after refresh and turnaround</td></tr>
+<tr><td>DDR3L 32-bit</td><td class="num">6.4 GB/s</td><td>Raw; the 64-bit fabric draws 1.19 GB/s of it</td></tr>
 <tr><td>Address space</td><td class="num">4 GiB</td><td>Chip RAM ceiling</td></tr>
 </tbody>
 </table>
@@ -260,7 +260,7 @@ body = r"""
 <tr><td>Chip RAM, upgrade</td><td>2 GB — 8 Gb devices, same footprint</td></tr>
 <tr><td>Chip RAM, maximum</td><td>4 GB, two ranks</td></tr>
 <tr><td>Architectural ceiling</td><td>4 GiB, about 3.5 GB usable</td></tr>
-<tr><td>Memory bandwidth</td><td>6.4 GB/s raw, about 5.5 GB/s usable</td></tr>
+<tr><td>Memory bandwidth</td><td>6.4 GB/s DRAM; 1.19 GB/s usable through the fabric</td></tr>
 <tr><td>Copper tick</td><td>7.0714 MHz (148.5 ÷ 21), 141.4 ns per instruction</td></tr>
 <tr><td>Scanout</td><td>4K60 at a 594 MHz pixel clock, four lanes</td></tr>
 <tr><td>Host link</td><td>PCIe Gen2 ×1 (0.5 GB/s) on C+; ×4 on the Studio Pro</td></tr>
@@ -268,7 +268,7 @@ body = r"""
 <tr><td>Host CPU</td><td>anything with PCIe; 2–6 GHz, 4–256 cores</td></tr>
 <tr><td>Planes</td><td>8, optionally 16</td></tr>
 <tr><td>Outputs</td><td>4K60 SDR HDMI (primary), 1080p60 DP (secondary); HDMI sensed first. HDR10 on the Studio models</td></tr>
-<tr><td>Fabric</td><td>64-bit slots (C+) or 256-bit slots (Studio), both at 148.5 MHz</td></tr>
+<tr><td>Fabric</td><td>64-bit slots (C+), 256-bit (Studio), 512-bit reserved (Pro II) — all at 148.5 MHz</td></tr>
 <tr><td>Blitters</td><td>1</td></tr>
 <tr><td>Audio</td><td>4–8 DMA streams, 24-bit I²S</td></tr>
 <tr><td>4K60 cost, planar</td><td>0.5 GB/s for eight bitplanes</td></tr>
@@ -285,7 +285,7 @@ html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>A5K — Technical Specifications (Rev. U)</title>
+<title>A5K — Technical Specifications (Rev. V)</title>
 <style>{css}{extra}</style>
 </head>
 <body>
@@ -326,7 +326,7 @@ for i, page in enumerate(doc):
                    pymupdf.Point(w * 0.90, h - 30),
                    color=(0.80, 0.80, 0.80), width=0.5)
     page.insert_text((w * 0.10, h - 19),
-                     "Rev. U \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
+                     "Rev. V \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
                      fontname="helv", fontsize=6.8, color=(0.45, 0.45, 0.45))
     title = "A5K \u00b7 Technical Specifications"
     tw = pymupdf.get_text_length(title, fontname="helv", fontsize=7.2)
@@ -339,7 +339,7 @@ for i, page in enumerate(doc):
 
 doc.set_toc(toc)
 doc.set_metadata({
-    "title": "A5K - Technical Specifications (Rev. U)",
+    "title": "A5K - Technical Specifications (Rev. V)",
     "author": "Design study",
     "subject": "Clocks, memory, processors, bandwidth and limits of the A5K design",
     "keywords": "A5K, Amiga-like, FPGA, DDR3L, RISC-V, bandwidth, specification",

@@ -126,11 +126,11 @@ not draw pixels, so its clock rate is close to irrelevant.
 
 | Configuration | Devices | Capacity | Bandwidth |
 |---|---|---|---|
-| Base | 2 × 4 Gb DDR3L, 32-bit | 1 GB | 6.4 GB/s raw, ~5.5 usable |
+| Base | 2 × 4 Gb DDR3L, 32-bit | 1 GB | 6.4 GB/s raw; 1.19 GB/s reaches the fabric |
 | Upgrade | 2 × 8 Gb, same footprint | 2 GB | 6.4 GB/s |
 | Maximum | 4 × 8 Gb, two ranks | 4 GB | 6.4 GB/s |
 | Ceiling | 32-bit addressing | 4 GiB (~3.5 usable) | — |
-| 64-bit variant | 4 × 16 Gb DDR4 | 8–32 GB | 12.8–25 GB/s |
+| Wider variant | 4 × 16 Gb DDR4, Studio-class board | 8–32 GB | 12.8–25 GB/s |
 
 **Upgrade order:** device swap (1→2 GB), then ranks (2→4 GB), then a new board
 with a wider bus and pointers (4 GB→beyond). The obstacle past 4 GiB is the
@@ -138,13 +138,17 @@ pointer width, not the memory.
 
 ### Bandwidth at 4K60
 
-| Content | At 60 Hz | Fits 6.4 GB/s? |
-|---|---|---|
-| 8 planar bitplanes | 0.5 GB/s | yes, easily |
-| 1 ARGB plane | 2.0 GB/s | yes |
-| 2 ARGB planes | 4.0 GB/s | near the ceiling |
-| 4 ARGB planes | 8.0 GB/s | no |
-| 8 ARGB planes | 15.9 GB/s | needs 64-bit |
+| Content | At 60 Hz | Of C+ 1.19 GB/s | Of Studio 4.52 GB/s |
+|---|---|---|---|
+| 8 planar bitplanes | 0.5 GB/s | 42% | 11% |
+| 1 ARGB plane | 2.0 GB/s | **168%** | 44% |
+| 2 ARGB planes | 4.0 GB/s | — | 88% |
+| 4 ARGB planes | 8.0 GB/s | — | 177% |
+| 8 ARGB planes | 15.9 GB/s | — | 352% |
+
+The fabric, not the DRAM, is the ceiling on every model. That is why a full-width
+ARGB plane is affordable at 1080p and not at 4K, and why the planar path is not
+sentiment — it is the only thing that fits.
 
 ### Parallelism
 
@@ -205,4 +209,4 @@ If you build and sell hardware from it, EMC, radio, electrical-safety and produc
 
 ---
 
-*Rev. U · 2 November 2026 · project started 30 October 2026*
+*Rev. V · 2 November 2026 · project started 30 October 2026*

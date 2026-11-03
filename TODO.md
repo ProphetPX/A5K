@@ -141,7 +141,15 @@ numbers. Every timing question except dual-pipe arbitration is closed.
 
 - [x] ~~C+ captures at all?~~ — **no capture** (Rev. S)
 - [x] ~~Capture format?~~ — 10-bit ARGB2101010; 4:2:2 on Studio, 4:4:4 on Pro
-- [x] ~~64, 128 or 256-bit slots?~~ — 64 on C+, 256 on Studio
+- [x] ~~64, 128 or 256-bit slots?~~ — 64 on C+, 256 on Studio, 512 for the Pro II
+- [x] ~~Memory width?~~ — **32-bit (2 × 16-bit) on C+, 64-bit (4 × 16-bit) on
+      Studio and Pro**. The fabric is the binding limit; the DRAM runs at 19% /
+      43% / 86% of capacity, so the next model doubles the slots, not the memory
+- [x] ~~What may the second output be?~~ — video, a derived crop/scale/LUT, or
+      independent graphics to 1080p. Two independent 4K HDR graphics rasters need
+      512 bits (§5.3 of the family document)
+- [x] ~~Is the ISO second channel needed?~~ — **withdrawn**; it moved the same
+      12.8 GB/s into two controllers, buying isolation rather than capacity
 - [x] ~~Tick rate and its ratio to the slot clock?~~ — 7.0714 MHz = 148.5 ÷ 21
 - [x] ~~Reserve a faster tick domain?~~ — reserved, not built (`BEAMCON0[3:1]`)
 - [x] ~~Burst model, latency and line buffers?~~ — §4.3: 32-byte quantum, tick =
@@ -154,10 +162,11 @@ numbers. Every timing question except dual-pipe arbitration is closed.
 - [x] ~~What happens on a missed display fetch?~~ — hold the pixel, never stall;
       fault after three consecutive misses
 - [x] ~~Per-line schedule at 1080p60~~ — §5.5
-- [x] ~~Re-run the 4K and two-beam checks on usable bandwidth~~ — §4.4: the Pro as
-      shipped is 87%; two 4:4:4 beams are 102% and need the ISO's second channel
+- [x] ~~Re-run the 4K and two-beam checks~~ — §4.4: the Pro as shipped is 82% of
+      the fabric; two independent 4K graphics rasters are 98% and need 512 bits
 - [x] ~~Five acceptance tests~~ — §6
 - [ ] Specify **dual-pipe arbitration** for Studio and Studio Pro
+- [ ] Decide when the **Pro II** (512-bit) ships — same board, -3 speed grade
 
 ---
 
@@ -217,4 +226,4 @@ the right line.
 
 ---
 
-*Rev. U · 2 November 2026 · project started 30 October 2026*
+*Rev. V · 2 November 2026 · project started 30 October 2026*

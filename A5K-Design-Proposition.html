@@ -634,7 +634,7 @@
   <div class="cmeta">
     <table>
       <tr><td>Started</td><td>30 October 2026</td></tr>
-      <tr><td>Revision</td><td>Rev. U — 2 November 2026 — memory model rebuilt on 32-byte bursts; line schedule, refresh budget, acceptance tests</td></tr>
+      <tr><td>Revision</td><td>Rev. V — 2 November 2026 — fabric is the bandwidth limit; 64-bit memory on Studio; second output defined; 512-bit Pro II path</td></tr>
       <tr><td>Status</td><td>Design study; no hardware built</td></tr>
       <tr><td>Reference concept</td><td>“A5K”</td></tr>
       <tr><td>Contents</td><td>9 sections · 3 appendices · 6 tables · 1 figure</td></tr>
@@ -874,7 +874,7 @@
   <li><strong>Carrier:</strong> Xilinx Artix-7 100T — four GTP transceivers, which is what 4K60 output requires: one lane for PCIe, three for HDMI. The Lattice ECP5-85 is only viable for a 1080p variant, because its 3.2 Gb/s SerDes cannot carry 4K60 TMDS. (both have usable open flows via <strong>Yosys + nextpnr</strong>; larger designs may need Vivado for the FPGA but keep the <em>design</em> in Migen/LiteX so it’s portable).</li>
   <li><strong>SoC glue:</strong> <strong>LiteX</strong> — gives you LitePCIe, LiteDRAM, LiteSDCard, LiteEth, Wishbone/AXI bridges, and a VexRiscv if you want the whole machine on one board.</li>
   <li><strong>Chipset IP:</strong> Agnus-equivalent (slot-table DMA arbiter + beam counter), Denise-equivalent (planar scanout + planes + priority + HAM), Blitter (minterm ALU + Bresenham), Copper (microsequencer), Paula (audio DMA + SDIO + UART), CIA (VexRiscv).</li>
-  <li><strong>Video out:</strong> <strong>4K60 SDR HDMI as primary</strong>, straight from fabric; <strong>1080p60 DisplayPort as secondary</strong>, through a bridge. Both are driven at once; sensing decides which display supplies the EDID. HDMI is sensed first, DisplayPort second, with DVI, S-Video and composite reserved for later boards. <strong>HDR10 is a Studio feature</strong> — 10-bit 4:2:2 over HDMI, 10-bit 4:4:4 over DisplayPort; 4K60 4:4:4 on HDMI requires HDMI 2.1 and is not implemented on any model. C+ has no capture. See <em>A5K — The Family</em>.</li>
+  <li><strong>Video out:</strong> <strong>4K60 SDR HDMI as primary</strong>, straight from fabric; <strong>1080p60 DisplayPort as secondary</strong>, through a bridge. Both are driven at once; sensing decides which display supplies the EDID. HDMI is sensed first, DisplayPort second, with DVI, S-Video and composite reserved for later boards. <strong>HDR10 is a Studio feature</strong> — 10-bit 4:2:2 over HDMI, 10-bit 4:4:4 over DisplayPort; 4K60 4:4:4 on HDMI requires HDMI 2.1 and is not implemented on any model. On the Studio models both connectors run 4K60 HDR at once, but only one of them can be composited graphics: the second is video, a crop of the same frame, or an independent 1080p beam. Two independent 4K HDR graphics rasters need the 512-bit Pro II. C+ has no capture, and is mirrored. See <em>A5K — The Family</em>, §5.3.</li>
   <li><strong>RAM:</strong> <strong>1&nbsp;GB DDR3L as standard</strong> — two 4&nbsp;Gb devices on a 32-bit bus — with <strong>2&nbsp;GB as a drop-in upgrade</strong> using 8&nbsp;Gb parts in the same footprint. The 32-bit pointer path caps Chip RAM at <strong>4&nbsp;GiB</strong>, of which about 3.5&nbsp;GB remains usable once registers and apertures are reserved; beyond that, the 64-bit variant widens both the bus and the address path. Host memory is reachable over PCIe for “Fast RAM” and is not limited by the card at all.</li>
   <li><strong>Display model:</strong> keep planar + chunky, keep HAM/EHB, keep planes (Appendix A.5), keep priority. Add overlay planes so a modern windowing system can sit on top without giving up the old modes.</li>
   <li><strong>Sync primitive:</strong> expose a <strong>beam-synchronous fence</strong> — “wait until scanline N then fire this Copper list” — so host software gets raster sync back (<code>drm_vblank</code>/<code>drm_syncobj</code> semantics map exactly).</li>
@@ -1307,8 +1307,8 @@ def main():
 <tr><th style="width:30%">Variant</th><th style="width:34%">Difference</th><th style="width:18%" class="num">5 off</th><th style="width:18%" class="num">100 off</th></tr>
 </thead>
 <tbody>
-<tr><td>Reference — A5K (C+)</td><td>Artix-7 100T, 4 GTP, PCIe ×1, 4K60 mirrored</td><td class="num">≈ $264</td><td class="num">≈ $205</td></tr>
-<tr><td>Studio Pro — A5K Studio Pro</td><td>Kintex-7 325T, 16 GTP, two beams, PCIe ×4</td><td class="num">≈ $1,150</td><td class="num">≈ $900</td></tr>
+<tr><td>Reference — A5K (C+)</td><td>Artix-7 100T, 4 GTP, PCIe ×1, 4K60 mirrored</td><td class="num">≈ $255</td><td class="num">≈ $199</td></tr>
+<tr><td>Studio Pro — A5K Studio Pro</td><td>Kintex-7 325T (-3), 16 GTP, two beams, PCIe ×4</td><td class="num">≈ $1,200</td><td class="num">≈ $935</td></tr>
 </tbody>
 </table>
 

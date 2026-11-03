@@ -119,11 +119,15 @@ and 2,200 slots per line, and 4K has 1,100 of each. At 640×512 the dot clock is
 about 25 MHz and the bus still runs at 148.5 MHz — which is why the table below
 lists 9,504 slots for that mode and not 1,600.
 
-**Slot width differs by model** — 64 bits on C+ and 256 bits on the Studio
-models, giving 1.19 and 4.75 GB/s at the slot clock. The DDR3L behind them
-delivers about 1.03 and 4.11 GB/s once refresh and turnaround are paid (§4.3),
-so on C+ the fabric is wider than the memory. That is the right way round: the
-bus should not be the excuse.
+**Slot width differs by model** — 64 bits on C+, 256 on the Studio models, and
+512 reserved for the Pro II — giving 1.19, 4.75 and 9.5 GB/s at the slot clock.
+The memory behind them is deliberately wider still: 32-bit DDR3L on C+
+(6.4 GB/s) and 64-bit on the Studio (12.8 GB/s). **The fabric is the bottleneck on
+every model, not the DRAM** — C+ uses 19% of its memory and the Studio 43%.
+
+That is the right way round, and it is what makes the next model cheap: widening
+the internal fabric to 512 bits doubles the bus without touching the DRAM, the
+pins or the board (§4.4).
 
 | Mode | Line time | Slots/line | Tick positions | 8-plane fetch | Utilisation |
 |---|---|---|---|---|---|
@@ -220,45 +224,76 @@ are the check bits:
 C+ ships without ECC. Sideband ECC is the option worth having, because it buys
 protection for a device and eight pins rather than for a twelfth of the machine.
 
-#### What the bus actually delivers
+#### What actually limits the bus
 
-| Overhead | 1080p | 4K | Source |
+| Overhead | Share | Source |
+|---|---|---|
+| Refresh | 4.5% | 350 ns per 7.8 µs |
+| Turnaround | 6.0% | 8-burst runs; arithmetic gives 4.5%, budgeted at 6% |
+| Row misses | 3.0% | one page per plane, banks interleaved |
+| **DRAM usable** | **86.5%** | |
+
+Those three are **DRAM-side costs**. They reduce what the memory can supply, not
+what the fabric can carry — and on every model the fabric is the narrower of the
+two:
+
+| | C+ | Studio | Pro II |
 |---|---|---|---|
-| Refresh | 4.5% | 4.5% | 350 ns per 7.8 µs |
-| Turnaround | 6.0% | 6.0% | 8-burst runs; arithmetic gives 4.5%, budgeted at 6% |
-| Row misses | 3.0% | 3.0% | one page per plane, banks interleaved |
-| **Usable** | **86.5%** | **86.5%** | |
+| Slot fabric | 1.19 GB/s | **4.75** | **9.50** |
+| Less the Copper lane (1 slot in 21) | 1.13 | **4.52** | 9.05 |
+| DRAM, raw | 6.40 | 12.80 | 12.80 |
+| DRAM after the 13.5% above | 5.54 | 11.07 | 11.07 |
+| **Binding limit** | **1.13** | **4.52** | **9.05** |
+| DRAM load at full fabric | 19% | 43% | 86% |
 
-So C+ has **about 1.03 GB/s of usable burst bandwidth, not 1.19**, and the Studio
-models about 4.11 GB/s of 4.75. Every figure in §4.4 and §4.5 should be read
-against those numbers. The overheads do not change with the mode, because all
-three are properties of the DRAM rather than of the display — which is the one
-mercy in this section.
+C+ is limited by its 64-bit fabric, not by its memory: 1.13 GB/s of burst capacity
+against 5.54 GB/s of usable DRAM. The Studio is limited the same way, 4.52 against
+11.07. **Every bandwidth figure in §4.4 and §4.5 is a share of burst capacity —
+4.52 GB/s on the Studio, not 4.75.**
+
+That is the most useful fact in this section: the machine is not short of memory,
+it is short of slot width. And slot width is internal logic, which is why the next
+model does not need a new board.
 
 ### 4.4 What HDR and capture cost on the Studio models
 
-256-bit slots give 4.75 GB/s raw and **4.11 GB/s usable** once refresh,
-turnaround and row misses are paid (§4.3). That is what makes 10-bit HDR and
-10-bit capture possible at the same time:
+256-bit slots give 4.75 GB/s of fabric, of which **4.52 GB/s** is available to
+bursts once the Copper lane is reserved. That is what makes 10-bit HDR and 10-bit
+capture possible — and it is why the second output has a shape:
 
-| Traffic at 4K60 | Bandwidth | Share of 4.11 GB/s usable |
+| Traffic at 4K60 | Bandwidth | Share of 4.52 GB/s |
 |---|---|---|
-| 10-bit 4:4:4 output | 1.87 GB/s | 46% |
-| 10-bit 4:2:2 output | 1.24 GB/s | 30% |
-| 1080p60 10-bit 4:4:4 capture | 0.47 GB/s | 11% |
-| **Pro as shipped: 4:4:4 DP + 4:2:2 HDMI + capture** | **3.58 GB/s** | **87%** |
-| **two 4:4:4 beams + capture** | **4.21 GB/s** | **102% — not on one channel** |
+| 10-bit 4:4:4 graphics | 1.99 GB/s | 44% |
+| 10-bit 4:2:2 video | 1.24 GB/s | 27% |
+| 1080p60 10-bit 4:4:4 capture | 0.47 GB/s | 10% |
+| **as shipped: graphics + video + capture** | **3.70 GB/s** | **82%** |
+| graphics + derived 4K output + capture | 2.46 GB/s | 54% |
+| graphics + independent 1080p graphics + capture | 2.96 GB/s | 66% |
+| **two independent 4K graphics + capture** | **4.45 GB/s** | **98% — not viable** |
 
-This is the correction the burst model forces, and it is worth stating plainly:
-against *raw* bandwidth two 4:4:4 beams looked like 89% and comfortable; against
-*usable* bandwidth they are 102% and impossible. **The Pro as specified fits** —
-one DisplayPort 4:4:4 beam, one HDMI 4:2:2 beam, capture running — with 13% left
-for the blitter and the Copper. Two full 4:4:4 beams plus capture do not, and that
-configuration is the second memory channel documented as the **Studio Pro ISO**.
+The shipped configuration leaves 18%, or 0.8 GB/s, for the blitter and the host.
+Two independent 4K HDR graphics rasters leave 0.07 GB/s, which is not a blitter —
+it is a queue. That is the line to draw: **the Studio and the Pro can drive two
+4K HDR outputs, but only one of them can be composited graphics.** The other is
+video, or a crop, a scale or a colour variant of the same frame, or graphics at
+1080p.
 
-At 128 bits there is no configuration at all: 2.34 GB/s usable, so a single
-4:4:4 beam is already 80% before capture. **256-bit is not a luxury on the Studio
-line; it is the minimum that meets the specification.**
+#### The 512-bit path
+
+Doubling the slot to 512 bits doubles the fabric to 9.5 GB/s — 9.05 for bursts —
+and leaves the DRAM untouched. The memory then runs at 86% instead of 43%, which
+is the balance a display engine actually wants. Two independent 4K HDR graphics
+beams, plus capture, plus a 1.5 GB/s blitter and a 1.0 GB/s host, come to
+6.95 GB/s: **77% of the fabric and 63% of the memory.**
+
+The cost is not a board. The fabric is internal FPGA logic; the DRAM, its pins and
+the PCB do not change. **A5K Studio Pro II is a -3 speed grade and a wider fit on
+the same board** — about +$250, not a respin. It is also why the Studio ships
+64-bit memory although 32 bits would have met today's budget: width is the one
+thing that cannot be added later.
+
+So 256-bit is not a luxury on the Studio line — it is the minimum that meets the
+shipped specification, and 512-bit is the minimum that meets the *other* one.
 
 ### 4.5 What full-width ARGB costs
 
@@ -325,22 +360,25 @@ fixed pattern. Only the override window is written by software.
 
 ### 4.8 What is settled, and what is not
 
-**Settled.** Slot width — 64 bits on C+, 256 on Studio. Tick — 148.5 ÷ 21
-everywhere. H — counted in ticks, twelve bits, never widened. Quantum — 32 bytes,
-four slots, and a tick is five bursts plus the Copper lane. Refresh — in
-blanking, always. Buffer depth — tRFC of the stream's own pixels. Turnarounds —
-batched at 8 bursts. Blitter — 25% of the remainder, floor 10%. Miss behaviour —
-hold, never stall. Ceilings — §8.
+**Settled.** Slot width — 64 bits on C+, 256 on Studio, 512 on the Pro II. Memory
+— 32-bit on C+, 64-bit on the Studio and Pro. The fabric is the binding limit on
+every model, and the DRAM is deliberately wider: 19%, 43% and 86% loaded at full
+fabric. Tick — 148.5 ÷ 21 everywhere. H — counted in ticks, twelve bits, never
+widened. Quantum — 32 bytes, four slots, and a tick is five bursts plus the
+Copper lane. Refresh — in blanking, always. Buffer depth — tRFC of the stream's
+own pixels. Turnarounds — batched at 8 bursts. Blitter — 25% of the line at
+1080p, 15% at 4K. Miss behaviour — hold, never stall. Ceilings — §8.
 
 **Still open.**
 
 - Whether 256 bits closes timing at 148.5 MHz on a -2 Kintex-7, or whether the
-  Studio needs a -3 speed grade. This is a synthesis question, not a design one,
-  and it is the only item on this list that could change a price.
+  Studio needs a -3 speed grade — and whether 512 bits closes on a -3. Both are
+  synthesis questions, not design ones, and they are the only items here that
+  could change a price.
 - The rate of the reserved second tick domain (§7), and whether both beams share
   it.
-- Whether the Pro's second channel (the ISO variant) is a variant or the standard
-  Pro, now that §4.4 shows the two-beam 4:4:4 case does not fit one channel.
+- Whether the Pro II ships as its own model or as a speed-grade variant of the
+  Pro on the same board.
 
 **Answered, and the answers are above:** the blitter window does not scale with
 frame rate (§4.6); the Copper does not get a band, it gets a lane (§4.6, §4.3);
@@ -529,6 +567,7 @@ Better stated than discovered:
 | Frame rate at 4K | **60 Hz** | 1,100 slots per line, 480 taken by eight planes; 4K120 halves the line to 550 slots and the display alone would be 87% |
 | Planes at 4K | planar, plus partial overlays | a full-width ARGB plane is 175% of a line (§4.5) |
 | Copper | one instruction per tick | 4.8% of the bus at 7.0714 MHz; a faster domain is a bandwidth trade (§7) |
+| Independent 4K HDR beams | **1** at 256-bit, **2** at 512-bit | two independent 4K HDR graphics rasters plus capture is 98% of a 256-bit fabric (§4.4) |
 
 C+ is a 60 Hz, 4K, fixed-timing machine. That is a constraint, not a shortcoming,
 and every one of these ceilings is the price of the property the machine exists
@@ -548,4 +587,4 @@ is the next step.
 
 ---
 
-*Rev. U · 2 November 2026 · project started 30 October 2026*
+*Rev. V · 2 November 2026 · project started 30 October 2026*
