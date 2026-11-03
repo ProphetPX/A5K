@@ -266,9 +266,12 @@ professional users actually want, and it costs a connector and a comparator.
 22.5792 MHz for 44.1/88.2/176.4 and 24.576 MHz for 48/96/192. The **default is
 the 44.1 family**; the 48 family exists because video and broadcast are 48 kHz,
 and resampling every video timeline is exactly the kind of hidden arithmetic
-this project exists to avoid. Both crystals are fitted. **48 kHz is present and
-not yet measured**; the sentence changes when a measurement exists, and nothing
-else does.
+this project exists to avoid. Both crystals are fitted.
+
+One crystal covers a whole family: 24.576 MHz is 512 × 48 kHz, 256 × 96 kHz and
+128 × 192 kHz, so **96 and 192 need no extra part** — only a divider setting. The
+working set is **44.1 and 48**; 88.2, 96, 176.4 and 192 are fitted and unclaimed
+until measured, because the limit is the converter part, not the clock.
 
 **Clocking modes.** The card's clock is its own unless told otherwise. Three
 modes, selected by a register and **never stored across a power cycle**:
@@ -478,4 +481,4 @@ a new model designation.*
 
 ---
 
-*Rev. AK · 3 November 2026 · project started 30 October 2026*
+*Rev. AL · 3 November 2026 · project started 30 October 2026*

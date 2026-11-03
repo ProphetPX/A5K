@@ -18,6 +18,7 @@ from Rev. W. Earlier revisions have no identifiers to cite.
 
 | Rev | Date | Tag | What changed | Findings |
 |---|---|---|---|---|
+| **AL** | 3 Nov 2026 | `rev-al` | Sample rates clarified: 24.576 MHz covers 48/96/192 and 22.5792 covers 44.1/88.2/176.4; 44.1 and 48 are the working set, the rest fitted and unclaimed | — |
 | **AK** | 3 Nov 2026 | `rev-ak` | The fit rule written down: synthesise before claiming; if a feature does not fit, disable it in firmware rather than uprating the part | F-06 |
 | **AJ** | 3 Nov 2026 | `rev-aj` | UAC2 PHY footprint on the Studio board from the first revision, enabled by firmware; 48 kHz documented as fitted and not yet measured; no model is frozen | F-06, F-07 |
 | **AI** | 3 Nov 2026 | `rev-ai` | Storage clarified: no controller on any model; the microSD is private to the card and never exposed to the host; AROS hosted first, native later | — |
@@ -68,4 +69,4 @@ of their own. This changelog itself is housekeeping.
 
 ---
 
-*Rev. AK · 3 November 2026 · project started 30 October 2026*
+*Rev. AL · 3 November 2026 · project started 30 October 2026*
