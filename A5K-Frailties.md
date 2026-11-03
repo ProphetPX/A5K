@@ -64,7 +64,7 @@ display band goes from 44% to 43%, not up.
 the budget with CVT-RB timings.
 
 **Severity.** Major — a table regeneration, not a redesign. It was recorded as
-blocking until the arithmetic was redone; the correction is in Rev. AD.
+blocking until the arithmetic was redone; the correction is in Rev. AE.
 
 ### B2. tRFC is taken as 350 ns
 
@@ -283,7 +283,8 @@ its formats in EDID.
 and no explanation. The mitigation is the driver asking, once, and remembering.
 
 **Test.** Plug and unplug each jack while playing; assert the mode changes only on
-a completed insertion, and that the default returns to stereo after a reboot.
+a completed insertion, that a chosen mode survives a reboot, and that a factory
+reset returns to stereo.
 
 **Severity.** Minor.
 
@@ -305,4 +306,4 @@ These have been considered and rejected; the reasoning is in the documents.
 
 ---
 
-*Rev. AD · 2 November 2026 · project started 30 October 2026*
+*Rev. AE · 2 November 2026 · project started 30 October 2026*

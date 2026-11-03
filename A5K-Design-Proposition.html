@@ -634,7 +634,7 @@
   <div class="cmeta">
     <table>
       <tr><td>Started</td><td>30 October 2026</td></tr>
-      <tr><td>Revision</td><td>Rev. AD — 2 November 2026 — stereo by default on the jacks; discrete eight channels on demand</td></tr>
+      <tr><td>Revision</td><td>Rev. AE — 2 November 2026 — stereo is the first power-on default on every output; the chosen mode persists</td></tr>
       <tr><td>Status</td><td>Design study; no hardware built</td></tr>
       <tr><td>Reference concept</td><td>“A5K”</td></tr>
       <tr><td>Contents</td><td>9 sections · 3 appendices · 6 tables · 1 figure</td></tr>
@@ -669,7 +669,7 @@
     <li><span class="t">Table 2 — Against a modern GPU: the honest scoreboard</span><span class="dots"></span><span class="p" data-mk="zzT2zz">9</span></li>
     <li><span class="t">Table 3 — MC-1 opcode map</span><span class="dots"></span><span class="p" data-mk="zzT3zz">10</span></li>
     <li><span class="t">Table 4 — Register aperture and key registers</span><span class="dots"></span><span class="p" data-mk="zzT4zz">11</span></li>
-    <li><span class="t">Table 5 — Plane attributes, and what they may not do</span><span class="dots"></span><span class="p" data-mk="zzT5zz">12</span></li>
+    <li><span class="t">Table 5 — Plane attributes, and what they may not do</span><span class="dots"></span><span class="p" data-mk="zzT5zz">13</span></li>
     <li><span class="t">Table 6 — Bill of materials, reference build</span><span class="dots"></span><span class="p" data-mk="zzT6zz">15</span></li>
     <li><span class="t">Figure 1 — The card-as-chipset shape</span><span class="dots"></span><span class="p" data-mk="zzF1zz">4</span></li>
   </ol>
@@ -876,7 +876,7 @@
   <li><strong>SoC glue:</strong> <strong>LiteX</strong> — gives you LitePCIe, LiteDRAM, LiteSDCard, LiteEth, Wishbone/AXI bridges, and a VexRiscv if you want the whole machine on one board.</li>
   <li><strong>Chipset IP:</strong> Agnus-equivalent (slot-table DMA arbiter + beam counter), Denise-equivalent (planar scanout + planes + priority + HAM), Blitter (minterm ALU + Bresenham), Copper (microsequencer), Paula (audio DMA + SDIO + UART), CIA (VexRiscv).</li>
   <li><strong>Video out:</strong> <strong>4K60 SDR HDMI as primary</strong>, straight from fabric; <strong>1080p60 DisplayPort as secondary</strong>, through a bridge. Both are driven at once; sensing decides which display supplies the EDID. HDMI is sensed first, DisplayPort second, with DVI, S-Video and composite reserved for later boards. <strong>HDR10 is a Studio feature</strong> — 10-bit 4:2:2 over HDMI, 10-bit 4:4:4 over DisplayPort; 4K60 4:4:4 on HDMI requires HDMI 2.1 and is not implemented on any model. On the Studio models both connectors run 4K60 HDR at once, but only one of them can be composited graphics: the second is video, a crop of the same frame, or an independent 1080p beam. Two independent 4K HDR graphics rasters need the 512-bit Pro II. C+ has no capture, and is mirrored. Refresh is a <strong>fixed set</strong> up to 1080p240, <strong>never variable</strong>. See <em>A5K — The Family</em>, §5.3.</li>
-  <li><strong>Audio:</strong> <strong>eight channels, 24-bit</strong> — four 3.5&nbsp;mm stereo jacks, TOSLINK, and 8-channel LPCM over HDMI and DisplayPort. <strong>Stereo is the default</strong> — a downmix on the front jack — and discrete 8-channel is one setting away. TOSLINK carries two channels or a compressed bitstream, never eight channels of PCM. Two audio clock families, with the 44.1 family as the default. See <em>A5K — The Family</em>, §5.5.</li>
+  <li><strong>Audio:</strong> <strong>eight channels, 24-bit</strong> — four 3.5&nbsp;mm stereo jacks, TOSLINK, and 8-channel LPCM over HDMI and DisplayPort. <strong>Stereo is the factory default on every output</strong> — 2-channel LPCM on HDMI and DisplayPort, 2-channel PCM on TOSLINK, a downmix on jack 1 — and the user’s chosen mode becomes the power-on default from then on. TOSLINK carries two channels or a compressed bitstream, never eight channels of PCM. Two audio clock families, with the 44.1 family as the default. See <em>A5K — The Family</em>, §5.5.</li>
   <li><strong>RAM:</strong> <strong>1&nbsp;GB DDR3L as standard</strong> — two 4&nbsp;Gb devices on a 32-bit bus — with <strong>2&nbsp;GB as a drop-in upgrade</strong> using 8&nbsp;Gb parts in the same footprint. The 32-bit pointer path caps Chip RAM at <strong>4&nbsp;GiB</strong>, of which about 3.5&nbsp;GB remains usable once registers and apertures are reserved; beyond that, the 64-bit variant widens both the bus and the address path. Host memory is reachable over PCIe for “Fast RAM” and is not limited by the card at all.</li>
   <li><strong>Display model:</strong> keep planar + chunky, keep HAM/EHB, keep planes (Appendix A.5), keep priority. Add overlay planes so a modern windowing system can sit on top without giving up the old modes.</li>
   <li><strong>Sync primitive:</strong> expose a <strong>beam-synchronous fence</strong> — “wait until scanline N then fire this Copper list” — so host software gets raster sync back (<code>drm_vblank</code>/<code>drm_syncobj</code> semantics map exactly).</li>
