@@ -18,6 +18,7 @@ from Rev. W. Earlier revisions have no identifiers to cite.
 
 | Rev | Date | Tag | What changed | Findings |
 |---|---|---|---|---|
+| **AG** | 2 Nov 2026 | `rev-ag` | Host and card documented as independent timing domains: standard PCIe, DMA both ways, no timing coupling; the card is the clock master and never follows the host | — |
 | **AF** | 2 Nov 2026 | `rev-af` | Front-panel HD-Audio header, headphone DAC with independent volume, mic ADC on front and rear; the rear 8-channel path is never broken | — |
 | **AE** | 2 Nov 2026 | `rev-ae` | The channel mode is one setting covering HDMI, TOSLINK and the jacks; stereo at first power-on; the user’s choice persists and a factory reset returns to stereo | C10 |
 | **AD** | 2 Nov 2026 | `rev-ad` | Stereo downmix is the default on the jacks; discrete 8-channel on jack presence or user setting; plug sensing is a hint, not capability | C10 |
@@ -63,4 +64,4 @@ of their own. This changelog itself is housekeeping.
 
 ---
 
-*Rev. AF · 2 November 2026 · project started 30 October 2026*
+*Rev. AG · 2 November 2026 · project started 30 October 2026*

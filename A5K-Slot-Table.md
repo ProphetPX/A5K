@@ -624,4 +624,4 @@ is the next step.
 
 ---
 
-*Rev. AF · 2 November 2026 · project started 30 October 2026*
+*Rev. AG · 2 November 2026 · project started 30 October 2026*

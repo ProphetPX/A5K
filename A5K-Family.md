@@ -46,6 +46,27 @@ people who make things**: video editors, live-production operators, audio
 engineers, instrument builders, and anyone who needs an image to appear at a
 known instant rather than eventually.
 
+### 2.1 Two machines, one bus
+
+The card is not a peripheral in the sense a sound card or a GPU is. It is a
+**second machine** on the far side of the PCIe link: its own processor, its own
+memory, its own clocks, its own display and audio engines. The host supplies
+power, a slot, and — when it wants to — data.
+
+There is **no shared clock and no timing protocol across the link.** Standard
+PCIe, standard DMA in both directions: Copper lists, frames and audio go in;
+captured frames and telemetry come out. The host's video and audio and the card's
+video and audio are separate endpoints, and software decides which one plays
+what.
+
+**When synchronisation is needed, the card is the clock master.** It drives word
+clock out and external converters follow. The card never chases the host's clock;
+a user who wants that can resample in software, where the cost is visible and
+reversible.
+
+That is the whole paradigm: **the host does the thinking, the card does the
+timing.**
+
 ## 3. Positioning, not emulation
 
 Two tiers, one architecture — the way Commodore sold the A500 and the A3000.
@@ -392,4 +413,4 @@ a new model designation.*
 
 ---
 
-*Rev. AF · 2 November 2026 · project started 30 October 2026*
+*Rev. AG · 2 November 2026 · project started 30 October 2026*

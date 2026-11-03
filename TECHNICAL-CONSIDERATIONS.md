@@ -203,10 +203,43 @@ If you build and sell hardware from it, EMC, radio, electrical-safety and produc
 | Copper instruction set and register map | Appendix A |
 | Implementation sketch | Appendix B |
 
+## 13. Two machines, one bus
+
+The card and the host are **independent timing domains** connected by a packet
+network. That sentence explains most of the design decisions, so it is worth
+unpacking.
+
+**PCIe has no clock to share.** It is serial, packetised and asynchronous. There
+is no start-of-frame pulse, no isochronous channel, and no guaranteed latency. A
+transfer is a packet that arrives when it arrives; the link is fast and reliable,
+not timely.
+
+**DMA is bus mastering, and it is required.** The card must master the bus to move
+its own data — that is what "bus master enable" means in PCIe configuration space.
+What the design rejects is not bus mastering but **timing coupling**: no shared
+clock, no phase relationship, no proprietary sync protocol. The card masters its
+own transfers and nothing else.
+
+**Data flows both ways.** In: Copper lists, register writes, frames, audio,
+firmware. Out: captured frames, audio from the ADC, telemetry, counters. Both
+directions are ordinary DMA, and neither needs the other side's clock.
+
+**The card owns its timing.** Video and audio on the card share one clock domain,
+which is why they can be locked to each other at all. When external equipment must
+join, the card drives **word clock out** and the equipment follows, or the card
+takes **word clock in** and follows an external master. It never follows the host.
+
+**What this costs.** Two audio devices drift relative to each other, because they
+are two clocks. Two video outputs are independent pictures. Protected content
+cannot use the card's output, because there is no HDCP. And lip-sync between host
+video and card audio is a software problem — delay or resample — not a hardware
+one. Those are the prices of independence, and they are cheaper than a shared
+clock that would make the card's schedule depend on the host's.
+
 ---
 
 *Design study, 2026. Not legal advice. If you are unsure whether your use is permitted, read `LEGAL.md` and ask a lawyer.*
 
 ---
 
-*Rev. AF · 2 November 2026 · project started 30 October 2026*
+*Rev. AG · 2 November 2026 · project started 30 October 2026*
