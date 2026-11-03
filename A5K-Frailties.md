@@ -193,7 +193,7 @@ wrong for video, which is the market.
 
 ### C4. The bill of materials
 
-**Claim.** $255 / $540 / $1,200 at Q4 2026 single-unit distributor pricing.
+**Claim.** $275 / $560 / $1,220 at Q4 2026 single-unit distributor pricing.
 
 **If it fails.** ±20% is normal. The wedge stops being a wedge at +25%.
 

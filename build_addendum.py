@@ -119,7 +119,7 @@ body = r"""
 </tbody>
 </table>
 
-<p><strong>By how far:</strong> roughly <strong>1.5 orders of magnitude in silicon, and 2–3 in memory and bandwidth</strong>. That is not a new class of machine — it is the AAA concept executed on a 2026 FPGA with twenty-five extra years of process, memory and I/O. The real difference is not the ratio but the fact that <strong>one shipped and the other didn’t.</strong> AAA needed a fab, a CPU, an OS team, a factory and a market; the A5K needs a $264 BOM and a laptop.</p>
+<p><strong>By how far:</strong> roughly <strong>1.5 orders of magnitude in silicon, and 2–3 in memory and bandwidth</strong>. That is not a new class of machine — it is the AAA concept executed on a 2026 FPGA with twenty-five extra years of process, memory and I/O. The real difference is not the ratio but the fact that <strong>one shipped and the other didn’t.</strong> AAA needed a fab, a CPU, an OS team, a factory and a market; the A5K needs a $275 BOM and a laptop.</p>
 
 <p>The one place AAA is strictly better: it would have run 1994 Amiga software natively. The A5K cannot, and should not pretend otherwise.</p>
 
