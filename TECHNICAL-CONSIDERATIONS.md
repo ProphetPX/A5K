@@ -229,6 +229,12 @@ which is why they can be locked to each other at all. When external equipment mu
 join, the card drives **word clock out** and the equipment follows, or the card
 takes **word clock in** and follows an external master. It never follows the host.
 
+Three modes, one register, default 0: **independent** (free-running, word clock
+ignored), **card master** (word clock out), **external master** (locks to word
+clock in). The mode is reset at every power-on and on factory reset — a wrong
+clock mode looks like a dead card, so the safe state must return by itself. Not a
+BIOS setting, not a switch: the driver owns it, and the register map is public.
+
 **What this costs.** Two audio devices drift relative to each other, because they
 are two clocks. Two video outputs are independent pictures. Protected content
 cannot use the card's output, because there is no HDCP. And lip-sync between host
@@ -242,4 +248,4 @@ clock that would make the card's schedule depend on the host's.
 
 ---
 
-*Rev. AG · 2 November 2026 · project started 30 October 2026*
+*Rev. AH · 2 November 2026 · project started 30 October 2026*

@@ -267,6 +267,30 @@ the 44.1 family**; the 48 family exists because video and broadcast are 48 kHz,
 and resampling every video timeline is exactly the kind of hidden arithmetic
 this project exists to avoid.
 
+**Clocking modes.** The card's clock is its own unless told otherwise. Three
+modes, selected by a register and **never stored across a power cycle**:
+
+| Mode | Register | What actually happens |
+|---|---|---|
+| **Independent** — default | 0 | The card free-runs on its own crystals; word clock in is ignored |
+| **Card master** | 1 | The card drives **word clock out**; external converters follow it |
+| **External master** | 2 | The card locks to **word clock in**; a status bit reports lock and frequency |
+
+Word clock connectors exist on the **Studio models**; C+ has none, so it is a
+mode-0 machine. Mode resets to 0 at every power-on and on factory reset. It is **not a BIOS
+setting and not a switch**: a PCIe card has no business in the host's firmware,
+and a switch is a part that can be set wrong and left wrong. The driver sets the
+register; the register map is public, so any driver can.
+
+The reason it does not persist is that a wrong clock mode presents as silence or
+a pitch error — which reads as a hardware fault. The safe state has to return by
+itself.
+
+There is no mode that slaves the host. The host's codec has no clock input, and
+no add-in card can give it one. If an application wants the host's stream to
+follow the card, it **resamples on the host**, in software, where the cost is
+visible — and that is the user opt-in you asked for, not a hardware default.
+
 **USB.** A UAC2 host port appears on the **Studio and above**, never on C+. The
 PHY is cheap; the firmware is not, and a $275 wedge does not need it.
 
@@ -413,4 +437,4 @@ a new model designation.*
 
 ---
 
-*Rev. AG · 2 November 2026 · project started 30 October 2026*
+*Rev. AH · 2 November 2026 · project started 30 October 2026*

@@ -46,10 +46,10 @@ extra = """
 
 body = r"""
 <div class="spec-head">
-  <p class="kicker">Reference card &middot; Rev. AG</p>
+  <p class="kicker">Reference card &middot; Rev. AH</p>
   <h1>A5K — Technical Specifications</h1>
   <p class="subtitle">Clocks, memory, processors, bandwidth and the limits they impose</p>
-  <p class="meta">Rev. AG &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
+  <p class="meta">Rev. AH &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
 </div>
 
 <div class="statusline">
@@ -308,7 +308,7 @@ body = r"""
 <tr><td>First power-on</td><td>EDID preferred timing; 1024×768 @ 60 when there is no EDID</td></tr>
 <tr><td>Fabric</td><td>64-bit slots (C+), 256-bit (Studio), 512-bit reserved (Pro II) — all at 148.5 MHz</td></tr>
 <tr><td>Blitters</td><td>1</td></tr>
-<tr><td>Audio</td><td>8 channels, 24-bit; factory default 2.0 on every output; 4 jacks, TOSLINK, HDMI/DP LPCM; front-panel HP/mic header with its own DAC; the chosen mode is stored</td></tr>
+<tr><td>Audio</td><td>8 channels, 24-bit; factory default 2.0 on every output; 4 jacks, TOSLINK, HDMI/DP LPCM; front-panel HP/mic header; internal clock only (word clock is Studio and above)</td></tr>
 <tr><td>4K60 cost, planar</td><td>0.5 GB/s for eight bitplanes</td></tr>
 <tr><td>4K60 cost, ARGB</td><td>2.0 GB/s per full-screen plane</td></tr>
 </tbody>
@@ -323,7 +323,7 @@ html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>A5K — Technical Specifications (Rev. AG)</title>
+<title>A5K — Technical Specifications (Rev. AH)</title>
 <style>{css}{extra}</style>
 </head>
 <body>
@@ -364,7 +364,7 @@ for i, page in enumerate(doc):
                    pymupdf.Point(w * 0.90, h - 30),
                    color=(0.80, 0.80, 0.80), width=0.5)
     page.insert_text((w * 0.10, h - 19),
-                     "Rev. AG \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
+                     "Rev. AH \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
                      fontname="helv", fontsize=6.8, color=(0.45, 0.45, 0.45))
     title = "A5K \u00b7 Technical Specifications"
     tw = pymupdf.get_text_length(title, fontname="helv", fontsize=7.2)
@@ -377,7 +377,7 @@ for i, page in enumerate(doc):
 
 doc.set_toc(toc)
 doc.set_metadata({
-    "title": "A5K - Technical Specifications (Rev. AG)",
+    "title": "A5K - Technical Specifications (Rev. AH)",
     "author": "Design study",
     "subject": "Clocks, memory, processors, bandwidth and limits of the A5K design",
     "keywords": "A5K, Amiga-like, FPGA, DDR3L, RISC-V, bandwidth, specification",
