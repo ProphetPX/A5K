@@ -660,7 +660,7 @@
     <li class="app"><span class="t">Appendix A — The Copper, specified</span><span class="dots"></span><span class="p" data-mk="zzSazz">10</span></li>
     <li class="app"><span class="t">Appendix B — Implementation skeleton</span><span class="dots"></span><span class="p" data-mk="zzSbzz">13</span></li>
     <li class="app"><span class="t">Appendix C — Bill of materials</span><span class="dots"></span><span class="p" data-mk="zzSczz">15</span></li>
-    <li class="app"><span class="t">Appendix D — Where this is most likely wrong</span><span class="dots"></span><span class="p" data-mk="zzSdzz">18</span></li>
+    <li class="app"><span class="t">Appendix D — Where this is most likely wrong</span><span class="dots"></span><span class="p" data-mk="zzSdzz">17</span></li>
   </ol>
 
   <h2 style="margin-top:28pt">Tables and figures</h2>
@@ -1346,7 +1346,7 @@ def main():
   <li><strong>Attach the host.</strong> Add LitePCIe x1 Gen1 and BAR0, then write the AROS HIDD or the Linux DRM driver against the register map in Appendix A. The driver is the long pole: start it while the hardware is still an FPGA.</li>
 </ol>
 
-<p><strong>Alternates.</strong> The audio converters are the first parts with a named second source, because that is where allocation bites: AKM <strong>AK4458</strong> with Cirrus <strong>CS4385</strong> behind it, and AKM <strong>AK5720</strong> with Cirrus <strong>CS5368</strong>. The USB PHY (USB3300 / TUSB1210) and the headphone amp (TPA6130 / TPA6120) follow the same rule. Every scarce part should carry an alternate before a board is ordered, not after.</p>
+<p><strong>Alternates.</strong> The converters carry a named second source first, because that is where allocation bites: AKM <strong>AK4458</strong> ↔ Cirrus <strong>CS4385</strong>, AKM <strong>AK5720</strong> ↔ Cirrus <strong>CS5368</strong>. The USB PHY and the headphone amp follow the same rule — every scarce part gets an alternate before a board is ordered.</p>
 
 <p>Only then is the BOM worth ordering — the PCB is the cheapest item and the last to exist. The honest reading is that the silicon is cheap and the software is expensive: the inversion that killed the original Amiga.</p>
 
