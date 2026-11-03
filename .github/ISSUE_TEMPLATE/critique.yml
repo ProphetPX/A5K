@@ -1,0 +1,73 @@
+name: Critique
+description: A factual defect, a design preference, or a question about the A5K documents
+title: "[Critique] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Read `A5K-Frailties.md` first.** It lists the assumptions this design knows are weak, with identifiers (A1, B1, C1…). If your point is already there, quote the identifier — that is more useful than restating it.
+
+        A **class-A finding** is one that cites a number, a datasheet, a standard or a measurement. Anything else is welcome, but it will be recorded as a preference rather than acted on.
+
+  - type: input
+    id: document
+    attributes:
+      label: Document and section
+      description: Which file, and which section or paragraph?
+      placeholder: "A5K-Slot-Table.md, §4.3 — the DDR3L burst model"
+    validations:
+      required: true
+
+  - type: textarea
+    id: claim
+    attributes:
+      label: What the document says
+      description: Quote or paraphrase the claim you are challenging.
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What you think is wrong
+      description: Be as specific as you can. "This will not work" is hard to act on; "this is 594 MHz, not 533" is not.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: A number, a datasheet page, a standard, a measurement, or a worked calculation. This is what makes a finding class A.
+      placeholder: "JEDEC JESD79-3F, tRFC for 4 Gb = 260 ns, not 350."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: How you would classify it
+      options:
+        - Factual defect (cites a number or a source)
+        - Design preference (I would have done it differently)
+        - Misreading (I think the document says something it does not)
+        - Question
+    validations:
+      required: true
+
+  - type: input
+    id: severity
+    attributes:
+      label: Severity, if you have a view
+      description: Blocking (a number other numbers depend on), major (a price, a part, a constraint), minor.
+      placeholder: "Major — changes the 4K budget"
+    validations:
+      required: false
+
+  - type: textarea
+    id: anything
+    attributes:
+      label: Anything else
+      description: Links, context, or what you would do instead.
+    validations:
+      required: false

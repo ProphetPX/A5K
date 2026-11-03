@@ -107,10 +107,10 @@ day they arrive, per the cadence rule above.
 
 | ID | Finding | Consequence | Status |
 |---|---|---|---|
-| **F-01** | The target monitor advertises **50.00, 59.94 and 60.00 Hz**; the ceilings fixed 60.000 only. | Resolved in Rev. AA: video rates on two slot clocks, high refresh to 1080p240, VRR out. | Closed in Rev. AA |
+| **F-01** | The target monitor advertises **50.00, 59.94 and 60.00 Hz**; the ceilings fixed 60.000 only. | Resolved in Rev. AB: video rates on two slot clocks, high refresh to 1080p240, VRR out. | Closed in Rev. AB |
 | **F-02** | B1 cannot be tested on a 1080p panel. | Withdrawn: the card is the source, HDMI 2.0 4K60 *is* CEA-861, and the generator takes line length as a register. No 4K panel is required to close it. | Withdrawn |
-| **F-03** | B1 closed by labelling the 4K example as CEA rather than the definition. | Applied in Rev. AA: §4.2 and §5.5 say CEA-861; CVT-RB is another row in the same generator. | Closed in Rev. AA |
-| **F-04** | Mode floor, first power-on default and recovery policy were undefined. | Applied in Rev. AA: 640×480 floor, 1024×768 default, four recovery routes. | Closed in Rev. AA |
+| **F-03** | B1 closed by labelling the 4K example as CEA rather than the definition. | Applied in Rev. AB: §4.2 and §5.5 say CEA-861; CVT-RB is another row in the same generator. | Closed in Rev. AB |
+| **F-04** | Mode floor, first power-on default and recovery policy were undefined. | Applied in Rev. AB: 640×480 floor, 1024×768 default, four recovery routes. | Closed in Rev. AB |
 
 ### After the campaign
 
@@ -325,4 +325,4 @@ the right line.
 
 ---
 
-*Rev. AA · 2 November 2026 · project started 30 October 2026*
+*Rev. AB · 2 November 2026 · project started 30 October 2026*
