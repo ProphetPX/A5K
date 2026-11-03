@@ -258,6 +258,12 @@ The microphone is an **ADC with two inputs**, front and rear. If both are plugge
 the front wins and the driver reports which. Bias for electret microphones is
 supplied on both.
 
+**Direct monitoring.** The ADC can be mixed straight to the DAC inside the card,
+bypassing the host and the operating system entirely. At 96 kHz, with converters
+that offer a low-latency filter mode, the round trip is **under a millisecond** —
+which is the number a musician actually feels. The host path adds USB framing and
+OS buffering on top of that; it is for recording and playback, not for monitoring.
+
 **Inputs on the Studio models:** line-in, plus S/PDIF or ADAT with **word clock in
 and out**, so an external converter can be the clock master. That is what
 professional users actually want, and it costs a connector and a comparator.
@@ -483,4 +489,4 @@ a new model designation.*
 
 ---
 
-*Rev. AM · 3 November 2026 · project started 30 October 2026*
+*Rev. AN · 3 November 2026 · project started 30 October 2026*

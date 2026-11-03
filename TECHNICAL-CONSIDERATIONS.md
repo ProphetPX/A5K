@@ -165,6 +165,14 @@ it in the tool, read utilisation and worst-case slack, and only then put it on
 the box. If it fails, disable it in firmware — never move to a larger part,
 because that changes the price of the model rather than the merit of the feature.
 
+**Converter choice decides monitoring latency.** The digital filter's group delay,
+not the sample rate, dominates the round trip. Parts with a low-latency filter
+mode — AKM AK5558 (ADC) and AK4458 (DAC), Cirrus CS5368/CS4385 — cost roughly
+0.2–0.4 ms each; sharp roll-off filters cost about 1 ms. The reference BOM's
+PCM1808 and PCM1690 are 96/192 kHz parts without a low-latency mode: fine for
+playback, marginal for direct monitoring. AKM parts have been allocation-sensitive
+since 2020, so buy from franchised distributors rather than the grey market.
+
 ## 9. Known gaps and open technical questions
 
 These are unresolved in the design as published:
@@ -279,4 +287,4 @@ Studio feature and a different board revision.
 
 ---
 
-*Rev. AM · 3 November 2026 · project started 30 October 2026*
+*Rev. AN · 3 November 2026 · project started 30 October 2026*
