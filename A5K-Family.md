@@ -80,6 +80,7 @@ Independent outputs require two beams. There is no way around it.
 | Transceivers | 4 | 8 | 16 |
 | Pipelines | **1** | **2** | **2** |
 | Fabric | **64-bit** (1.19 GB/s) | **256-bit** (4.75 GB/s) | **256-bit** (4.75 GB/s) |
+| Copper tick | **7.0714 MHz**, fixed | 7.0714 MHz | 7.0714 MHz; a faster domain is reserved, not built |
 | HDMI out | 4K60 **SDR**, 8-bit 4:4:4 | 4K60 **HDR10**, 10-bit 4:2:2 | 4K60 HDR10, 10-bit 4:2:2 |
 | DP out | 1080p60 SDR | 4K60 **HDR10**, 10-bit **4:4:4** | 4K60 HDR10, 10-bit **4:4:4** |
 | Capture | none | 1080p60 **10-bit 4:2:2** | 1080p60 **10-bit 4:4:4** |
@@ -106,6 +107,27 @@ A variant of the Pro is documented and not built: **A5K Studio Pro ISO**, with t
 32-bit memory channels instead of one 64-bit, for installations where a capture
 burst must never delay a scanout. ~$1,250, and a board change rather than a
 redesign.
+
+### 5.2 One tick, and room for another
+
+Every model runs the Copper at **7.0714 MHz** — 148.5 ÷ 21, exactly twenty-one
+slots of the bus. It is 0.26% slower than the Amiga's 7.09 MHz and, unlike 7.09,
+it divides the bus exactly. An approximate ratio would drift five slots per line,
+which is the one thing a machine built on countable timing cannot afford.
+
+The Studio class reserves a **second, faster tick domain** as a future hardware
+mode. What is fixed now is the rule rather than the rate:
+
+- **C+ never gains it.** The reference model stays at one tick.
+- **A tick is always a whole number of slots**, so exact doubling is unavailable:
+  21 ÷ 2 = 10.5. The usable rates are integer divisors — 14.85, 21.214 or 29.7 MHz.
+- **It changes only at frame end**, like the Copper list swap.
+- **It costs bandwidth.** A Copper instruction costs one slot, so the Copper's
+  ceiling is 1/N of the bus: 4.8% today, 14.3% at 3×.
+
+`BEAMCON0[3:1]` selects it and reads `000` on everything shipping today. The rate,
+and whether the two beams share one domain, remain open. See *A5K — The Slot
+Table*, §6.
 
 The Pro is the only model with 4K DisplayPort, because it is the only one with
 enough transceivers to generate DP natively. Every other model uses a 1080p DP
@@ -200,4 +222,4 @@ a new model designation.*
 
 ---
 
-*Rev. S · 2 November 2026 · project started 30 October 2026*
+*Rev. T · 2 November 2026 · project started 30 October 2026*

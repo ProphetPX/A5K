@@ -46,10 +46,10 @@ extra = """
 
 body = r"""
 <div class="spec-head">
-  <p class="kicker">Reference card &middot; Rev. S</p>
+  <p class="kicker">Reference card &middot; Rev. T</p>
   <h1>A5K — Technical Specifications</h1>
   <p class="subtitle">Clocks, memory, processors, bandwidth and the limits they impose</p>
-  <p class="meta">Rev. S &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
+  <p class="meta">Rev. T &nbsp;·&nbsp; 2 November 2026 &nbsp;·&nbsp; Companion to the design proposition &nbsp;·&nbsp; Figures are targets, not measurements</p>
 </div>
 
 <div class="statusline">
@@ -134,7 +134,7 @@ body = r"""
 <tr><th style="width:26%">Domain</th><th style="width:22%">Rate</th><th>Purpose</th></tr>
 </thead>
 <tbody>
-<tr><td>Copper / chip bus</td><td>7.09 MHz (141 ns)</td><td>One instruction per tick; the machine's timing contract</td></tr>
+<tr><td>Copper / chip bus</td><td>7.0714 MHz (141.4 ns)</td><td>One instruction per tick; exactly 21 slots of the 148.5 MHz bus. The machine's timing contract</td></tr>
 <tr><td>Pixel clock, 1080p60</td><td>148.5 MHz</td><td>Scanout</td></tr>
 <tr><td>Pixel clock, 4K60</td><td>594 MHz (4 lanes)</td><td>Scanout, above the fabric's comfort zone</td></tr>
 <tr><td>DDR3L</td><td>800 MHz (1600 MT/s)</td><td>Chip RAM</td></tr>
@@ -261,7 +261,7 @@ body = r"""
 <tr><td>Chip RAM, maximum</td><td>4 GB, two ranks</td></tr>
 <tr><td>Architectural ceiling</td><td>4 GiB, about 3.5 GB usable</td></tr>
 <tr><td>Memory bandwidth</td><td>6.4 GB/s</td></tr>
-<tr><td>Copper tick</td><td>7.09 MHz, 141 ns per instruction</td></tr>
+<tr><td>Copper tick</td><td>7.0714 MHz (148.5 ÷ 21), 141.4 ns per instruction</td></tr>
 <tr><td>Scanout</td><td>4K60 at a 594 MHz pixel clock, four lanes</td></tr>
 <tr><td>Host link</td><td>PCIe Gen2 ×1 (0.5 GB/s) on C+; ×4 on the Studio Pro</td></tr>
 <tr><td>On-card CPU</td><td>VexRiscv, 50 MHz (ECP5) to 150 MHz (Artix-7)</td></tr>
@@ -285,7 +285,7 @@ html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>A5K — Technical Specifications (Rev. S)</title>
+<title>A5K — Technical Specifications (Rev. T)</title>
 <style>{css}{extra}</style>
 </head>
 <body>
@@ -326,7 +326,7 @@ for i, page in enumerate(doc):
                    pymupdf.Point(w * 0.90, h - 30),
                    color=(0.80, 0.80, 0.80), width=0.5)
     page.insert_text((w * 0.10, h - 19),
-                     "Rev. S \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
+                     "Rev. T \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
                      fontname="helv", fontsize=6.8, color=(0.45, 0.45, 0.45))
     title = "A5K \u00b7 Technical Specifications"
     tw = pymupdf.get_text_length(title, fontname="helv", fontsize=7.2)
@@ -339,7 +339,7 @@ for i, page in enumerate(doc):
 
 doc.set_toc(toc)
 doc.set_metadata({
-    "title": "A5K - Technical Specifications (Rev. S)",
+    "title": "A5K - Technical Specifications (Rev. T)",
     "author": "Design study",
     "subject": "Clocks, memory, processors, bandwidth and limits of the A5K design",
     "keywords": "A5K, Amiga-like, FPGA, DDR3L, RISC-V, bandwidth, specification",

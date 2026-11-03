@@ -28,7 +28,7 @@ is unstarted.
 
 - [ ] Write the simulator specification: the exact register subset, the frame
       loop, the Copper interpreter, the plane compositor, acceptance tests
-- [ ] Implement the beam counter at 7.09 MHz
+- [ ] Implement the beam counter at 7.0714 MHz (148.5 ÷ 21)
 - [ ] Implement the MC-1 Copper: MOVE / WAIT / SKIP / JUMP / CALL / RET / END / IRQ
 - [ ] Implement planar fetch from a slot table
 - [ ] Implement the plane merge, priority and palette
@@ -144,6 +144,10 @@ before the simulator can be written against it.
       (4:2:2 on Studio, 4:4:4 on Studio Pro)
 - [ ] Answer the remaining open questions in §4.6:
       - [x] ~~64-bit vs 128-bit slots~~ — **decided: 64-bit on C+, 256-bit on Studio**
+- [x] ~~Tick rate and its ratio to the slot clock~~ — **decided: 7.0714 MHz
+      (148.5 ÷ 21, exactly 21 slots)**; applied to every model
+- [x] ~~Reserve a faster tick domain for the Studio class~~ — **reserved, not
+      built**: `BEAMCON0[3:1]`, frame-boundary only, integer divisors only
       - [ ] whether the blitter window scales with frame rate
       - [ ] whether Copper fetches get their own band
       - [ ] what happens when a display fetch misses its slot
@@ -210,4 +214,4 @@ the right line.
 
 ---
 
-*Rev. S · 2 November 2026 · project started 30 October 2026*
+*Rev. T · 2 November 2026 · project started 30 October 2026*

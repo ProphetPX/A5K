@@ -542,7 +542,6 @@
     white-space: pre;
     overflow: hidden;
     hyphens: none;
-    page-break-inside: avoid;
     color: #222;
   }
   pre.code.wide { font-size: 6.7pt; }
@@ -621,7 +620,7 @@
   </div>
 
   <div class="cstats">
-    <div><span class="n">7.09<em>MHz</em></span><span class="l">Copper tick</span></div>
+    <div><span class="n">7.0714<em>MHz</em></span><span class="l">Copper tick</span></div>
     <div><span class="n">4K</span><span class="l">scanout ceiling</span></div>
     <div><span class="n">×4</span><span class="l">PCIe lanes</span></div>
     <div><span class="n">≈$255</span><span class="l">prototype BOM</span></div>
@@ -635,7 +634,7 @@
   <div class="cmeta">
     <table>
       <tr><td>Started</td><td>30 October 2026</td></tr>
-      <tr><td>Revision</td><td>Rev. S — 2 November 2026 — C+ without capture; Studio HDR and 256-bit fabric</td></tr>
+      <tr><td>Revision</td><td>Rev. T — 2 November 2026 — Copper tick fixed at 148.5 ÷ 21; a faster Studio tick domain reserved, not built</td></tr>
       <tr><td>Status</td><td>Design study; no hardware built</td></tr>
       <tr><td>Reference concept</td><td>“A5K”</td></tr>
       <tr><td>Contents</td><td>9 sections · 3 appendices · 6 tables · 1 figure</td></tr>
@@ -660,7 +659,7 @@
     <li><span class="t">9. Why not just use a GPU?</span><span class="dots"></span><span class="p" data-mk="zzS9zz">7</span></li>
     <li class="app"><span class="t">Appendix A — The Copper, specified</span><span class="dots"></span><span class="p" data-mk="zzSazz">9</span></li>
     <li class="app"><span class="t">Appendix B — Implementation skeleton</span><span class="dots"></span><span class="p" data-mk="zzSbzz">13</span></li>
-    <li class="app"><span class="t">Appendix C — Bill of materials</span><span class="dots"></span><span class="p" data-mk="zzSczz">14</span></li>
+    <li class="app"><span class="t">Appendix C — Bill of materials</span><span class="dots"></span><span class="p" data-mk="zzSczz">15</span></li>
   </ol>
 
   <h2 style="margin-top:28pt">Tables and figures</h2>
@@ -837,7 +836,7 @@
 
 <p><strong>A. PCIe add-in card — “the Amiga as a GPU.”</strong> This is the natural fit for that shape. Every modern GPU is already: PCIe endpoint + local VRAM + display engine + command processor + DMA. Make that card <em>behave like a chipset</em>:</p>
 
-<p>Key point: <strong>PCIe latency (~1&nbsp;µs) doesn’t hurt, because the Amiga model was designed to be latency-tolerant.</strong> All raster-critical work lives in the Copper list <em>on the card</em>; the CPU only sets up lists ahead of time. That’s exactly why the architecture scales to a 4K display engine with a 7.09&nbsp;MHz Copper tick.</p>
+<p>Key point: <strong>PCIe latency (~1&nbsp;µs) doesn’t hurt, because the Amiga model was designed to be latency-tolerant.</strong> All raster-critical work lives in the Copper list <em>on the card</em>; the CPU only sets up lists ahead of time. That’s exactly why the architecture scales to a 4K display engine with a 7.0714&nbsp;MHz Copper tick.</p>
 
 <p><strong>B. CXL Type-2 accelerator.</strong> If you want the literal “Chip RAM” semantics — the chipset DMAs coherently into host memory, CPU and blitter see one address space — CXL.mem is the modern Agnus bus. More exotic, but it’s the honest translation.</p>
 
@@ -883,7 +882,7 @@
 
 <p><strong>The parallelism budget.</strong> About twenty fixed-function units run at once — the Copper, the blitter, eight planes and up to eight audio streams — because each does one thing forever at a fixed rate, not because anything is scheduled. The bound is memory, not logic: at 4K60, eight planar bitplanes cost 0.5&nbsp;GB/s, a single full-screen ARGB plane costs 2.0&nbsp;GB/s, and the 32-bit DDR3L bus supplies 6.4&nbsp;GB/s. Adding CPU cores does not add throughput; it adds contention on the same memory.</p>
 
-<p>How that budget is actually enforced — the slot table, its two currencies of 141&nbsp;ns ticks and 6.7&nbsp;ns slots, and the rules a Copper list must respect — is specified separately in <em>A5K — The Slot Table</em>.</p>
+<p>How that budget is actually enforced — the slot table, its two currencies of 141.4&nbsp;ns ticks and 6.7&nbsp;ns slots, and the rules a Copper list must respect — is specified separately in <em>A5K — The Slot Table</em>.</p>
 
 <h2 id="s7">7. Software</h2>
 
@@ -1032,9 +1031,9 @@
 </tbody>
 </table>
 
-<p><strong>Beam packing.</strong> For WAIT and SKIP, operand A holds a packed position and B a mask over the same fields: <code>A = (V &lt;&lt; 12) | H</code>, where V is the line number (0–4095) and H the horizontal position in dot clocks (0–4095 — enough for 4K DCI). Because the mask is applied to both sides of the comparison, <code>0x0FFF000</code> matches the vertical field alone: that is the classic “wait for line N” idiom, expressed without bit arithmetic in the assembler.</p>
+<p><strong>Beam packing.</strong> For WAIT and SKIP, operand A holds a packed position and B a mask over the same fields: <code>A = (V &lt;&lt; 12) | H</code>. V is the line number (0–4095; 4K uses 2,250). H is the horizontal position <strong>in ticks, not dots</strong> — 105 positions per line at 1080p, 53 at 4K, 453 at 640×512 — so twelve bits cover every mode, and the field does not widen when a faster tick domain arrives. Counting H in dots would need thirteen bits at 4K, and the beam cannot be addressed more finely than one instruction anyway. Because the mask is applied to both sides, <code>0x0FFF000</code> matches the vertical field alone: the classic “wait for line N” idiom.</p>
 
-<p><strong>Timing.</strong> The Copper retires one instruction per 7.09&nbsp;MHz tick (141&nbsp;ns); a MOVE that writes a display register costs one tick, and a WAIT whose condition is already satisfied costs one tick and falls through. The remainder of the frame the Copper is idle — which is precisely why it can afford to be dumb. At 4K the beam counter is scaled, but the tick stays 141&nbsp;ns, so a legacy list written for 15&nbsp;kHz runs at the same <em>rate</em>, over more lines.</p>
+<p><strong>Timing.</strong> The Copper retires one instruction per tick, and the tick is <strong>7.0714&nbsp;MHz</strong> — 141.4&nbsp;ns, exactly 21 slots of the 148.5&nbsp;MHz bus. That integer ratio is deliberate: 7.09 does not divide 148.5, and an approximation drifts five slots per line, which would make the claim that timing is countable false. The tick is 0.26% slower than the Amiga's, and exact. A MOVE to a display register costs one tick; a satisfied WAIT costs one tick and falls through; <strong>a fetch costs one slot</strong>, because an MC-1 instruction is 64 bits and a slot is 64 bits. For the rest of the frame the Copper is idle — which is why it can afford to be dumb. At 4K a line holds 53 positions instead of 105, but the tick stays 141.4&nbsp;ns.</p>
 
 <pre class="code">; --- classic raster split, MC-1 assembler syntax ----------------------
         MOVE   0x0340, 0x00F0        ; COLOR00 := Amiga blue
@@ -1079,8 +1078,9 @@
 <tr><td>COPJMP1/2</td><td>0x0008</td><td>8</td><td>Strobe: restart from COP1LC / COP2LC immediately</td></tr>
 <tr><td>COPCON</td><td>0x000C</td><td>8</td><td>bit 0 legacy decode, bit 1 Copper IRQ enable</td></tr>
 <tr><td>VPOSR</td><td>0x0010</td><td>16</td><td>Current line number</td></tr>
-<tr><td>VHPOSR</td><td>0x0014</td><td>32</td><td>Line in [23:12], dot clock in [11:0]</td></tr>
-<tr><td>BEAMCON0</td><td>0x0018</td><td>16</td><td>Tick rate, line length, interlace, sync polarity</td></tr>
+<tr><td>VHPOSR</td><td>0x0014</td><td>32</td><td>Line in [23:12], tick position in [11:0] — the same units a WAIT compares</td></tr>
+<tr><td>BEAMCON0</td><td>0x0018</td><td>16</td><td>Tick divisor [3:1] (reads 0 — fixed 7.0714 MHz), line length, interlace, sync polarity</td></tr>
+<tr><td>HPOSR</td><td>0x001C</td><td>16</td><td>Fine horizontal position in dot clocks, read-only, for sub-tick measurement</td></tr>
 <tr><td>DMACON</td><td>0x0600</td><td>16</td><td>Per-channel DMA enable (bitplane, blitter, copper, audio, disk)</td></tr>
 <tr><td>INTENA / INTREQ</td><td>0x0604 / 0x0608</td><td>16</td><td>Interrupt enable mask / request-and-clear</td></tr>
 <tr><td>BPLCON0–3</td><td>0x0100</td><td>16</td><td>Depth, HAM, EHB, dual playfield, resolution</td></tr>
@@ -1156,7 +1156,7 @@ from migen import *
 MOVE, WAIT, SKIP, JUMP, CALL, RET, END, IRQ = range(8)
 
 class Copper(Module):
-    """Retires one 64-bit instruction per 7.09 MHz tick."""
+    """Retires one 64-bit instruction per 7.0714 MHz tick."""
 
     def __init__(self, beam, reg_wr, mem):
         self.list_base = Signal(32)      # COP1LC / COP2LC, 8-byte aligned
@@ -1210,7 +1210,7 @@ class Copper(Module):
 <p>Hanging the blocks off a bus is where the design stops being a sketch. Before the code, the honest summary of the effort:</p>
 
 <div class="note">
-  <strong>Where the difficulty actually lives.</strong> Not in the Copper — it is a 300-line state machine. The hard parts are (1) the <em>slot table</em>, a fixed schedule of which master gets Chip RAM on which cycle, because that schedule <em>is</em> the machine’s timing contract; (2) clock-domain crossing between the 7.09&nbsp;MHz chip domain, the 100&nbsp;MHz AXI domain and the 148.5&nbsp;MHz pixel clock; and (3) making the PCIe BAR2 aperture coherent with the on-card DDR controller so a host write is visible to the next scanline fetch without a flush.
+  <strong>Where the difficulty actually lives.</strong> Not in the Copper — it is a 300-line state machine. The hard parts are (1) the <em>slot table</em>, a fixed schedule of which master gets Chip RAM on which cycle, because that schedule <em>is</em> the machine’s timing contract; (2) clock-domain crossing between the 7.0714&nbsp;MHz chip domain, the 148.5&nbsp;MHz slot domain and the 594&nbsp;MHz pixel domain; and (3) making the PCIe BAR2 aperture coherent with the on-card DDR controller so a host write is visible to the next scanline fetch without a flush.
 </div>
 
 <pre class="code"># soc.py — chipset as an AXI/Wishbone peripheral (sketch)
@@ -1245,7 +1245,7 @@ class AmigaSoC(SoCCore):
         self.bus.add_slave("chipset", self.agnus.bus,
                            region=0x0000_0000, size=0x0000_1000)
 
-        # 1080p60 out of a 7.09 MHz tick: the beam counter scales,
+        # 1080p60 out of a 7.0714 MHz tick: the beam counter scales,
         # the Copper does not
         self.sync += self.agnus.line_len.eq(2200)
         self.comb += self.denise.pix_clk.eq(self.crg.clk148_5)

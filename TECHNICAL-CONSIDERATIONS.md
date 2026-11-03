@@ -159,7 +159,7 @@ logic.
 These are unresolved in the design as published:
 
 - **Slot-table arbitration policy** is described but not specified cycle-by-cycle.
-- **Clock-domain crossing** between the 7.09 MHz chip domain, the AXI domain and the pixel clock is unproven.
+- **Clock-domain crossing** between the 7.0714 MHz chip domain, the 148.5 MHz slot domain and the 594 MHz pixel domain is unproven.
 - **BAR2 coherency** — host writes visible to the next scanline fetch without a flush — is asserted, not designed.
 - **DDR3 timing at 4K** has not been budgeted against the fetch schedule.
 - **HDMI PHY** compliance and EMC are unaddressed.
@@ -205,4 +205,4 @@ If you build and sell hardware from it, EMC, radio, electrical-safety and produc
 
 ---
 
-*Rev. S · 2 November 2026 · project started 30 October 2026*
+*Rev. T · 2 November 2026 · project started 30 October 2026*
