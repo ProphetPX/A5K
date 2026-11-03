@@ -13,8 +13,9 @@ Status: proposal. No model has been built.
 
 **Rev 2 replaces the first C+ and is not frozen yet.** The audio path is the
 reason: the original C+ topped out at stereo, and a card sold to video and audio
-people cannot ship that. Rev 2 is the working baseline, and it freezes when the
-audio architecture in §5.5 is settled and tested — not before.
+people cannot ship that. Rev 2 is the working baseline, and it freezes only when the author says so —
+not when a checklist completes, and not before the remaining questions in
+`TODO.md` are answered.
 
 | | A5K (C+) Rev 2 |
 |---|---|
@@ -265,7 +266,9 @@ professional users actually want, and it costs a connector and a comparator.
 22.5792 MHz for 44.1/88.2/176.4 and 24.576 MHz for 48/96/192. The **default is
 the 44.1 family**; the 48 family exists because video and broadcast are 48 kHz,
 and resampling every video timeline is exactly the kind of hidden arithmetic
-this project exists to avoid.
+this project exists to avoid. Both crystals are fitted. **48 kHz is present and
+not yet measured**; the sentence changes when a measurement exists, and nothing
+else does.
 
 **Clocking modes.** The card's clock is its own unless told otherwise. Three
 modes, selected by a register and **never stored across a power cycle**:
@@ -292,7 +295,11 @@ follow the card, it **resamples on the host**, in software, where the cost is
 visible — and that is the user opt-in you asked for, not a hardware default.
 
 **USB.** A UAC2 host port appears on the **Studio and above**, never on C+. The
-PHY is cheap; the firmware is not, and a $275 wedge does not need it.
+**PHY footprint — pads and connector — is on the board from the first revision**,
+whether or not the firmware is ready; enabling it later is a firmware update, not
+a board change. The scope is narrow on purpose: one interface, playback and
+capture, no hubs, no HID. The PHY is cheap; the firmware is not, and a $275 wedge
+does not need it.
 
 **Drivers.** ALSA upstream, AHI on AROS, OSS4 out-of-tree and explicitly invited.
 The register map is public, so the third one can be written by the people who
@@ -464,4 +471,4 @@ a new model designation.*
 
 ---
 
-*Rev. AI · 3 November 2026 · project started 30 October 2026*
+*Rev. AJ · 3 November 2026 · project started 30 October 2026*

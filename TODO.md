@@ -24,6 +24,34 @@ is unstarted.
 
 ---
 
+## Money and hardware
+
+**There is no budget for hardware.** No dev board, no PCB, no parts, no lab time.
+The project is a design study in the literal sense — documents, arithmetic and
+review — until that changes.
+
+That is not a limitation to apologise for; it decides which questions can be
+closed and which cannot:
+
+| Question | Closable with no money? |
+|---|---|
+| Consistency of the documents | **yes** — reading and arithmetic |
+| The slot schedule, Copper, line buffers | **yes** — the simulator, on a laptop |
+| Clock synthesis and FPGA fit | **yes** — free vendor toolchain, synthesis report |
+| Timing closure at 148.5 MHz | **yes** — same toolchain, utilisation and slack report |
+| Real DDR3L behaviour | no — needs a board |
+| Audio jitter and THD+N | no — needs a board and an analyser |
+| HDMI/DP interoperability | no — needs a board and panels |
+
+Nothing may be called *measured* until a board exists. The point of the table is
+that three of the seven can still be **closed by reasoning or by free tools**, and
+those are the ones to do next.
+
+**No model is frozen.** The first C+ was frozen too early; Rev 2 stays open until
+the author says otherwise, not until a checklist completes.
+
+---
+
 ## Next: the review campaign
 
 *Weeks. £0. The cheapest experiment available, and the only one that finds the
@@ -107,13 +135,13 @@ day they arrive, per the cadence rule above.
 
 | ID | Finding | Consequence | Status |
 |---|---|---|---|
-| **F-01** | The target monitor advertises **50.00, 59.94 and 60.00 Hz**; the ceilings fixed 60.000 only. | Resolved in Rev. AI: video rates on two slot clocks, high refresh to 1080p240, VRR out. | Closed in Rev. AI |
+| **F-01** | The target monitor advertises **50.00, 59.94 and 60.00 Hz**; the ceilings fixed 60.000 only. | Resolved in Rev. AJ: video rates on two slot clocks, high refresh to 1080p240, VRR out. | Closed in Rev. AJ |
 | **F-02** | B1 cannot be tested on a 1080p panel. | Withdrawn: the card is the source, HDMI 2.0 4K60 *is* CEA-861, and the generator takes line length as a register. No 4K panel is required to close it. | Withdrawn |
-| **F-03** | B1 closed by labelling the 4K example as CEA rather than the definition. | Applied in Rev. AI: §4.2 and §5.5 say CEA-861; CVT-RB is another row in the same generator. | Closed in Rev. AI |
+| **F-03** | B1 closed by labelling the 4K example as CEA rather than the definition. | Applied in Rev. AJ: §4.2 and §5.5 say CEA-861; CVT-RB is another row in the same generator. | Closed in Rev. AJ |
 | **F-04** | Mode floor, first power-on default and recovery policy were undefined. | Applied in Rev. Z: 640×480 floor, 1024×768 default, four recovery routes. | Closed in Rev. Z |
-| **F-05** | The reference BOM fits a stereo DAC (PCM5102) but lists **no audio connector**. | Resolved in Rev. AI: 8-channel DAC, four jacks, TOSLINK, two audio clocks; C+ Rev 2 replaces C+. | Closed in Rev. AI |
+| **F-05** | The reference BOM fits a stereo DAC (PCM5102) but lists **no audio connector**. | Resolved in Rev. AJ: 8-channel DAC, four jacks, TOSLINK, two audio clocks; C+ Rev 2 replaces C+. | Closed in Rev. AJ |
 | **F-06** | UAC2 host: open stacks are thin and the Studio's 160T has less room than the Pro's 325T. | **Decided:** UAC2 is on **every Studio and above**, enabled by firmware. The ULPI PHY footprint goes on the board regardless, so fit is never a board change. Scope: one interface, playback and capture, no hubs or HID. The Phase 1 fit test gates the *claim*, not the hardware. | Open — plan agreed |
-| **F-07** | The 48 kHz family is fitted but unmeasured. | **Decided:** both crystals on the board; 44.1 is the default; the documents say 48 is present and unmeasured until a bench test exists. Closing it needs no board: the MMCM settings can be verified in the free vendor toolchain. | Open — verification only |
+| **F-07** | The 48 kHz family is fitted but unmeasured. It is a **documentation claim**, not a hardware fault — the ID is only a label. | **Decided:** both crystals on the board; 44.1 is the default; the documents say "48 kHz is fitted and not yet measured". Closed by that sentence now, and reopened only when a board can measure it. The clock synthesis itself can be checked in the free toolchain. | Documented; measurement deferred |
 
 ### After the campaign
 
@@ -328,4 +356,4 @@ the right line.
 
 ---
 
-*Rev. AI · 3 November 2026 · project started 30 October 2026*
+*Rev. AJ · 3 November 2026 · project started 30 October 2026*

@@ -18,6 +18,7 @@ from Rev. W. Earlier revisions have no identifiers to cite.
 
 | Rev | Date | Tag | What changed | Findings |
 |---|---|---|---|---|
+| **AJ** | 3 Nov 2026 | `rev-aj` | UAC2 PHY footprint on the Studio board from the first revision, enabled by firmware; 48 kHz documented as fitted and not yet measured; no model is frozen | F-06, F-07 |
 | **AI** | 3 Nov 2026 | `rev-ai` | Storage clarified: no controller on any model; the microSD is private to the card and never exposed to the host; AROS hosted first, native later | — |
 | **AH** | 2 Nov 2026 | `rev-ah` | Three clocking modes behind one register — independent (default), card master, external master — reset at every power-on; no BIOS setting and no switch; the host is never slaved | — |
 | **AG** | 2 Nov 2026 | `rev-ag` | Host and card documented as independent timing domains: standard PCIe, DMA both ways, no timing coupling; the card is the clock master and never follows the host | — |
@@ -66,4 +67,4 @@ of their own. This changelog itself is housekeeping.
 
 ---
 
-*Rev. AI · 3 November 2026 · project started 30 October 2026*
+*Rev. AJ · 3 November 2026 · project started 30 October 2026*
