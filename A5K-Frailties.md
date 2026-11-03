@@ -64,7 +64,7 @@ display band goes from 44% to 43%, not up.
 the budget with CVT-RB timings.
 
 **Severity.** Major — a table regeneration, not a redesign. It was recorded as
-blocking until the arithmetic was redone; the correction is in Rev. AB.
+blocking until the arithmetic was redone; the correction is in Rev. AC.
 
 ### B2. tRFC is taken as 350 ns
 
@@ -240,6 +240,35 @@ write per line.
 
 **Severity.** Minor.
 
+### C8. Two audio clock families
+
+**Claim.** 22.5792 MHz for the 44.1 family, 24.576 MHz for the 48 family, with
+44.1 as the default. Neither divides the 148.5 MHz video clock, so each is its own
+domain and A/V sync is a ratio.
+
+**If it fails.** Dropping the 48 family means every video timeline is resampled —
+the hidden arithmetic this project exists to avoid. Dropping 44.1 means music
+plays at the wrong rate.
+
+**Test.** Both crystals on the board; measure the ratio against the video clock
+over an hour.
+
+**Severity.** Major.
+
+### C9. UAC2 host on the Studio models
+
+**Claim.** A USB host port on Studio and above, driving external audio interfaces
+over USB Audio Class 2.
+
+**If it fails.** Open host stacks handle UAC1 well and UAC2 poorly, and the 160T
+has less room than the 325T for a host controller beside two beams. The feature
+becomes Pro-only, or waits.
+
+**Test.** Fit the host controller on the 160T, then enumerate one UAC2 interface
+and stream eight channels.
+
+**Severity.** Major.
+
 ---
 
 ## D. What not to bother reporting
@@ -258,4 +287,4 @@ These have been considered and rejected; the reasoning is in the documents.
 
 ---
 
-*Rev. AB · 2 November 2026 · project started 30 October 2026*
+*Rev. AC · 2 November 2026 · project started 30 October 2026*

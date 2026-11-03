@@ -18,6 +18,7 @@ from Rev. W. Earlier revisions have no identifiers to cite.
 
 | Rev | Date | Tag | What changed | Findings |
 |---|---|---|---|---|
+| **AC** | 2 Nov 2026 | `rev-ac` | C+ Rev 2 retires C+; eight-channel audio, 4 jacks + TOSLINK + HDMI LPCM, two clock families, UAC2 host on Studio+ | F-05 |
 | **AB** | 2 Nov 2026 | `rev-ab` | Simulator specification: Phase 0 model, trace format, five tests and a negative test that proves they can fail | planned work |
 | **AA** | 2 Nov 2026 | `rev-aa` | Video rates 23.976–60 on two slot clocks, high refresh to 1080p240, VRR explicitly excluded, CEA labelling | C1, C6, C7 |
 | **Z** | 2 Nov 2026 | `rev-z` | Mode floor 640×480, first power-on default 1024×768, and four recovery routes (host, SD, button, automatic) | — |
@@ -59,4 +60,4 @@ of their own. This changelog itself is housekeeping.
 
 ---
 
-*Rev. AB · 2 November 2026 · project started 30 October 2026*
+*Rev. AC · 2 November 2026 · project started 30 October 2026*

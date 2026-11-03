@@ -2,37 +2,42 @@
 
 **A video and audio workstation card. Not a games console, and not a GPU.**
 
-This document defines the product line: what is frozen, what the Studio models
+This document defines the product line: what is settled, what the Studio models
 add, how the output is chosen, and what order to build it in.
 
 Status: proposal. No model has been built.
 
 ---
 
-## 1. A5K (C+) — the reference machine, frozen
+## 1. A5K (C+) Rev 2 — the reference machine
 
-This is the design described in the rest of the repository. It does not gain
-features. If a change would alter any line below, it is a new model, not a
-revision.
+**Rev 2 replaces the first C+ and is not frozen yet.** The audio path is the
+reason: the original C+ topped out at stereo, and a card sold to video and audio
+people cannot ship that. Rev 2 is the working baseline, and it freezes when the
+audio architecture in §5.5 is settled and tested — not before.
 
-| | A5K (C+) |
+| | A5K (C+) Rev 2 |
 |---|---|
 | FPGA | Artix-7 100T (4 GTP) |
 | Pipelines | **1** — one beam, one Copper, one slot table |
 | **Primary output** | **4K60 HDMI**, straight from fabric |
 | **Secondary output** | **1080p60 DisplayPort**, via a commodity bridge |
+| **Audio** | **8 channels, 24-bit** — 4 stereo jacks, TOSLINK, HDMI LPCM |
 | Input | **None** — capture begins with the Studio models |
 | HDCP | none, by design |
 | PCIe | ×1 (500 MB/s) |
 | Memory | 1 × 32-bit DDR3L, 1 GB (2 GB max) |
 | Host | x86-64, PCIe ×1 or larger slot |
-| BOM | **~$255** |
+| BOM | **~$270** |
 
 **Promises:** one Amiga-like machine — deterministic, documented, open, under
-$300 in parts.
+$300 in parts, with eight channels of audio.
 
 **Does not promise:** independent outputs, 4K input, 4K DisplayPort, HDCP, or two
 of anything.
+
+**The first C+ (~$255, stereo DAC) is retired and will never be built.** It was
+correct as a timing study and wrong as a product.
 
 ## 2. What this card is for
 
@@ -90,11 +95,12 @@ worst case a driver may rely on — is specified in
 | HDMI out | 4K60 **SDR**, 8-bit 4:4:4 | 4K60 **HDR10**, 10-bit 4:2:2 | 4K60 HDR10, 10-bit 4:2:2 |
 | DP out | 1080p60 SDR | 4K60 **HDR10**, 10-bit **4:4:4** | 4K60 HDR10, 10-bit **4:4:4** |
 | Capture | none | 1080p60 **10-bit 4:2:2** | 1080p60 **10-bit 4:4:4** |
+| Audio out | **8 ch**, 24-bit: 4 jacks + TOSLINK + HDMI | same, plus S/PDIF/ADAT in and word clock | same, plus **USB UAC2 host** |
 | Both outputs at once | mirrored, 1080p on DP | **one graphics + one video or derived** | same; two independent graphics needs the Pro II |
 | Refresh | up to **1080p240** on HDMI; DP 60 | up to **1080p240**, 1440p144; 4K60. **No VRR** | same |
 | PCIe | ×1 | ×2 | ×4 |
 | Memory | **2 × 16-bit** (32-bit, 1 GB) | **4 × 16-bit** (64-bit, 2 GB) | **4 × 16-bit** (64-bit, 2 GB) |
-| BOM | **~$255** | **~$540** | **~$1,200** |
+| BOM | **~$270** | **~$555** | **~$1,215** |
 
 ### 5.1 The HDMI wall, stated plainly
 
@@ -174,6 +180,39 @@ come to 6.95 GB/s — 77% of the fabric and 63% of the memory.
 board: roughly +$250, not a respin. That is also why the Studio ships 64-bit
 memory although 32 bits would have met today's budget — width is the one thing
 that cannot be added later.
+
+### 5.5 Audio
+
+**Eight channels, 24-bit, on every model. There is no stereo-only path.** Stereo
+is a downmix chosen in software by the user; it is never what the hardware
+produces on its own.
+
+| Output | What it carries |
+|---|---|
+| **HDMI / DisplayPort** | 8-channel LPCM, or a compressed bitstream passed through untouched |
+| **TOSLINK** | 2-channel PCM, or a compressed Dolby/DTS stream — **not** 8-channel LPCM. S/PDIF has no room for it, and no design can change that |
+| **Analogue** | 4 × 3.5 mm stereo jacks — front, surround, rear, centre/LFE — from an 8-channel DAC |
+
+The TOSLINK limit is worth stating plainly: optical gives 7.1 only as a
+*bitstream*, decoded by a receiver. It is a compatibility port, not a
+multichannel one. Multichannel LPCM goes over HDMI, DisplayPort, or the jacks.
+
+**Inputs, Studio and above:** line-in, plus S/PDIF or ADAT with **word clock in
+and out**, so an external converter can be the clock master. That is what
+professional users actually want, and it costs a connector and a comparator.
+
+**Clocks.** Two families, because neither divides the 148.5 MHz video clock:
+22.5792 MHz for 44.1/88.2/176.4 and 24.576 MHz for 48/96/192. The **default is
+the 44.1 family**; the 48 family exists because video and broadcast are 48 kHz,
+and resampling every video timeline is exactly the kind of hidden arithmetic
+this project exists to avoid.
+
+**USB.** A UAC2 host port appears on the **Studio and above**, never on C+. The
+PHY is cheap; the firmware is not, and a $270 wedge does not need it.
+
+**Drivers.** ALSA upstream, AHI on AROS, OSS4 out-of-tree and explicitly invited.
+The register map is public, so the third one can be written by the people who
+want it.
 
 ## 6. Choosing the output
 
@@ -268,7 +307,7 @@ frame.
 
 ## 9. Build order
 
-1. **A5K (C+)** — validate the chipset, the slot table and the driver.
+1. **A5K (C+) Rev 2** — validate the chipset, the slot table, the driver and the eight-channel audio path.
 2. **A5K Studio** — add the second pipeline; prove the arbiter with two line rates.
 3. **A5K Studio Pro** — same RTL, larger part, two 4K60 HDR outputs: one
    composited graphics beam and one video or derived beam.
@@ -314,4 +353,4 @@ a new model designation.*
 
 ---
 
-*Rev. AB · 2 November 2026 · project started 30 October 2026*
+*Rev. AC · 2 November 2026 · project started 30 October 2026*

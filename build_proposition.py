@@ -126,7 +126,7 @@ for i, page in enumerate(doc):
                    pymupdf.Point(w * 0.90, h - 30),
                    color=(0.80, 0.80, 0.80), width=0.5)
     page.insert_text((w * 0.10, h - 19),
-                     "Rev. AB \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
+                     "Rev. AC \u00b7 2 Nov 2026 \u00b7 start 30 Oct 2026",
                      fontname="helv", fontsize=6.8, color=(0.45, 0.45, 0.45))
     title = "A5K \u00b7 Design Study"
     tw = pymupdf.get_text_length(title, fontname="helv", fontsize=7.2)
@@ -139,7 +139,7 @@ for i, page in enumerate(doc):
 doc.set_toc([[1, "Cover", 1], [1, "Contents", 2]] +
             [[1, names[m], pages[m] + 2] for m in order])
 doc.set_metadata({
-    "title": "A5K - A Theoretical Design Proposition for an Amiga 5000-Like System - Rev. AB",
+    "title": "A5K - A Theoretical Design Proposition for an Amiga 5000-Like System - Rev. AC",
     "author": "Design study",
     "subject": "Re-issuing the Amiga custom-chipset design ethos on a modern bus, in open silicon",
     "keywords": "Amiga, Copper, Agnus, Denise, Blitter, Paula, PCIe, CXL, RISC-V, LiteX, Migen, AROS, FPGA",
