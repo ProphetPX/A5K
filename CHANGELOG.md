@@ -18,6 +18,7 @@ from Rev. W. Earlier revisions have no identifiers to cite.
 
 | Rev | Date | Tag | What changed | Findings |
 |---|---|---|---|---|
+| **Y** | 2 Nov 2026 | `rev-y` | B1 corrected: CVT-RB costs 0.6% of a line, not 11 points of display band; severity Blocking → Major | B1 |
 | **X** | 2 Nov 2026 | `rev-x` | PAL and NTSC reference statistics side by side; 50 Hz recorded as an out-of-scope ceiling | C6 |
 | **W** | 2 Nov 2026 | `rev-w` | Dual-pipe arbitration specified; `A5K-Frailties.md` created; review campaign planned; Appendix D added to the study | A1 |
 | **V** | 2 Nov 2026 | `rev-v` | The fabric, not the DRAM, identified as the bandwidth limit; 64-bit memory on Studio; second output defined; 512-bit Pro II path; ISO withdrawn | — |
@@ -55,4 +56,4 @@ of their own. This changelog itself is housekeeping.
 
 ---
 
-*Rev. X · 2 November 2026 · project started 30 October 2026*
+*Rev. Y · 2 November 2026 · project started 30 October 2026*

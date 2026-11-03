@@ -596,7 +596,7 @@ for: the schedule is countable because it never has to be renegotiated.
 | # | Assumption | If it fails |
 |---|---|---|
 | A1 | dual-pipe arbitration is a written rule | it is, in `A5K-Dual-Pipe-Arbitration.md` — but it has not been simulated |
-| B1 | 4K uses CEA-861 timing | CVT-RB leaves 300 ns of blanking; refresh moves into the active line, 44% → 55% |
+| B1 | 4K uses CEA-861 timing | CVT-RB leaves 300 ns of blanking; ~7 slots of refresh spill into the line, 0.6%, and the per-line numbers move 1.3% |
 | B2 | tRFC is 350 ns | it is probably 260 ns for the 4 Gb parts; the budget improves |
 | B3 | 256-bit closes at 148.5 MHz on a -2 | -3 speed grade, +20–25% on the FPGA |
 | B5 | buffers sized to tRFC are enough | a permanent pixel-hold every 7.8 µs |
@@ -618,4 +618,4 @@ is the next step.
 
 ---
 
-*Rev. X · 2 November 2026 · project started 30 October 2026*
+*Rev. Y · 2 November 2026 · project started 30 October 2026*

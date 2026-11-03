@@ -269,7 +269,7 @@ The four that would change *this* document most:
 | # | Assumption | If it fails |
 |---|---|---|
 | A1 | two beams share a superframe | the Studio cannot be built as specified — it is a rule now, not a simulation |
-| B1 | 4K uses CEA-861 timing | CVT-RB leaves 300 ns of blanking and refresh moves into the picture |
+| B1 | 4K uses CEA-861 timing | CVT-RB leaves 300 ns of blanking; about seven slots of refresh spill into the line — a table regeneration, not a redesign |
 | B3 | 256-bit closes at 148.5 MHz on a -2 | a -3 part, and the Studio's price moves |
 | C4 | the bill of materials | ±20% is normal; the wedge stops being a wedge at +25% |
 
@@ -280,4 +280,4 @@ a new model designation.*
 
 ---
 
-*Rev. X · 2 November 2026 · project started 30 October 2026*
+*Rev. Y · 2 November 2026 · project started 30 October 2026*

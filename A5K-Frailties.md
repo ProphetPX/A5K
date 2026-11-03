@@ -53,15 +53,18 @@ policy choices, not proofs. The page is a specification, not a simulation.
 **Claim.** 4,400 × 2,250 dots, 1,100 64-bit slots per line, 560 dots of blanking
 — 943 ns — and therefore room for two refreshes.
 
-**If it fails.** CVT-RB is 4,000 × 2,222: about 1,000 slots per line and **160
-dots of blanking, 300 ns** — less than one 350 ns refresh. Refresh would have to
-move into the active line, costing roughly 7% of slots and lifting the display
-band from 44% to 55%.
+**If it fails.** CVT-RB is 4,000 × 2,222 at 533.25 MHz: **1,114 slots per line**
+and **160 dots of blanking, 300 ns** — 44.6 slots against the 52 one refresh
+needs. About 0.96 refreshes per line must therefore spill roughly **7 slots into
+the active region, 0.6% of the line**, where the 350 ns line buffers already
+cover them. The per-line numbers move by 1.3% and the table is regenerated; the
+display band goes from 44% to 43%, not up.
 
 **Test.** Read the EDID of the target displays, confirm CEA support, and re-run
 the budget with CVT-RB timings.
 
-**Severity.** **Blocking.**
+**Severity.** Major — a table regeneration, not a redesign. It was recorded as
+blocking until the arithmetic was redone; the correction is in Rev. Y.
 
 ### B2. tRFC is taken as 350 ns
 
@@ -240,4 +243,4 @@ These have been considered and rejected; the reasoning is in the documents.
 
 ---
 
-*Rev. X · 2 November 2026 · project started 30 October 2026*
+*Rev. Y · 2 November 2026 · project started 30 October 2026*

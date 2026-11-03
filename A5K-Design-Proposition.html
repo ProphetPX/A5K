@@ -634,7 +634,7 @@
   <div class="cmeta">
     <table>
       <tr><td>Started</td><td>30 October 2026</td></tr>
-      <tr><td>Revision</td><td>Rev. X — 2 November 2026 — PAL and NTSC references throughout; no change to the machine</td></tr>
+      <tr><td>Revision</td><td>Rev. Y — 2 November 2026 — B1 corrected: CVT-RB is a 1.3% schedule change, not a redesign</td></tr>
       <tr><td>Status</td><td>Design study; no hardware built</td></tr>
       <tr><td>Reference concept</td><td>“A5K”</td></tr>
       <tr><td>Contents</td><td>9 sections · 3 appendices · 6 tables · 1 figure</td></tr>
@@ -1355,7 +1355,7 @@ def main():
 <tr><th style="width:46%">Assumption</th><th>If it is wrong</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>4K uses CEA-861 timing</strong> — 4,400 × 2,250, 943 ns of blanking</td><td>CVT-RB leaves 160 dots, 300 ns, less than one refresh. Refresh moves into the active line and the display band rises from 44% to 55%</td></tr>
+<tr><td><strong>4K uses CEA-861 timing</strong> — 4,400 × 2,250, 943 ns of blanking</td><td>CVT-RB leaves 160 dots, 300 ns: about seven slots of refresh spill into the line, 0.6% of it, and every per-line number moves by 1.3%</td></tr>
 <tr><td><strong>tRFC is 350 ns</strong></td><td>It is 260 ns for the 4 Gb parts in the bill of materials. The budget improves by 1.2 points — this document overstates its own cost</td></tr>
 <tr><td><strong>256-bit closes at 148.5 MHz on a -2</strong></td><td>A -3 speed grade, +20–25% on the FPGA. If 512 bits also fails, there is no Pro II on this board</td></tr>
 <tr><td><strong>One Copper lane in twenty-one is enough</strong></td><td>WAIT positions drift by a tick, and the timing contract — the whole product — is void</td></tr>

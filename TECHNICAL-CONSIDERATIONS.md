@@ -209,4 +209,4 @@ If you build and sell hardware from it, EMC, radio, electrical-safety and produc
 
 ---
 
-*Rev. X · 2 November 2026 · project started 30 October 2026*
+*Rev. Y · 2 November 2026 · project started 30 October 2026*
