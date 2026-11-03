@@ -18,6 +18,7 @@ from Rev. W. Earlier revisions have no identifiers to cite.
 
 | Rev | Date | Tag | What changed | Findings |
 |---|---|---|---|---|
+| **AK** | 3 Nov 2026 | `rev-ak` | The fit rule written down: synthesise before claiming; if a feature does not fit, disable it in firmware rather than uprating the part | F-06 |
 | **AJ** | 3 Nov 2026 | `rev-aj` | UAC2 PHY footprint on the Studio board from the first revision, enabled by firmware; 48 kHz documented as fitted and not yet measured; no model is frozen | F-06, F-07 |
 | **AI** | 3 Nov 2026 | `rev-ai` | Storage clarified: no controller on any model; the microSD is private to the card and never exposed to the host; AROS hosted first, native later | — |
 | **AH** | 2 Nov 2026 | `rev-ah` | Three clocking modes behind one register — independent (default), card master, external master — reset at every power-on; no BIOS setting and no switch; the host is never slaved | — |
@@ -67,4 +68,4 @@ of their own. This changelog itself is housekeeping.
 
 ---
 
-*Rev. AJ · 3 November 2026 · project started 30 October 2026*
+*Rev. AK · 3 November 2026 · project started 30 October 2026*

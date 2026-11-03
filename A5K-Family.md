@@ -301,6 +301,13 @@ a board change. The scope is narrow on purpose: one interface, playback and
 capture, no hubs, no HID. The PHY is cheap; the firmware is not, and a $275 wedge
 does not need it.
 
+**If it does not fit, the feature is disabled — the chip is never uprated.**
+*Build it in the tool before promising it on the box.* If the UAC2 host will not
+fit the Studio's 160T alongside both beams, the port ships dark: pads on the
+board, firmware never enabling it. The Studio stays at ~$560. Uprating to a 325T
+to rescue one feature would turn the Studio into a Pro at ~$1,100 and delete the
+tier — so that is not an option, at any point.
+
 **Drivers.** ALSA upstream, AHI on AROS, OSS4 out-of-tree and explicitly invited.
 The register map is public, so the third one can be written by the people who
 want it.
@@ -471,4 +478,4 @@ a new model designation.*
 
 ---
 
-*Rev. AJ · 3 November 2026 · project started 30 October 2026*
+*Rev. AK · 3 November 2026 · project started 30 October 2026*

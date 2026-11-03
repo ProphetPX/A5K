@@ -160,6 +160,11 @@ spatial parallelism, not threading. More CPU cores add contention, not
 throughput. If you need more planes at 4K, widen the memory bus before you add
 logic.
 
+**Fit before claims.** A feature that does not synthesise is not a feature. Build
+it in the tool, read utilisation and worst-case slack, and only then put it on
+the box. If it fails, disable it in firmware — never move to a larger part,
+because that changes the price of the model rather than the merit of the feature.
+
 ## 9. Known gaps and open technical questions
 
 These are unresolved in the design as published:
@@ -274,4 +279,4 @@ Studio feature and a different board revision.
 
 ---
 
-*Rev. AJ · 3 November 2026 · project started 30 October 2026*
+*Rev. AK · 3 November 2026 · project started 30 October 2026*
