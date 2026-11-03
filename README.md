@@ -36,8 +36,9 @@ metadata, in every footer, and on a git tag.
 
 - **A–Z, then AA–AZ, BA–BZ** — the ASME Y14.35 convention. `Rev. Z` is followed by
   `Rev. AA`.
-- **Every revision is tagged** (`rev-k` … `rev-x`) so a published set can be
-  reproduced exactly.
+- **Every revision in the public history is tagged** (`rev-k` … `rev-x`) so a
+  published set can be reproduced exactly. A–J predate the repository and have no
+  commits to tag; they are listed in the changelog.
 - **Every revision has one line in `CHANGELOG.md`.** The letter is a label; the
   date in the footer and the changelog carry the information. Sort by date — in
   ASCII, `Z` sorts after `AA`.
