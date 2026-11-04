@@ -148,6 +148,12 @@ day they arrive, per the cadence rule above.
 | **F-06** | UAC2 host: open stacks are thin and the Studio's 160T has less room than the Pro's 325T. | **Decided:** UAC2 is on **every Studio and above**, enabled by firmware. The ULPI PHY footprint goes on the board regardless, so fit is never a board change. Scope: one interface, playback and capture, no hubs or HID. The Phase 1 fit test gates the *claim*, not the hardware. | Open — plan agreed |
 | **F-07** | The 48 kHz family is fitted but unmeasured. It is a **documentation claim**, not a hardware fault — the ID is only a label. | **Decided:** both crystals on the board; 44.1 is the default; the documents say "48 kHz is fitted and not yet measured". Closed by that sentence now, and reopened only when a board can measure it. The clock synthesis itself can be checked in the free toolchain. | Documented; measurement deferred |
 
+**External review to seek.** Dave Haynie's critique of a similar proposal is
+recorded in the private memo (Rev. 25). One narrow question to him is still worth
+asking — not a document review, one question with one number; drafts are in the
+private folder. Record any answer verbatim, with its date, and treat it as
+outweighing the author's opinion.
+
 ### After the campaign
 
 Write one page: **what the reviewers found**. It is the only credible evidence
