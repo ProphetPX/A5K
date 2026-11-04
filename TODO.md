@@ -52,6 +52,22 @@ source — the audio converters first (AKM AK4458 ↔ Cirrus CS4385, AKM AK5720 
 Cirrus CS5368), then the USB PHY and the headphone amp. Policy noted; not to be
 completed yet.
 
+**Author capability, stated so it cannot be forgotten.** The author is a retired
+PC repair technician who writes well — *not* an electronics engineer. What that
+gives: debugging by elimination, reading a datasheet for what it omits, and
+documentation. What it does **not** give: RTL, timing closure, PCB layout, EMC,
+verification, fabrication.
+
+**Consequence:** the documents are a specification, not an implementation, and
+nothing is measured until a board exists. The review campaign is how the missing
+engineer is found. The full note is `ABOUT-THE-AUTHOR.md` in the private folder.
+
+**Scope discipline — the rule that keeps this alive.** Do **not** try to redo every
+chip. That is how AAA died: scope, not technology. Pick one block (the Copper),
+write one page — what it is, what is heritage, what is stale, what changing it
+costs, what it buys, how it is tested — then the next. No block is "improved"
+without a number.
+
 **No model is frozen.** The first C+ was frozen too early; Rev 2 stays open until
 the author says otherwise, not until a checklist completes.
 
