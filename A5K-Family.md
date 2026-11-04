@@ -120,7 +120,7 @@ worst case a driver may rely on — is specified in
 | Audio out | **8 ch**, 24-bit: 4 jacks + TOSLINK + HDMI; front-panel HP/mic header | same, plus S/PDIF/ADAT in and word clock | same, plus **USB UAC2 host** |
 | Both outputs at once | mirrored, 1080p on DP | **one graphics + one video or derived** | same; two independent graphics needs the Pro II |
 | Refresh | up to **1080p240** on HDMI; DP 60 | up to **1080p240**, 1440p144; 4K60. **No VRR** | same |
-| PCIe | ×1 | ×2 | ×4 |
+| PCIe | ×1 **Gen2** | ×2 **Gen2** | ×4 — generation **not yet decided** |
 | Memory | **2 × 16-bit** (32-bit, 1 GB) | **4 × 16-bit** (64-bit, 2 GB) | **4 × 16-bit** (64-bit, 2 GB) |
 | BOM | **~$280** | **~$565** | **~$1,225** |
 
@@ -331,9 +331,10 @@ readers and the filesystems.
 
 **One exception, on the Pro only and optional: a capture recorder.** A single M.2
 NVMe slot behind a PCIe switch, so the capture engine can record without sending
-the stream through the host. The switch is Gen3-capable, so the host and the drive
-negotiate Gen3 ×4; **the FPGA's own port is Gen2 ×4**, because 7-series PCIe hard
-blocks stop there. That is about 1.7 GB/s into the drive — enough for 4K60 10-bit
+the stream through the host. The switch is **proposed** as Gen3-capable, so the host and
+the drive could negotiate Gen3 ×4; the Pro's PCIe generation is **not yet
+decided**. **The FPGA's own port is Gen2 ×4 either way**, because 7-series PCIe
+hard blocks stop there. That is about 1.7 GB/s into the drive — enough for 4K60 10-bit
 4:2:2 (1.24 GB/s), not for 4:4:4 (1.87 GB/s). Gen3 straight from the FPGA means an
 UltraScale part and a different price class: a future model, not this one.
 
@@ -497,4 +498,4 @@ a new model designation.*
 
 ---
 
-*Rev. AQ · 3 November 2026 · project started 30 October 2026*
+*Rev. AR · 3 November 2026 · project started 30 October 2026*

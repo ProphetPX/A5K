@@ -295,10 +295,15 @@ disk controller and it is not exposed as one.
 | Switch ↔ NVMe drive | 3.9 GB/s Gen3 ×4 | the switch and the drive |
 | **FPGA ↔ switch** | **2.0 GB/s Gen2 ×4** | **the 7-series PCIe hard block** |
 
-The FPGA is the only Gen2 element. A Gen3 switch puts the host and the drive on a
-Gen3 link; it cannot make the FPGA speak Gen3, because the hard block in Artix-7
-and Kintex-7 stops at Gen2. Gen3 from the FPGA means UltraScale, roughly a
+The FPGA is the only Gen2 element. A Gen3 switch would put the host and the drive
+on a Gen3 link; it cannot make the FPGA speak Gen3, because the hard block in
+Artix-7 and Kintex-7 stops at Gen2. Gen3 from the FPGA means UltraScale, roughly a
 different BOM class.
+
+**Where each model stands.** Studio is committed to **Gen2** — it is a ×2 link and
+the price does not carry a switch. The Pro's switch generation is **proposed, not
+decided**; the capture recorder is the only place a Gen3 switch would matter, and
+the FPGA port stays Gen2 in every case.
 
 **What the ~1.7 GB/s usable FPGA path can carry.** 4K60 10-bit 4:2:2 is
 1.24 GB/s and fits with 25% headroom. 4K60 10-bit 4:4:4 is 1.87 GB/s and does not.
@@ -330,4 +335,4 @@ and the price of proving it would be paid before there is anything to record.
 
 ---
 
-*Rev. AQ · 3 November 2026 · project started 30 October 2026*
+*Rev. AR · 3 November 2026 · project started 30 October 2026*
