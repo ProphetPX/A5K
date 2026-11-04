@@ -91,6 +91,14 @@ Both sell the **software library**. Neither sells a timing contract.
 | Display | HDMI to 1080p | commodity SoC |
 | Status | shipping | prototype, specs TBA |
 
+**What each camp actually advances.** An emulation appliance advances
+*packaging and setup*: a modern ARM SoC running a UAE-derived environment, sold as
+a finished machine. An FPGA compatibility machine advances *silicon*, but every
+decision is bounded by the need to run existing software at existing timings.
+Neither targets 4K60 HDR, a 96 kHz audio path, or a published slot schedule — not
+because it would be impossible, but because their buyers are asking a different
+question.
+
 **This card is neither.** It has no CPU, no 68K, no Kickstart and no binary
 compatibility; it cannot run an Amiga program. What it shares with them is the
 silicon class — an FPGA, DDR and an HDMI output — and nothing else.
@@ -103,4 +111,4 @@ at 4K60 with HDR, on a PCIe card, for people who need a pixel at a known time.
 
 ---
 
-*Rev. AU · 3 November 2026 · project started 30 October 2026*
+*Rev. AV · 3 November 2026 · project started 30 October 2026*
