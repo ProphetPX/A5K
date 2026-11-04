@@ -18,7 +18,7 @@ No hardware has been built. Everything here is a proposition — and
 
 | File | Pages | What it is |
 |---|---|---|
-| `A5K-Design-Proposition.pdf` | 19 | The main study, Rev. AS — architecture, chip-by-chip mapping, bus options, CPU choice, reference build, software, what you'd lose, the GPU question, and four appendices (Copper spec, Migen skeleton, bill of materials, where it is most likely wrong). |
+| `A5K-Design-Proposition.pdf` | 19 | The main study, Rev. AT — architecture, chip-by-chip mapping, bus options, CPU choice, reference build, software, what you'd lose, the GPU question, and four appendices (Copper spec, Migen skeleton, bill of materials, where it is most likely wrong). |
 | `A5K-Comparative-Addendum.pdf` | 4 | Comparative analysis — the A5K against AAA, Hombre, the shipped Amiga eras, and a 2026 scientific workstation. Tables A1–A4. |
 | `A5K-Technical-Specifications.pdf` | 6 | Reference card — clocks, memory configurations and upgrade paths, processor options, bandwidth budget at 4K60, parallelism, video modes and recovery, and the ceilings that bound the design. Tables S1–S11. |
 | `A5K-Slot-Table.md` | — | **How the bus is shared.** What a slot is, what the original did, what changes at 60 Hz, the 7.0714 MHz tick and why it is 148.5 ÷ 21, how DDR3L actually behaves (32-byte bursts, refresh, turnaround, ECC), the budget at 640×512 / 1080p / 4K, the 1080p line slot by slot, five acceptance tests, the reserved second tick domain, and the ceilings. |
@@ -35,8 +35,8 @@ No hardware has been built. Everything here is a proposition — and
 The documents are revised together. One letter appears in every PDF title, in the
 metadata, in every footer, and on a git tag.
 
-- **A–Z, then AA–AZ, BA–BZ** — the ASME Y14.35 convention. `Rev. AS` is followed by
-  `Rev. AS`.
+- **A–Z, then AA–AZ, BA–BZ** — the ASME Y14.35 convention. `Rev. AT` is followed by
+  `Rev. AT`.
 - **Every revision in the public history is tagged** (`rev-k` … `rev-x`) so a
   published set can be reproduced exactly. A–J predate the repository and have no
   commits to tag; they are listed in the changelog.
@@ -92,7 +92,7 @@ same licence, and the notice and credit must be retained.
 ## How to cite
 
 > Ryan David Hall (AKA "ProphetPX"). (2026). *A5K — A Theoretical Design Proposition for an Amiga
-> 5000-Like System*, Rev. AS.
+> 5000-Like System*, Rev. AT.
 
 Machine-readable: `CITATION.cff`. If you archive or mirror this work, add a DOI
 and cite it here.
@@ -124,10 +124,10 @@ Nothing in this repository is legal advice.
 
 ## Status
 
-Rev. AS, 2 November 2026. No hardware fabricated. The next milestones are the
+Rev. AT, 2 November 2026. No hardware fabricated. The next milestones are the
 slot-table simulation and a single-mode ECP5 bring-up — see §C.3 of the main
 document.
 
 ---
 
-*Rev. AS · 3 November 2026 · project started 30 October 2026*
+*Rev. AT · 3 November 2026 · project started 30 October 2026*

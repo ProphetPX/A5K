@@ -18,6 +18,7 @@ from Rev. W. Earlier revisions have no identifiers to cite.
 
 | Rev | Date | Tag | What changed | Findings |
 |---|---|---|---|---|
+| **AT** | 3 Nov 2026 | `rev-at` | Positioning names both existing camps — Vampire/A6000 FPGA compatibility and AmigaKit NG emulation appliances — and states that this card is neither | C11 |
 | **AS** | 3 Nov 2026 | `rev-as` | Dave Haynie’s critique of a similar proposal answered in the documents: "not a Vampire" positioning, C11 market risk, and the card stated as CPU-agnostic by construction | C11 |
 | **AR** | 3 Nov 2026 | `rev-ar` | Studio explicitly Gen2 (×2); the Pro and above left undecided on PCIe generation; the capture-recorder switch is a proposal, not a commitment | — |
 | **AQ** | 3 Nov 2026 | `rev-aq` | Capture storage specified for the Pro: optional M.2 behind a Gen3 PCIe switch, FPGA port Gen2 ×4, ~1.7 GB/s usable; recorder only, not a disk controller | — |
@@ -76,4 +77,4 @@ of their own. This changelog itself is housekeeping.
 
 ---
 
-*Rev. AS · 3 November 2026 · project started 30 October 2026*
+*Rev. AT · 3 November 2026 · project started 30 October 2026*

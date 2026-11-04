@@ -451,12 +451,14 @@ what it has been told is legal.
 - **Not a 3D GPU.** No rasteriser, no texture unit, no depth buffer.
 - **Not an AI accelerator.** Three orders of magnitude short.
 - **Not a miner.** Five orders short, and loses money on power.
-- **Not a Vampire, and not an Amiga.** A Vampire V4+ or an A6000 is a computer
-  that runs Amiga software on an FPGA. This card has no CPU, no 68K, no Kickstart
-  and no binary compatibility: it cannot run an Amiga program and does not try.
-  What it shares with those machines is the silicon class — an FPGA, DDR and an
-  HDMI output — and nothing else. If that distinction is not obvious in one
-  sentence, the design has a positioning problem, not a technical one.
+- **Not a Vampire, not an A6000, not an A4000NG.** Two camps already exist and
+  both sell the software library: **FPGA compatibility** (Vampire V4, Apollo
+  A6000) and **emulation appliances** (AmigaKit's NG line, running a UAE-derived
+  environment). This card is neither. It has no CPU, no 68K, no Kickstart and no
+  binary compatibility: it cannot run an Amiga program and does not try. What it
+  shares with them is the silicon class — an FPGA, DDR and an HDMI output — and
+  nothing else. If that distinction is not obvious in one sentence, the design has
+  a positioning problem, not a technical one.
 
 What it can do is **deterministic work at video rate**: encrypt or watermark a
 stream in step with the beam, scale and composite in fixed time, timestamp every
@@ -510,4 +512,4 @@ a new model designation.*
 
 ---
 
-*Rev. AS · 3 November 2026 · project started 30 October 2026*
+*Rev. AT · 3 November 2026 · project started 30 October 2026*
