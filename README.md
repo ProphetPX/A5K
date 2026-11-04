@@ -28,6 +28,7 @@ No hardware has been built. Everything here is a proposition — and
 | `A5K-Lineage.md` | — | **What the last Amiga team was building.** AAA in its own words (Andrea, Monica, Mary, Linda), Hombre, what this design inherited, what it deliberately does not copy, and the two camps that exist today. |
 | `A5K-Family.md` | — | **The product line.** A5K (C+) Rev 2 as the reference machine — eight-channel audio, 4 jacks, TOSLINK — and the Studio models adding a second beam, two 4K60 HDR outputs, PCIe ×4. Includes what two beams buy a video workstation, and what the card is *not* (no 3D GPU, no AI accelerator). |
 | `TECHNICAL-CONSIDERATIONS.md` | — | **Read this before building anything.** What exists, what does not, how the boot chain would work, what an AROS port costs, and the open technical gaps. |
+| `RESUME.md` | — | **If the session changes.** A model-agnostic handover: current state, how to rebuild the PDFs, the rules that must survive, the open items, and a cold-start prompt for any new assistant. |
 | `TODO.md` | — | The build plan: the review campaign first, then seven phases from simulator to AROS, with costs, exit criteria and the legal position of each artefact. |
 | `CHANGELOG.md` | — | One line per revision, with the date and the tag. The letter is a label; this table carries the information. |
 
