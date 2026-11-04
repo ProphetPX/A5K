@@ -68,6 +68,12 @@ reversible.
 That is the whole paradigm: **the host does the thinking, the card does the
 timing.**
 
+And one consequence worth stating early: **the card is CPU-agnostic by
+construction.** It has no ISA, no emulation and no operating system of its own.
+The question that consumed Commodore's last years — which processor, and how to
+keep software portable across it — does not arise here, because the answer belongs
+to the host.
+
 ## 3. Positioning, not emulation
 
 Two tiers, one architecture — the way Commodore sold the A500 and the A3000.
@@ -445,6 +451,12 @@ what it has been told is legal.
 - **Not a 3D GPU.** No rasteriser, no texture unit, no depth buffer.
 - **Not an AI accelerator.** Three orders of magnitude short.
 - **Not a miner.** Five orders short, and loses money on power.
+- **Not a Vampire, and not an Amiga.** A Vampire V4+ or an A6000 is a computer
+  that runs Amiga software on an FPGA. This card has no CPU, no 68K, no Kickstart
+  and no binary compatibility: it cannot run an Amiga program and does not try.
+  What it shares with those machines is the silicon class — an FPGA, DDR and an
+  HDMI output — and nothing else. If that distinction is not obvious in one
+  sentence, the design has a positioning problem, not a technical one.
 
 What it can do is **deterministic work at video rate**: encrypt or watermark a
 stream in step with the beam, scale and composite in fixed time, timestamp every
@@ -498,4 +510,4 @@ a new model designation.*
 
 ---
 
-*Rev. AR · 3 November 2026 · project started 30 October 2026*
+*Rev. AS · 3 November 2026 · project started 30 October 2026*

@@ -64,7 +64,7 @@ display band goes from 44% to 43%, not up.
 the budget with CVT-RB timings.
 
 **Severity.** Major — a table regeneration, not a redesign. It was recorded as
-blocking until the arithmetic was redone; the correction is in Rev. AR.
+blocking until the arithmetic was redone; the correction is in Rev. AS.
 
 ### B2. tRFC is taken as 350 ns
 
@@ -288,6 +288,30 @@ reset returns to stereo.
 
 **Severity.** Minor.
 
+### C11. The Vampire comparison
+
+**Claim.** This is not a retro computer and should not be judged as one.
+
+**Risk.** An FPGA, DDR and an HDMI output invite exactly one question from anyone
+who knows the market: *how is this different from a Vampire V4+?* In November 2026
+a former Commodore engineer, Dave Haynie, reviewed a *different* proposal — a whole
+RISC-V computer with a custom multimedia chipset — and called it essentially a
+Vampire with a different CPU core, "not terribly useful or interesting". That
+critique was aimed at a computer, not at this card, and he has not seen this
+design. But the question is the same, and a reader will ask it before reading
+anything else.
+
+**Why the answer is different here.** The card removes the variable he was
+criticising: there is no CPU to choose, no 68K to emulate, no operating system to
+port, and no Amiga software to run. What it sells is a published, slot-exact
+schedule — a pixel at a known time — not compatibility.
+
+**Test.** Put the card in front of someone who knows the retro-FPGA market and see
+whether that answer lands in under a minute.
+
+**Severity.** Major, and not fixable by documentation alone. A technically sound
+design can still be commercially uninteresting, and no appendix changes that.
+
 ---
 
 ## D. What not to bother reporting
@@ -306,4 +330,4 @@ These have been considered and rejected; the reasoning is in the documents.
 
 ---
 
-*Rev. AR · 3 November 2026 · project started 30 October 2026*
+*Rev. AS · 3 November 2026 · project started 30 October 2026*
