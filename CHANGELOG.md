@@ -18,6 +18,7 @@ from Rev. W. Earlier revisions have no identifiers to cite.
 
 | Rev | Date | Tag | What changed | Findings |
 |---|---|---|---|---|
+| **AU** | 3 Nov 2026 | `rev-au` | `A5K-Lineage.md` published: AAA from Haynie’s 1993 document, Hombre, the convergence table, what is deliberately not copied, and the two camps that exist today | C11 |
 | **AT** | 3 Nov 2026 | `rev-at` | Positioning names both existing camps — Vampire/A6000 FPGA compatibility and AmigaKit NG emulation appliances — and states that this card is neither | C11 |
 | **AS** | 3 Nov 2026 | `rev-as` | Dave Haynie’s critique of a similar proposal answered in the documents: "not a Vampire" positioning, C11 market risk, and the card stated as CPU-agnostic by construction | C11 |
 | **AR** | 3 Nov 2026 | `rev-ar` | Studio explicitly Gen2 (×2); the Pro and above left undecided on PCIe generation; the capture-recorder switch is a proposal, not a commitment | — |
@@ -77,4 +78,4 @@ of their own. This changelog itself is housekeeping.
 
 ---
 
-*Rev. AT · 3 November 2026 · project started 30 October 2026*
+*Rev. AU · 3 November 2026 · project started 30 October 2026*

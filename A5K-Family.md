@@ -458,7 +458,9 @@ what it has been told is legal.
   binary compatibility: it cannot run an Amiga program and does not try. What it
   shares with them is the silicon class — an FPGA, DDR and an HDMI output — and
   nothing else. If that distinction is not obvious in one sentence, the design has
-  a positioning problem, not a technical one.
+  a positioning problem, not a technical one. The evidence is in `A5K-Lineage.md`:
+  several things this card does — line buffers, bursts, a fixed priority, a wide
+  Copper operation — were already in AAA in 1993.
 
 What it can do is **deterministic work at video rate**: encrypt or watermark a
 stream in step with the beam, scale and composite in fixed time, timestamp every
@@ -512,4 +514,4 @@ a new model designation.*
 
 ---
 
-*Rev. AT · 3 November 2026 · project started 30 October 2026*
+*Rev. AU · 3 November 2026 · project started 30 October 2026*
