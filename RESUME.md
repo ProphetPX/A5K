@@ -83,6 +83,17 @@ python3 build_legal_notes.py     # the memo
 | 6 | One narrow question to Dave Haynie | private `Haynie-questions.md` |
 | 7 | Capture storage: **Studio and above**; Gen4-capable switch, Gen2 FPGA | `TECHNICAL-CONSIDERATIONS.md` §15 |
 
+## Active reminder — review campaign (until 8 November 2026)
+
+The **r/FPGA post on B3 is live**. Until the 72-hour window closes, **no revision**.
+
+Triage every reply before answering: **A** factual defect (number, datasheet,
+standard or measurement) → log a finding; **B** preference → record and close;
+**C** misreading → one clarifying reply, then stop; **D** noise → ignore. Do not
+start a second channel until this one has had its window. Log replies in
+`TODO.md` → Campaign log. The daily card is
+`A5K_Project_PRIVATE/CAMPAIGN-REMINDER.md`.
+
 ## What not to do
 
 - Do not start RTL before the simulator.
