@@ -138,7 +138,7 @@ body = r"""
 
 <p>But be honest about the 3D: <strong>Hombre had a 3D pipeline; the A5K has none <em>in this revision</em> — 3D is deferred, not excluded.</strong> Its likely target was 10<sup>5</sup>–10<sup>6</sup> polygons per second — three to four orders below a 2026 GPU — so the correct comparison is not “ours is faster” but “ours declines the contest and borrows a GPU as a plane source” (§9.6 of the main document). Hombre tried to win a race it was already losing; the A5K refuses to enter it.</p>
 
-<p><strong>By how far:</strong> the same 1.5–3 orders in memory and logic, plus qualitative wins in openness and cost — but <em>minus</em> the one thing Hombre actually had, which is 3D silicon.</p>
+<p><strong>By how far:</strong> the same 1.5–3 orders in memory and logic, plus qualitative wins in openness and cost — but <em>minus</em>, for now, the one thing Hombre actually had: 3D silicon.</p>
 
 <h2 id="c3">3. The three Amiga eras, side by side</h2>
 
@@ -200,7 +200,7 @@ body = r"""
 
 <ul>
   <li><strong>Versus AAA:</strong> better by ~1.5 orders in silicon and 2–3 in memory and bandwidth, mainly because it is <em>buildable</em>. Worse in one respect: no native 68k.</li>
-  <li><strong>Versus Hombre:</strong> better in openness, cost, memory and survivability; worse in that Hombre had 3D and this does not.</li>
+  <li><strong>Versus Hombre:</strong> better in openness, cost, memory and survivability; worse, in this revision, in that Hombre had 3D and this does not — 3D is deferred.</li>
   <li><strong>Versus a 2026 lab workstation:</strong> behind by 4–5 orders of magnitude on compute, 3 on memory, 2–3 on bandwidth, and effectively infinite on software. Ahead on exactly one axis — bounded display and timing latency — and on power and comprehensibility.</li>
 </ul>
 
@@ -213,7 +213,7 @@ body = r"""
 </thead>
 <tbody>
 <tr><td>AAA (1994, ✝)</td><td>Buildability; ~10<sup>2</sup>–10<sup>3</sup>× memory and I/O; openness; 4K</td><td>Native 68k compatibility</td><td>A5K, by 1.5–3 orders</td></tr>
-<tr><td>Hombre (1995, ✝)</td><td>Openness, cost, memory, survivability, tools</td><td>An integrated 3D pipeline</td><td>A5K, except in 3D</td></tr>
+<tr><td>Hombre (1995, ✝)</td><td>Openness, cost, memory, survivability, tools</td><td>An integrated 3D pipeline</td><td>A5K, except in 3D — deferred</td></tr>
 <tr><td>OCS / ECS / AGA (shipped)</td><td>~10<sup>3</sup>× memory, 4K, PCIe, open toolchain</td><td>Shipped software, real 68k, a market</td><td>Different machines, not successors</td></tr>
 <tr><td>2026 lab workstation</td><td>Bounded display latency, power, comprehensibility</td><td>10<sup>4</sup>–10<sup>5</sup>× FP64, 10<sup>3</sup>× memory, the entire software stack</td><td>The workstation, by 4–5 orders</td></tr>
 </tbody>
