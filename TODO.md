@@ -187,7 +187,7 @@ One row per channel. Classify every reply before answering: **A** factual defect
 
 | # | Channel | Posted | Post | Replies | Class-A | Status |
 |---|---|---|---|---|---|---|
-| 1 | r/FPGA | 4 Nov 2026 | [post](https://www.reddit.com/r/FPGA/comments/1xo9dak/does_256bit_at_1485_mhz_close_on_a_kintex7_325t_2/) | 5 (nixiebunny, alexforencich ×2, tux2603, OnYaBikeMike) | none (5 method notes) | posted — 72 h; **no revision before 8 Nov 2026** |
+| 1 | r/FPGA | 4 Nov 2026 | [post](https://www.reddit.com/r/FPGA/comments/1xo9dak/does_256bit_at_1485_mhz_close_on_a_kintex7_325t_2/) | 7 (nixiebunny, alexforencich ×2, tux2603 ×2, OnYaBikeMike ×2) | none (7 method notes) | posted — 72 h; **no revision before 8 Nov 2026** |
 | 2 | EEVblog forum | — | — | — | — | not posted |
 | 3 | Xilinx forums | — | — | — | — | not posted |
 | 4 | r/hardware | — | — | — | — | not posted |
@@ -201,6 +201,8 @@ One row per channel. Classify every reply before answering: **A** factual defect
 - **4 Nov — *alexforencich* (second reply):** routing congestion on a wide bus is a real risk, distinct from logic depth; the "AI generates everything" premise is wrong — there is no RTL, and AI assisted the documents. Class **C** (misreading) with a technical kernel. Congestion/placement logged as a **B3 review concern** (consensus with nixiebunny's "spread out"). One correction, then stop.
 - **4 Nov — *tux2603*:** pipeline depth vs latency. Technical kernel: a **fixed** number of stages is absorbed by the line buffers; **variable** latency is what the slot table removes. Second-order point: the buffer floor should be **tRFC + pipeline latency**, not tRFC alone — logged as a **B5 note**. The "throwing Claude at a wall" clause is a preference, not a claim; no response. Reply drafted: state the fixed-latency argument and ask whether he would pipeline at the slot boundary.
 - **4 Nov — *OnYaBikeMike*:** variable off-chip memory latency and read/write contention are missing from the question. Correct about the **post**; the design covers them in §4.3 (row misses, refresh in blanking, batched turnarounds, 6% budget) and in **B4/B5**, and the simulator is meant to test them. Class **B** with a technical kernel. The second clause — "expertise taken and sold back" — is a labour opinion; answer once with the fact that nothing is for sale, do not argue. **Third reviewer to call the question under-specified: consensus.**
+- **4 Nov — *tux2603* (second reply):** don't pre-plan pipeline stages; run the math, synthesise, look at the critical path, then decide. **Method endorsement** of the project's own "fit before claims" plan. No defect; no design change.
+- **4 Nov — *OnYaBikeMike* (second reply):** suggests absorbing latency in a **"gojong structure"**. Term unknown — likely a typo or a structure not in the literature we have. Reply asks for clarification and compares it to the line-buffer FIFO. Do not bluff it.
 
 **Documentation gap the thread is pointing at:** there is no explicit **latency and contention** section (off-chip variable latency, read/write turnaround, fetch → FIFO → scanout → pixel). Three reviewers have now asked for it in different words. Add one after the 72-hour window; it belongs next to the line-buffer rule in `A5K-Slot-Table.md` §4.3.
 
