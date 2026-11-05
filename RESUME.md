@@ -6,11 +6,11 @@ rented and the repository is not.
 
 ---
 
-## State, at Rev. AV (3 November 2026)
+## State, at Rev. AV (B48), 3 November 2026
 
 | | |
 |---|---|
-| Revision | **AV**, tagged `rev-av` |
+| Revision | **AV** (B48), tagged `rev-av` |
 | Documents | 19-page study, 4-page addendum, 6-page specification card, plus the markdown set |
 | Hardware | **none.** No RTL, no board, no measurement |
 | Frozen models | **none** — frozen by author decision only |
@@ -110,4 +110,4 @@ Paste this into any new session:
 
 ---
 
-*Rev. AV · 3 November 2026 · project started 30 October 2026*
+*Rev. AV (B48) · 3 November 2026 · project started 30 October 2026*

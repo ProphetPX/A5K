@@ -111,4 +111,4 @@ at 4K60 with HDR, on a PCIe card, for people who need a pixel at a known time.
 
 ---
 
-*Rev. AV · 3 November 2026 · project started 30 October 2026*
+*Rev. AV (B48) · 3 November 2026 · project started 30 October 2026*

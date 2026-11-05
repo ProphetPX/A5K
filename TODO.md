@@ -383,4 +383,4 @@ the right line.
 
 ---
 
-*Rev. AV · 3 November 2026 · project started 30 October 2026*
+*Rev. AV (B48) · 3 November 2026 · project started 30 October 2026*
