@@ -9,6 +9,10 @@
 > **This is the real test of the design.** A specification that cannot name its
 > own weak points is a brochure.
 
+**Review status.** This register is the public attack surface. Each outward post
+that asks one of its questions is logged here, in `TODO.md` (campaign log) and in
+`CHANGELOG.md`, with the date and the link.
+
 ## How to read it
 
 | Class | Meaning | If it is wrong |
@@ -90,6 +94,12 @@ quietly fixed.
 the Pro II is not buildable on this board at all.
 
 **Test.** Place and route with the MIG attached. Report worst negative slack.
+
+**Asked.** r/FPGA, 4 November 2026 —
+[Does 256-bit at 148.5 MHz close on a Kintex-7 325T -2?](https://www.reddit.com/r/FPGA/comments/1xo9dak/does_256bit_at_1485_mhz_close_on_a_kintex7_325t_2/)
+The question as put: *"does 256-bit at 148.5 MHz actually close on a Kintex-7 325T
+-2 with the MIG attached? If not, is -3 enough, or does the width itself need
+rethinking?"*
 
 **Severity.** Major.
 

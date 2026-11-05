@@ -92,6 +92,15 @@ Examples already in the history: the footer standardisation, the project-name
 disambiguation, and the TODO updates all sit inside Rev. S without taking a letter
 of their own. This changelog itself is housekeeping.
 
+### Review campaign posts (not revisions)
+
+Putting a question to reviewers does not change a design claim, so a post takes no
+letter. Posts are logged here so the public record shows when each question was put.
+
+| Date | Channel | Post | Answers | Status |
+|---|---|---|---|---|
+| 4 Nov 2026 | r/FPGA | [Does 256-bit at 148.5 MHz close on a Kintex-7 325T -2?](https://www.reddit.com/r/FPGA/comments/1xo9dak/does_256bit_at_1485_mhz_close_on_a_kintex7_325t_2/) | **B3** | Posted — 72-hour wait before any revision |
+
 ---
 
 *Rev. AW (B49) · 4 November 2026 · project started 30 October 2026*

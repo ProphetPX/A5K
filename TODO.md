@@ -186,7 +186,7 @@ One row per channel. Classify every reply before answering: **A** factual defect
 
 | # | Channel | Posted | Post | Replies | Class-A | Status |
 |---|---|---|---|---|---|---|
-| 1 | r/FPGA | — | — | — | — | draft ready |
+| 1 | r/FPGA | 4 Nov 2026 | [post](https://www.reddit.com/r/FPGA/comments/1xo9dak/does_256bit_at_1485_mhz_close_on_a_kintex7_325t_2/) | — | — | posted — awaiting replies |
 | 2 | EEVblog forum | — | — | — | — | not posted |
 | 3 | Xilinx forums | — | — | — | — | not posted |
 | 4 | r/hardware | — | — | — | — | not posted |
