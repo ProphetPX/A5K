@@ -538,7 +538,7 @@ The four that would change *this* document most:
 
 ---
 
-*Proposal, 2 November 2026. C+ frozen as of this document; changes to it require
+*Proposal, 2 November 2026. C+ is the reference model for this revision; changes to it require
 a new model designation.*
 
 ---

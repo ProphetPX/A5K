@@ -5,7 +5,7 @@ table is the machine's timing contract" and then moves on. This document
 explains what that means, how it differs from the Amiga, and what a builder or a
 programmer has to know to use it.
 
-**This document specifies A5K (C+), the frozen reference model** — one beam, one
+**This document specifies A5K (C+), the reference model for this revision** — one beam, one
 Copper, one slot table. The dual-pipeline variants are in `A5K-Family.md`, and
 their arbitration is specified in `A5K-Dual-Pipe-Arbitration.md`.
 

@@ -165,7 +165,8 @@ day they arrive, per the cadence rule above.
 | **F-05** | The reference BOM fits a stereo DAC (PCM5102) but lists **no audio connector**. | Resolved in Rev. AV: 8-channel DAC, four jacks, TOSLINK, two audio clocks; C+ Rev 2 replaces C+. | Closed in Rev. AV |
 | **F-06** | UAC2 host: open stacks are thin and the Studio's 160T has less room than the Pro's 325T. | **Decided:** C+ never. **Studio carries the complete UAC2 circuit** (PHY, connector and fabric logic) but **ships firmware-disabled** until the host controller fits beside both beams and a board measures it. **Pro and Pro II carry it enabled.** Scope: one interface, playback and capture, no hubs or HID. Enabling on Studio is a firmware update, not a board change. | Open — hardware fitted; Studio dark |
 | **F-07** | The 48 kHz family is fitted but unmeasured. It is a **documentation claim**, not a hardware fault — the ID is only a label. | **Decided:** both crystals on the board; 44.1 is the default; the documents say "48 kHz is fitted and not yet measured". Closed by that sentence now, and reopened only when a board can measure it. The clock synthesis itself can be checked in the free toolchain. | Documented; measurement deferred |
-| **F-08** | The 68k soft core was discussed, then cut in conversation, and **the cut was never recorded** — the main study still lists it, five documents still say "no 68K". | **Decided:** an open-core 68k block is **reserved on every model**, as the CPU half of a future legacy stack; it is **not** being built, and **no Amiga compatibility is shipped or claimed**. The public sentences are reconciled in Rev. AW. | Documented; deferred |
+| **F-08** | The 68k soft core was discussed, then cut in conversation, and **the cut was never recorded** — at the time, the main study still listed it and five documents still said "no 68K". | **Decided:** an open-core 68k block is **reserved on every model**, as the CPU half of a future legacy stack; it is **not** being built, and **no Amiga compatibility is shipped or claimed**. The public sentences were reconciled in Rev. AW. | Documented; deferred |
+| **F-09** | The specification card says *"More host bandwidth means Gen3 or Gen4, which means an Artix-7 with GTP or a larger part."* Artix-7 GTP is Gen2 (6.6 Gb/s); Gen3/Gen4 needs GTH/GTY, i.e. an UltraScale-class part. | The sentence is a factual error about the part class. Correct it in the next revision: Gen3/Gen4 means a different transceiver class and a different board, not a bigger 7-series part. The FPGA-per-model table is unaffected. | Open — found in the 4 Nov audit; batch it |
 
 **External review to seek.** Dave Haynie's critique of a similar proposal is
 recorded in the private memo (Rev. 25). One narrow question to him is still worth
@@ -192,6 +193,18 @@ One row per channel. Classify every reply before answering: **A** factual defect
 
 - **4 Nov — *nixiebunny*:** implementation-dependent; a large Virtex-7 design closed at 320 MHz. Not a defect — recorded as a data point under **B3**. It supports "148.5 MHz is not aggressive as a clock" but not "256-bit closes on a Kintex-7 −2 with the MIG"; different family, width and placement. Reply sent: asked for the widest register-to-register path and whether the memory controller shared the clock domain.
 - **4 Nov — *alexforencich*:** the question is underspecified — width alone does not determine closure; logic depth, fan-out and placement do. Correct, and it is a criticism of **how the post asked**, not of the document (B3 already specifies place-and-route with the MIG). Two reviewers independently made the same point: treat as a **consensus concern about the question**, not a design defect. Reply drafted: define the 256-bit datapath precisely and ask which element is the likely limiter. No Frailties edit during the 72-hour window.
+
+**Checking the thread (daily, until 8 November 2026):**
+
+- A **number** — a slack figure, clock rate, LUT count, datasheet page — → send it;
+  it is a **class A** finding.
+- A **repeat** of the same objection → **consensus**, not noise; note it even without
+  a citation.
+- A **hostile reply with no technical claim** → **class D**; ignore it.
+- A **hostile reply with a specific claim** → **class A** if it cites a number,
+  otherwise **class C**; one reply, then stop.
+- Do not edit the post, do not revise the documents, and do not start the next
+  channel before the window closes.
 | 2 | EEVblog forum | — | — | — | — | not posted |
 | 3 | Xilinx forums | — | — | — | — | not posted |
 | 4 | r/hardware | — | — | — | — | not posted |
@@ -388,11 +401,9 @@ the right line.
 
 ## Immediate next actions
 
-1. Close the remaining slot-table decisions (three open questions, per-line
-   schedule, capture band, dual-pipe arbitration, acceptance tests).
-2. Write the simulator specification — register subset, frame loop, acceptance
-   tests — now that C+ has no capture and the Studio models are 256-bit.
-3. Decide the HDL language and the first dev board (Artix-7 100T).
+1. Run the review campaign — r/FPGA first; triage replies by class and log findings.
+2. Build the simulator, **M1**: clock, modes, beam and scheduler; pass test T1.
+3. Decide the HDL language.
 
 ## Open questions
 

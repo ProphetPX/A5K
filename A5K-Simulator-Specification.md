@@ -3,8 +3,8 @@
 **Phase 0 of `TODO.md`. Status: proposal, to be written before any code.**
 
 This document defines the behavioural model that must exist before any RTL, and
-the five tests it has to pass. It targets **A5K (C+) only** — the frozen reference
-model — so that the target cannot move while the model is being written.
+the five tests it has to pass. It targets **A5K (C+) only** — the reference model
+for this revision — so that the target cannot move while the model is being written.
 
 > The simulator is the golden model. If it and the paper disagree, the paper is
 > wrong until proven otherwise.
