@@ -126,7 +126,7 @@ Nothing in this repository is legal advice.
 
 ## Status
 
-Rev. AV, 2 November 2026. No hardware fabricated. The next milestones are the
+Rev. AV, 3 November 2026. No hardware fabricated. The next milestones are the
 slot-table simulation and a single-mode ECP5 bring-up — see §C.3 of the main
 document.
 
