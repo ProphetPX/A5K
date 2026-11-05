@@ -37,7 +37,7 @@ No hardware has been built. Everything here is a proposition — and
 The documents are revised together. One letter appears in every PDF title, in the
 metadata, in every footer, and on a git tag.
 
-- **A–Z, then AA–AZ, BA–BZ** — the ASME Y14.35 convention. `Rev. AV` is followed by
+- **A–Z, then AA–AZ, BA–BZ** — the ASME Y14.35 convention. `Rev. AU` is followed by
   `Rev. AV`.
 - **Every revision in the public history is tagged** (`rev-k` … `rev-x`) so a
   published set can be reproduced exactly. A–J predate the repository and have no
