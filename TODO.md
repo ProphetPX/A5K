@@ -179,6 +179,23 @@ Write one page: **what the reviewers found**. It is the only credible evidence
 that the design was tested, and it is worth more than another appendix. Link it
 from the README.
 
+### Campaign log
+
+One row per channel. Classify every reply before answering: **A** factual defect,
+**B** preference, **C** misreading, **D** noise. Only class A opens a revision.
+
+| # | Channel | Posted | Post | Replies | Class-A | Status |
+|---|---|---|---|---|---|---|
+| 1 | r/FPGA | — | — | — | — | draft ready |
+| 2 | EEVblog forum | — | — | — | — | not posted |
+| 3 | Xilinx forums | — | — | — | — | not posted |
+| 4 | r/hardware | — | — | — | — | not posted |
+| 5 | Hacker News | — | — | — | — | not posted |
+| 6 | Amiga forums (EAB, amigaworld) | — | — | — | — | not posted |
+
+**Cadence.** 72 hours between posting and revising; one revision per week; never
+argue in a thread; every revision names the finding IDs it answers.
+
 ---
 
 ## Phase 0 — Behavioural simulator
