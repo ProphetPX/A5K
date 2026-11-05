@@ -28,7 +28,7 @@ No hardware has been built. Everything here is a proposition — and
 | `A5K-Dual-Pipe-Arbitration.md` | — | **Two beams, one bus.** The superframe, the three tiers of claim, the starvation bounds a driver may rely on, and the mode pairs that are refused. |
 | `A5K-Frailties.md` | — | **What to attack first.** One undefined item, eight unverified claims, six assumptions — each with severity, consequence and the test that would settle it. Start here if you intend to check the work. |
 | `A5K-Lineage.md` | — | **What the last Amiga team was building.** AAA in its own words (Andrea, Monica, Mary, Linda), Hombre, what this design inherited, what it deliberately does not copy, and the two camps that exist today. |
-| `A5K-Family.md` | — | **The product line.** A5K (C+) Rev 2 as the reference machine — eight-channel audio, 4 jacks, TOSLINK — and the Studio models adding a second beam, two 4K60 HDR outputs, PCIe ×4. Includes what two beams buy a video workstation, and what the card is *not* (no 3D GPU, no AI accelerator). |
+| `A5K-Family.md` | — | **The product line.** A5K (C+) Rev 2 as the reference machine — eight-channel audio, 4 jacks, TOSLINK — and the Studio models adding a second beam, two 4K60 HDR outputs, PCIe ×4. Includes what two beams buy a video workstation, and what is deferred (3D and AI — not excluded). |
 | `TECHNICAL-CONSIDERATIONS.md` | — | **Read this before building anything.** What exists, what does not, how the boot chain would work, what an AROS port costs, and the open technical gaps. |
 | `RESUME.md` | — | **If the session changes.** A model-agnostic handover: current state, how to rebuild the PDFs, the rules that must survive, the open items, and a cold-start prompt for any new assistant. |
 | `TODO.md` | — | The build plan: the review campaign first, then seven phases from simulator to AROS, with costs, exit criteria and the legal position of each artefact. |
@@ -43,11 +43,11 @@ metadata, in every footer, and on a git tag.
 - **A–Z, then AA–AZ, BA–BZ** — the ASME Y14.35 convention. `Rev. AU` is followed by
   `Rev. AV`.
 - **Every revision also has a canonical integer** — its bijective base-26 index
-  (A=1 … Z=26, AA=27 … AV=48). The integer is the key; the letter is its display
+  (A=1 … Z=26, AA=27 … AW=49). The integer is the key; the letter is its display
   alias. Artefacts cite the pair, `Rev. AW (B49)`, and the integer is what sorts
   and cross-references. `Rev. 1.0`, when it comes, is `B<n> → 1.0` — a milestone,
   not a new series.
-- **Every revision in the public history is tagged** (`rev-k` … `rev-av`) so a
+- **Every revision in the public history is tagged** (`rev-k` … `rev-aw`) so a
   published set can be reproduced exactly. A–J predate the repository and have no
   commits to tag; they are listed in the changelog, and one Rev. E PDF survives in
   the private archive.
