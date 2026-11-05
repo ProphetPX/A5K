@@ -70,7 +70,7 @@ The same problem produces the same answers. Line buffers and burst scheduling ar
 not modern ideas bolted onto an Amiga; they are where the last team was heading
 when the company died.
 
-## What we deliberately do not copy
+## What we do not copy — and what is deferred
 
 - **VRAM.** Its serial port solved display fetch in 1993. DDR3L plus line buffers
   solves it now, and VRAM is long dead.
@@ -78,7 +78,9 @@ when the company died.
   else's. Our eight-burst cap is the modern trade.
 - **Starving graphics on overload.** AAA raised an interrupt and let the picture
   break; the A5K holds the last pixel and never stalls the beam.
-- **Hombre's 3D.** A different product. This card is not a GPU.
+- **Hombre's 3D — deferred, not rejected.** It is not in this revision, but every
+  model leaves room for a 3D block as later work. The ethos is kept; the pipeline
+  comes when the schedule and the parts allow it.
 
 ## The two camps that exist today
 
@@ -99,9 +101,10 @@ Neither targets 4K60 HDR, a 96 kHz audio path, or a published slot schedule — 
 because it would be impossible, but because their buyers are asking a different
 question.
 
-**This card is neither.** It has no CPU, no 68K, no Kickstart and no binary
-compatibility; it cannot run an Amiga program. What it shares with them is the
-silicon class — an FPGA, DDR and an HDMI output — and nothing else.
+**This card is neither.** It has no host CPU and no Kickstart; a 68k core is
+**reserved but not built**, and no binary compatibility is claimed or shipped. What
+it shares with them is the silicon class — an FPGA, DDR and an HDMI output — and
+nothing else.
 
 ## What the lineage claim actually is
 
@@ -111,4 +114,4 @@ at 4K60 with HDR, on a PCIe card, for people who need a pixel at a known time.
 
 ---
 
-*Rev. AV (B48) · 3 November 2026 · project started 30 October 2026*
+*Rev. AW (B49) · 4 November 2026 · project started 30 October 2026*

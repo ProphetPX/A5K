@@ -76,18 +76,21 @@ to the host.
 
 ## 3. Positioning, not emulation
 
-Two tiers, one architecture — the way Commodore sold the A500 and the A3000.
+**One architecture, three build points and a halo** — the way Commodore sold the
+A500, the A3000 and the A4000, and then stopped.
 
-| Tier | Amiga ancestor | Why it fits |
+| Build point | Amiga ancestor | Why it fits |
 |---|---|---|
 | **A5K (C+)** | **A500** | The wedge: one beam, one output, the lowest price at which the machine makes sense |
-| **A5K Studio** | **A3000 / A4000** | The workstation: two beams, a wider host link, more memory — capability, not slots |
+| **A5K Studio** | **A3000** | The creator's machine: two beams, capture, a local NVMe buffer |
+| **A5K Studio Pro** | **A4000** | The producer's machine: 4K DisplayPort, 4:4:4 capture, a ×4 link |
+| **A5K Studio Pro II** | **none** | The halo: 512-bit fabric on the same board. A "what if", kept theoretical |
 
 The A2000 is deliberately absent. Its identity was **expansion** — Zorro II slots,
-a CPU slot, a video slot, SCSI — and none of these models have them.
+a CPU slot, a video slot, SCSI — and none of these models have them; the bus is PCIe.
 
-> *Two tiers, one architecture. The A5K is the wedge. The Studio is the
-> workstation. The comparison is one of position, not of compatibility.*
+> *One architecture, three build points and a halo. The comparison is one of
+> position, not of compatibility.*
 
 Three rules for using this in public: say "positioned like", never "compatible
 with"; no model-number styling and no logos; never pair the analogy with a
@@ -123,10 +126,12 @@ worst case a driver may rely on — is specified in
 | HDMI out | 4K60 **SDR**, 8-bit 4:4:4 | 4K60 **HDR10**, 10-bit 4:2:2 | 4K60 HDR10, 10-bit 4:2:2 |
 | DP out | 1080p60 SDR | 4K60 **HDR10**, 10-bit **4:4:4** | 4K60 HDR10, 10-bit **4:4:4** |
 | Capture | none | 1080p60 **10-bit 4:2:2** | 1080p60 **10-bit 4:4:4** |
-| Audio out | **8 ch**, 24-bit: 4 jacks + TOSLINK + HDMI; front-panel HP/mic header | same, plus S/PDIF/ADAT in and word clock | same, plus **USB UAC2 host** |
+| Storage | **microSD** recovery only | microSD + **≥1 M.2 NVMe**, host-visible | same |
+| Audio out | **8 ch**, 24-bit: 4 jacks + TOSLINK + HDMI; front-panel HP/mic header | same, plus S/PDIF/ADAT in and word clock; **UAC2 port fitted, firmware-disabled** | same, plus S/PDIF/ADAT in and word clock, **UAC2 host enabled** |
 | Both outputs at once | mirrored, 1080p on DP | **one graphics + one video or derived** | same; two independent graphics needs the Pro II |
 | Refresh | up to **1080p240** on HDMI; DP 60 | up to **1080p240**, 1440p144; 4K60. **No VRR** | same |
-| PCIe | ×1 **Gen2** | ×2 **Gen2** | ×4 — generation **not yet decided** |
+| PCIe | ×1 **Gen2** | ×2 **Gen2**; **Gen4-capable switch and layout** | ×4 **Gen2**; **Gen4-capable switch and layout** |
+| 3D / AI | **deferred** | **deferred** | **deferred** |
 | Memory | **2 × 16-bit** (32-bit, 1 GB) | **4 × 16-bit** (64-bit, 2 GB) | **4 × 16-bit** (64-bit, 2 GB) |
 | BOM | **~$280** | **~$565** | **~$1,225** |
 
@@ -208,6 +213,11 @@ come to 6.95 GB/s — 77% of the fabric and 63% of the memory.
 board: roughly +$250, not a respin. That is also why the Studio ships 64-bit
 memory although 32 bits would have met today's budget — width is the one thing
 that cannot be added later.
+
+The same logic applies to the host link. **Studio and Pro are laid out for Gen4
+signalling and carry a Gen4-capable PCIe switch**, while the FPGA port stays Gen2.
+The path is therefore future-proofed at the board level: a later UltraScale part can
+make the local storage path Gen3 or Gen4 with a parts swap, not a respin.
 
 ### 5.5 Audio
 
@@ -311,19 +321,21 @@ no add-in card can give it one. If an application wants the host's stream to
 follow the card, it **resamples on the host**, in software, where the cost is
 visible — and that is the user opt-in you asked for, not a hardware default.
 
-**USB.** A UAC2 host port appears on the **Studio and above**, never on C+. The
-**PHY footprint — pads and connector — is on the board from the first revision**,
-whether or not the firmware is ready; enabling it later is a firmware update, not
-a board change. The scope is narrow on purpose: one interface, playback and
-capture, no hubs, no HID. The PHY is cheap; the firmware is not, and a $280 wedge
-does not need it.
+**USB (UAC2).** A UAC2 host port is fitted on the **Studio and above**, never on
+C+. The Studio carries the **complete circuit — PHY, connector and fabric logic —
+populated on the board**, and ships with it **disabled in firmware** until two
+things are true: the host controller fits the 160T beside both beams, and a real
+board has measured it. Enabling it later is a firmware update, not a board change.
+The scope is narrow on purpose: one interface, playback and capture, no hubs, no
+HID. **Pro and Studio Pro II carry it enabled** — "fitted and enabled, not yet
+measured", which is the only honest form until a board exists.
 
-**If it does not fit, the feature is disabled — the chip is never uprated.**
+**If it does not fit, the feature stays disabled — the chip is never uprated.**
 *Build it in the tool before promising it on the box.* If the UAC2 host will not
-fit the Studio's 160T alongside both beams, the port ships dark: pads on the
-board, firmware never enabling it. The Studio stays at ~$565. Uprating to a 325T
-to rescue one feature would turn the Studio into a Pro at ~$1,100 and delete the
-tier — so that is not an option, at any point.
+fit the Studio's 160T alongside both beams, the port stays dark; the Studio stays at
+~$565, because the parts are already in its BOM. Uprating to a 325T to rescue one
+feature would turn the Studio into a Pro at ~$1,100 and delete the tier — so that is
+not an option, at any point.
 
 **Drivers.** ALSA upstream, AHI on AROS, OSS4 out-of-tree and explicitly invited.
 The register map is public, so the third one can be written by the people who
@@ -331,28 +343,40 @@ want it.
 
 ### 5.6 Storage and filesystems
 
-**No model is a storage controller.** The card is a display and audio engine with
-a supervisor CPU, not a computer; the host owns the disks, the burners, the card
-readers and the filesystems.
+**No model presents a block device.** The card is a display and audio engine with
+a supervisor CPU, not a computer; the host owns its disks, burners and filesystems.
 
-**One exception, on the Pro only and optional: a capture recorder.** A single M.2
-NVMe slot behind a PCIe switch, so the capture engine can record without sending
-the stream through the host. The switch is **proposed** as Gen3-capable, so the host and
-the drive could negotiate Gen3 ×4; the Pro's PCIe generation is **not yet
-decided**. **The FPGA's own port is Gen2 ×4 either way**, because 7-series PCIe
-hard blocks stop there. That is about 1.7 GB/s into the drive — enough for 4K60 10-bit
-4:2:2 (1.24 GB/s), not for 4:4:4 (1.87 GB/s). Gen3 straight from the FPGA means an
-UltraScale part and a different price class: a future model, not this one.
+**microSD — every model.** A private recovery socket, present on all four models
+including C+. It holds firmware and a `SAFE_MODE` file, is read at boot, and is
+**never exposed to the host** as a block device. It needs a small SD/MMC controller
+in fabric (SDIO or SPI), not a PCIe host controller, and it works with no host
+driver. If the picture is wrong or dark, it is one of the ways back — the others are
+the host register, the button, and the automatic mode cycle.
 
-**The microSD socket is private to the card.** It holds firmware and a `SAFE_MODE`
-file, it is read at boot, and it is **never exposed to the host** as a block
-device. It is a recovery device, not a system disk. If the picture is wrong or
-dark, that file is one of the ways back — the others are the host register, the
-button, and the automatic mode cycle.
+**NVMe — Studio and above only, never C+.** At least one M.2 slot behind a PCIe
+switch, so the capture engine can write a local drive without sending the stream
+through the host. **The drive is host-visible** — the host sees it as an ordinary
+NVMe device — and both sides may read and write it; the host OS owns the partition
+layout. The paths are asymmetric, and the asymmetry is hardware:
 
-Filesystems are **operating-system middleware**, not hardware. The card's only
-obligation is the block contract it presents to a host driver, and it presents
-none: the card has no block device at all.
+| Path | Limit |
+|---|---|
+| FPGA ↔ switch | Gen2 ×4, ~1.7 GB/s usable (7-series hard block) |
+| Host ↔ switch | the host slot: Gen2 ×2 on Studio, ×4 on Pro |
+| Switch ↔ drive | Gen3/Gen4, set by the switch and the drive |
+
+**The switch and the board are Gen4-capable on Studio and above**; the FPGA is the
+only Gen2 element. A future part can therefore make the local path Gen3 or Gen4 with
+a parts swap, not a respin. The local path fits 4K60 10-bit 4:2:2 (1.24 GB/s), not
+4:4:4 (1.87 GB/s); Gen3 straight from the FPGA means an UltraScale part and a
+different price class — a future model, not this one.
+
+**No SATA on any model.** NVMe is PCIe; a SATA controller would take a transceiver
+lane away from PCIe and still be roughly six times slower.
+
+Filesystems are **operating-system middleware**, not hardware. When AROS runs
+hosted it inherits the host's; native, it uses its own. The card presents no block
+device; the NVMe drive is a separate PCIe device that the host also sees.
 
 **AROS can meet the card two ways.**
 
@@ -445,22 +469,26 @@ what it has been told is legal.
 | Compute | ~0.3 TOPS, 840 DSP slices | 100+ TOPS |
 | Memory bandwidth | 12.8 GB/s | 300–1,000 GB/s |
 | Shader cores | none | thousands |
-| 3D pipeline | none | full, with texturing |
+| 3D pipeline | none in this revision | full, with texturing |
 | SHA-256 | ~1–2 GH/s | ASICs: ~100 TH/s |
 
-- **Not a 3D GPU.** No rasteriser, no texture unit, no depth buffer.
-- **Not an AI accelerator.** Three orders of magnitude short.
+- **Not a 3D GPU — yet.** No rasteriser, no texture unit, no depth buffer *in this
+  revision*. 3D is **deferred on every model, not excluded**: it is planned later
+  work, not a missing feature.
+- **Not an AI accelerator — in this revision.** Three orders of magnitude short
+  today; AI is likewise deferred, not excluded.
 - **Not a miner.** Five orders short, and loses money on power.
 - **Not a Vampire, not an A6000, not an A4000NG.** Two camps already exist and
   both sell the software library: **FPGA compatibility** (Vampire V4, Apollo
   A6000) and **emulation appliances** (AmigaKit's NG line, running a UAE-derived
-  environment). This card is neither. It has no CPU, no 68K, no Kickstart and no
-  binary compatibility: it cannot run an Amiga program and does not try. What it
-  shares with them is the silicon class — an FPGA, DDR and an HDMI output — and
-  nothing else. If that distinction is not obvious in one sentence, the design has
-  a positioning problem, not a technical one. The evidence is in `A5K-Lineage.md`:
-  several things this card does — line buffers, bursts, a fixed priority, a wide
-  Copper operation — were already in AAA in 1993.
+  environment). This card is neither, and contains none of their hardware. It has
+  no host CPU and no Kickstart; a 68k legacy core is **reserved, not built**, and no
+  Amiga compatibility is shipped or claimed. What it shares with them is the silicon
+  class — an FPGA, DDR and an HDMI output — and nothing else. If that distinction is
+  not obvious in one sentence, the design has a positioning problem, not a technical
+  one. The evidence is in `A5K-Lineage.md`: several things this card does — line
+  buffers, bursts, a fixed priority, a wide Copper operation — were already in AAA
+  in 1993.
 
 What it can do is **deterministic work at video rate**: encrypt or watermark a
 stream in step with the beam, scale and composite in fixed time, timestamp every
@@ -488,7 +516,8 @@ projects.
 - DVI, S-Video, composite or coaxial output — reserved in the sensing chain,
   not designed.
 - Binary compatibility with Amiga software.
-- 3D acceleration or AI compute.
+- 3D acceleration or AI compute **in this revision** — both are deferred on every
+  model, not excluded.
 - A shipping date.
 
 ## 11. Where this is most likely wrong
@@ -514,4 +543,4 @@ a new model designation.*
 
 ---
 
-*Rev. AV (B48) · 3 November 2026 · project started 30 October 2026*
+*Rev. AW (B49) · 4 November 2026 · project started 30 October 2026*

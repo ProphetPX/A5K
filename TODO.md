@@ -49,8 +49,10 @@ those are the ones to do next.
 
 **Alternates before a board is ordered.** Every scarce part needs a named second
 source — the audio converters first (AKM AK4458 ↔ Cirrus CS4385, AKM AK5720 ↔
-Cirrus CS5368), then the USB PHY and the headphone amp. Policy noted; not to be
-completed yet.
+Cirrus CS5368), then the USB PHY and the headphone amp. The two converters are
+**not pin-compatible**, so the policy is: **dual footprint where the packages
+allow it**, so a supply swap is not a respin; where they do not, the alternate is a
+documented contingency, not a drop-in.
 
 **Author capability, stated so it cannot be forgotten.** The author is a retired
 PC repair technician who writes well — *not* an electronics engineer. What that
@@ -161,8 +163,9 @@ day they arrive, per the cadence rule above.
 | **F-03** | B1 closed by labelling the 4K example as CEA rather than the definition. | Applied in Rev. AV: §4.2 and §5.5 say CEA-861; CVT-RB is another row in the same generator. | Closed in Rev. AV |
 | **F-04** | Mode floor, first power-on default and recovery policy were undefined. | Applied in Rev. Z: 640×480 floor, 1024×768 default, four recovery routes. | Closed in Rev. Z |
 | **F-05** | The reference BOM fits a stereo DAC (PCM5102) but lists **no audio connector**. | Resolved in Rev. AV: 8-channel DAC, four jacks, TOSLINK, two audio clocks; C+ Rev 2 replaces C+. | Closed in Rev. AV |
-| **F-06** | UAC2 host: open stacks are thin and the Studio's 160T has less room than the Pro's 325T. | **Decided:** UAC2 is on **every Studio and above**, enabled by firmware. The ULPI PHY footprint goes on the board regardless, so fit is never a board change. Scope: one interface, playback and capture, no hubs or HID. The Phase 1 fit test gates the *claim*, not the hardware. | Open — plan agreed |
+| **F-06** | UAC2 host: open stacks are thin and the Studio's 160T has less room than the Pro's 325T. | **Decided:** C+ never. **Studio carries the complete UAC2 circuit** (PHY, connector and fabric logic) but **ships firmware-disabled** until the host controller fits beside both beams and a board measures it. **Pro and Pro II carry it enabled.** Scope: one interface, playback and capture, no hubs or HID. Enabling on Studio is a firmware update, not a board change. | Open — hardware fitted; Studio dark |
 | **F-07** | The 48 kHz family is fitted but unmeasured. It is a **documentation claim**, not a hardware fault — the ID is only a label. | **Decided:** both crystals on the board; 44.1 is the default; the documents say "48 kHz is fitted and not yet measured". Closed by that sentence now, and reopened only when a board can measure it. The clock synthesis itself can be checked in the free toolchain. | Documented; measurement deferred |
+| **F-08** | The 68k soft core was discussed, then cut in conversation, and **the cut was never recorded** — the main study still lists it, five documents still say "no 68K". | **Decided:** an open-core 68k block is **reserved on every model**, as the CPU half of a future legacy stack; it is **not** being built, and **no Amiga compatibility is shipped or claimed**. The public sentences are reconciled in Rev. AW. | Documented; deferred |
 
 **External review to seek.** Dave Haynie's critique of a similar proposal is
 recorded in the private memo (Rev. 25). One narrow question to him is still worth
@@ -383,4 +386,4 @@ the right line.
 
 ---
 
-*Rev. AV (B48) · 3 November 2026 · project started 30 October 2026*
+*Rev. AW (B49) · 4 November 2026 · project started 30 October 2026*

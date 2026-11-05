@@ -84,10 +84,10 @@ extra = """
 # --------------------------------------------------------------- body ----
 body = r"""
 <div class="add-head">
-  <p class="kicker">Addendum to <em>A5K</em> · Rev. AV (B48)</p>
+  <p class="kicker">Addendum to <em>A5K</em> · Rev. AW (B49)</p>
   <h1>Where This Design Sits</h1>
   <p class="subtitle">AAA, Hombre, the shipped Amiga eras, and a 2026 scientific workstation — compared honestly</p>
-  <p class="meta">Rev. AV (B48) &nbsp;·&nbsp; 3 November 2026 &nbsp;·&nbsp; Comparative analysis &nbsp;·&nbsp; 5 sections &nbsp;·&nbsp; 4 tables</p>
+  <p class="meta">Rev. AW (B49) &nbsp;·&nbsp; 4 November 2026 &nbsp;·&nbsp; Comparative analysis &nbsp;·&nbsp; 5 sections &nbsp;·&nbsp; 4 tables</p>
   <p class="legalnote">Amiga and Commodore are trademarks of their respective owners. This is an independent design study, not affiliated with, endorsed by, or sponsored by any rights holder. Comparisons are estimates and opinion, not statements of fact about any company. See LEGAL.md.</p>
 </div>
 
@@ -136,7 +136,7 @@ body = r"""
   <li><strong>Tools.</strong> Yosys, nextpnr and Verilator, versus 1995 proprietary everything.</li>
 </ul>
 
-<p>But be honest about the 3D: <strong>Hombre had a 3D pipeline; the A5K has none.</strong> Its likely target was 10<sup>5</sup>–10<sup>6</sup> polygons per second — three to four orders below a 2026 GPU — so the correct comparison is not “ours is faster” but “ours declines the contest and borrows a GPU as a plane source” (§9.6 of the main document). Hombre tried to win a race it was already losing; the A5K refuses to enter it.</p>
+<p>But be honest about the 3D: <strong>Hombre had a 3D pipeline; the A5K has none <em>in this revision</em> — 3D is deferred, not excluded.</strong> Its likely target was 10<sup>5</sup>–10<sup>6</sup> polygons per second — three to four orders below a 2026 GPU — so the correct comparison is not “ours is faster” but “ours declines the contest and borrows a GPU as a plane source” (§9.6 of the main document). Hombre tried to win a race it was already losing; the A5K refuses to enter it.</p>
 
 <p><strong>By how far:</strong> the same 1.5–3 orders in memory and logic, plus qualitative wins in openness and cost — but <em>minus</em> the one thing Hombre actually had, which is 3D silicon.</p>
 
@@ -168,7 +168,7 @@ body = r"""
 </tbody>
 </table>
 
-<p>The A5K is not the next Amiga era. It is <strong>AAA’s architecture, Hombre’s ambition minus the 3D, and neither one’s market</strong> — instantiated on hardware that exists.</p>
+<p>The A5K is not the next Amiga era. It is <strong>AAA’s architecture, Hombre’s ambition with the 3D deferred, and neither one’s market</strong> — instantiated on hardware that exists.</p>
 
 <h2 id="c4">4. Against a cutting-edge scientific workstation</h2>
 
@@ -279,7 +279,7 @@ for i, page in enumerate(doc):
                    pymupdf.Point(w * 0.90, h - 30),
                    color=(0.80, 0.80, 0.80), width=0.5)
     page.insert_text((w * 0.10, h - 19),
-                     "Rev. AV (B48) \u00b7 3 Nov 2026 \u00b7 start 30 Oct 2026",
+                     "Rev. AW (B49) \u00b7 4 Nov 2026 \u00b7 start 30 Oct 2026",
                      fontname="helv", fontsize=6.8, color=(0.45, 0.45, 0.45))
     title = "A5K \u00b7 Addendum \u2014 Comparative Analysis"
     tw = pymupdf.get_text_length(title, fontname="helv", fontsize=7.2)
@@ -291,7 +291,7 @@ for i, page in enumerate(doc):
 
 doc.set_toc(toc)
 doc.set_metadata({
-    "title": "Where This Design Sits - Addendum to A5K (Rev. AV - B48)",
+    "title": "Where This Design Sits - Addendum to A5K (Rev. AW - B49)",
     "author": "Design study",
     "subject": "Comparative analysis: AAA, Hombre, the shipped Amiga eras, and a 2026 scientific workstation",
     "keywords": "Amiga, AAA, Hombre, OCS, ECS, AGA, RISC-V, FPGA, workstation, comparison",

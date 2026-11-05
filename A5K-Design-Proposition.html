@@ -634,7 +634,7 @@
   <div class="cmeta">
     <table>
       <tr><td>Started</td><td>30 October 2026</td></tr>
-      <tr><td>Revision</td><td>Rev. AV (B48) — 3 November 2026 — the camps distinguished: emulation advances packaging, FPGA compatibility advances silicon, this advances neither</td></tr>
+      <tr><td>Revision</td><td>Rev. AW (B49) — 4 November 2026 — storage, USB and legacy policy settled: NVMe on Studio and above, UAC2 gated, 68k reserved, 3D deferred</td></tr>
       <tr><td>Status</td><td>Design study; no hardware built</td></tr>
       <tr><td>Reference concept</td><td>“A5K”</td></tr>
       <tr><td>Contents</td><td>9 sections · 3 appendices · 6 tables · 1 figure</td></tr>
@@ -864,7 +864,7 @@
   <p><strong>Reference host today: x86-64.</strong> Every desktop has one, Linux support is mature, and the first driver will be written there — which is why <em>A5K — Technical Specifications</em> lists it as a requirement.</p>
   <p><strong>Destination: RISC-V.</strong> Open, well-tooled, and the natural processor for a standalone A5K. It needs a driver written for it and, for a self-contained machine, an AROS port that does not yet exist.</p>
   <p><strong>Purist: OpenPOWER</strong> — big-endian and open, which suits planar graphics, at the cost of a thinner ecosystem.</p>
-  <p>The 68k core is for running old binaries, not for the machine’s main work.</p>
+  <p>The 68k core is for running old binaries, not for the machine’s main work. It is <em>reserved on every model as later work</em>, and is not being built.</p>
 </div>
 
 <h2 id="s6">6. A concrete reference build</h2>
@@ -935,7 +935,7 @@
 <p>It is not a competitor to a current PC and should never be sold as one. On the axes that most people measure, it loses outright:</p>
 
 <ul>
-  <li><strong>3D and compute.</strong> No triangle rate worth quoting, no texture units, no shader cores, no ray tracing. A 2026 integrated GPU is faster than this entire card.</li>
+  <li><strong>3D and compute.</strong> No triangle rate worth quoting <em>in this revision</em>, no texture units, no shader cores, no ray tracing. 3D is deferred on every model, not excluded. A 2026 integrated GPU is faster than this entire card.</li>
   <li><strong>Memory bandwidth.</strong> A 128-bit DDR3 path delivers tens of gigabytes per second; a modern discrete card delivers hundreds, and the slot table deliberately gives much of ours to display fetches.</li>
   <li><strong>Tooling and ecosystem.</strong> Nothing comparable to SPIR-V, no profilers, no vendors, and an operating system (AROS) with a tiny fraction of the software.</li>
   <li><strong>Price.</strong> At $280 in parts it is not even cheap next to a used office PC with a capable integrated GPU.</li>

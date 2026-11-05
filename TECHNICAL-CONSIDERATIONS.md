@@ -101,7 +101,7 @@ Until M1 exists, statements such as "runs AROS" are **targets**, not results.
 
 ## 7. What a builder would need
 
-- **Hardware:** an ECP5-85 or Artix-7 200T class board with DDR3, plus a PCIe host and an HDMI/DVI output path.
+- **Hardware:** an Artix-7 100T class board with DDR3 for C+ (an ECP5 board only for a 1080p variant), plus a PCIe host and an HDMI/DVI output path.
 - **Toolchain:** Yosys + nextpnr (open flow) or vendor tools for larger parts; Verilator for simulation.
 - **Skills:** RTL design and timing closure, clock-domain crossing, DDR3 bring-up, Linux DRM, and enough AROS internals to write a HIDD.
 - **Patience:** the arbitration schedule — the slot table — is the machine's timing contract and is the hardest single thing to get right.
@@ -115,7 +115,7 @@ set is in `A5K-Technical-Specifications.pdf`.
 
 | Position | Option | Max clock | Cores |
 |---|---|---|---|
-| On card (soft) | VexRiscv on ECP5-85 | ~50 MHz | 1–4 |
+| On card (soft) | VexRiscv on Artix-7 100T | ~100 MHz | 1–4 |
 | On card (soft) | VexRiscv on Artix-7 200T | 100–150 MHz | 1–8 |
 | On card (hard) | PolarFire SoC | 667 MHz | 4 + 1 |
 | Host | x86-64 | 4–6 GHz | 4–256 |
@@ -182,7 +182,8 @@ These are unresolved in the design as published:
 - **BAR2 coherency** — host writes visible to the next scanline fetch without a flush — is asserted, not designed.
 - **DDR3 timing at 4K** has not been budgeted against the fetch schedule.
 - **HDMI PHY** compliance and EMC are unaddressed.
-- **3D** is absent by design; it would be a second pipeline or an external GPU.
+- **3D** is not in this revision; it is deferred on every model, and would be a
+  second pipeline or an external GPU.
 - **Audio clocking** and jitter relative to video are undesigned.
 - **Thermal and power** budgets are estimates from datasheets.
 
@@ -259,56 +260,54 @@ clock that would make the card's schedule depend on the host's.
 
 ## 14. Storage
 
-There is no storage controller on any model, and that is a decision rather than an
-omission. The card is a display and audio engine; the host has the disks, the
-burners, the card readers and the filesystems, and it has had them for thirty
-years.
+**No model presents a block device**, and that is a decision rather than an
+omission. The card is a display and audio engine; the host has its disks, burners
+and filesystems, and has had them for thirty years.
 
-**The microSD socket is private.** It holds firmware and a `SAFE_MODE` file, it is
-read at boot, and it is **never exposed to the host** as a block device. It is a
-recovery device, not a system disk.
+**microSD — every model.** A private recovery socket on all four models, including
+C+. It holds firmware and a `SAFE_MODE` file, is read at boot, and is **never
+exposed to the host** as a block device. It needs a small SD/MMC controller in
+fabric (SDIO or SPI), not a PCIe host controller, and it works with no host driver.
 
-**Filesystems are middleware.** They run in the OS above a block device. The card
-provides none, so it provides no filesystem either. When AROS runs hosted it
-inherits Linux's; when it runs natively it uses its own.
+**NVMe — Studio and above.** At least one M.2 slot behind a PCIe switch, so the
+capture engine can write a local drive. The drive **is** host-visible; both sides
+may read and write it, and the host OS owns the partition layout. See §15.
 
-**A block device contract, if one is ever added:** 512-byte or 4 KiB sectors,
-queue depth, flush/FUA, TRIM. Get those four right and the filesystem above does
-not care what the hardware is. None of it is on the card today.
+**No SATA.** NVMe is PCIe; a SATA controller would take a transceiver lane from
+PCIe and still be roughly six times slower.
 
-**What this avoids.** A PCIe ×1 uplink is 500 MB/s. Two NVMe slots behind it would
-give the host less than one SATA SSD — the link, not the drive, is the ceiling. A
-capture recorder is the only case where local storage makes sense, and that is a
-Studio feature and a different board revision.
+**Filesystems are middleware.** They run in the OS above a block device. When AROS
+runs hosted it inherits Linux's; when it runs natively it uses its own.
+
+**What this avoids.** A ×1 uplink is 500 MB/s; two NVMe slots behind it would give
+the host less than one SATA SSD — the link, not the drive, is the ceiling. That is
+why the slot starts at Studio and not at C+.
 
 ## 15. Capture storage
 
-The only storage that belongs on the card is a **recorder for the capture engine**,
-and only on the Pro, where there is a ×4 uplink and a 325T to spend. It is not a
-disk controller and it is not exposed as one.
+Storage on the card is a **capture buffer for the capture engine**, on **Studio and
+above**; C+ has none, because it does not capture. The drive is host-visible, and
+the card writes it peer-to-peer through a switch.
 
-**Three links, three ceilings.**
+**Four links, four ceilings.**
 
 | Link | Bandwidth | Set by |
 |---|---|---|
-| Host ↔ card uplink (Pro) | 2.0 GB/s Gen2 ×4, 3.9 GB/s Gen3 ×4 | the host slot and the switch |
-| Switch ↔ NVMe drive | 3.9 GB/s Gen3 ×4 | the switch and the drive |
-| **FPGA ↔ switch** | **2.0 GB/s Gen2 ×4** | **the 7-series PCIe hard block** |
+| Host ↔ switch (Studio) | 1.0 GB/s Gen2 ×2 | the host slot |
+| Host ↔ switch (Pro) | 2.0 GB/s Gen2 ×4 | the host slot |
+| Switch ↔ NVMe drive | up to Gen4, set by the switch and the drive | the switch and the drive |
+| **FPGA ↔ switch** | **2.0 GB/s Gen2 ×4 (~1.7 usable)** | **the 7-series PCIe hard block** |
 
-The FPGA is the only Gen2 element. A Gen3 switch would put the host and the drive
-on a Gen3 link; it cannot make the FPGA speak Gen3, because the hard block in
-Artix-7 and Kintex-7 stops at Gen2. Gen3 from the FPGA means UltraScale, roughly a
-different BOM class.
+The FPGA is the only Gen2 element. **The switch and the board are Gen4-capable on
+Studio and above**, so the host and the drive can negotiate Gen3 or Gen4 today while
+the FPGA's local path stays Gen2. A future UltraScale part can make the local path
+Gen3/Gen4 with a parts swap, not a respin. Gen4 straight from the FPGA today is not a
+feature to defer; it is a different price class (UltraScale+, roughly $1,000–2,000
+for the part).
 
-**Where each model stands.** Studio is committed to **Gen2** — it is a ×2 link and
-the price does not carry a switch. The Pro's switch generation is **proposed, not
-decided**; the capture recorder is the only place a Gen3 switch would matter, and
-the FPGA port stays Gen2 in every case.
-
-**What the ~1.7 GB/s usable FPGA path can carry.** 4K60 10-bit 4:2:2 is
-1.24 GB/s and fits with 25% headroom. 4K60 10-bit 4:4:4 is 1.87 GB/s and does not.
-The Studio's specified capture is 1080p, at 0.47 GB/s — which any SSD carries, and
-which is why the slot is not offered on the Studio.
+**What the ~1.7 GB/s usable FPGA path can carry.** 4K60 10-bit 4:2:2 is 1.24 GB/s
+and fits. 4K60 10-bit 4:4:4 is 1.87 GB/s and does not. Studio's specified capture is
+1080p at 0.47 GB/s, which any drive carries.
 
 **Two ways to build it.**
 
@@ -317,17 +316,17 @@ which is why the slot is not offered on the Studio.
 | FPGA speaks to the drive | directly | through the switch |
 | Root-complex IP needed | **yes** — the risky part | no |
 | Host sees the drive | not at all | as an ordinary NVMe device |
-| Cost | firmware, months | ~$20–40 of switch and EEPROM |
+| Cost | firmware, months | ~$20–60 of Gen4-capable switch and EEPROM |
 | Board | simpler | more lanes, more layers |
 
 The switch wins because it removes the one piece of IP nobody has a good open
-implementation of, and because peer-to-peer between downstream ports is exactly
-what these switches exist for.
+implementation of, and because peer-to-peer between downstream ports is exactly what
+these switches exist for.
 
-**What to design for now.** Lay the Pro's board out for Gen3 signalling and a
-Gen3 switch, so the FPGA is the only Gen2 element and a future model can swap it.
-Do not put the slot on the first board: a 1080p capture stream does not need it,
-and the price of proving it would be paid before there is anything to record.
+**What to design for now.** Lay Studio and Pro out for **Gen4 signalling and a
+Gen4-capable switch**, so the FPGA is the only Gen2 element and a future model can
+swap the part without a respin. The M.2 slot is on Studio and above from the first
+revision; C+ keeps microSD only.
 
 ---
 
@@ -335,4 +334,4 @@ and the price of proving it would be paid before there is anything to record.
 
 ---
 
-*Rev. AV (B48) · 3 November 2026 · project started 30 October 2026*
+*Rev. AW (B49) · 4 November 2026 · project started 30 October 2026*

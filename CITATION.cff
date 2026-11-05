@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use, cite or build on this work, please cite it as below."
 type: report
 title: "A5K — A Theoretical Design Proposition for an Amiga 5000-Like System"
-version: "Rev. AV"
-date-released: "2026-11-01"
+version: "Rev. AW"
+date-released: "2026-11-04"
 license: CC-BY-4.0
 authors:
   - name: 'Ryan David Hall (AKA "ProphetPX")'

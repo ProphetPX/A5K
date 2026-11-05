@@ -302,9 +302,10 @@ design. But the question is the same, and a reader will ask it before reading
 anything else.
 
 **Why the answer is different here.** The card removes the variable he was
-criticising: there is no CPU to choose, no 68K to emulate, no operating system to
-port, and no Amiga software to run. What it sells is a published, slot-exact
-schedule — a pixel at a known time — not compatibility.
+criticising: there is no host CPU to choose, no Kickstart, no operating system of
+its own, and no compatibility obligation; a 68k core is reserved, not built. What it
+sells is a published, slot-exact schedule — a pixel at a known time — not
+compatibility.
 
 **Test.** Put the card in front of someone who knows the retro-FPGA market and see
 whether that answer lands in under a minute.
@@ -330,4 +331,4 @@ These have been considered and rejected; the reasoning is in the documents.
 
 ---
 
-*Rev. AV (B48) · 3 November 2026 · project started 30 October 2026*
+*Rev. AW (B49) · 4 November 2026 · project started 30 October 2026*

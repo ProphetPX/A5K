@@ -6,11 +6,11 @@ rented and the repository is not.
 
 ---
 
-## State, at Rev. AV (B48), 3 November 2026
+## State, at Rev. AW (B49), 4 November 2026
 
 | | |
 |---|---|
-| Revision | **AV** (B48), tagged `rev-av` |
+| Revision | **AW** (B49), tagged `rev-aw` |
 | Documents | 19-page study, 4-page addendum, 6-page specification card, plus the markdown set |
 | Hardware | **none.** No RTL, no board, no measurement |
 | Frozen models | **none** — frozen by author decision only |
@@ -64,8 +64,9 @@ python3 build_legal_notes.py     # the memo
    document is a bug. Log it in `TODO.md`, then batch it.
 3. **Nothing is measured.** Do not write "supports", "achieves" or "measured"
    without a test. "Fitted, not yet measured" is the honest form.
-4. **No compatibility.** No 68K, no Kickstart, no binary compatibility, no Amiga
-   branding. The card is CPU-agnostic and OS-agnostic.
+4. **No compatibility obligation.** No Kickstart, no Amiga branding, and no
+   compatibility claim. A 68k legacy core is **reserved on every model but not
+   built**; the card remains CPU-agnostic and OS-agnostic.
 5. **One block at a time.** Do not "redo every chip". AAA died of scope.
 6. **The model wins.** If the simulator and the paper disagree, the paper is wrong
    until proven otherwise.
@@ -80,13 +81,13 @@ python3 build_legal_notes.py     # the memo
 | 4 | 48 kHz measurement (F-07) — documentation now, bench later | `TODO.md` |
 | 5 | Simulator: Phase 0, M1 = clock/modes/beam/scheduler | `A5K-Simulator-Specification.md` |
 | 6 | One narrow question to Dave Haynie | private `Haynie-questions.md` |
-| 7 | Capture storage: Pro-only, Gen3 switch proposal | `TECHNICAL-CONSIDERATIONS.md` §15 |
+| 7 | Capture storage: **Studio and above**; Gen4-capable switch, Gen2 FPGA | `TECHNICAL-CONSIDERATIONS.md` §15 |
 
 ## What not to do
 
 - Do not start RTL before the simulator.
 - Do not buy parts; there is no budget.
-- Do not add a 68K core to the card.
+- Do not build the 68k legacy core yet; it is reserved, not shipped.
 - Do not freeze a model because a checklist completed.
 - Do not publish the author's private opinions as project claims.
 
@@ -110,4 +111,4 @@ Paste this into any new session:
 
 ---
 
-*Rev. AV (B48) · 3 November 2026 · project started 30 October 2026*
+*Rev. AW (B49) · 4 November 2026 · project started 30 October 2026*

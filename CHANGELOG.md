@@ -11,7 +11,7 @@ not return.
 **Canonical numbers.** Every revision also has an integer: its index in this table,
 which is exactly the bijective base-26 value of the letters (A=1 … Z=26, AA=27 …
 AZ=52, BA=53 …). The integer is the canonical key and the letter is its display
-alias, so `AV` is **B48**. Artefacts cite the pair — `Rev. AV (B48)` — and the
+alias, so `AV` is **B48** and `AW` is **B49**. Artefacts cite the pair — `Rev. AW (B49)` — and the
 integer is what sorts, indexes and cross-references without the `Z`-after-`AA`
 trap. `Rev. 1.0`, when it arrives, is a milestone mapping (`B<n> → 1.0`), not a
 new series; the integer keeps counting.
@@ -32,6 +32,7 @@ from Rev. W. Earlier revisions have no identifiers to cite.
 
 | Rev | Date | Tag | What changed | Findings |
 |---|---|---|---|---|
+| **AW** (B49) | 4 Nov 2026 | `rev-aw` | Storage, USB and legacy policy settled: microSD recovery on every model; M.2 NVMe on Studio and above, host-visible and two-way, behind a Gen4-capable switch with a Gen2 FPGA; UAC2 fitted on Studio but firmware-dark until fit and measurement, enabled on Pro and above; converters dual-footprint; 68k core reserved on every model with no compatibility claim; 3D and AI deferred on every model. Line framing: three build points and a halo | F-06, F-08 |
 | **AV** (B48) | 3 Nov 2026 | `rev-av` | The two camps distinguished: emulation advances packaging, FPGA compatibility advances silicon under a compatibility constraint, this design advances neither and says so | — |
 | **AU** (B47) | 3 Nov 2026 | `rev-au` | `A5K-Lineage.md` published: AAA from Haynie’s 1993 document, Hombre, the convergence table, what is deliberately not copied, and the two camps that exist today | C11 |
 | **AT** (B46) | 3 Nov 2026 | `rev-at` | Positioning names both existing camps — Vampire/A6000 FPGA compatibility and AmigaKit NG emulation appliances — and states that this card is neither | C11 |
@@ -93,4 +94,4 @@ of their own. This changelog itself is housekeeping.
 
 ---
 
-*Rev. AV (B48) · 3 November 2026 · project started 30 October 2026*
+*Rev. AW (B49) · 4 November 2026 · project started 30 October 2026*

@@ -7,9 +7,11 @@ A design study: what a modern re-issue of the Amiga custom-chipset architecture
 would look like, specified in enough detail to build, costed, and argued against
 the alternatives — including the obvious one, *why not just use a GPU*.
 
-**Two tiers, one architecture.** *A5K (C+)* is the A500 of the family — one
-beam, one output, the entry price. *A5K Studio* is the A3000 — two beams and a wider
-host link. The comparison is one of position, not of compatibility or features.
+**One architecture, three build points and a halo.** *A5K (C+)* is the A500 of the
+family — one beam, one output, the entry price. *A5K Studio* is the A3000 — two
+beams, capture and a local NVMe buffer. *A5K Studio Pro* is the A4000 — 4K
+DisplayPort and 4:4:4 capture. *A5K Studio Pro II* is the halo: 512-bit fabric on the
+same board. The comparison is one of position, not of compatibility or features.
 
 No hardware has been built. Everything here is a proposition — and
 `TECHNICAL-CONSIDERATIONS.md` says so in engineering terms.
@@ -18,7 +20,7 @@ No hardware has been built. Everything here is a proposition — and
 
 | File | Pages | What it is |
 |---|---|---|
-| `A5K-Design-Proposition.pdf` | 19 | The main study, Rev. AV (B48) — architecture, chip-by-chip mapping, bus options, CPU choice, reference build, software, what you'd lose, the GPU question, and four appendices (Copper spec, Migen skeleton, bill of materials, where it is most likely wrong). |
+| `A5K-Design-Proposition.pdf` | 19 | The main study, Rev. AW (B49) — architecture, chip-by-chip mapping, bus options, CPU choice, reference build, software, what you'd lose, the GPU question, and four appendices (Copper spec, Migen skeleton, bill of materials, where it is most likely wrong). |
 | `A5K-Comparative-Addendum.pdf` | 4 | Comparative analysis — the A5K against AAA, Hombre, the shipped Amiga eras, and a 2026 scientific workstation. Tables A1–A4. |
 | `A5K-Technical-Specifications.pdf` | 6 | Reference card — clocks, memory configurations and upgrade paths, processor options, bandwidth budget at 4K60, parallelism, video modes and recovery, and the ceilings that bound the design. Tables S1–S11. |
 | `A5K-Slot-Table.md` | — | **How the bus is shared.** What a slot is, what the original did, what changes at 60 Hz, the 7.0714 MHz tick and why it is 148.5 ÷ 21, how DDR3L actually behaves (32-byte bursts, refresh, turnaround, ECC), the budget at 640×512 / 1080p / 4K, the 1080p line slot by slot, five acceptance tests, the reserved second tick domain, and the ceilings. |
@@ -31,6 +33,7 @@ No hardware has been built. Everything here is a proposition — and
 | `RESUME.md` | — | **If the session changes.** A model-agnostic handover: current state, how to rebuild the PDFs, the rules that must survive, the open items, and a cold-start prompt for any new assistant. |
 | `TODO.md` | — | The build plan: the review campaign first, then seven phases from simulator to AROS, with costs, exit criteria and the legal position of each artefact. |
 | `CHANGELOG.md` | — | One line per revision, with the date and the tag. The letter is a label; this table carries the information. |
+| `DECISIONS.md` | — | **The decisions taken**, one line each and append-only — framing, host, AROS, FPGA per model, storage, USB, converters, 68k, 3D/AI, PCIe generations, budget. The reading aid that stops a reviewer re-litigating a settled choice. |
 
 ## Revisions
 
@@ -41,7 +44,7 @@ metadata, in every footer, and on a git tag.
   `Rev. AV`.
 - **Every revision also has a canonical integer** — its bijective base-26 index
   (A=1 … Z=26, AA=27 … AV=48). The integer is the key; the letter is its display
-  alias. Artefacts cite the pair, `Rev. AV (B48)`, and the integer is what sorts
+  alias. Artefacts cite the pair, `Rev. AW (B49)`, and the integer is what sorts
   and cross-references. `Rev. 1.0`, when it comes, is `B<n> → 1.0` — a milestone,
   not a new series.
 - **Every revision in the public history is tagged** (`rev-k` … `rev-av`) so a
@@ -99,7 +102,7 @@ same licence, and the notice and credit must be retained.
 ## How to cite
 
 > Ryan David Hall (AKA "ProphetPX"). (2026). *A5K — A Theoretical Design Proposition for an Amiga
-> 5000-Like System*, Rev. AV.
+> 5000-Like System*, Rev. AW.
 
 Machine-readable: `CITATION.cff`. If you archive or mirror this work, add a DOI
 and cite it here.
@@ -131,10 +134,10 @@ Nothing in this repository is legal advice.
 
 ## Status
 
-Rev. AV (B48), 3 November 2026. No hardware fabricated. The next milestones are the
-slot-table simulation and a single-mode ECP5 bring-up — see §C.3 of the main
+Rev. AW (B49), 4 November 2026. No hardware fabricated. The next milestones are the
+slot-table simulation and a single-mode Artix-7 100T bring-up — see §C.3 of the main
 document.
 
 ---
 
-*Rev. AV (B48) · 3 November 2026 · project started 30 October 2026*
+*Rev. AW (B49) · 4 November 2026 · project started 30 October 2026*
