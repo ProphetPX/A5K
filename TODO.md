@@ -186,7 +186,11 @@ One row per channel. Classify every reply before answering: **A** factual defect
 
 | # | Channel | Posted | Post | Replies | Class-A | Status |
 |---|---|---|---|---|---|---|
-| 1 | r/FPGA | 4 Nov 2026 | [post](https://www.reddit.com/r/FPGA/comments/1xo9dak/does_256bit_at_1485_mhz_close_on_a_kintex7_325t_2/) | — | — | posted — 72 h; **no revision before 8 Nov 2026** |
+| 1 | r/FPGA | 4 Nov 2026 | [post](https://www.reddit.com/r/FPGA/comments/1xo9dak/does_256bit_at_1485_mhz_close_on_a_kintex7_325t_2/) | 1 (nixiebunny) | none | posted — 72 h; **no revision before 8 Nov 2026** |
+
+**Reply notes** (classify before answering):
+
+- **4 Nov — *nixiebunny*:** implementation-dependent; a large Virtex-7 design closed at 320 MHz. Not a defect — recorded as a data point under **B3**. It supports "148.5 MHz is not aggressive as a clock" but not "256-bit closes on a Kintex-7 −2 with the MIG"; different family, width and placement. Reply drafted: ask for the widest register-to-register path and whether the memory controller shared the clock domain. Held for the weekly batch; no Frailties edit during the 72-hour window.
 | 2 | EEVblog forum | — | — | — | — | not posted |
 | 3 | Xilinx forums | — | — | — | — | not posted |
 | 4 | r/hardware | — | — | — | — | not posted |
