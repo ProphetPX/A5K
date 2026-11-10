@@ -1,19 +1,20 @@
 cff-version: 1.2.0
 message: "If you use, cite or build on this work, please cite it as below."
 type: report
-title: "A5K — A Theoretical Design Proposition for an Amiga 5000-Like System"
+title: "A5K — An Amiga-Inspired Deterministic Display and Audio Card"
 version: "Rev. AW"
 date-released: "2026-11-04"
 license: CC-BY-4.0
 authors:
   - name: 'Ryan David Hall (AKA "ProphetPX")'
 abstract: >-
-  A design study proposing a modern re-issue of the Amiga custom-chipset
-  architecture: an Agnus-class DMA scheduler, a planar Denise-class scanout,
-  a minterm blitter and an MC-1 Copper, presented on a PCIe card with a
-  RISC-V host and an open-source toolchain. Includes a Copper instruction
-  set, a Migen implementation skeleton, a bill of materials and a
-  comparative analysis against AAA, Hombre and a 2026 scientific workstation.
+  A design study for a deterministic PCIe display and audio engine inspired by
+  the Amiga custom chipset: an Agnus-class slot scheduler, a planar
+  Denise-class scanout, a minterm blitter and an MC-1 Copper, with a published
+  slot-exact timing contract. It is not an Amiga clone and claims no binary
+  compatibility. Includes a Copper instruction set, a simulator specification,
+  a bill of materials and a comparative analysis against AAA, Hombre and a
+  2026 scientific workstation.
 keywords:
   - Amiga
   - open hardware
