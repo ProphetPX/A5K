@@ -14,7 +14,7 @@ rented and the repository is not.
 | Documents | 19-page study, 4-page addendum, 6-page specification card, plus the markdown set |
 | Later documents | `A5K-Brief.md`, `A5K-AROS-68K-Plan.md`, `A5K-Bus-Technology.md`, `A5K-Market-Signals.md` — documentation, not a revision |
 | Design changes since AW | **none** — no number, constraint, part or rule has moved |
-| Latest commit | `dd8d01e` — *docs: record informal market signals and small-batch product shape* |
+| Latest commit | `trunk` — see `git log -1`; documentation through 10 November 2026 |
 | Hardware | **none.** No RTL, no board, no measurement |
 | Frozen models | **none** — frozen by author decision only |
 | Public repo | `github.com/ProphetPX/A5K`, branch `trunk` |
