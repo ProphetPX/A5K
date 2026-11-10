@@ -40,6 +40,10 @@ No hardware has been built. Everything here is a proposition — and
 
 A host may drive it, and a game could appear on a host, but that is not the target.
 
+It is not a 1990s Amiga and not a clone, but it **is** a deliberate attempt to
+define what future Amiga-like hardware should be able to be and do — the method,
+not the product.
+
 ## Who it is for
 
 - FPGA and video engineers

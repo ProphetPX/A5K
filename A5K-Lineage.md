@@ -150,6 +150,26 @@ question.
 it shares with them is the silicon class — an FPGA, DDR and an HDMI output — and
 nothing else.
 
+## Related modern projects
+
+These are not four versions of the same machine. They sit at different layers.
+
+| Project | What it is | Compatibility | Hardware | Relationship to A5K |
+|---|---|---|---|---|
+| **AmigaNG.com** | News/community site covering PPC, FPGA, remakes and Amiga-family OSes since 1999 | N/A — it is media | None | Press/community layer, not a competitor |
+| **Apollo A6000** | Complete Amiga-compatible computer — Vampire V4 standalone, “Unicorn” | Native 68k via the AC68080 core; AGA/SAGA | Cyclone V FPGA, 2 GB fast RAM, 12 MB chip RAM, shipping product | Compatibility camp; the opposite bet to A5K |
+| **AmiCradle** | Amiga platform/runtime plus modular compute-carrier and dock concept | AmigaOS/OPEN direction; classic Amiga preservation | Off-the-shelf PiStorm, PPC, ARM, x86 and future RISC-V modules; docks are concept studies | Adjacent platform; a potential host or complement, not a rival |
+| **A5K** | PCIe deterministic display/audio engine with a slot-exact timing contract | **None** — no 68k, no Kickstart, no Amiga software claim | Custom FPGA logic, DDR3L, HDMI/DP; documents only | A component card, not a computer |
+
+Read the table as layers, not competitors. AmigaNG is media. Apollo sells a
+complete compatible Amiga. AmiCradle sells a platform and carrier for running the
+Amiga stack on modern compute. A5K is a component card for deterministic
+video/audio.
+
+A5K is **not a 1990s Amiga and not a clone**. It is a deliberate striving for what
+**future Amiga-like hardware should be able to be and do** — the method, not the
+product: chipset-first, beam-synchronous, separable compute, open design.
+
 ## What the lineage claim actually is
 
 Not *"the next Amiga"*. **The AAA direction, continued without the compatibility
