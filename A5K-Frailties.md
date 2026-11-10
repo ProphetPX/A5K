@@ -388,6 +388,12 @@ on a PC expansion card,” and said he would probably buy one. He described it a
 positioning gap to clarify: the appeal may be the *class* of hardware, not OCS
 compatibility.
 
+**Follow-up 2 (10 Nov 2026).** After the position was narrowed to a deterministic
+A/V engine, HeatDeath called it “very cool… probably very niche,” compared it to
+the **Ultimate II mainboard** before commercialization, and estimated a few dozen
+units per batch at semi-reasonable prices through **PCBWay** or a similar
+small-batch manufacturer. See `A5K-Market-Signals.md`.
+
 ---
 
 ## E. What not to bother reporting
