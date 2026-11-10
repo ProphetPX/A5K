@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="social-preview.png" alt="A5K — An Amiga-Inspired Deterministic Display and Audio Card" width="100%">
+</p>
+
 # A5K — An Amiga-Inspired Deterministic Display and Audio Card
 
 > *A PCIe video/audio engine with a Copper-style, slot-exact timing contract —
