@@ -35,6 +35,18 @@ No hardware has been built. Everything here is a proposition — and
 | `CHANGELOG.md` | — | One line per revision, with the date and the tag. The letter is a label; this table carries the information. |
 | `DECISIONS.md` | — | **The decisions taken**, one line each and append-only — framing, host, AROS, FPGA per model, storage, USB, converters, 68k, 3D/AI, PCIe generations, budget. The reading aid that stops a reviewer re-litigating a settled choice. |
 
+## How this was made
+
+This is a human-authored design study. The design decisions, arithmetic,
+revision history, and technical claims are the author's; AI tools were used as
+assistants for drafting, editing, research summarisation, and build-script help.
+Every claim is expected to stand on its own and is open to correction.
+
+The repository is the record, not a chat session: documents, scripts, tags, and
+the revision log are public, including the parts that are wrong. No hardware has
+been built, nothing is measured yet, and the work is a proposition rather than a
+product.
+
 ## Revisions
 
 The documents are revised together. One letter appears in every PDF title, in the
