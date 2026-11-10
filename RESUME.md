@@ -71,6 +71,18 @@ python3 build_legal_notes.py     # the memo
 6. **The model wins.** If the simulator and the paper disagree, the paper is wrong
    until proven otherwise.
 
+## Author capability — do not over-assign
+
+The author is a retired PC repair technician, not an electronics engineer.
+Programming background: **MS BASIC 2.0** (mastered), a little C++ and Perl 5,
+and **no Python**. Strengths: specification, documentation, debugging by
+elimination, and review discipline.
+
+Do **not** assign RTL, timing closure, PCB layout, EMC, verification, or
+unassisted Python implementation. When Python is needed, provide complete scripts
+and line-by-line explanation, or pair with an engineer. The author's role is
+architect/specifier/publisher; implementation needs a collaborator.
+
 ## Open items, in priority order
 
 | | Item | Where |

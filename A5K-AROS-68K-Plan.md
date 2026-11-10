@@ -167,7 +167,25 @@ Things to watch:
 
 ---
 
-## 7. Recommendation
+## 7. Implementation roles
+
+The plan above is a decision map, not an assignment. Be explicit about who does
+what.
+
+| Role | Who | What |
+|---|---|---|
+| Specification, documentation, test plans, review | Author | Can do now |
+| Python behavioural model | Author + collaborator or teacher | The author does not know Python; provide complete scripts and explanation |
+| AROS driver/HIDD/audio | AROS/software engineer | Needed for Path A |
+| 68k soft core integration | FPGA engineer | Needed for Path C |
+| Chipset compatibility | FPGA/chipset engineer | Needed for Path C |
+| Timing closure, PCB, EMC, fabrication | Hardware engineer/team | Not the author |
+
+The author's role is architect/specifier/publisher. Do not assign RTL, timing
+closure, PCB layout, EMC, or unassisted Python to the author. That is a capability
+boundary, not a judgment.
+
+## 8. Recommendation
 
 **Do Path A first.** It is the shortest path to a useful A5K:
 
@@ -191,7 +209,7 @@ The 68k core is not the scary part. The chipset and timing are.
 
 ---
 
-## 8. What would change the decision
+## 9. What would change the decision
 
 - If the goal is **“run classic Amiga software soon”** → Path B, or buy an
   existing compatible FPGA Amiga.
@@ -203,7 +221,7 @@ The 68k core is not the scary part. The chipset and timing are.
 
 ---
 
-## 9. Open questions
+## 10. Open questions
 
 1. Which AROS port is the target: x86-64, ARM, RISC-V, or 68k?
 2. Is the compatibility target AROS 68k only, or classic Amiga software?

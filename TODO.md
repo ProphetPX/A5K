@@ -55,14 +55,18 @@ allow it**, so a supply swap is not a respin; where they do not, the alternate i
 documented contingency, not a drop-in.
 
 **Author capability, stated so it cannot be forgotten.** The author is a retired
-PC repair technician who writes well — *not* an electronics engineer. What that
-gives: debugging by elimination, reading a datasheet for what it omits, and
-documentation. What it does **not** give: RTL, timing closure, PCB layout, EMC,
-verification, fabrication.
+PC repair technician who writes well — *not* an electronics engineer. Programming
+background: **MS BASIC 2.0** (mastered), a little C++ and Perl 5, and **no
+Python**. What that gives: debugging by elimination, reading a datasheet for what
+it omits, and documentation. What it does **not** give: RTL, timing closure, PCB
+layout, EMC, verification, fabrication, or unassisted Python implementation.
 
 **Consequence:** the documents are a specification, not an implementation, and
 nothing is measured until a board exists. The review campaign is how the missing
-engineer is found. The full note is `ABOUT-THE-AUTHOR.md` in the private folder.
+engineer is found. When Python is needed, provide complete scripts and line-by-line
+explanation, or pair with an engineer. The author's role is
+architect/specifier/publisher, not implementer. The full note is
+`ABOUT-THE-AUTHOR.md` in the private folder.
 
 **Scope discipline — the rule that keeps this alive.** Do **not** try to redo every
 chip. That is how AAA died: scope, not technology. Pick one block (the Copper),
