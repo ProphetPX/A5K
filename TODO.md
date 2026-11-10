@@ -194,6 +194,8 @@ One row per channel. Classify every reply before answering: **A** factual defect
 | 5 | Hacker News | — | — | — | — | not posted |
 | 6 | Amiga forums (EAB, amigaworld) | — | — | — | — | not posted |
 
+**Reach (10 Nov 2026):** the r/FPGA post has ~**7,400 views** and **9 recorded replies**; no class-A findings yet. Views are reach, not review — the exit criteria still depend on independent technical responses, not traffic.
+
 **Reply notes** (classify before answering):
 
 - **4 Nov — *nixiebunny*:** implementation-dependent; a large Virtex-7 design closed at 320 MHz. Not a defect — recorded as a data point under **B3**. It supports "148.5 MHz is not aggressive as a clock" but not "256-bit closes on a Kintex-7 −2 with the MIG"; different family, width and placement. Reply sent: asked for the widest register-to-register path and whether the memory controller shared the clock domain.
