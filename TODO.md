@@ -187,14 +187,14 @@ One row per channel. Classify every reply before answering: **A** factual defect
 
 | # | Channel | Posted | Post | Replies | Class-A | Status |
 |---|---|---|---|---|---|---|
-| 1 | r/FPGA | 4 Nov 2026 | [post](https://www.reddit.com/r/FPGA/comments/1xo9dak/does_256bit_at_1485_mhz_close_on_a_kintex7_325t_2/) | 9 (nixiebunny, alexforencich ×3, tux2603 ×2, OnYaBikeMike ×2, FVjake ×1) | none (9 method notes) | posted — 72 h closed; triage continuing |
+| 1 | r/FPGA | 4 Nov 2026 | [post](https://www.reddit.com/r/FPGA/comments/1xo9dak/does_256bit_at_1485_mhz_close_on_a_kintex7_325t_2/) | 10 (nixiebunny, alexforencich ×3, tux2603 ×3, OnYaBikeMike ×2, FVjake ×1) | none (10 method notes) | posted — 72 h closed; triage continuing |
 | 2 | EEVblog forum | — | — | — | — | not posted |
 | 3 | Xilinx forums | — | — | — | — | not posted |
 | 4 | r/hardware | — | — | — | — | not posted |
 | 5 | Hacker News | — | — | — | — | not posted |
 | 6 | Amiga forums (EAB, amigaworld) | — | — | — | — | not posted |
 
-**Reach (10 Nov 2026):** the r/FPGA post has ~**7,400 views** and **9 recorded replies**; no class-A findings yet. Views are reach, not review — the exit criteria still depend on independent technical responses, not traffic.
+**Reach (10 Nov 2026):** the r/FPGA post has ~**7,400 views** and **10 recorded replies**; no class-A findings yet. Views are reach, not review — the exit criteria still depend on independent technical responses, not traffic.
 
 **Reply notes** (classify before answering):
 
@@ -206,6 +206,7 @@ One row per channel. Classify every reply before answering: **A** factual defect
 - **4 Nov — *tux2603* (second reply):** don't pre-plan pipeline stages; run the math, synthesise, look at the critical path, then decide. **Method endorsement** of the project's own "fit before claims" plan. No defect; no design change.
 - **4 Nov — *OnYaBikeMike* (second reply):** suggests absorbing latency in a **"gojong structure"**. Term unknown — likely a typo or a structure not in the literature we have. Reply asks for clarification and compares it to the line-buffer FIFO. Do not bluff it.
 - **10 Nov — *FVjake*:** *"Gojong structures are the obvious choice here. They will definitely minimize the impact of the copper lanes interleaving latencies."* Class **B/C** — no definition, citation, mechanism, or number. The term remains unresolved; "obvious choice" is not a finding. Action: one clarifying reply asking for a reference/definition and the mechanism by which it reduces Copper-lane interleaving latency. Do not adopt it or edit `A5K-Slot-Table.md`. If a citation or number follows, reclassify as **A**.
+- **10 Nov — *tux2603* (third reply):** *"Like I said, if you know what you're doing and are willing to break down wide operations into multiple steps (even something as 'simple' as 256-bit addition could easily eat up half of your setup time), it will probably close. If you have no experience with FPGAs and HDL, then good luck."* Class **B** with a technical kernel: wide operations must be pipelined/decomposed, and setup time is the real limiter. It is a conditional opinion, not a number or a cited defect; "good luck" is tone, not a claim. Reinforces the existing consensus that the original question was under-specified. No reply needed; record and close.
 - **4 Nov — *alexforencich* (third comment):** *"Why are you pasting AI responses here? Just have Claude do everything for you. Don't forget to tell it to make no mistakes."* **Class D** — no technical content; pure bait. **Do not reply.**
 
 **Documentation gap the thread is pointing at:** there is no explicit **latency and contention** section (off-chip variable latency, read/write turnaround, fetch → FIFO → scanout → pixel). Three reviewers have now asked for it in different words. Add one after the 72-hour window; it belongs next to the line-buffer rule in `A5K-Slot-Table.md` §4.3.
