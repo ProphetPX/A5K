@@ -325,11 +325,12 @@ design can still be commercially uninteresting, and no appendix changes that.
 
 ---
 
-## D. Strongest external objection — the commodity baseline
+## D. Strongest external critique — the commodity baseline
 
 **Source:** HeatDeath, Commodore Discord, November 2026. Paraphrased from a longer
-post; not a verbatim quote. This is the most substantive critique the project has
-received, and it is recorded here without rebuttal-by-default.
+post; not a verbatim quote. This was a **civil, good-faith critique**, not a hostile
+comment and not part of the r/FPGA thread. It is the most substantive critique the
+project has received, and it is recorded here without rebuttal-by-default.
 
 **The argument.**
 
