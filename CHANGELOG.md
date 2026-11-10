@@ -110,6 +110,7 @@ changed shape.
 | 10 Nov 2026 | `README.md` | Reframed as an Amiga-inspired deterministic display/audio card; "What A5K is not" and "Who it is for" added; social preview image placed at the top |
 | 10 Nov 2026 | `CITATION.cff` | Title and abstract aligned with the current framing |
 | 10 Nov 2026 | Review campaign | r/FPGA thread effectively closed: ~7,400 views, 13 recorded replies, **no class-A findings**. No further cross-posts. |
+| 10 Nov 2026 | Search/AI framing (F-10) | Proposition retitled to *An Amiga-Inspired Deterministic Display and Audio Card*; cover, citation, `NOTICE`, `LEGAL.md`, `LICENSE-docs` and `TRADEMARKS.md` aligned; "Destination: RISC-V" replaced with "Host: any PCIe machine; RISC-V is one example"; README "Project facts" and "Quick answers"; `llms.txt`; GitHub About and topics. Documentation only — no design claim changed |
 
 ### Review campaign posts (not revisions)
 

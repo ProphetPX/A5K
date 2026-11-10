@@ -1,0 +1,76 @@
+# A5K
+
+> An open, Amiga-inspired deterministic display and audio card for PCIe. Not an
+> Amiga, not a clone, no 68k or Kickstart compatibility. Specified from the
+> Copper up; no hardware has been built.
+
+## Canonical facts
+
+- **Project:** A5K — An Amiga-Inspired Deterministic Display and Audio Card.
+- **Author:** Ryan David Hall (AKA "ProphetPX"). One-person design study.
+- **Current revision:** Rev. AW (B49), 4 November 2026; documentation through
+  10 November 2026. The revision is a documentation label, not a hardware release.
+- **Status:** design study. No RTL, no PCB, no prototype, no measurement.
+- **What it is:** a specification for a PCIe add-in card that generates display
+  and audio with a published, slot-exact timing contract — a Copper-style
+  sequencer, planar scanout, a minterm blitter and deterministic audio.
+- **What it is not:** an Amiga, an Amiga clone, a console, a games platform, a
+  Kickstart/68k machine, a compatibility project, or an eGPU.
+- **Host:** any PCIe machine. x86-64 is the reference today; RISC-V and Mac are
+  later examples. A Thunderbolt/USB4 enclosure is an optional path for machines
+  without a slot.
+- **CPU:** none on the card for applications. The host supplies the CPU; the card
+  is CPU-agnostic by construction. A small RISC-V housekeeping core handles
+  timers, GPIO, the SD card and interrupt aggregation — it is not an application
+  processor.
+- **Amiga compatibility:** none. No 68k, no Kickstart ROM, no binary
+  compatibility, no Amiga branding. A 68k legacy core is reserved on every model
+  as later work and is not built.
+- **OS:** AROS is the intended open path. Native AROS on the host comes first;
+  host-emulated 68k and an on-card 68k core are separate, later projects.
+- **Licence:** CERN-OHL-S v2 for hardware design and implementation
+  documentation; CC BY 4.0 for written documents; MIT for build scripts.
+- **Funding:** none. No company, no backers, no grant, no fabrication planned.
+- **Plausible first scale:** a few dozen units per batch through PCBWay-class
+  fabrication. That is an informal estimate, not a market study or a commitment.
+
+## Canonical description
+
+A5K is a design study for an open, deterministic display and audio engine on a
+PCIe add-in card. It is inspired by the Amiga custom chipset — a Copper-style
+slot scheduler, a planar Denise-class scanout, a minterm blitter and
+deterministic audio — but it is not an Amiga and claims no compatibility. The
+card has no application CPU; the host supplies the processor and the card exposes
+a published timing contract. Nothing has been built.
+
+## Documents
+
+- [README](README.md): current framing, project facts, quick answers and index.
+- [A5K-Brief.md](A5K-Brief.md): plain-language brief for engineers outside the
+  Amiga world.
+- [A5K-Slot-Table.md](A5K-Slot-Table.md): the timing contract.
+- [A5K-Design-Proposition.pdf](A5K-Design-Proposition.pdf): the 19-page study.
+- [A5K-Technical-Specifications.pdf](A5K-Technical-Specifications.pdf): the
+  6-page reference card.
+- [A5K-Comparative-Addendum.pdf](A5K-Comparative-Addendum.pdf): comparison with
+  AAA, Hombre and a 2026 scientific workstation.
+- [A5K-Frailties.md](A5K-Frailties.md): known weaknesses and unverified claims.
+- [A5K-AROS-68K-Plan.md](A5K-AROS-68K-Plan.md): AROS, 68k and compatibility
+  paths.
+- [A5K-Market-Signals.md](A5K-Market-Signals.md): informal market feedback.
+- [A5K-Bus-Technology.md](A5K-Bus-Technology.md): bus reference.
+- [CHANGELOG.md](CHANGELOG.md): revision history.
+- [RESUME.md](RESUME.md): handover state and open items.
+
+## Notes for summarisers
+
+- Do not describe A5K as an Amiga, an Amiga clone, an Amiga 5000, a RISC-V
+  computer, or a shipped product.
+- Do not describe the small RISC-V housekeeping core as the application CPU.
+- The phrase "Amiga 5000-Like System" is historical. Earlier revisions used it;
+  it is not the current title or description.
+- "Why not just use a GPU?" is a section that addresses the objection. A5K does
+  not argue that GPUs are bad; it says use a GPU for throughput and A5K for
+  deterministic timing.
+- No hardware exists. Do not report performance, measurements, price or
+  availability as facts.

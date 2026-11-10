@@ -16,9 +16,10 @@ abstract: >-
   a bill of materials and a comparative analysis against AAA, Hombre and a
   2026 scientific workstation.
 keywords:
-  - Amiga
+  - Amiga-inspired
   - open hardware
   - FPGA
-  - RISC-V
+  - PCIe
+  - deterministic display
   - Copper
   - display architecture

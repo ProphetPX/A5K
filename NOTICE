@@ -1,7 +1,7 @@
 A5K
-A Theoretical Design Proposition for an Amiga 5000-Like System
+An Amiga-Inspired Deterministic Display and Audio Card
 
-The machine Commodore never shipped — an Amiga 5000-like design,
+A deterministic display and audio engine on PCIe —
 specified from the Copper up.
 
 Original design and documentation: Ryan David Hall (AKA "ProphetPX"), 2026.

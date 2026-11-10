@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>A5K — A Theoretical Design Proposition for an Amiga 5000-Like System</title>
+<title>A5K — An Amiga-Inspired Deterministic Display and Audio Card</title>
 <style>
   @page {
     size: A4;
@@ -612,8 +612,8 @@
       <p class="gline">Amiga Guru Meditation Error</p>
       <h1 class="gtitle">A5K</h1>
       <div class="inner">
-        <p class="gsub">A Theoretical Design Proposition for an Amiga 5000-Like System</p>
-        <p class="gtag">The machine Commodore never shipped &mdash; an Amiga 5000-like design, specified from the Copper up.</p>
+        <p class="gsub">An Amiga-Inspired Deterministic Display and Audio Card</p>
+        <p class="gtag">A deterministic display and audio engine on PCIe &mdash; specified from the Copper up.</p>
       </div>
       <p class="gnum">Guru Meditation #0000000A.00005000</p>
     </div>
@@ -861,8 +861,8 @@
 
 <div class="callout">
   <span class="label">Recommendation</span>
-  <p><strong>Reference host today: x86-64.</strong> Every desktop has one, Linux support is mature, and the first driver will be written there — which is why <em>A5K — Technical Specifications</em> lists it as a requirement.</p>
-  <p><strong>Destination: RISC-V.</strong> Open, well-tooled, and the natural processor for a standalone A5K. It needs a driver written for it and, for a self-contained machine, an AROS port that does not yet exist.</p>
+  <p><strong>Reference host today: x86-64.</strong> Every desktop has one, Linux support is mature, and the first driver will be written there — which is why <em>A5K — Technical Specifications</em> lists it as the reference host.</p>
+  <p><strong>Host: any PCIe machine. RISC-V is one example.</strong> Open, well-tooled, and a good future host — but the card requires no particular CPU. The host supplies the processor; the card is CPU-agnostic by construction. A RISC-V host needs a driver and, for a self-contained system, an AROS port; neither changes the card.</p>
   <p><strong>Purist: OpenPOWER</strong> — big-endian and open, which suits planar graphics, at the cost of a thinner ecosystem.</p>
   <p>The 68k core is for running old binaries, not for the machine’s main work. It is <em>reserved on every model as later work</em>, and is not being built.</p>
 </div>
@@ -1382,7 +1382,7 @@ def main():
   <p><strong>Not a clone.</strong> This work contains no Commodore code, ships no Kickstart ROM and offers no binary compatibility with Amiga software. It is an independent re-issue of the architecture’s ideas; the relevant patents expired by 2012 and the mask-work term is ten years.</p>
   <p>Amiga and Commodore are trademarks of their respective owners. This is an independent design study, not affiliated with, endorsed by or sponsored by any rights holder. Provided “as is”, without warranty of any kind, and not for safety-critical, medical, life-support, aviation or aerospace use. To the maximum extent permitted by law the author accepts no liability for any loss arising from its use. <strong>The author publishes information and does not manufacture or sell goods.</strong> Full notice: LEGAL.md. Not legal advice.</p>
   <p><strong>Licensing.</strong> Hardware design: CERN-OHL-S v2. Documents: CC BY 4.0. Scripts: MIT. The complete notice is in LEGAL.md, with the licence texts in LICENSE-hardware, LICENSE-docs and LICENSE-scripts.</p>
-  <p><strong>How to cite.</strong> Ryan David Hall (AKA &quot;ProphetPX&quot;). (2026). <em>A5K — A Theoretical Design Proposition for an Amiga 5000-Like System</em> (2026).</p>
+  <p><strong>How to cite.</strong> Ryan David Hall (AKA &quot;ProphetPX&quot;). (2026). <em>A5K — An Amiga-Inspired Deterministic Display and Audio Card</em>, Rev. AW (B49).</p>
 </div>
 
 </body>

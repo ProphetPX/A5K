@@ -5,7 +5,7 @@ documents refer to it rather than repeating it.
 
 ## 1. What this is
 
-An independent, non-commercial design study: *A5K — A Theoretical Design Proposition for an Amiga 5000-Like System* (the "A5K concept"). It
+An independent, non-commercial design study: *A5K — An Amiga-Inspired Deterministic Display and Audio Card* (the "A5K concept"). It
 describes hardware that has not been built. Nothing here is a product, a
 certification, or an offer for sale.
 

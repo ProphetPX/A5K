@@ -11,6 +11,17 @@ A5K is a deterministic display and audio engine on a PCIe card, inspired by the
 Amiga custom chipset. It is **not** an Amiga, not a console, and not a
 compatibility project: no 68k, no Kickstart, no Amiga software claim.
 
+## Project facts
+
+- **What it is:** an open, Amiga-inspired deterministic display and audio engine on a PCIe add-in card.
+- **Current revision:** **Rev. AW (B49)**, 4 November 2026; documentation through 10 November 2026.
+- **Hardware:** none. No RTL, no board, no measurement. Everything here is a specification.
+- **Host:** any PCIe machine. x86-64 is the reference today; RISC-V and Mac are later examples. A Thunderbolt/USB4 enclosure is an optional path for machines without a slot.
+- **CPU:** none on the card for applications. The host supplies the CPU; the card is CPU-agnostic. A small RISC-V housekeeping core handles timers, GPIO, SD and interrupts.
+- **Amiga compatibility:** none. No 68k, no Kickstart, no Amiga software claim. A 68k legacy core is reserved as later work and is not built.
+- **What it is not:** an Amiga, a clone, a console, a games platform, or a GPU competitor.
+- **Licence:** CERN-OHL-S v2 for hardware documentation, CC BY 4.0 for written documents, MIT for build scripts.
+
 The design study specifies the chipset method in enough detail to build, costed,
 and argued against the alternatives — including the obvious one, *why not just use
 a GPU*.
@@ -50,6 +61,22 @@ not the product.
 - deterministic display and audio work
 - Copper-style raster and beam-synchronous experiments
 - open-hardware people who care about the chipset method, not the logo
+
+## Quick answers
+
+**Is A5K an Amiga?** No. It is Amiga-inspired, not Amiga-compatible.
+
+**Does it run Amiga software?** No. There is no 68k, no Kickstart and no binary compatibility. AROS is the intended open OS path.
+
+**Does it have a CPU?** Not for applications. The host supplies the CPU; the card is CPU-agnostic. A small RISC-V core handles housekeeping only.
+
+**What host does it need?** Any PC with a PCIe slot (x86-64 is the reference). A Thunderbolt/USB4 enclosure is an optional path for machines without a slot.
+
+**Is there hardware?** No. This is a design study: no RTL, no board, no measurement.
+
+**Why not just use a GPU?** Use a GPU for throughput. A5K is for a register write at a known scanline, without a GPU scheduler or OS compositor in the path.
+
+**Can I buy one?** No. It is a specification. Small-batch manufacture is a possible later path, not a commitment.
 
 ## Documents
 
@@ -152,8 +179,8 @@ same licence, and the notice and credit must be retained.
 
 ## How to cite
 
-> Ryan David Hall (AKA "ProphetPX"). (2026). *A5K — A Theoretical Design Proposition for an Amiga
-> 5000-Like System*, Rev. AW.
+> Ryan David Hall (AKA "ProphetPX"). (2026). *A5K — An Amiga-Inspired
+> Deterministic Display and Audio Card*, Rev. AW (B49).
 
 Machine-readable: `CITATION.cff`. If you archive or mirror this work, add a DOI
 and cite it here.

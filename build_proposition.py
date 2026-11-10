@@ -139,10 +139,10 @@ for i, page in enumerate(doc):
 doc.set_toc([[1, "Cover", 1], [1, "Contents", 2]] +
             [[1, names[m], pages[m] + 2] for m in order])
 doc.set_metadata({
-    "title": "A5K - A Theoretical Design Proposition for an Amiga 5000-Like System - Rev. AW (B49)",
+    "title": "A5K - An Amiga-Inspired Deterministic Display and Audio Card - Rev. AW (B49)",
     "author": "Design study",
-    "subject": "Re-issuing the Amiga custom-chipset design ethos on a modern bus, in open silicon",
-    "keywords": "Amiga, Copper, Agnus, Denise, Blitter, Paula, PCIe, CXL, RISC-V, LiteX, Migen, AROS, FPGA",
+    "subject": "Re-issuing the Amiga custom-chipset design ethos on a modern PCIe bus, in open hardware",
+    "keywords": "Amiga-inspired, Copper, Agnus, Denise, Blitter, Paula, PCIe, deterministic display, deterministic audio, LiteX, Migen, AROS, FPGA",
     "creator": "LiteX-inspired design study",
 })
 doc.save(PDF, deflate=True, garbage=4)

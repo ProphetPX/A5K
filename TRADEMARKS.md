@@ -24,11 +24,16 @@ model number, and it contains no third-party mark.
 
 Acorn shipped a computer called the **A5000** in 1991. Using that string as a
 bare name would collide with it in search results and in conversation, so the
-handle is **A5K** and the study is *described* as Amiga 5000-like rather than
-*named* after a machine number.
+handle is **A5K**.
 
-The descriptor "Amiga 5000-Like System" is a description, not a name. It may
-be used in prose and in titles. It may not be used as a product name.
+Earlier revisions used the descriptor "Amiga 5000-Like System". It is retained in
+the historical record, but it is no longer the title or the current description:
+it reads as a machine name and invites clone comparisons. The current description
+is **"An Amiga-Inspired Deterministic Display and Audio Card"**.
+
+The words "Amiga-inspired" are descriptive, not a product name. They identify the
+architecture being studied and must not be used as a logo, a trade name, or an
+endorsement claim.
 
 ## What you may do with the name
 
