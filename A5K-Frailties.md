@@ -325,7 +325,63 @@ design can still be commercially uninteresting, and no appendix changes that.
 
 ---
 
-## D. What not to bother reporting
+## D. Strongest external objection — the commodity baseline
+
+**Source:** HeatDeath, Commodore Discord, November 2026. Paraphrased from a longer
+post; not a verbatim quote. This is the most substantive critique the project has
+received, and it is recorded here without rebuttal-by-default.
+
+**The argument.**
+
+- In 1986 the baseline PC was weak; the Amiga could be different *and* better.
+  In 2026 CPUs, GPUs, PCM audio and 2D framebuffers are commodity and extremely
+  capable.
+- Standard APIs — Vulkan, DirectX, OpenGL, OS audio — standardise results. A new
+  architecture still has to produce the same outputs through them.
+- “Different” is now very expensive: a new platform needs billions in silicon,
+  software and ecosystem. A card does not replace the baseline.
+- If the goal is to astonish normal users, a chipset card is the wrong place to
+  look. The next shock may be interaction — AR/VR, ambient audio, something after
+  the screen — not a better 2D blitter.
+- The general-purpose, multimedia, expandable PC won: “we are all Amiga now.”
+
+**What it defeats.**
+
+- “A5K beats the PC baseline.”
+- “A5K is the next Amiga.”
+- “A5K will astonish normal users.”
+- Any claim that a card can replace the platform.
+- Any claim that raw 2D or PCM quality is the differentiator.
+
+**What it does not defeat.**
+
+- A deterministic display/audio card with a published, slot-exact timing
+  contract.
+- The narrow use case: a register write at a known scanline, a fixed audio/video
+  schedule, no GPU scheduler or OS compositor in the path.
+- The design-study form: documents, arithmetic, no product claim.
+- The card form factor.
+
+**The claim that survives.**
+
+> A5K is a PCIe card with a published slot-exact timing contract for deterministic
+> display and audio. It is not better pixels, better PCM, or a faster CPU, and it
+> is not the next Amiga.
+
+**Residual risk.** The niche may be too small to matter. That is a commercial
+risk, not a technical defect, and no appendix fixes it. The test is whether one
+engineer or user with a real beam-synchronous requirement finds the contract
+useful.
+
+**Severity.** Major, product/commercial. It does not invalidate the arithmetic; it
+narrows the claim.
+
+**Response.** Do not argue the market case. State the narrower claim once, and let
+the work answer whether the niche is real.
+
+---
+
+## E. What not to bother reporting
 
 These have been considered and rejected; the reasoning is in the documents.
 
