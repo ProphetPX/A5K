@@ -92,6 +92,25 @@ Examples already in the history: the footer standardisation, the project-name
 disambiguation, and the TODO updates all sit inside Rev. S without taking a letter
 of their own. This changelog itself is housekeeping.
 
+### Documentation and market notes (not revisions)
+
+Between Rev. AW and the next revision, the following were added or reframed. None
+changes a design claim — no number, constraint, part or rule moved — so none takes
+a letter. They are recorded here so the public timeline shows when the argument
+changed shape.
+
+| Date | Artefact | What changed |
+|---|---|---|
+| 10 Nov 2026 | `A5K-Brief.md` | Plain-language brief for engineers outside the Amiga world; answers the r/FPGA finding that the campaign post assumed Copper/Amiga knowledge |
+| 10 Nov 2026 | `A5K-Lineage.md` | Lorraine (1984) added; related modern projects table added; "Amiga-inspired display/audio card" positioning clarified |
+| 10 Nov 2026 | `A5K-AROS-68K-Plan.md` | Three paths separated: native AROS on the host, host-emulated 68k, and an on-card 68k soft core; recommendation recorded |
+| 10 Nov 2026 | `A5K-Bus-Technology.md` | PCIe 1.0–7.0, CXL, NVLink, UALink, UCIe, UltraFusion, Infinity Fabric/UPI, HBM; conclusion that A5K's internal fabric, not PCIe, is the limit |
+| 10 Nov 2026 | `A5K-Market-Signals.md` | HeatDeath's niche/small-batch estimate, Dave Haynie's "interesting" (explicitly not a review), and the "Mad Max Amiga" community nickname |
+| 10 Nov 2026 | `A5K-Frailties.md` | HeatDeath critique recorded as civil Discord feedback, distinct from the r/FPGA thread; follow-ups added |
+| 10 Nov 2026 | `README.md` | Reframed as an Amiga-inspired deterministic display/audio card; "What A5K is not" and "Who it is for" added; social preview image placed at the top |
+| 10 Nov 2026 | `CITATION.cff` | Title and abstract aligned with the current framing |
+| 10 Nov 2026 | Review campaign | r/FPGA thread effectively closed: ~7,400 views, 13 recorded replies, **no class-A findings**. No further cross-posts. |
+
 ### Review campaign posts (not revisions)
 
 Putting a question to reviewers does not change a design claim, so a post takes no
@@ -103,4 +122,4 @@ letter. Posts are logged here so the public record shows when each question was 
 
 ---
 
-*Rev. AW (B49) · 4 November 2026 · project started 30 October 2026*
+*Rev. AW (B49) · 4 November 2026 · documentation through 10 November 2026 · project started 30 October 2026*

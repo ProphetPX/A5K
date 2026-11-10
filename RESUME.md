@@ -6,12 +6,15 @@ rented and the repository is not.
 
 ---
 
-## State, at Rev. AW (B49), 4 November 2026
+## State, at Rev. AW (B49), documentation through 10 November 2026
 
 | | |
 |---|---|
 | Revision | **AW** (B49), tagged `rev-aw` |
 | Documents | 19-page study, 4-page addendum, 6-page specification card, plus the markdown set |
+| Later documents | `A5K-Brief.md`, `A5K-AROS-68K-Plan.md`, `A5K-Bus-Technology.md`, `A5K-Market-Signals.md` — documentation, not a revision |
+| Design changes since AW | **none** — no number, constraint, part or rule has moved |
+| Latest commit | `dd8d01e` — *docs: record informal market signals and small-batch product shape* |
 | Hardware | **none.** No RTL, no board, no measurement |
 | Frozen models | **none** — frozen by author decision only |
 | Public repo | `github.com/ProphetPX/A5K`, branch `trunk` |
@@ -22,9 +25,13 @@ rented and the repository is not.
 1. `RESUME.md` — this file.
 2. `TODO.md` — the live task list, the review campaign, and the open findings.
 3. `A5K-Frailties.md` — what is weak, with identifiers (A1, B1, C11…).
-4. `A5K-Lineage.md` — AAA in its own words, and the two camps that exist today.
-5. `A5K-Slot-Table.md` — the timing contract.
-6. `A5K-Family.md` — the product line.
+4. `A5K-Brief.md` — the plain-language version, for engineers outside the Amiga world.
+5. `A5K-Lineage.md` — AAA in its own words, Lorraine, and the camps that exist today.
+6. `A5K-Slot-Table.md` — the timing contract.
+7. `A5K-Family.md` — the product line.
+8. `A5K-AROS-68K-Plan.md` — what is and is not being promised about AROS and 68k.
+9. `A5K-Market-Signals.md` — informal feedback and the small-batch product shape.
+10. `A5K-Bus-Technology.md` — bus reference; why the internal fabric, not PCIe, is the limit.
 
 ## Where the truth lives
 
@@ -87,24 +94,47 @@ architect/specifier/publisher; implementation needs a collaborator.
 
 | | Item | Where |
 |---|---|---|
-| 1 | Review campaign: triage replies as class A/B/C/D | `TODO.md` |
+| 1 | **F-09:** specification card calls Gen3/Gen4 "a bigger 7-series part"; it needs GTH/GTY, a different transceiver class and board. Batch into Rev. AX | `TODO.md` |
 | 2 | Chip modernisation study, **Copper first**, one page per block | not started |
-| 3 | UAC2 fit gate on the Studio's 160T (F-06) | `TODO.md` |
-| 4 | 48 kHz measurement (F-07) — documentation now, bench later | `TODO.md` |
-| 5 | Simulator: Phase 0, M1 = clock/modes/beam/scheduler | `A5K-Simulator-Specification.md` |
-| 6 | One narrow question to Dave Haynie | private `Haynie-questions.md` |
-| 7 | Capture storage: **Studio and above**; Gen4-capable switch, Gen2 FPGA | `TECHNICAL-CONSIDERATIONS.md` §15 |
+| 3 | Simulator: Phase 0, M1 = clock/modes/beam/scheduler | `A5K-Simulator-Specification.md` |
+| 4 | UAC2 fit gate on the Studio's 160T (F-06) | `TODO.md` |
+| 5 | 48 kHz measurement (F-07) — documentation now, bench later | `TODO.md` |
+| 6 | Small-batch manufacturing note: BOM, PCBWay-class process, test rig, 10/25/50-unit cost | `A5K-Market-Signals.md` |
+| 7 | One narrow question to Dave Haynie — only if a concrete number is ready | private `Haynie-questions.md` |
+| 8 | Capture storage: **Studio and above**; Gen4-capable switch, Gen2 FPGA | `TECHNICAL-CONSIDERATIONS.md` §15 |
 
-## Active reminder — review campaign (until 8 November 2026)
+## Where the project actually is (10 November 2026)
 
-The **r/FPGA post on B3 is live**. Until the 72-hour window closes, **no revision**.
+The position that survived review is **not** “the next Amiga” and **not** a
+mass-market Apple competitor. It is:
 
-Triage every reply before answering: **A** factual defect (number, datasheet,
-standard or measurement) → log a finding; **B** preference → record and close;
-**C** misreading → one clarifying reply, then stop; **D** noise → ignore. Do not
-start a second channel until this one has had its window. Log replies in
-`TODO.md` → Campaign log. The daily card is
-`A5K_Project_PRIVATE/CAMPAIGN-REMINDER.md`.
+> an open, deterministic display/audio PCIe card with a published timing
+> contract, for people who need a register write at a known scanline without a
+> GPU scheduler or OS compositor in the path.
+
+The card is the primary form factor. A Thunderbolt/USB4 enclosure is an optional
+way to use the same card on machines without a slot — packaging, not a different
+product. It is not an eGPU; if the requirement is graphics throughput, a GPU wins.
+
+The plausible first scale is **a few dozen units per batch**, using PCBWay-class
+fabrication — HeatDeath's estimate, not a market study. The Ultimate II small-batch
+model is a better reference than “next Amiga”.
+
+The broader ambition — an affordable Amiga-like A/V workstation or home
+supercomputer — remains a system-level goal, not a claim about this card. 68k
+compatibility remains a separate, multi-year project.
+
+## Active reminder — review campaign is closed
+
+The r/FPGA thread was the only channel posted. It drew ~**7,400 views** and **13
+recorded replies**; none produced a class-A finding. The thread turned hostile at
+the end (a labour/AI objection, not a technical claim), and the author has stopped
+engaging. **Do not add cross-posts or reopen the argument.** The campaign's
+remaining value is the reply notes in `TODO.md`, not more traffic.
+
+The exit criteria — three independent reviewers with no class-A defect, or thirty
+days without one — are effectively met by silence, not by endorsement. Record it
+that way.
 
 ## What not to do
 
@@ -113,17 +143,25 @@ start a second channel until this one has had its window. Log replies in
 - Do not build the 68k legacy core yet; it is reserved, not shipped.
 - Do not freeze a model because a checklist completed.
 - Do not publish the author's private opinions as project claims.
+- Do not claim mass-market reach through PCIe. PCIe buys desktop/workstation
+  installability; Thunderbolt/USB4 buys reach. Say which one is meant.
+- Do not conflate HeatDeath's Discord critique with the hostile r/FPGA thread.
+- Do not reopen the Reddit argument. It is closed.
+- If the author pauses: leave the tree clean, record the last commit here, and do
+  not manufacture work to fill the gap.
 
 ## Cold-start prompt
 
 Paste this into any new session:
 
-> You are continuing the **A5K** design study — an Amiga-like, CPU-agnostic PCIe
-> display and audio engine with a published, slot-exact timing contract. Nothing
-> has been built. Read `RESUME.md`, `TODO.md`, `A5K-Frailties.md`,
-> `A5K-Lineage.md` and `A5K-Slot-Table.md` before proposing anything. Follow the
-> rules in `RESUME.md`: one block at a time, no revision without a finding, nothing
-> measured until a board exists, no compatibility burden. Then ask what to work on.
+> You are continuing the **A5K** design study — an Amiga-inspired, CPU-agnostic
+> PCIe deterministic display and audio engine with a published, slot-exact timing
+> contract. Nothing has been built. Read `RESUME.md`, `TODO.md`, `A5K-Frailties.md`,
+> `A5K-Brief.md`, `A5K-Lineage.md`, `A5K-Slot-Table.md` and
+> `A5K-Market-Signals.md` before proposing anything. Follow the rules in
+> `RESUME.md`: one block at a time, no revision without a finding, nothing measured
+> until a board exists, no compatibility burden. The r/FPGA campaign is closed; do
+> not reopen it. Then ask what to work on.
 
 ## If the token budget is about to end
 
@@ -134,4 +172,4 @@ Paste this into any new session:
 
 ---
 
-*Rev. AW (B49) · 4 November 2026 · project started 30 October 2026*
+*Rev. AW (B49) · 4 November 2026 · documentation through 10 November 2026 · project started 30 October 2026*

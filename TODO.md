@@ -191,7 +191,7 @@ One row per channel. Classify every reply before answering: **A** factual defect
 
 | # | Channel | Posted | Post | Replies | Class-A | Status |
 |---|---|---|---|---|---|---|
-| 1 | r/FPGA | 4 Nov 2026 | [post](https://www.reddit.com/r/FPGA/comments/1xo9dak/does_256bit_at_1485_mhz_close_on_a_kintex7_325t_2/) | 13 (nixiebunny, alexforencich ×3, tux2603 ×3, OnYaBikeMike ×4, FVjake ×1, gerhardt_von_goll ×1) | none (13 method notes) | posted — 72 h closed; triage continuing |
+| 1 | r/FPGA | 4 Nov 2026 | [post](https://www.reddit.com/r/FPGA/comments/1xo9dak/does_256bit_at_1485_mhz_close_on_a_kintex7_325t_2/) | 13 (nixiebunny, alexforencich ×3, tux2603 ×3, OnYaBikeMike ×4, FVjake ×1, gerhardt_von_goll ×1) | none (13 method notes) | **closed 10 Nov — no class-A; no further channels** |
 | 2 | EEVblog forum | — | — | — | — | not posted |
 | 3 | Xilinx forums | — | — | — | — | not posted |
 | 4 | r/hardware | — | — | — | — | not posted |
@@ -422,9 +422,14 @@ the right line.
 
 ## Immediate next actions
 
-1. Run the review campaign — r/FPGA first; triage replies by class and log findings.
-2. Build the simulator, **M1**: clock, modes, beam and scheduler; pass test T1.
-3. Decide the HDL language.
+1. **Batch F-09 into Rev. AX** before making any other design-claim change.
+2. Write `A5K-Copper-Study.md` — one page: what the Copper is, what is heritage,
+   what is stale, what changing it costs, and how it is tested.
+3. Build the simulator, **M1**: clock, modes, beam and scheduler; pass test T1.
+4. If pursuing the small-batch path, write the manufacturing note: BOM,
+   PCBWay-class process, test rig, and 10/25/50-unit cost.
+5. The r/FPGA review campaign is **closed** (13 replies, no class-A). Do not post
+   the remaining channels or reopen the thread.
 
 ## Open questions
 
