@@ -1,20 +1,47 @@
-# A5K — A Theoretical Design Proposition for an Amiga 5000-Like System
+# A5K — An Amiga-Inspired Deterministic Display and Audio Card
 
-> *The machine Commodore never shipped — an Amiga 5000-like design, specified
-> from the Copper up.*
+> *A PCIe video/audio engine with a Copper-style, slot-exact timing contract —
+> specified from the beam up.*
 
-A design study: what a modern re-issue of the Amiga custom-chipset architecture
-would look like, specified in enough detail to build, costed, and argued against
-the alternatives — including the obvious one, *why not just use a GPU*.
+A5K is a deterministic display and audio engine on a PCIe card, inspired by the
+Amiga custom chipset. It is **not** an Amiga, not a console, and not a
+compatibility project: no 68k, no Kickstart, no Amiga software claim.
 
-**One architecture, three build points and a halo.** *A5K (C+)* is the A500 of the
-family — one beam, one output, the entry price. *A5K Studio* is the A3000 — two
-beams, capture and a local NVMe buffer. *A5K Studio Pro* is the A4000 — 4K
-DisplayPort and 4:4:4 capture. *A5K Studio Pro II* is the halo: 512-bit fabric on the
-same board. The comparison is one of position, not of compatibility or features.
+The design study specifies the chipset method in enough detail to build, costed,
+and argued against the alternatives — including the obvious one, *why not just use
+a GPU*.
+
+The relevant Amiga lineage is the video/audio workstation side — genlock, Video
+Toaster, Scala, broadcast graphics, Copper-driven raster effects, deterministic
+audio — not the games machine. Games are the loudest part of the community, not
+the most relevant part.
+
+**One architecture, three build points and a halo.** *A5K (C+)* is the entry
+model — one beam, one output, the entry price. *A5K Studio* is the dual-beam
+model — two beams, capture and a local NVMe buffer. *A5K Studio Pro* adds 4K
+DisplayPort and 4:4:4 capture. *A5K Studio Pro II* is the halo: 512-bit fabric on
+the same board. The comparison is one of position, not of compatibility or
+features.
 
 No hardware has been built. Everything here is a proposition — and
 `TECHNICAL-CONSIDERATIONS.md` says so in engineering terms.
+
+## What A5K is not
+
+- not an Amiga
+- not a console
+- not a Kickstart/68k machine
+- not a compatibility project
+- not a games platform
+
+A host may drive it, and a game could appear on a host, but that is not the target.
+
+## Who it is for
+
+- FPGA and video engineers
+- deterministic display and audio work
+- Copper-style raster and beam-synchronous experiments
+- open-hardware people who care about the chipset method, not the logo
 
 ## Documents
 

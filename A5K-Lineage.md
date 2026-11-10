@@ -13,11 +13,55 @@ it is worth being able to show.
 | Source | What it is |
 |---|---|
 | *An Overview of the Advanced Amiga Architecture and Other Future Directions*, Rev 1.0, 1993 Developer's Conference, **Dave Haynie** | **Primary.** The last Amiga team describing AAA in its own words |
+| Bambi Amiga History, *Lorraine* (2001), [bambi-amiga.co.uk](http://bambi-amiga.co.uk/amigahistory/prototypes/lorraine.html) | Secondary: the 1984 prototype, CES demonstration, breadboards |
 | Wikipedia, *Advanced Amiga Architecture chipset*; Bambi Amiga history; Big Book of Amiga Hardware (*Nyx*) | Secondary: dates, configurations, the stop-gap machine |
 | Wikipedia, *Amiga Hombre chipset* | Secondary, and thin |
 
 The AAA document is Commodore-confidential material that is publicly mirrored. It
 is cited here, not reproduced.
+
+## Lorraine, 1984
+
+The origin point is earlier than AAA. **Lorraine** was the 1984 Hi-Toro/Amiga
+Corp. breadboard prototype that became the Amiga 1000. It was not a recent Amiga
+model and it is not an A5K predecessor in the product sense.
+
+- **1984 — Lorraine** — Hi-Toro/Amiga Corp. breadboard prototype
+- **1985 — Amiga** — launched as the “Amiga”; later renamed **Amiga 1000** after
+  the A500 arrived
+- **1987 — Amiga 500 / 2000**
+- **1990 — Amiga 3000**
+- **1992 — Amiga 1200 / 4000**
+- **1993 — CD32**
+- later: Amiga Technologies, AmigaOne/PowerPC, and the modern Amiga ecosystem
+
+The prototype was **four breadboards cabled together**, not a PCB: 128K RAM
+(expandable to 512K internally), 64K ROM, Apple-compatible BASIC, a keyboard
+interface, a 5.25-inch disk drive, a **cartridge port intended for a CPU upgrade
+or PC emulator**, and a built-in 300-bps modem. It was demonstrated at the January
+1984 CES in a “secret enclosure” that was not actually secret. Commodore’s
+purchase removed the modem and cartridge port, raised memory to 256K, standardized
+a 3.5-inch drive, discarded CAOS in favour of TripOS/Intuition, and finalized the
+logic into OCS.
+
+The often-repeated line that the motherboard “became Zorro” is loose: **Zorro is
+the expansion bus**, not the machine. The prototype was Lorraine; the product
+became the Amiga/A1000.
+
+**What A5K inherits.** The method, not the hardware: chipset-first design, a
+separable compute path, and the discipline of prototyping early. Lorraine’s
+cartridge port was an early “swap the CPU, keep the chipset” idea; A5K expresses
+the same instinct through PCIe.
+
+**What A5K does not inherit.** The cartridge port, the 68k, the 5.25-inch drive,
+the modem, or any Amiga compatibility claim. **Lorraine was the A1000’s
+predecessor, not a modern model; A5K is not a continuation of the Amiga product
+line.** It is a modern design study that borrows the chipset method — fixed slots,
+Copper-style beam control, separable compute — not the Lorraine or A1000 hardware.
+
+**The breadboard lesson.** Four cabled breadboards beat a beautiful PCB that never
+exists. A5K is still at the paper stage; the next honest step is the simulator, then
+a single-block prototype, not a finished board.
 
 ## AAA, 1993
 
