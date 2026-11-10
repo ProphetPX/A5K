@@ -380,6 +380,14 @@ narrows the claim.
 **Response.** Do not argue the market case. State the narrower claim once, and let
 the work answer whether the niche is real.
 
+**Follow-up (10 Nov 2026).** In a later Discord reply, HeatDeath said he had
+ChatGPT summarise the main document, called the concept “an interestingly new
+class of hardware — put everything interesting about a vintage platform in an FPGA
+on a PC expansion card,” and said he would probably buy one. He described it as
+“driving OCS video.” A5K is **not OCS-compatible**, so this is a useful
+positioning gap to clarify: the appeal may be the *class* of hardware, not OCS
+compatibility.
+
 ---
 
 ## E. What not to bother reporting
