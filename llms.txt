@@ -22,6 +22,11 @@
   fixed; DDR latency is absorbed by line buffers; a missed display fetch holds the
   last pixel and never stalls the line. Host-to-card PCIe latency is variable and
   is not claimed to be scanline-exact. No measurement yet.
+- **Ethos:** A5K keeps the Amiga's **engineering ethos** — chipset-first design,
+  deterministic beam timing, fixed-function parallelism, separable compute,
+  more-with-less, open documentation — and deliberately does **not** claim its
+  **platform ethos**: 68k/Kickstart/Amiga software compatibility, mass-market
+  affordability, or a whole-computer product. It is the method, not the platform.
 - **Host:** any PCIe machine. x86-64 is the reference today; RISC-V and Mac are
   later examples. A Thunderbolt/USB4 enclosure is an optional path for machines
   without a slot.
@@ -61,6 +66,9 @@ a published timing contract. Nothing has been built.
 - [A5K-Comparative-Addendum.pdf](A5K-Comparative-Addendum.pdf): comparison with
   AAA, Hombre and a 2026 scientific workstation.
 - [A5K-Frailties.md](A5K-Frailties.md): known weaknesses and unverified claims.
+- [A5K-Lineage.md](A5K-Lineage.md): AAA, Hombre, Lorraine and the two camps.
+- [A5K-Ethos-Audit.md](A5K-Ethos-Audit.md): what A5K keeps from the Amiga and
+  what it deliberately breaks, with plain-language and engineering versions.
 - [A5K-AROS-68K-Plan.md](A5K-AROS-68K-Plan.md): AROS, 68k and compatibility
   paths.
 - [A5K-Market-Signals.md](A5K-Market-Signals.md): informal market feedback.

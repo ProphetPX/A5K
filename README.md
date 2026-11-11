@@ -62,6 +62,42 @@ not the product.
 - Copper-style raster and beam-synchronous experiments
 - open-hardware people who care about the chipset method, not the logo
 
+## A5K in plain language
+
+Imagine a school art room. One student mixes paint, one draws the lines, one runs
+the music, one keeps the clock. They all share one big table. If everyone grabs
+the table at once, nothing gets done. The Amiga’s trick was to give every job a
+**turn**, in a fixed order, so the picture and the sound always arrived on time.
+
+A5K is a design for a PC card that brings that idea forward. The card does the
+picture and sound on a schedule you can predict; the PC supplies the CPU. It is
+**not an Amiga**, does **not** run Amiga software, and is **not** a games card.
+It is a design study: no hardware has been built yet.
+
+What it keeps from the Amiga: special jobs for pictures and sound, a schedule you
+can count, a CPU you can swap, and open plans. What it leaves behind: old Amiga
+software, being a whole computer, being cheap and everywhere, and custom silicon.
+
+The honest one-liner:
+
+> A5K is an open design study for a PCIe card that draws pictures and plays sound
+> on a schedule you can predict — inspired by the Amiga’s custom chips, but not
+> an Amiga and not a clone.
+
+## For engineers
+
+A5K is a PCIe endpoint. The host supplies the application CPU, OS and storage; the
+card supplies a deterministic display/audio pipeline. The timing contract is a
+static per-line rota: a 148.5 MHz slot clock, 6.734 ns slots, 32-byte bursts, and
+a 7.0714 MHz Copper tick (21 slots). The Copper retires at a named `(line, tick)`;
+planar scanout is fed from line buffers; the display is fetched from the card’s
+own DDR3L. PCIe carries Copper lists, register writes and readback — not scanout.
+
+The full engineering description, the kept/broken ethos table, and the open items
+are in [`A5K-Ethos-Audit.md`](A5K-Ethos-Audit.md). The timing numbers are in
+[`A5K-Slot-Table.md`](A5K-Slot-Table.md); the plain-language engineering brief is
+[`A5K-Brief.md`](A5K-Brief.md).
+
 ## Quick answers
 
 **Is A5K an Amiga?** No. It is Amiga-inspired, not Amiga-compatible.
@@ -98,6 +134,26 @@ Measurement is staged: Phase 0 simulator, then the RTL testbench, then a logic a
 
 The full explanation is in [`A5K-Brief.md`](A5K-Brief.md#what-deterministic-means).
 
+## Ethos: what A5K keeps and what it leaves behind
+
+A5K keeps the Amiga’s **engineering ethos** — chipset-first design, deterministic
+beam timing, fixed-function parallelism, separable compute, more-with-less, and
+open documentation. It deliberately does **not** claim the **platform ethos**:
+Amiga software compatibility, mass-market affordability, or a whole-computer
+product.
+
+| Kept | Left behind |
+|---|---|
+| Chipset-first co-design | 68k / Kickstart / Amiga software compatibility |
+| Deterministic beam timing | Mass-market price and scale |
+| Fixed-function parallelism | A whole computer (case, PSU, OS, keyboard) |
+| Separable compute (host CPU) | Custom ASIC silicon |
+| More-with-less | Games and consumer culture |
+| Open documentation | Commodore’s closed business model |
+
+The full audit — including the AAA/Hombre comparison and the three routes to close
+the gap — is in [`A5K-Ethos-Audit.md`](A5K-Ethos-Audit.md).
+
 ## Documents
 
 | File | Pages | What it is |
@@ -114,6 +170,7 @@ The full explanation is in [`A5K-Brief.md`](A5K-Brief.md#what-deterministic-mean
 | `A5K-Bus-Technology.md` | — | **Bus reference.** PCIe 1.0–7.0 bandwidth, CXL, NVLink, UALink, UCIe, UltraFusion, Infinity Fabric/UPI, HBM — and why A5K’s internal fabric, not PCIe, is the limit. |
 | `A5K-Market-Signals.md` | — | **Informal market feedback.** HeatDeath’s niche/small-batch estimate, Dave Haynie’s “interesting” (not a review), the “Mad Max Amiga” nickname, and what these signals do and do not mean. |
 | `A5K-Lineage.md` | — | **What the last Amiga team was building.** AAA in its own words (Andrea, Monica, Mary, Linda), Hombre, what this design inherited, what it deliberately does not copy, and the two camps that exist today. |
+| `A5K-Ethos-Audit.md` | — | **What A5K keeps and what it breaks.** The Amiga’s engineering ethos vs its platform ethos, the full audit table, the AAA/Hombre test, the three routes to close the gap, and plain-language plus engineering descriptions. |
 | `A5K-Family.md` | — | **The product line.** A5K (C+) Rev 2 as the reference machine — eight-channel audio, 4 jacks, TOSLINK — and the Studio models adding a second beam, two 4K60 HDR outputs, PCIe ×4. Includes what two beams buy a video workstation, and what is deferred (3D and AI — not excluded). |
 | `TECHNICAL-CONSIDERATIONS.md` | — | **Read this before building anything.** What exists, what does not, how the boot chain would work, what an AROS port costs, and the open technical gaps. |
 | `RESUME.md` | — | **If the session changes.** A model-agnostic handover: current state, how to rebuild the PDFs, the rules that must survive, the open items, and a cold-start prompt for any new assistant. |
@@ -232,10 +289,10 @@ Nothing in this repository is legal advice.
 
 ## Status
 
-Rev. AW (B49), 4 November 2026. No hardware fabricated. The next milestones are the
-slot-table simulation and a single-mode Artix-7 100T bring-up — see §C.3 of the main
-document.
+Rev. AW (B49), 4 November 2026; documentation through 11 November 2026. No
+hardware fabricated. The next milestones are the slot-table simulation and a
+single-mode Artix-7 100T bring-up — see §C.3 of the main document.
 
 ---
 
-*Rev. AW (B49) · 4 November 2026 · project started 30 October 2026*
+*Rev. AW (B49) · 4 November 2026 · documentation through 11 November 2026 · project started 30 October 2026*

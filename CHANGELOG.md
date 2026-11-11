@@ -112,6 +112,7 @@ changed shape.
 | 10 Nov 2026 | Review campaign | r/FPGA thread effectively closed: ~7,400 views, 13 recorded replies, **no class-A findings**. No further cross-posts. |
 | 10 Nov 2026 | Search/AI framing (F-10) | Proposition retitled to *An Amiga-Inspired Deterministic Display and Audio Card*; cover, citation, `NOTICE`, `LEGAL.md`, `LICENSE-docs` and `TRADEMARKS.md` aligned; "Destination: RISC-V" replaced with "Host: any PCIe machine; RISC-V is one example"; README "Project facts" and "Quick answers"; `llms.txt`; GitHub About and topics. Documentation only — no design claim changed |
 | 11 Nov 2026 | `A5K-Brief.md`, `README.md`, `llms.txt` | Added "What 'deterministic' means": exact slot versus bounded window, the host is not in the timing path, fixed pixel-pipeline delay, hold-on-miss, what is and is not guaranteed, and the simulator → RTL → logic-analyser test path. Documentation only |
+| 11 Nov 2026 | `A5K-Ethos-Audit.md`, `A5K-Lineage.md`, `A5K-Brief.md`, `README.md`, `llms.txt` | Added the ethos audit: the Amiga's engineering ethos kept versus its platform ethos broken, the full audit table, the deepest inversion, the AAA/Hombre test, the three routes to close the gap, and plain-language (age-15) plus engineering descriptions. Documentation only |
 
 ### Review campaign posts (not revisions)
 

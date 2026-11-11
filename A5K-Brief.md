@@ -134,6 +134,28 @@ to be wrong. It is not a list of known bugs being outsourced, and it is not a
 substitute for reading the datasheets and user guides. It exists so a reviewer
 can aim a correction instead of writing a general critique.
 
+## Ethos: kept and broken
+
+A5K keeps the Amiga’s **engineering ethos** and breaks most of its **platform
+ethos**. That is deliberate, and it is worth stating plainly before a reviewer
+assumes the project is claiming more than it is.
+
+| Engineering ethos | Kept? | Platform ethos | Kept? |
+|---|---|---|---|
+| Chipset-first co-design | **Yes** | Backward compatibility | **No** |
+| Deterministic beam timing | **Yes, strengthened** | Software library | **No** (AROS is the path) |
+| Fixed-function parallelism | **Yes** | Affordable whole computer | **No** |
+| Separable compute | **Yes** | Whole-system co-design | **No** |
+| More-with-less | **Yes** | Consumer scale | **No** |
+| Legibility / open docs | **Yes** | Proprietary model | **No** (open instead) |
+
+The deepest inversion: the Amiga used custom chips to make a **whole computer**
+affordable — the A500 was the mass-market expression. A5K uses the custom-chip
+**method** to make a **component** deterministic. The method has become the end.
+
+The full audit, including the AAA/Hombre comparison and the three routes to close
+the gap, is in `A5K-Ethos-Audit.md`.
+
 ## What review is wanted
 
 One of these:

@@ -126,6 +126,59 @@ when the company died.
   model leaves room for a 3D block as later work. The ethos is kept; the pipeline
   comes when the schedule and the parts allow it.
 
+## The ethos audit: what A5K keeps and what it breaks
+
+The lineage question is not only “what did the last Amiga team build?” It is also
+“which part of the Amiga’s values does this project actually keep?” The full
+answer is in `A5K-Ethos-Audit.md`; the short version is here.
+
+The Amiga had **two value systems**, and they are easy to conflate:
+
+- **The engineering ethos** — chipset-first co-design, deterministic beam timing,
+  fixed-function parallelism, separable compute, more-with-less, legibility.
+- **The platform ethos** — backward compatibility, a software library, an
+  affordable whole computer for ordinary people, a consumer community.
+
+A5K keeps the first and deliberately breaks most of the second. That is not a
+claim of purity; it is the project’s actual shape.
+
+| Ethos strand | A5K | Verdict |
+|---|---|---|
+| Chipset-first co-design | FPGA chipset: slot scheduler, Copper, planar scanout, blitter, audio | **Kept** |
+| Deterministic beam timing | Static per-line rota; exact Copper retirement | **Kept, strengthened** |
+| Fixed-function parallelism | Display, blitter, Copper, audio and host share a scheduled fabric | **Kept** |
+| Separable compute | PCIe host; CPU-agnostic; chipset outlives the CPU | **Kept, extended** |
+| Video/audio first-class | The whole card is built around them | **Kept** |
+| More-with-less | 32-byte bursts, line buffers, §4.3 budget | **Kept** |
+| Legibility | Open docs, frailty register, simulator spec | **Kept** (community strand) |
+| Backward compatibility | No 68k, no Kickstart, no Amiga software | **Broken** |
+| Platform / software library | AROS planned; no existing library | **Broken / partial** |
+| Affordable mass-market whole computer | Niche card; a few dozen units per batch | **Broken** |
+| Whole-system co-design | Component card; host supplies CPU, OS, case, PSU | **Broken** |
+| Custom silicon | Commodity FPGA | **Changed** |
+| Games / consumer culture | Excluded | **Narrowed** |
+| Proprietary / closed business | Open hardware and documents | **Changed — an improvement, but not Commodore’s ethos** |
+| “Ahead of its time” mass wow | Niche deterministic instrument | **Narrowed** |
+
+**The deepest inversion.** The Amiga used custom chips to make a **whole
+computer** affordable — the A500 was the mass-market expression. A5K uses the
+custom-chip **method** to make a **component** deterministic. The method has
+become the end.
+
+**The AAA/Hombre test.** AAA was explicitly designed to be **largely
+register-compatible with ECS**; it kept the software library and the platform.
+Hombre moved toward PCI and 3D. A5K is closer to **Hombre in form** and **AAA in
+method**, but it breaks the compatibility that both would have preserved. That is
+the precise historical gap.
+
+**The accurate sentence.** A5K keeps the Amiga’s **engineering ethos** —
+chipset-first, deterministic, parallel, separable, legible — and deliberately does
+not claim the **platform ethos** of compatibility, mass-market affordability, or a
+whole-system product.
+
+See `A5K-Ethos-Audit.md` for the full table, the three routes to close the gap,
+and the plain-language and engineering descriptions.
+
 ## The two camps that exist today
 
 Both sell the **software library**. Neither sells a timing contract.
@@ -178,4 +231,4 @@ at 4K60 with HDR, on a PCIe card, for people who need a pixel at a known time.
 
 ---
 
-*Rev. AW (B49) · 4 November 2026 · project started 30 October 2026*
+*Rev. AW (B49) · 4 November 2026 · ethos audit added 11 November 2026 · project started 30 October 2026*

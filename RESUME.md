@@ -12,7 +12,7 @@ rented and the repository is not.
 |---|---|
 | Revision | **AW** (B49), tagged `rev-aw` |
 | Documents | 19-page study, 4-page addendum, 6-page specification card, plus the markdown set |
-| Later documents | `A5K-Brief.md`, `A5K-AROS-68K-Plan.md`, `A5K-Bus-Technology.md`, `A5K-Market-Signals.md` — documentation, not a revision |
+| Later documents | `A5K-Brief.md`, `A5K-AROS-68K-Plan.md`, `A5K-Bus-Technology.md`, `A5K-Market-Signals.md`, `A5K-Ethos-Audit.md` — documentation, not a revision |
 | Design changes since AW | **none** — no number, constraint, part or rule has moved |
 | Latest commit | `trunk` — see `git log -1`; documentation through 10 November 2026 |
 | Hardware | **none.** No RTL, no board, no measurement |
@@ -27,11 +27,12 @@ rented and the repository is not.
 3. `A5K-Frailties.md` — what is weak, with identifiers (A1, B1, C11…).
 4. `A5K-Brief.md` — the plain-language version, for engineers outside the Amiga world.
 5. `A5K-Lineage.md` — AAA in its own words, Lorraine, and the camps that exist today.
-6. `A5K-Slot-Table.md` — the timing contract.
-7. `A5K-Family.md` — the product line.
-8. `A5K-AROS-68K-Plan.md` — what is and is not being promised about AROS and 68k.
-9. `A5K-Market-Signals.md` — informal feedback and the small-batch product shape.
-10. `A5K-Bus-Technology.md` — bus reference; why the internal fabric, not PCIe, is the limit.
+6. `A5K-Ethos-Audit.md` — what A5K keeps from the Amiga and what it deliberately breaks; plain-language and engineering versions.
+7. `A5K-Slot-Table.md` — the timing contract.
+8. `A5K-Family.md` — the product line.
+9. `A5K-AROS-68K-Plan.md` — what is and is not being promised about AROS and 68k.
+10. `A5K-Market-Signals.md` — informal feedback and the small-batch product shape.
+11. `A5K-Bus-Technology.md` — bus reference; why the internal fabric, not PCIe, is the limit.
 
 ## Where the truth lives
 

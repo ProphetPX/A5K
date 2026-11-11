@@ -59,6 +59,43 @@ trademark rule stands: do not put “Amiga” on a box, store page, or product b
 
 ---
 
+## Positioning language (11 November 2026)
+
+The audit in `A5K-Ethos-Audit.md` gives the long version. The short public
+language is:
+
+> **A5K is an open design study for a PCIe card that draws pictures and plays
+> sound on a schedule you can predict — inspired by the Amiga’s custom chips, but
+> not an Amiga and not a clone.**
+
+What to say it keeps:
+
+- the Amiga’s **engineering ethos** — chipset-first design, deterministic beam
+  timing, fixed-function parallelism, separable compute, more-with-less, open
+  documentation;
+- the idea of a **schedule you can count**, so a change can happen on an exact
+  line of the picture;
+- a **CPU you can swap** — the host supplies the processor; the card keeps the
+  chipset.
+
+What **not** to say:
+
+- “the true Amiga in every way”
+- “the next Amiga”
+- “an Amiga 5000”
+- “Amiga-compatible”
+- “mass-market”
+- “a whole computer”
+
+Those claims are false, and they invite exactly the arguments the project has
+already lost. The accurate sentence is:
+
+> A5K keeps the Amiga’s **engineering ethos** and deliberately does not claim its
+> **platform ethos** of compatibility, mass-market affordability, or a
+> whole-system product.
+
+---
+
 ## What these signals do not mean
 
 - They are **not** a market study.
