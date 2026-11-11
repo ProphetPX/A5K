@@ -16,6 +16,12 @@
   sequencer, planar scanout, a minterm blitter and deterministic audio.
 - **What it is not:** an Amiga, an Amiga clone, a console, a games platform, a
   Kickstart/68k machine, a compatibility project, or an eGPU.
+- **What "deterministic" means:** not "a host command finishes in N cycles" and
+  not "within a window." The host is not in the timing path. A Copper instruction
+  tied to a beam position retires at that slot, every frame; video line timing is
+  fixed; DDR latency is absorbed by line buffers; a missed display fetch holds the
+  last pixel and never stalls the line. Host-to-card PCIe latency is variable and
+  is not claimed to be scanline-exact. No measurement yet.
 - **Host:** any PCIe machine. x86-64 is the reference today; RISC-V and Mac are
   later examples. A Thunderbolt/USB4 enclosure is an optional path for machines
   without a slot.
@@ -72,5 +78,7 @@ a published timing contract. Nothing has been built.
 - "Why not just use a GPU?" is a section that addresses the objection. A5K does
   not argue that GPUs are bad; it says use a GPU for throughput and A5K for
   deterministic timing.
+- Do not describe determinism as zero latency, as a fixed host-command-to-pixel
+  time, or as a hard real-time guarantee for the host OS.
 - No hardware exists. Do not report performance, measurements, price or
   availability as facts.

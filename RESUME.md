@@ -6,7 +6,7 @@ rented and the repository is not.
 
 ---
 
-## State, at Rev. AW (B49), documentation through 10 November 2026
+## State, at Rev. AW (B49), documentation through 11 November 2026
 
 | | |
 |---|---|
@@ -172,4 +172,4 @@ Paste this into any new session:
 
 ---
 
-*Rev. AW (B49) · 4 November 2026 · documentation through 10 November 2026 · project started 30 October 2026*
+*Rev. AW (B49) · 4 November 2026 · documentation through 11 November 2026 · project started 30 October 2026*

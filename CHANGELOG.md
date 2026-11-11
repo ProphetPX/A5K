@@ -111,6 +111,7 @@ changed shape.
 | 10 Nov 2026 | `CITATION.cff` | Title and abstract aligned with the current framing |
 | 10 Nov 2026 | Review campaign | r/FPGA thread effectively closed: ~7,400 views, 13 recorded replies, **no class-A findings**. No further cross-posts. |
 | 10 Nov 2026 | Search/AI framing (F-10) | Proposition retitled to *An Amiga-Inspired Deterministic Display and Audio Card*; cover, citation, `NOTICE`, `LEGAL.md`, `LICENSE-docs` and `TRADEMARKS.md` aligned; "Destination: RISC-V" replaced with "Host: any PCIe machine; RISC-V is one example"; README "Project facts" and "Quick answers"; `llms.txt`; GitHub About and topics. Documentation only — no design claim changed |
+| 11 Nov 2026 | `A5K-Brief.md`, `README.md`, `llms.txt` | Added "What 'deterministic' means": exact slot versus bounded window, the host is not in the timing path, fixed pixel-pipeline delay, hold-on-miss, what is and is not guaranteed, and the simulator → RTL → logic-analyser test path. Documentation only |
 
 ### Review campaign posts (not revisions)
 
@@ -123,4 +124,4 @@ letter. Posts are logged here so the public record shows when each question was 
 
 ---
 
-*Rev. AW (B49) · 4 November 2026 · documentation through 10 November 2026 · project started 30 October 2026*
+*Rev. AW (B49) · 4 November 2026 · documentation through 11 November 2026 · project started 30 October 2026*

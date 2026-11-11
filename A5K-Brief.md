@@ -53,14 +53,42 @@ can think of it as a **beam-synchronised register sequencer**, distinct from a
 GPU command processor because its retirement time is fixed by the slot table, not
 by a scheduler.
 
-## What "promise" means
+## What "deterministic" means
 
-Deterministic retirement. If the list says *WAIT until line 214, tick 40, then
-MOVE*, the write retires at that beam position within the fixed schedule. There is
-no queue, no best-effort GPU scheduler, no "usually around vblank."
+The word is doing specific work here, and it is easy to answer the wrong question.
 
-The guarantee is only for the **slot and line contract**. Memory latency is
-absorbed by line buffers; it is not allowed to move the register write.
+**It does not mean:**
+
+- that a host command finishes in a fixed number of cycles — PCIe latency is variable, and the host is **not in the timing path**;
+- that every pixel changes on the same cycle as the register write — the pixel pipeline has a fixed, nonzero delay;
+- that the whole machine is hard real-time — the host OS, the driver and the application are not;
+- that memory access is fixed-latency — DDR3L has refresh, row misses and turnaround.
+
+**It does mean:**
+
+1. **Slot ownership is fixed per line.** Each line is a repeating rota of slots, one owner per slot. The host writes the rota once per mode; the hardware cycles it.
+2. **Copper retirement is exact.** A `WAIT (line, tick)` followed by a `MOVE` retires at that slot. Under saturated blitter and host traffic, the slot index does not move. Test T3 asserts this over 1,000 frames.
+3. **The line time is fixed.** The beam never stalls. If a display fetch misses, the last pixel repeats; line time varies by less than 0.01% under induced misses (test T4). Three consecutive misses raise a fault.
+4. **The pixel pipeline delay is fixed.** A register change at line *N* appears at a known line offset, set by the line-buffer depth. That is a design constant; no measured number is claimed yet.
+5. **The host is decoupled.** The host writes Copper lists and registers ahead of time. List swaps apply at frame boundaries. A host round-trip is never asked to meet a scanline deadline.
+
+The guarantee is therefore **asymmetric**:
+
+| Path | Guarantee |
+|---|---|
+| Copper register write | exact slot, every frame |
+| Video line timing | fixed; never stalls; hold on miss |
+| Display fetch | slot-scheduled; DDR latency absorbed by the line buffer; bounded, not zero |
+| Audio DMA / sample clock | the card's audio clock (or an external master) is the reference; fixed DMA schedule; the host fills buffers ahead of time |
+| Host → card register write | scheduled in the host window; PCIe latency variable; not scanline-exact |
+| Host ↔ card readback | best-effort within the host window |
+| Host OS / application | not deterministic |
+
+A concrete example: a palette write scheduled at line 214 retires at line 214’s tick 40, every frame. The pixels using the new palette appear after the fixed pipeline delay. A host write over PCIe that arrives “sometime around line 214” is not the same guarantee, and the design does not claim it is.
+
+**How it is measured.** Phase 0 simulator trace first — T1 (tick ratio), T3 (Copper determinism under load), T4 (miss behaviour) — then the RTL testbench, then a logic analyser on the board comparing the Copper write strobe to the video timing. No hardware exists, so nothing is measured; the claim is a specification with tests that can fail.
+
+**What would falsify it.** A WAIT whose slot index moves under load; a line time that varies beyond the budget; a display fetch that stalls the beam; a register write that misses its slot when the blitter and host window are saturated. Any of those is a defect, not a nuance.
 
 ## Reads and writes
 
@@ -130,6 +158,7 @@ narrow.
 | **Line** | One video scanline; contains many slots |
 | **Frame** | One complete picture; contains many lines |
 | **Copper** | Beam-synchronised register sequencer |
+| **Deterministic** | A named unit retires at a named slot or line, every frame — not a bounded average and not host-command latency |
 | **MIG** | Xilinx Memory Interface Generator (DDR controller) |
 | **Line buffer** | On-chip FIFO holding a line of pixels to absorb DDR latency |
 | **Fabric** | The FPGA's programmable logic and routing |

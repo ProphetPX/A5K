@@ -78,6 +78,26 @@ not the product.
 
 **Can I buy one?** No. It is a specification. Small-batch manufacture is a possible later path, not a commitment.
 
+## What “deterministic” means here
+
+It does **not** mean “a host command finishes in N cycles,” and it does **not** mean “within a window.” The host is not in the timing path.
+
+The host writes a Copper list ahead of time. The card executes it against the beam. A Copper instruction tied to a beam position — `WAIT (line 500, tick 40), then MOVE` — retires at that slot, every frame, even with the blitter and host window saturated.
+
+The pixel path has a fixed delay set by the line-buffer depth (a design constant, not yet measured). DDR latency is absorbed by the line buffers; it is not allowed to move the register write. If a display fetch misses its slot, the beam holds the last pixel and never stalls; three consecutive misses raise a fault.
+
+| Path | Guarantee |
+|---|---|
+| Copper register write | exact slot, every frame |
+| Video line timing | fixed; never stalls; hold on miss |
+| Display fetch | slot-scheduled; DDR latency absorbed; bounded, not zero |
+| Host → card register write | variable PCIe latency; not scanline-exact |
+| Host OS / application | not deterministic |
+
+Measurement is staged: Phase 0 simulator, then the RTL testbench, then a logic analyser on hardware. No hardware exists, so no measurement is claimed.
+
+The full explanation is in [`A5K-Brief.md`](A5K-Brief.md#what-deterministic-means).
+
 ## Documents
 
 | File | Pages | What it is |
